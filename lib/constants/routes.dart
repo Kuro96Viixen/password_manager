@@ -24,8 +24,9 @@ class Routes {
         );
       case view:
         return MaterialPageRoute(
-          builder: (context) =>
-              ViewAccountView(arguments as ViewAccountViewArguments),
+          builder: (context) => ViewAccountView(
+            arguments as ViewAccountViewArguments,
+          ),
         );
       case addEdit:
         return MaterialPageRoute(

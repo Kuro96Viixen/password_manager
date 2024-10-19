@@ -10,13 +10,19 @@ class EditArguments {
   int index;
   Account account;
 
-  EditArguments(this.index, this.account);
+  EditArguments(
+    this.index,
+    this.account,
+  );
 }
 
 class AddEditView extends StatefulWidget {
   final EditArguments? arguments;
 
-  const AddEditView({super.key, this.arguments});
+  const AddEditView({
+    super.key,
+    this.arguments,
+  });
 
   @override
   State<AddEditView> createState() => _AddEditViewState();
@@ -33,6 +39,7 @@ class _AddEditViewState extends State<AddEditView> {
 
   String randomPassword = '';
 
+  bool hasSpanish = true;
   bool hasNumbers = true;
   bool hasSymbols = true;
 
@@ -48,9 +55,21 @@ class _AddEditViewState extends State<AddEditView> {
       isPrivate = widget.arguments!.account.private;
     }
 
-    nameController.addListener(() => setState(() {}));
-    usernameController.addListener(() => setState(() {}));
-    passwordController.addListener(() => setState(() {}));
+    nameController.addListener(
+      () => setState(
+        () {},
+      ),
+    );
+    usernameController.addListener(
+      () => setState(
+        () {},
+      ),
+    );
+    passwordController.addListener(
+      () => setState(
+        () {},
+      ),
+    );
   }
 
   @override
@@ -71,7 +90,9 @@ class _AddEditViewState extends State<AddEditView> {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(
+                  16.0,
+                ),
                 children: [
                   Column(
                     children: [
@@ -84,6 +105,8 @@ class _AddEditViewState extends State<AddEditView> {
                         value: isRandomPassword,
                         onChanged: (value) => setState(
                           () {
+                            FocusScope.of(context).unfocus();
+
                             isRandomPassword = value;
 
                             passwordController.text = '';
@@ -121,7 +144,9 @@ class _AddEditViewState extends State<AddEditView> {
   }
 
   Widget _bottomForm() => Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(
+          16.0,
+        ),
         child: Column(
           children: [
             CheckboxListTile(
@@ -180,15 +205,29 @@ class _AddEditViewState extends State<AddEditView> {
           ),
           CustomWidgets.spacer(),
           CheckboxListTile(
+            value: hasSpanish,
+            onChanged: (value) => setState(
+              () => hasSpanish = value!,
+            ),
+            title: Text(
+              Texts.spanishCheckBoxTitle,
+            ),
+          ),
+          CustomWidgets.spacer(),
+          CheckboxListTile(
             value: hasNumbers,
-            onChanged: (value) => setState(() => hasNumbers = value!),
+            onChanged: (value) => setState(
+              () => hasNumbers = value!,
+            ),
             title: Text(
               Texts.numbersCheckBoxTitle,
             ),
           ),
           CheckboxListTile(
             value: hasSymbols,
-            onChanged: (value) => setState(() => hasSymbols = value!),
+            onChanged: (value) => setState(
+              () => hasSymbols = value!,
+            ),
             title: Text(
               Texts.symbolsCheckBoxTitle,
             ),
@@ -196,16 +235,19 @@ class _AddEditViewState extends State<AddEditView> {
           CustomWidgets.spacer(),
           CustomWidgets.button(
             Texts.generateRandomPasswordButton,
-            () => setState(
-              () => randomPassword = Utils.generatePassword(
-                length: int.tryParse(
-                      passwordLengthController.text.toString(),
-                    ) ??
-                    10,
-                hasNumber: hasNumbers,
-                hasSymbol: hasSymbols,
-              ),
-            ),
+            () {
+              setState(
+                () => randomPassword = Utils.generatePassword(
+                  length: int.tryParse(
+                        passwordLengthController.text.toString(),
+                      ) ??
+                      10,
+                  hasSpanish: hasSpanish,
+                  hasNumber: hasNumbers,
+                  hasSymbol: hasSymbols,
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 16.0,
@@ -214,7 +256,13 @@ class _AddEditViewState extends State<AddEditView> {
             visible: randomPassword != '',
             child: GestureDetector(
               onLongPress: () =>
-                  Clipboard.setData(ClipboardData(text: randomPassword)),
+                  Clipboard.setData(ClipboardData(text: randomPassword)).then(
+                (value) => ScaffoldMessenger.of(context).showSnackBar(
+                  Utils.snackbarBuilder(
+                    Texts.copiedToClipboard,
+                  ),
+                ),
+              ),
               child: Text(
                 Texts.randomPasswordText + randomPassword,
                 style: const TextStyle(
