@@ -52,28 +52,30 @@ class _PrivateAccountsViewState extends State<PrivateAccountsView> {
                     ),
                   ),
                 ),
-                ListView.separated(
-                  itemBuilder: (context, index) => (accounts[index].private &&
-                          accounts[index].name.toLowerCase().startsWith(
-                                search,
-                              ))
-                      ? CustomWidgets.accountListTile(
-                          context,
-                          index,
-                          accounts[index],
-                        )
-                      : Container(),
-                  separatorBuilder: (context, index) =>
-                      (accounts[index].private &&
-                              accounts[index].name.toLowerCase().startsWith(
-                                    search,
-                                  ))
-                          ? Divider(
-                              height: 1,
-                              color: Theme.of(context).disabledColor,
-                            )
-                          : Container(),
-                  itemCount: accounts.length,
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (context, index) => (accounts[index].private &&
+                            accounts[index].name.toLowerCase().startsWith(
+                                  search,
+                                ))
+                        ? CustomWidgets.accountListTile(
+                            context,
+                            index,
+                            accounts[index],
+                          )
+                        : Container(),
+                    separatorBuilder: (context, index) =>
+                        (accounts[index].private &&
+                                accounts[index].name.toLowerCase().startsWith(
+                                      search,
+                                    ))
+                            ? Divider(
+                                height: 1,
+                                color: Theme.of(context).disabledColor,
+                              )
+                            : Container(),
+                    itemCount: accounts.length,
+                  ),
                 ),
               ],
             ),
