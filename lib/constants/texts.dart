@@ -33,6 +33,7 @@ class Texts {
   static String hiddenPasswordText = '****';
   static String viewAccountViewPassword = 'View password';
   static String viewAccountViewEditTooltip = 'Edit account';
+  static String copiedToClipboard = 'Password copied to clipboard';
 
   // Edit view
   static String editViewTitle = 'Edit account';
