@@ -5,7 +5,7 @@ import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/model/account.dart';
 import 'package:password_manager/utils/utils.dart';
-import 'package:password_manager/utils/widgets.dart';
+import 'package:password_manager/widgets/account_list_tile.dart';
 
 class AccountsView extends StatefulWidget {
   const AccountsView({
@@ -17,6 +17,8 @@ class AccountsView extends StatefulWidget {
 }
 
 class _AccountsViewState extends State<AccountsView> {
+  bool isPrivateView = false;
+
   List<Account> accounts = Utils.accounts;
 
   String search = '';
@@ -30,35 +32,43 @@ class _AccountsViewState extends State<AccountsView> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            leading: (isPrivateView)
+                ? BackButton(
+                    onPressed: () => setState(() {
+                      isPrivateView = false;
+                    }),
+                  )
+                : null,
             title: Text(
-              Texts.accountsViewTitle,
+              isPrivateView
+                  ? Texts.privateAccountsViewTitle
+                  : Texts.accountsViewTitle,
             ),
-            actions: [
-              IconButton(
-                onPressed: () => Utils.authenticate(
-                  Texts.fingerprintPrivateAuthTitle,
-                ).then(
-                  (authenticated) {
-                    if (authenticated) {
-                      Navigator.of(context).pushNamed(
-                        Routes.private,
-                      );
-                    }
-                  },
-                ),
-                icon: Icon(
-                  CommonIcons.private,
-                  color: Colors.white,
-                ),
-                tooltip: Texts.showPrivateTooltip,
-              ),
-              IconButton(
-                onPressed: () => showSettings(),
-                icon: Icon(
-                  CommonIcons.settings,
-                ),
-              ),
-            ],
+            actions: (!isPrivateView)
+                ? [
+                    IconButton(
+                      onPressed: () => Utils.authenticate(
+                        Texts.fingerprintPrivateAuthTitle,
+                      ).then(
+                        (authenticated) {
+                          setState(() {
+                            isPrivateView = true;
+                          });
+                        },
+                      ),
+                      icon: Icon(
+                        CommonIcons.private,
+                      ),
+                      tooltip: Texts.showPrivateTooltip,
+                    ),
+                    IconButton(
+                      onPressed: () => showSettings(),
+                      icon: Icon(
+                        CommonIcons.settings,
+                      ),
+                    ),
+                  ]
+                : null,
           ),
           body: ConstrainedBox(
             constraints: BoxConstraints(
@@ -71,36 +81,28 @@ class _AccountsViewState extends State<AccountsView> {
                     horizontal: 12,
                     vertical: 8,
                   ),
-                  child: CustomWidgets.searchTextField(
-                    (searchText) => setState(
+                  child: TextField(
+                    onChanged: (searchText) => setState(
                       () => search = searchText,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: Texts.searchHintText,
                     ),
                   ),
                 ),
                 Expanded(
-                  child: ListView.separated(
-                    itemBuilder: (context, index) =>
-                        (!accounts[index].private &&
-                                accounts[index]
-                                    .name
-                                    .toLowerCase()
-                                    .startsWith(search))
-                            ? CustomWidgets.accountListTile(
-                                context,
-                                index,
-                                accounts[index],
-                              )
-                            : Container(),
-                    separatorBuilder: (context, index) =>
-                        (!accounts[index].private &&
-                                accounts[index].name.toLowerCase().startsWith(
-                                      search,
-                                    ))
-                            ? Divider(
-                                height: 1,
-                                color: Theme.of(context).disabledColor,
-                              )
-                            : Container(),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) => (accounts[index]
+                                .name
+                                .toLowerCase()
+                                .startsWith(search) &&
+                            ((!accounts[index].private == !isPrivateView) ||
+                                (accounts[index].private == isPrivateView)))
+                        ? AccountListTile(
+                            index: index,
+                            account: accounts[index],
+                          )
+                        : Container(),
                     itemCount: accounts.length,
                   ),
                 ),
@@ -125,57 +127,46 @@ class _AccountsViewState extends State<AccountsView> {
   void showSettings() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(
-                16.0,
-              ),
-              topRight: Radius.circular(
-                16.0,
-              ),
-            ),
-          ),
-          height: 120.0,
-          padding: const EdgeInsets.all(
-            16.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomWidgets.button(
-                Texts.exportAccounts,
-                () => Utils.exportAccounts().then(
+        return Wrap(
+          children: [
+            Center(
+              child: ElevatedButton(
+                child: Text(Texts.exportAccounts),
+                onPressed: () => Utils.exportAccounts().then(
                   (_) {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      Utils.snackbarBuilder(
-                        Texts.exportedAccounts,
+                      SnackBar(
+                        content: Text(
+                          Texts.exportedAccounts,
+                        ),
                       ),
                     );
                   },
                 ),
               ),
-              CustomWidgets.spacer(),
-              CustomWidgets.button(
-                Texts.importAccounts,
-                () => Utils.importAccounts().then(
+            ),
+            const SizedBox(height: 8.0),
+            Center(
+              child: ElevatedButton(
+                child: Text(Texts.importAccounts),
+                onPressed: () => Utils.importAccounts().then(
                   (_) {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      Utils.snackbarBuilder(
-                        Texts.importedAccounts,
+                      SnackBar(
+                        content: Text(
+                          Texts.importedAccounts,
+                        ),
                       ),
                     );
                     setState(() {});
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

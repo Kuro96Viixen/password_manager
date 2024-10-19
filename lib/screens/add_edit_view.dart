@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/model/account.dart';
 import 'package:password_manager/utils/encrypt.dart';
 import 'package:password_manager/utils/utils.dart';
-import 'package:password_manager/utils/widgets.dart';
+import 'package:password_manager/widgets/account_text_field.dart';
+import 'package:password_manager/widgets/random_password_form.dart';
+import 'package:password_manager/widgets/save_password_form.dart';
 
 class EditArguments {
   int index;
@@ -39,7 +40,7 @@ class _AddEditViewState extends State<AddEditView> {
 
   String randomPassword = '';
 
-  bool hasSpanish = true;
+  bool hasSpanishCharacters = true;
   bool hasNumbers = true;
   bool hasSymbols = true;
 
@@ -83,7 +84,9 @@ class _AddEditViewState extends State<AddEditView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: CustomWidgets.backButton(context),
+          leading: BackButton(
+            onPressed: () => Navigator.pop(context),
+          ),
           title: Text(
             widget.arguments == null ? Texts.addViewTitle : Texts.editViewTitle,
           ),
@@ -98,11 +101,13 @@ class _AddEditViewState extends State<AddEditView> {
                 children: [
                   Column(
                     children: [
-                      CustomWidgets.textField(
-                          Texts.nameTextFieldLabel, nameController),
-                      CustomWidgets.textField(
-                          Texts.usernameTextFieldLabel, usernameController),
-                      CustomWidgets.spacer(),
+                      AccountTextField(
+                          label: Texts.nameTextFieldLabel,
+                          controller: nameController),
+                      AccountTextField(
+                          label: Texts.usernameTextFieldLabel,
+                          controller: usernameController),
+                      const SizedBox(height: 8.0),
                       SwitchListTile(
                         value: isRandomPassword,
                         onChanged: (value) => setState(
@@ -121,18 +126,46 @@ class _AddEditViewState extends State<AddEditView> {
                       ),
                       Visibility(
                         visible: !isRandomPassword,
-                        child: CustomWidgets.textField(
-                          Texts.passwordTextFieldLabel,
-                          passwordController,
-                          viewPassword: viewPassword,
-                          pressedViewPassword: () => setState(
+                        child: AccountTextField(
+                          label: Texts.passwordTextFieldLabel,
+                          controller: passwordController,
+                          isPasswordVisible: viewPassword,
+                          onPressed: () => setState(
                             () => viewPassword = !viewPassword,
                           ),
                         ),
                       ),
                       Visibility(
                         visible: isRandomPassword,
-                        child: _randomPasswordForm(),
+                        child: RandomPasswordForm(
+                          passwordLengthController: passwordLengthController,
+                          hasSpanishCharacters: hasSpanishCharacters,
+                          onPressedSpanish: (value) => setState(
+                            () => hasSpanishCharacters = value!,
+                          ),
+                          hasNumbers: hasNumbers,
+                          onPressedNumbers: (value) => setState(
+                            () => hasNumbers = value!,
+                          ),
+                          hasSymbols: hasSymbols,
+                          onPressedSymbols: (value) => setState(
+                            () => hasSymbols = value!,
+                          ),
+                          randomPassword: randomPassword,
+                          onPressedButton: () {
+                            setState(
+                              () => randomPassword = Utils.generatePassword(
+                                length: int.tryParse(
+                                      passwordLengthController.text.toString(),
+                                    ) ??
+                                    10,
+                                hasSpanish: hasSpanishCharacters,
+                                hasNumber: hasNumbers,
+                                hasSymbol: hasSymbols,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -141,143 +174,49 @@ class _AddEditViewState extends State<AddEditView> {
             ),
             Visibility(
               visible: viewSave,
-              child: _bottomForm(),
+              child: SavePasswordForm(
+                isPrivate: isPrivate,
+                checkBoxAction: (value) => setState(
+                  () => isPrivate = value!,
+                ),
+                onPressedButton: () async => widget.arguments == null
+                    ? await Utils.saveNewAccount(
+                        Account(
+                          name: nameController.text,
+                          username: usernameController.text,
+                          password: Encryption.encryptPassword(
+                            isRandomPassword
+                                ? randomPassword
+                                : passwordController.text,
+                          ),
+                          private: isPrivate,
+                        ),
+                      ).then(
+                        (_) => Navigator.of(context).pop(),
+                      )
+                    : await Utils.editAccount(
+                        widget.arguments!.index,
+                        Account(
+                          name: nameController.text,
+                          username: usernameController.text,
+                          password: Encryption.encryptPassword(
+                            isRandomPassword
+                                ? randomPassword
+                                : passwordController.text,
+                          ),
+                          private: isPrivate,
+                        ),
+                      ).then(
+                        (_) {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
-  Widget _bottomForm() => Padding(
-        padding: const EdgeInsets.all(
-          16.0,
-        ),
-        child: Column(
-          children: [
-            CheckboxListTile(
-              value: isPrivate,
-              onChanged: (value) => setState(
-                () => isPrivate = value!,
-              ),
-              title: Text(Texts.isPrivateAccountCheckBoxTitle),
-            ),
-            CustomWidgets.spacer(),
-            CustomWidgets.button(
-              Texts.saveAccountButton,
-              () async => widget.arguments == null
-                  ? await Utils.saveNewAccount(
-                      Account(
-                        name: nameController.text,
-                        username: usernameController.text,
-                        password: Encryption.encryptPassword(
-                          isRandomPassword
-                              ? randomPassword
-                              : passwordController.text,
-                        ),
-                        private: isPrivate,
-                      ),
-                    ).then(
-                      (_) => Navigator.of(context).pop(),
-                    )
-                  : await Utils.editAccount(
-                      widget.arguments!.index,
-                      Account(
-                        name: nameController.text,
-                        username: usernameController.text,
-                        password: Encryption.encryptPassword(
-                          isRandomPassword
-                              ? randomPassword
-                              : passwordController.text,
-                        ),
-                        private: isPrivate,
-                      ),
-                    ).then(
-                      (_) {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-            ),
-          ],
-        ),
-      );
-
-  Widget _randomPasswordForm() => Column(
-        children: [
-          CustomWidgets.textField(
-            Texts.passwordLengthTextFieldLabel,
-            passwordLengthController,
-          ),
-          CustomWidgets.spacer(),
-          CheckboxListTile(
-            value: hasSpanish,
-            onChanged: (value) => setState(
-              () => hasSpanish = value!,
-            ),
-            title: Text(
-              Texts.spanishCheckBoxTitle,
-            ),
-          ),
-          CustomWidgets.spacer(),
-          CheckboxListTile(
-            value: hasNumbers,
-            onChanged: (value) => setState(
-              () => hasNumbers = value!,
-            ),
-            title: Text(
-              Texts.numbersCheckBoxTitle,
-            ),
-          ),
-          CheckboxListTile(
-            value: hasSymbols,
-            onChanged: (value) => setState(
-              () => hasSymbols = value!,
-            ),
-            title: Text(
-              Texts.symbolsCheckBoxTitle,
-            ),
-          ),
-          CustomWidgets.spacer(),
-          CustomWidgets.button(
-            Texts.generateRandomPasswordButton,
-            () {
-              setState(
-                () => randomPassword = Utils.generatePassword(
-                  length: int.tryParse(
-                        passwordLengthController.text.toString(),
-                      ) ??
-                      10,
-                  hasSpanish: hasSpanish,
-                  hasNumber: hasNumbers,
-                  hasSymbol: hasSymbols,
-                ),
-              );
-            },
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Visibility(
-            visible: randomPassword != '',
-            child: GestureDetector(
-              onLongPress: () =>
-                  Clipboard.setData(ClipboardData(text: randomPassword)).then(
-                (value) => ScaffoldMessenger.of(context).showSnackBar(
-                  Utils.snackbarBuilder(
-                    Texts.copiedToClipboard,
-                  ),
-                ),
-              ),
-              child: Text(
-                Texts.randomPasswordText + randomPassword,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      );
 }

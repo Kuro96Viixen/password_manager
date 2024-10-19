@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:password_manager/constants/icons.dart';
+import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/model/account.dart';
+import 'package:password_manager/screens/add_edit_view.dart';
 import 'package:password_manager/utils/encrypt.dart';
 import 'package:password_manager/utils/utils.dart';
-import 'package:password_manager/utils/widgets.dart';
+import 'package:password_manager/widgets/account_field.dart';
+import 'package:password_manager/widgets/account_label.dart';
 
 class ViewAccountViewArguments {
   int index;
@@ -42,8 +45,8 @@ class _ViewAccountViewState extends State<ViewAccountView> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: CustomWidgets.backButton(
-              context,
+            leading: BackButton(
+              onPressed: () => Navigator.pop(context),
             ),
             title: Text(
               Texts.viewAccountViewTitle,
@@ -67,20 +70,20 @@ class _ViewAccountViewState extends State<ViewAccountView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomWidgets.viewAccountLabel(
-                  Texts.viewAccountNameLabel,
+                AccountLabel(
+                  text: Texts.viewAccountNameLabel,
                 ),
-                CustomWidgets.viewAccountField(
-                  widget.arguments.account.name,
+                AccountField(
+                  text: widget.arguments.account.name,
                 ),
-                CustomWidgets.viewAccountLabel(
-                  Texts.viewAccountUsernameLabel,
+                AccountLabel(
+                  text: Texts.viewAccountUsernameLabel,
                 ),
-                CustomWidgets.viewAccountField(
-                  widget.arguments.account.username,
+                AccountField(
+                  text: widget.arguments.account.username,
                 ),
-                CustomWidgets.viewAccountLabel(
-                  Texts.viewAccountPasswordLabel,
+                AccountLabel(
+                  text: Texts.viewAccountPasswordLabel,
                 ),
                 GestureDetector(
                   onLongPress: () {
@@ -92,35 +95,37 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                           ),
                         ),
                       ).then(
-                        (value) => ScaffoldMessenger.of(context).showSnackBar(
-                          Utils.snackbarBuilder(
+                        (value) =>
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
                             Texts.copiedToClipboard,
                           ),
-                        ),
+                        )),
                       );
                     }
                   },
-                  child: CustomWidgets.viewAccountField(
-                    revealedPassword
-                        ? Encryption.decryptPassword(
-                            widget.arguments.account.password,
-                          )
-                        : Texts.hiddenPasswordText,
+                  child: AccountField(
+                    text: Encryption.decryptPassword(
+                      widget.arguments.account.password,
+                    ),
+                    viewPassword: revealedPassword,
                   ),
                 ),
-                CustomWidgets.spacer(),
+                const SizedBox(height: 8.0),
                 Visibility(
                   visible: !revealedPassword,
-                  child: CustomWidgets.button(
-                    Texts.viewAccountViewPassword,
-                    () => Utils.authenticate(
-                      Texts.fingerprintPasswordAuthTitle,
-                    ).then(
-                      (verified) => (verified)
-                          ? setState(
-                              () => revealedPassword = true,
-                            )
-                          : null,
+                  child: Center(
+                    child: ElevatedButton(
+                      child: Text(Texts.viewAccountViewPassword),
+                      onPressed: () => Utils.authenticate(
+                        Texts.fingerprintPasswordAuthTitle,
+                      ).then(
+                        (verified) => (verified)
+                            ? setState(
+                                () => revealedPassword = true,
+                              )
+                            : null,
+                      ),
                     ),
                   ),
                 ),
@@ -128,10 +133,12 @@ class _ViewAccountViewState extends State<ViewAccountView> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Utils.navigateToEdit(
-              context,
-              widget.arguments.index,
-              widget.arguments.account,
+            onPressed: () => Navigator.of(context).pushNamed(
+              Routes.addEdit,
+              arguments: EditArguments(
+                widget.arguments.index,
+                widget.arguments.account,
+              ),
             ),
             tooltip: Texts.viewAccountViewEditTooltip,
             child: Icon(

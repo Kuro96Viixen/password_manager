@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/screens/accounts_view.dart';
 import 'package:password_manager/screens/add_edit_view.dart';
-import 'package:password_manager/screens/private_accounts_view.dart';
 import 'package:password_manager/screens/view_account_view.dart';
 
 class Routes {
@@ -17,10 +16,6 @@ class Routes {
       case accounts:
         return MaterialPageRoute(
           builder: (context) => const AccountsView(),
-        );
-      case private:
-        return MaterialPageRoute(
-          builder: (context) => const PrivateAccountsView(),
         );
       case view:
         return MaterialPageRoute(
