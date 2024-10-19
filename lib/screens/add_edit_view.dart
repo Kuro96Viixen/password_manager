@@ -45,6 +45,8 @@ class _AddEditViewState extends State<AddEditView> {
 
   bool isPrivate = false;
 
+  bool viewPassword = true;
+
   @override
   void initState() {
     super.initState();
@@ -122,6 +124,10 @@ class _AddEditViewState extends State<AddEditView> {
                         child: CustomWidgets.textField(
                           Texts.passwordTextFieldLabel,
                           passwordController,
+                          viewPassword: viewPassword,
+                          pressedViewPassword: () => setState(
+                            () => viewPassword = !viewPassword,
+                          ),
                         ),
                       ),
                       Visibility(

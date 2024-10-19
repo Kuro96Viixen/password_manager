@@ -9,4 +9,7 @@ class CommonIcons {
   static IconData edit = Icons.edit;
   static IconData delete = Icons.delete_rounded;
   static IconData settings = Icons.settings;
+
+  static IconData seePassword = Icons.remove_red_eye_outlined;
+  static IconData hidePassword = Icons.password_rounded;
 }

@@ -56,7 +56,8 @@ class CustomWidgets {
         ],
       );
 
-  static Widget button(String text, Function() onPressed) => GestureDetector(
+  static Widget button(String buttonText, Function() onPressed) =>
+      GestureDetector(
         onTap: onPressed,
         child: Container(
           height: 40,
@@ -71,7 +72,7 @@ class CustomWidgets {
           ),
           alignment: Alignment.center,
           child: Text(
-            text,
+            buttonText,
             style: const TextStyle(
               fontSize: 16.0,
             ),
@@ -81,21 +82,42 @@ class CustomWidgets {
 
   static Widget spacer() => const SizedBox(height: 8.0);
 
-  static Widget textField(String label, TextEditingController controller) =>
+  static Widget textField(
+    String label,
+    TextEditingController controller, {
+    bool viewPassword = true,
+    void Function()? pressedViewPassword,
+  }) =>
       TextField(
         decoration: InputDecoration(
           labelText: label,
           hintText: label == Texts.passwordLengthTextFieldLabel
               ? Texts.passwordLengthTextFieldHint
               : null,
+          suffixIcon: label == Texts.passwordTextFieldLabel
+              ? IconButton(
+                  icon: Icon(
+                    viewPassword
+                        ? CommonIcons.hidePassword
+                        : CommonIcons.seePassword,
+                  ),
+                  onPressed: pressedViewPassword,
+                  tooltip: viewPassword
+                      ? Texts.hidePasswordTooltip
+                      : Texts.seePasswordTooltip,
+                )
+              : null,
         ),
         autocorrect: false,
         enableSuggestions: false,
         controller: controller,
         maxLines: 1,
+        obscureText: label == Texts.passwordTextFieldLabel && !viewPassword,
         keyboardType: label == Texts.passwordLengthTextFieldLabel
             ? TextInputType.number
-            : TextInputType.name,
+            : label == Texts.usernameTextFieldLabel
+                ? TextInputType.emailAddress
+                : TextInputType.name,
       );
 
   static Widget searchTextField(Function(String) onEditting) => TextField(
