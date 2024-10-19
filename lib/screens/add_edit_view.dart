@@ -78,9 +78,7 @@ class _AddEditViewState extends State<AddEditView> {
                           Texts.nameTextFieldLabel, nameController),
                       CustomWidgets.textField(
                           Texts.usernameTextFieldLabel, usernameController),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
+                      CustomWidgets.spacer(),
                       SwitchListTile(
                         value: isRandomPassword,
                         onChanged: (value) => setState(
@@ -127,9 +125,7 @@ class _AddEditViewState extends State<AddEditView> {
               ),
               title: Text(Texts.isPrivateAccountCheckBoxTitle),
             ),
-            const SizedBox(
-              height: 8.0,
-            ),
+            CustomWidgets.spacer(),
             CustomWidgets.button(
               Texts.saveAccountButton,
               () async => widget.arguments == null
@@ -174,9 +170,7 @@ class _AddEditViewState extends State<AddEditView> {
         children: [
           CustomWidgets.textField(
               Texts.passwordLengthTextFieldLabel, passwordLengthController),
-          const SizedBox(
-            height: 8.0,
-          ),
+          CustomWidgets.spacer(),
           CheckboxListTile(
             value: hasNumbers,
             onChanged: (value) => setState(() => hasNumbers = value!),
@@ -187,9 +181,7 @@ class _AddEditViewState extends State<AddEditView> {
             onChanged: (value) => setState(() => hasSymbols = value!),
             title: Text(Texts.symbolsCheckBoxTitle),
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          CustomWidgets.spacer(),
           CustomWidgets.button(
             Texts.generateRandomPasswordButton,
             () => setState(
@@ -209,6 +201,7 @@ class _AddEditViewState extends State<AddEditView> {
             child: Text(
               Texts.randomPasswordText + randomPassword,
               style: const TextStyle(fontSize: 20.0),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

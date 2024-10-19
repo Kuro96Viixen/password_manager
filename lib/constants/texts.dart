@@ -43,4 +43,8 @@ class Texts {
   static String fingerprintPrivateAuthTitle = 'Use fingerprint to unlock';
   static String fingerprintPasswordAuthTitle =
       'Use fingerprint to see the password';
+
+  // Settings
+  static String exportAccounts = 'Export';
+  static String importAccounts = 'Import';
 }

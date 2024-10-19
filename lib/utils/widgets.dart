@@ -12,7 +12,7 @@ class CustomWidgets {
   ) =>
       ListTile(
         onTap: () => Utils.navigateToView(context, index, account),
-        leading: Icon(CommonIcons.private),
+        leading: Icon(CommonIcons.account),
         title: Text(account.name),
         trailing: Icon(CommonIcons.next),
       );
@@ -34,20 +34,17 @@ class CustomWidgets {
 
   static Widget viewAccountLabel(String text) => Column(
         children: [
-          const SizedBox(
-            height: 8.0,
-          ),
+          CustomWidgets.spacer(),
           Text(
             text,
             style: TextStyle(color: Colors.purple[100], fontSize: 16.0),
           ),
-          const SizedBox(
-            height: 8.0,
-          ),
+          CustomWidgets.spacer(),
         ],
       );
 
-  static Widget button(String text, Function() onPressed) => GestureDetector(
+  static Widget button(String text, void Function() onPressed) =>
+      GestureDetector(
         onTap: onPressed,
         child: Container(
           height: 40,
@@ -63,6 +60,8 @@ class CustomWidgets {
           ),
         ),
       );
+
+  static Widget spacer() => const SizedBox(height: 8.0);
 
   static Widget textField(String label, TextEditingController controller) =>
       TextField(
