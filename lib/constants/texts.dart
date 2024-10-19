@@ -21,7 +21,7 @@ class Texts {
   static String numbersCheckBoxTitle = 'Numbers';
   static String symbolsCheckBoxTitle = 'Symbols';
   static String generateRandomPasswordButton = 'Generate';
-  static String randomPasswordText = 'Your random password is: ';
+  static String randomPasswordText = 'Your random password is:\n';
   static String isPrivateAccountCheckBoxTitle = 'Is private?';
   static String saveAccountButton = 'Save account';
 
@@ -38,6 +38,8 @@ class Texts {
   static String editViewTitle = 'Edit account';
 
   // Fingerprint
+  // static String fingerprintDialogTitle = 'Authentication required';
+  // static String fingerprintDialogSubtitle = 'Verify identity';
   static String fingerprintPrivateAuthTitle = 'Use fingerprint to unlock';
   static String fingerprintPasswordAuthTitle =
       'Use fingerprint to see the password';

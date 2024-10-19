@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/constants/texts.dart';
@@ -14,35 +15,38 @@ class PrivateAccountsView extends StatefulWidget {
 }
 
 class _PrivateAccountsViewState extends State<PrivateAccountsView> {
+  List<Account> accounts = Utils.accounts;
+
   @override
   Widget build(BuildContext context) {
-    List<Account> accounts = Utils.accounts;
-
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: CustomWidgets.backButton(context),
-          title: Text(
-            Texts.privateAccountsViewTitle,
-          ),
-        ),
-        body: ListView.separated(
-          itemBuilder: (context, index) => (accounts[index].private)
-              ? CustomWidgets.listTile(context, index, accounts[index])
-              : Container(),
-          separatorBuilder: (context, index) => (accounts[index].private)
-              ? Divider(height: 1, color: Theme.of(context).disabledColor)
-              : Container(),
-          itemCount: accounts.length,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.addEdit).then(
-            (_) => setState(
-              () {},
+    return FocusDetector(
+      onFocusGained: () => setState(() => accounts = Utils.accounts),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: CustomWidgets.backButton(context),
+            title: Text(
+              Texts.privateAccountsViewTitle,
             ),
           ),
-          tooltip: Texts.addNewAccountTooltip,
-          child: Icon(CommonIcons.add),
+          body: ListView.separated(
+            itemBuilder: (context, index) => (accounts[index].private)
+                ? CustomWidgets.listTile(
+                    context,
+                    index,
+                    accounts[index],
+                  )
+                : Container(),
+            separatorBuilder: (context, index) => (accounts[index].private)
+                ? Divider(height: 1, color: Theme.of(context).disabledColor)
+                : Container(),
+            itemCount: accounts.length,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => Navigator.pushNamed(context, Routes.addEdit),
+            tooltip: Texts.addNewAccountTooltip,
+            child: Icon(CommonIcons.add),
+          ),
         ),
       ),
     );

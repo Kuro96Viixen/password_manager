@@ -33,6 +33,15 @@ class _ViewAccountViewState extends State<ViewAccountView> {
         appBar: AppBar(
           leading: CustomWidgets.backButton(context),
           title: Text(Texts.viewAccountViewTitle),
+          actions: [
+            IconButton(
+              onPressed: () async =>
+                  await Utils.deleteAccount(widget.arguments.account).then(
+                (_) => Navigator.of(context).pop(),
+              ),
+              icon: Icon(CommonIcons.delete),
+            ),
+          ],
         ),
         body: Container(
           padding: const EdgeInsets.all(16.0),
@@ -67,12 +76,9 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                 visible: !revealedPassword,
                 child: CustomWidgets.button(
                   Texts.viewAccountViewPassword,
-                  () => Utils.authenticate(
-                    Texts.fingerprintPasswordAuthTitle,
-                  ).then(
-                    (value) => setState(
-                      () => revealedPassword = value,
-                    ),
+                  () => Utils.authenticate(Texts.fingerprintPasswordAuthTitle)
+                      .then(
+                    (verified) => setState(() => revealedPassword = true),
                   ),
                 ),
               )
