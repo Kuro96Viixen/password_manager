@@ -11,9 +11,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  void asyncMethod() async {
+    await Utils.readAccounts();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Utils.readAccounts();
+    asyncMethod();
 
     return MaterialApp(
       title: Texts.title,

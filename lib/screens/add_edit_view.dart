@@ -46,6 +46,10 @@ class _AddEditViewState extends State<AddEditView> {
       usernameController.text = widget.arguments!.account.username;
       isPrivate = widget.arguments!.account.private;
     }
+
+    nameController.addListener(() => setState(() {}));
+    usernameController.addListener(() => setState(() {}));
+    passwordController.addListener(() => setState(() {}));
   }
 
   @override
@@ -79,8 +83,14 @@ class _AddEditViewState extends State<AddEditView> {
                       ),
                       SwitchListTile(
                         value: isRandomPassword,
-                        onChanged: (value) =>
-                            setState(() => isRandomPassword = value),
+                        onChanged: (value) => setState(
+                          () {
+                            isRandomPassword = value;
+
+                            passwordController.text = '';
+                            randomPassword = '';
+                          },
+                        ),
                         title: Text(Texts.useRandomPasswordSwitchTitle),
                       ),
                       Visibility(

@@ -5,7 +5,11 @@ import 'package:password_manager/model/account.dart';
 import 'package:password_manager/utils/utils.dart';
 
 class CustomWidgets {
-  static Widget listTile(BuildContext context, int index, Account account) =>
+  static Widget listTile(
+    BuildContext context,
+    int index,
+    Account account,
+  ) =>
       ListTile(
         onTap: () => Utils.navigateToView(context, index, account),
         leading: Icon(CommonIcons.private),

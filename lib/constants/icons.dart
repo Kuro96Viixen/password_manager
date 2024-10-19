@@ -6,4 +6,5 @@ class CommonIcons {
   static IconData back = Icons.navigate_before_rounded;
   static IconData add = Icons.add;
   static IconData edit = Icons.edit;
+  static IconData delete = Icons.delete_rounded;
 }
