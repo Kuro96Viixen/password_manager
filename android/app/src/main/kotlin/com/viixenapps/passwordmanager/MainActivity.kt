@@ -1,4 +1,4 @@
-package com.kuro.passwordManager
+package com.viixenapps.passwordmanager
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
