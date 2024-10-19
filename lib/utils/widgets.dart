@@ -13,7 +13,8 @@ class CustomWidgets {
         title: Text(
           account.name,
           maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+          softWrap: false,
+          overflow: TextOverflow.fade,
         ),
         trailing: Icon(CommonIcons.next),
       );
