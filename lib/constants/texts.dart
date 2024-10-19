@@ -48,6 +48,10 @@ class Texts {
   static String exportAccounts = 'Export';
   static String importAccounts = 'Import';
 
+  // Settings success snackbar
+  static String exportedAccounts = 'Successfully exported';
+  static String importedAccounts = 'Successfully imported';
+
   // Search
   static String searchHintText = 'Search account';
 }

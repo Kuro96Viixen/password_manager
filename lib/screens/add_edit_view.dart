@@ -90,16 +90,21 @@ class _AddEditViewState extends State<AddEditView> {
                             randomPassword = '';
                           },
                         ),
-                        title: Text(Texts.useRandomPasswordSwitchTitle),
+                        title: Text(
+                          Texts.useRandomPasswordSwitchTitle,
+                        ),
                       ),
                       Visibility(
                         visible: !isRandomPassword,
                         child: CustomWidgets.textField(
-                            Texts.passwordTextFieldLabel, passwordController),
+                          Texts.passwordTextFieldLabel,
+                          passwordController,
+                        ),
                       ),
                       Visibility(
-                          visible: isRandomPassword,
-                          child: _randomPasswordForm()),
+                        visible: isRandomPassword,
+                        child: _randomPasswordForm(),
+                      ),
                     ],
                   ),
                 ],
@@ -170,17 +175,23 @@ class _AddEditViewState extends State<AddEditView> {
   Widget _randomPasswordForm() => Column(
         children: [
           CustomWidgets.textField(
-              Texts.passwordLengthTextFieldLabel, passwordLengthController),
+            Texts.passwordLengthTextFieldLabel,
+            passwordLengthController,
+          ),
           CustomWidgets.spacer(),
           CheckboxListTile(
             value: hasNumbers,
             onChanged: (value) => setState(() => hasNumbers = value!),
-            title: Text(Texts.numbersCheckBoxTitle),
+            title: Text(
+              Texts.numbersCheckBoxTitle,
+            ),
           ),
           CheckboxListTile(
             value: hasSymbols,
             onChanged: (value) => setState(() => hasSymbols = value!),
-            title: Text(Texts.symbolsCheckBoxTitle),
+            title: Text(
+              Texts.symbolsCheckBoxTitle,
+            ),
           ),
           CustomWidgets.spacer(),
           CustomWidgets.button(
@@ -196,7 +207,9 @@ class _AddEditViewState extends State<AddEditView> {
               ),
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(
+            height: 16.0,
+          ),
           Visibility(
             visible: randomPassword != '',
             child: GestureDetector(
@@ -204,7 +217,9 @@ class _AddEditViewState extends State<AddEditView> {
                   Clipboard.setData(ClipboardData(text: randomPassword)),
               child: Text(
                 Texts.randomPasswordText + randomPassword,
-                style: const TextStyle(fontSize: 20.0),
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),

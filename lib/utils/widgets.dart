@@ -8,15 +8,23 @@ class CustomWidgets {
   static Widget accountListTile(
           BuildContext context, int index, Account account) =>
       ListTile(
-        onTap: () => Utils.navigateToView(context, index, account),
-        leading: Icon(CommonIcons.account),
+        onTap: () => Utils.navigateToView(
+          context,
+          index,
+          account,
+        ),
+        leading: Icon(
+          CommonIcons.account,
+        ),
         title: Text(
           account.name,
           maxLines: 1,
           softWrap: false,
           overflow: TextOverflow.fade,
         ),
-        trailing: Icon(CommonIcons.next),
+        trailing: Icon(
+          CommonIcons.next,
+        ),
       );
 
   static Widget backButton(BuildContext context) => IconButton(
@@ -39,7 +47,10 @@ class CustomWidgets {
           CustomWidgets.spacer(),
           Text(
             text,
-            style: TextStyle(color: Colors.purple[100], fontSize: 16.0),
+            style: TextStyle(
+              color: Colors.purple[100],
+              fontSize: 16.0,
+            ),
           ),
           CustomWidgets.spacer(),
         ],
@@ -51,13 +62,19 @@ class CustomWidgets {
           height: 40,
           decoration: BoxDecoration(
             color: Colors.purple[200],
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(
+              16.0,
+            ),
           ),
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(
+            8.0,
+          ),
           alignment: Alignment.center,
           child: Text(
             text,
-            style: const TextStyle(fontSize: 16.0),
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
           ),
         ),
       );

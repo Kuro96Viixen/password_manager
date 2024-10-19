@@ -22,7 +22,9 @@ class _AccountsViewState extends State<AccountsView> {
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
-      onFocusGained: () => setState(() => accounts = Utils.accounts),
+      onFocusGained: () => setState(
+        () => accounts = Utils.accounts,
+      ),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -36,7 +38,9 @@ class _AccountsViewState extends State<AccountsView> {
                 ).then(
                   (authenticated) {
                     if (authenticated) {
-                      Navigator.of(context).pushNamed(Routes.private);
+                      Navigator.of(context).pushNamed(
+                        Routes.private,
+                      );
                     }
                   },
                 ),
@@ -48,20 +52,28 @@ class _AccountsViewState extends State<AccountsView> {
               ),
               IconButton(
                 onPressed: () => showSettings(),
-                icon: Icon(CommonIcons.settings),
+                icon: Icon(
+                  CommonIcons.settings,
+                ),
               ),
             ],
           ),
           body: ConstrainedBox(
-            constraints:
-                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+            ),
             child: Column(
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   child: CustomWidgets.searchTextField(
-                      (searchText) => setState(() => search = searchText)),
+                    (searchText) => setState(
+                      () => search = searchText,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: ListView.separated(
@@ -79,13 +91,13 @@ class _AccountsViewState extends State<AccountsView> {
                             : Container(),
                     separatorBuilder: (context, index) =>
                         (!accounts[index].private &&
-                                accounts[index]
-                                    .name
-                                    .toLowerCase()
-                                    .startsWith(search))
+                                accounts[index].name.toLowerCase().startsWith(
+                                      search,
+                                    ))
                             ? Divider(
                                 height: 1,
-                                color: Theme.of(context).disabledColor)
+                                color: Theme.of(context).disabledColor,
+                              )
                             : Container(),
                     itemCount: accounts.length,
                   ),
@@ -94,9 +106,14 @@ class _AccountsViewState extends State<AccountsView> {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.addEdit),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              Routes.addEdit,
+            ),
             tooltip: Texts.addNewAccountTooltip,
-            child: Icon(CommonIcons.add),
+            child: Icon(
+              CommonIcons.add,
+            ),
           ),
         ),
       ),
@@ -112,19 +129,32 @@ class _AccountsViewState extends State<AccountsView> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
+              topLeft: Radius.circular(
+                16.0,
+              ),
+              topRight: Radius.circular(
+                16.0,
+              ),
             ),
           ),
           height: 120.0,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(
+            16.0,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomWidgets.button(
                 Texts.exportAccounts,
                 () => Utils.exportAccounts().then(
-                  (_) => Navigator.of(context).pop(),
+                  (_) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      Utils.snackbarBuilder(
+                        Texts.exportedAccounts,
+                      ),
+                    );
+                  },
                 ),
               ),
               CustomWidgets.spacer(),
@@ -133,6 +163,11 @@ class _AccountsViewState extends State<AccountsView> {
                 () => Utils.importAccounts().then(
                   (_) {
                     Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      Utils.snackbarBuilder(
+                        Texts.importedAccounts,
+                      ),
+                    );
                     setState(() {});
                   },
                 ),

@@ -31,36 +31,64 @@ class _ViewAccountViewState extends State<ViewAccountView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: CustomWidgets.backButton(context),
-          title: Text(Texts.viewAccountViewTitle),
+          leading: CustomWidgets.backButton(
+            context,
+          ),
+          title: Text(
+            Texts.viewAccountViewTitle,
+          ),
           actions: [
             IconButton(
               onPressed: () async =>
                   await Utils.deleteAccount(widget.arguments.account).then(
                 (_) => Navigator.of(context).pop(),
               ),
-              icon: Icon(CommonIcons.delete),
+              icon: Icon(
+                CommonIcons.delete,
+              ),
             ),
           ],
         ),
         body: Container(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(
+            16.0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomWidgets.viewAccountLabel(Texts.viewAccountNameLabel),
-              CustomWidgets.viewAccountField(widget.arguments.account.name),
-              CustomWidgets.viewAccountLabel(Texts.viewAccountUsernameLabel),
-              CustomWidgets.viewAccountField(widget.arguments.account.username),
-              CustomWidgets.viewAccountLabel(Texts.viewAccountPasswordLabel),
+              CustomWidgets.viewAccountLabel(
+                Texts.viewAccountNameLabel,
+              ),
+              CustomWidgets.viewAccountField(
+                widget.arguments.account.name,
+              ),
+              CustomWidgets.viewAccountLabel(
+                Texts.viewAccountUsernameLabel,
+              ),
+              CustomWidgets.viewAccountField(
+                widget.arguments.account.username,
+              ),
+              CustomWidgets.viewAccountLabel(
+                Texts.viewAccountPasswordLabel,
+              ),
               GestureDetector(
-                onLongPress: () => ClipboardData(
-                  text: revealedPassword
-                      ? Encryption.decryptPassword(
+                onLongPress: () {
+                  if (revealedPassword) {
+                    Clipboard.setData(
+                      ClipboardData(
+                        text: Encryption.decryptPassword(
                           widget.arguments.account.password,
-                        )
-                      : '',
-                ),
+                        ),
+                      ),
+                    ).then(
+                      (value) => ScaffoldMessenger.of(context).showSnackBar(
+                        Utils.snackbarBuilder(
+                          Texts.copiedToClipboard,
+                        ),
+                      ),
+                    );
+                  }
+                },
                 child: CustomWidgets.viewAccountField(
                   revealedPassword
                       ? Encryption.decryptPassword(
@@ -74,9 +102,14 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                 visible: !revealedPassword,
                 child: CustomWidgets.button(
                   Texts.viewAccountViewPassword,
-                  () => Utils.authenticate(Texts.fingerprintPasswordAuthTitle)
-                      .then(
-                    (verified) => setState(() => revealedPassword = true),
+                  () => Utils.authenticate(
+                    Texts.fingerprintPasswordAuthTitle,
+                  ).then(
+                    (verified) => (verified)
+                        ? setState(
+                            () => revealedPassword = true,
+                          )
+                        : null,
                   ),
                 ),
               )
@@ -90,7 +123,9 @@ class _ViewAccountViewState extends State<ViewAccountView> {
             widget.arguments.account,
           ),
           tooltip: Texts.viewAccountViewEditTooltip,
-          child: Icon(CommonIcons.edit),
+          child: Icon(
+            CommonIcons.edit,
+          ),
         ),
       ),
     );
