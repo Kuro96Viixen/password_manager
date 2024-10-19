@@ -33,7 +33,6 @@ class Routes {
             arguments: arguments as EditArguments?,
           ),
         );
-      // case settings:break;
       default:
         return MaterialPageRoute(
           builder: (context) => const AccountsView(),

@@ -22,50 +22,71 @@ class _PrivateAccountsViewState extends State<PrivateAccountsView> {
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
-      onFocusGained: () => setState(() => accounts = Utils.accounts),
+      onFocusGained: () => setState(
+        () => accounts = Utils.accounts,
+      ),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: CustomWidgets.backButton(context),
+            leading: CustomWidgets.backButton(
+              context,
+            ),
             title: Text(
               Texts.privateAccountsViewTitle,
             ),
           ),
           body: ConstrainedBox(
-            constraints:
-                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+            ),
             child: Column(
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   child: CustomWidgets.searchTextField(
-                      (searchText) => setState(() => search = searchText)),
+                    (searchText) => setState(
+                      () => search = searchText,
+                    ),
+                  ),
                 ),
                 ListView.separated(
                   itemBuilder: (context, index) => (accounts[index].private &&
-                          accounts[index].name.toLowerCase().startsWith(search))
+                          accounts[index].name.toLowerCase().startsWith(
+                                search,
+                              ))
                       ? CustomWidgets.accountListTile(
                           context,
                           index,
                           accounts[index],
                         )
                       : Container(),
-                  separatorBuilder: (context, index) => (accounts[index]
-                              .private &&
-                          accounts[index].name.toLowerCase().startsWith(search))
-                      ? Divider(
-                          height: 1, color: Theme.of(context).disabledColor)
-                      : Container(),
+                  separatorBuilder: (context, index) =>
+                      (accounts[index].private &&
+                              accounts[index].name.toLowerCase().startsWith(
+                                    search,
+                                  ))
+                          ? Divider(
+                              height: 1,
+                              color: Theme.of(context).disabledColor,
+                            )
+                          : Container(),
                   itemCount: accounts.length,
                 ),
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.addEdit),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              Routes.addEdit,
+            ),
             tooltip: Texts.addNewAccountTooltip,
-            child: Icon(CommonIcons.add),
+            child: Icon(
+              CommonIcons.add,
+            ),
           ),
         ),
       ),

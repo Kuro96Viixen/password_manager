@@ -2,7 +2,7 @@ name: password_manager
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 1.4.1+8
+version: 1.5.0+9
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -15,6 +15,8 @@ dependencies:
   local_auth: ^2.1.6
   focus_detector: ^2.0.1
   permission_handler: ^10.2.0
+
+  device_info_plus: ^9.0.2
 
   cupertino_icons: ^1.0.2
 
