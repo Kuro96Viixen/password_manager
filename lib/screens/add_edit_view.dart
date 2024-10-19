@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/model/account.dart';
 import 'package:password_manager/utils/encrypt.dart';
@@ -198,10 +199,14 @@ class _AddEditViewState extends State<AddEditView> {
           const SizedBox(height: 16.0),
           Visibility(
             visible: randomPassword != '',
-            child: Text(
-              Texts.randomPasswordText + randomPassword,
-              style: const TextStyle(fontSize: 20.0),
-              textAlign: TextAlign.center,
+            child: GestureDetector(
+              onLongPress: () =>
+                  Clipboard.setData(ClipboardData(text: randomPassword)),
+              child: Text(
+                Texts.randomPasswordText + randomPassword,
+                style: const TextStyle(fontSize: 20.0),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],
