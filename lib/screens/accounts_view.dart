@@ -17,6 +17,8 @@ class AccountsView extends StatefulWidget {
 class _AccountsViewState extends State<AccountsView> {
   List<Account> accounts = Utils.accounts;
 
+  String search = '';
+
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
@@ -50,18 +52,46 @@ class _AccountsViewState extends State<AccountsView> {
               ),
             ],
           ),
-          body: ListView.separated(
-            itemBuilder: (context, index) => (!accounts[index].private)
-                ? CustomWidgets.listTile(
-                    context,
-                    index,
-                    accounts[index],
-                  )
-                : Container(),
-            separatorBuilder: (context, index) => (!accounts[index].private)
-                ? Divider(height: 1, color: Theme.of(context).disabledColor)
-                : Container(),
-            itemCount: accounts.length,
+          body: ConstrainedBox(
+            constraints:
+                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: CustomWidgets.searchTextField(
+                      (searchText) => setState(() => search = searchText)),
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>
+                        (!accounts[index].private &&
+                                accounts[index]
+                                    .name
+                                    .toLowerCase()
+                                    .startsWith(search))
+                            ? CustomWidgets.accountListTile(
+                                context,
+                                index,
+                                accounts[index],
+                              )
+                            : Container(),
+                    separatorBuilder: (context, index) =>
+                        (!accounts[index].private &&
+                                accounts[index]
+                                    .name
+                                    .toLowerCase()
+                                    .startsWith(search))
+                            ? Divider(
+                                height: 1,
+                                color: Theme.of(context).disabledColor)
+                            : Container(),
+                    itemCount: accounts.length,
+                  ),
+                ),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => Navigator.pushNamed(context, Routes.addEdit),

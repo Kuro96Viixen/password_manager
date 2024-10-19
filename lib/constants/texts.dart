@@ -47,4 +47,7 @@ class Texts {
   // Settings
   static String exportAccounts = 'Export';
   static String importAccounts = 'Import';
+
+  // Search
+  static String searchHintText = 'Search account';
 }

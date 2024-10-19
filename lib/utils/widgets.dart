@@ -5,15 +5,16 @@ import 'package:password_manager/model/account.dart';
 import 'package:password_manager/utils/utils.dart';
 
 class CustomWidgets {
-  static Widget listTile(
-    BuildContext context,
-    int index,
-    Account account,
-  ) =>
+  static Widget accountListTile(
+          BuildContext context, int index, Account account) =>
       ListTile(
         onTap: () => Utils.navigateToView(context, index, account),
         leading: Icon(CommonIcons.account),
-        title: Text(account.name),
+        title: Text(
+          account.name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         trailing: Icon(CommonIcons.next),
       );
 
@@ -43,8 +44,7 @@ class CustomWidgets {
         ],
       );
 
-  static Widget button(String text, void Function() onPressed) =>
-      GestureDetector(
+  static Widget button(String text, Function() onPressed) => GestureDetector(
         onTap: onPressed,
         child: Container(
           height: 40,
@@ -78,5 +78,12 @@ class CustomWidgets {
         keyboardType: label == Texts.passwordLengthTextFieldLabel
             ? TextInputType.number
             : TextInputType.name,
+      );
+
+  static Widget searchTextField(Function(String) onEditting) => TextField(
+        onChanged: onEditting,
+        decoration: InputDecoration(
+          hintText: Texts.searchHintText,
+        ),
       );
 }
