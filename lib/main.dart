@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: Texts.title,
+      themeMode: ThemeMode.dark,
+      theme: CustomThemes.lightTheme,
       darkTheme: CustomThemes.darkTheme,
-      theme: ThemeData(
-        fontFamily: 'Verdana',
-      ),
       onGenerateRoute: Routes.routes,
       initialRoute: Routes.accounts,
     );
