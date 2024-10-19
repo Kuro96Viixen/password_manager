@@ -28,15 +28,11 @@ class Account {
         password = json['password'],
         private = json['private'];
 
-  String toCSV() => '$name,$username,$password,$private';
+  String toCSV() => '$name,$username,$password,$private\n';
 
-  Account fromCSV(String csv) {
-    List splitted = csv.split(',');
-    return Account(
-      name: splitted[0],
-      username: splitted[1],
-      password: splitted[2],
-      private: splitted[3] == 'true',
-    );
-  }
+  Account.fromCSV(String csv)
+      : name = csv.split(',')[0],
+        username = csv.split(',')[1],
+        password = csv.split(',')[2],
+        private = csv.split(',')[3] == 'true';
 }

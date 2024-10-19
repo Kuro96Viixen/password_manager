@@ -69,9 +69,7 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                       : Texts.hiddenPasswordText,
                 ),
               ),
-              const SizedBox(
-                height: 8.0,
-              ),
+              CustomWidgets.spacer(),
               Visibility(
                 visible: !revealedPassword,
                 child: CustomWidgets.button(

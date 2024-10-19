@@ -44,6 +44,10 @@ class _AccountsViewState extends State<AccountsView> {
                 ),
                 tooltip: Texts.showPrivateTooltip,
               ),
+              IconButton(
+                onPressed: () => showSettings(),
+                icon: Icon(CommonIcons.settings),
+              ),
             ],
           ),
           body: ListView.separated(
@@ -66,6 +70,47 @@ class _AccountsViewState extends State<AccountsView> {
           ),
         ),
       ),
+    );
+  }
+
+  void showSettings() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+          ),
+          height: 120.0,
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomWidgets.button(
+                Texts.exportAccounts,
+                () => Utils.exportAccounts().then(
+                  (_) => Navigator.of(context).pop(),
+                ),
+              ),
+              CustomWidgets.spacer(),
+              CustomWidgets.button(
+                Texts.importAccounts,
+                () => Utils.importAccounts().then(
+                  (_) {
+                    Navigator.of(context).pop();
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
