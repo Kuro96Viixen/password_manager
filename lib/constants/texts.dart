@@ -56,4 +56,8 @@ class Texts {
 
   // Search
   static String searchHintText = 'Search account';
+
+  // See/Hide password
+  static String seePasswordTooltip = 'See password';
+  static String hidePasswordTooltip = 'Hide password';
 }
