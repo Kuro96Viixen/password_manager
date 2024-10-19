@@ -8,7 +8,9 @@ import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/utils/widgets.dart';
 
 class AccountsView extends StatefulWidget {
-  const AccountsView({super.key});
+  const AccountsView({
+    super.key,
+  });
 
   @override
   State<AccountsView> createState() => _AccountsViewState();

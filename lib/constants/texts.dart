@@ -18,6 +18,7 @@ class Texts {
   static String useRandomPasswordSwitchTitle = 'Use random password';
   static String passwordLengthTextFieldLabel = 'Random password length';
   static String passwordLengthTextFieldHint = 'Default 10';
+  static String spanishCheckBoxTitle = 'Spanish characters (ñ)';
   static String numbersCheckBoxTitle = 'Numbers';
   static String symbolsCheckBoxTitle = 'Symbols';
   static String generateRandomPasswordButton = 'Generate';
