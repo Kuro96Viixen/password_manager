@@ -39,9 +39,7 @@ class _ViewAccountViewState extends State<ViewAccountView> {
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
-      onFocusGained: () => setState(
-        () => revealedPassword = false,
-      ),
+      onFocusGained: () => setState(() => revealedPassword = false),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -95,12 +93,13 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                           ),
                         ),
                       ).then(
-                        (value) =>
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                            Texts.copiedToClipboard,
+                        (value) => ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              Texts.copiedToClipboard,
+                            ),
                           ),
-                        )),
+                        ),
                       );
                     }
                   },

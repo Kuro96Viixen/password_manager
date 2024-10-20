@@ -102,11 +102,13 @@ class _AddEditViewState extends State<AddEditView> {
                   Column(
                     children: [
                       AccountTextField(
-                          label: Texts.nameTextFieldLabel,
-                          controller: nameController),
+                        label: Texts.nameTextFieldLabel,
+                        controller: nameController,
+                      ),
                       AccountTextField(
-                          label: Texts.usernameTextFieldLabel,
-                          controller: usernameController),
+                        label: Texts.usernameTextFieldLabel,
+                        controller: usernameController,
+                      ),
                       const SizedBox(height: 8.0),
                       SwitchListTile(
                         value: isRandomPassword,

@@ -11,15 +11,11 @@ class Account {
     required this.private,
   });
 
-  @override
-  String toString() =>
-      'name: $name, username: $username, password: $password, private: $private';
-
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "username": username,
-        "password": password,
-        "private": private,
+        'name': name,
+        'username': username,
+        'password': password,
+        'private': private,
       };
 
   Account.fromJson(Map<String, dynamic> json)
