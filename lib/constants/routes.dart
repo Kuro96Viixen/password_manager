@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/screens/accounts_view.dart';
-import 'package:password_manager/screens/add_edit_view.dart';
-import 'package:password_manager/screens/view_account_view.dart';
+import 'package:password_manager/ui/accounts_view.dart';
+import 'package:password_manager/ui/add_edit_view.dart';
+import 'package:password_manager/ui/view_account_view.dart';
 
 class Routes {
   static const String accounts = 'Accounts';

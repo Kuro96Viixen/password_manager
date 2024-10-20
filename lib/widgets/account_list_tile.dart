@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/model/account.dart';
-import 'package:password_manager/screens/view_account_view.dart';
+import 'package:password_manager/ui/view_account_view.dart';
 
 class AccountListTile extends StatelessWidget {
   final int index;

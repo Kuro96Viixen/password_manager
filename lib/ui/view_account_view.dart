@@ -5,7 +5,7 @@ import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/model/account.dart';
-import 'package:password_manager/screens/add_edit_view.dart';
+import 'package:password_manager/ui/add_edit_view.dart';
 import 'package:password_manager/utils/encrypt.dart';
 import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/widgets/account_field.dart';
