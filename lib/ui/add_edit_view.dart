@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/constants/texts.dart';
-import 'package:password_manager/model/account.dart';
-import 'package:password_manager/utils/encrypt.dart';
-import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/widgets/account_text_field.dart';
 import 'package:password_manager/widgets/random_password_form.dart';
 import 'package:password_manager/widgets/save_password_form.dart';
 
 class EditArguments {
   int index;
-  Account account;
+  AccountData account;
 
   EditArguments(
     this.index,
@@ -155,17 +153,17 @@ class _AddEditViewState extends State<AddEditView> {
                           ),
                           randomPassword: randomPassword,
                           onPressedButton: () {
-                            setState(
-                              () => randomPassword = Utils.generatePassword(
-                                length: int.tryParse(
-                                      passwordLengthController.text.toString(),
-                                    ) ??
-                                    10,
-                                hasSpanish: hasSpanishCharacters,
-                                hasNumber: hasNumbers,
-                                hasSymbol: hasSymbols,
-                              ),
-                            );
+                            // setState(
+                            //   () => randomPassword = Utils.generatePassword(
+                            //     length: int.tryParse(
+                            //           passwordLengthController.text.toString(),
+                            //         ) ??
+                            //         10,
+                            //     hasSpanish: hasSpanishCharacters,
+                            //     hasNumber: hasNumbers,
+                            //     hasSymbol: hasSymbols,
+                            //   ),
+                            // );
                           },
                         ),
                       ),
@@ -181,39 +179,40 @@ class _AddEditViewState extends State<AddEditView> {
                 checkBoxAction: (value) => setState(
                   () => isPrivate = value!,
                 ),
-                onPressedButton: () async => widget.arguments == null
-                    ? await Utils.saveNewAccount(
-                        Account(
-                          name: nameController.text,
-                          username: usernameController.text,
-                          password: Encryption.encryptPassword(
-                            isRandomPassword
-                                ? randomPassword
-                                : passwordController.text,
-                          ),
-                          private: isPrivate,
-                        ),
-                      ).then(
-                        (_) => Navigator.of(context).pop(),
-                      )
-                    : await Utils.editAccount(
-                        widget.arguments!.index,
-                        Account(
-                          name: nameController.text,
-                          username: usernameController.text,
-                          password: Encryption.encryptPassword(
-                            isRandomPassword
-                                ? randomPassword
-                                : passwordController.text,
-                          ),
-                          private: isPrivate,
-                        ),
-                      ).then(
-                        (_) {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
-                      ),
+                // onPressedButton: () async => widget.arguments == null
+                //     ? await Utils.saveNewAccount(
+                //         AccountData(
+                //           name: nameController.text,
+                //           username: usernameController.text,
+                //           password: Encryption.encryptPassword(
+                //             isRandomPassword
+                //                 ? randomPassword
+                //                 : passwordController.text,
+                //           ),
+                //           private: isPrivate,
+                //         ),
+                //       ).then(
+                //         (_) => Navigator.of(context).pop(),
+                //       )
+                //     : await Utils.editAccount(
+                //         widget.arguments!.index,
+                //         AccountData(
+                //           name: nameController.text,
+                //           username: usernameController.text,
+                //           password: Encryption.encryptPassword(
+                //             isRandomPassword
+                //                 ? randomPassword
+                //                 : passwordController.text,
+                //           ),
+                //           private: isPrivate,
+                //         ),
+                //       ).then(
+                //         (_) {
+                //           Navigator.of(context).pop();
+                //           Navigator.of(context).pop();
+                //         },
+                //       ),
+                onPressedButton: () {},
               ),
             ),
           ],

@@ -6,6 +6,7 @@ class Texts {
   static String accountsViewTitle = 'Accounts list';
   static String showPrivateTooltip = 'Show private';
   static String addNewAccountTooltip = 'Add new password';
+  static String settingsTooltip = 'Settings';
 
   // Private accounts view
   static String privateAccountsViewTitle = 'Private accounts list';
@@ -50,7 +51,7 @@ class Texts {
   static String exportAccounts = 'Export';
   static String importAccounts = 'Import';
 
-  // Settings success snackbar
+  // Settings success snack bar
   static String exportedAccounts = 'Successfully exported';
   static String importedAccounts = 'Successfully imported';
 

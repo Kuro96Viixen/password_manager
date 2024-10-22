@@ -4,16 +4,15 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/routes.dart';
 import 'package:password_manager/constants/texts.dart';
-import 'package:password_manager/model/account.dart';
+import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/ui/add_edit_view.dart';
 import 'package:password_manager/utils/encrypt.dart';
-import 'package:password_manager/utils/utils.dart';
 import 'package:password_manager/widgets/account_field.dart';
 import 'package:password_manager/widgets/account_label.dart';
 
 class ViewAccountViewArguments {
   int index;
-  Account account;
+  AccountData account;
 
   ViewAccountViewArguments(
     this.index,
@@ -51,10 +50,11 @@ class _ViewAccountViewState extends State<ViewAccountView> {
             ),
             actions: [
               IconButton(
-                onPressed: () async =>
-                    await Utils.deleteAccount(widget.arguments.account).then(
-                  (_) => Navigator.of(context).pop(),
-                ),
+                // onPressed: () async =>
+                //     await Utils.deleteAccount(widget.arguments.account).then(
+                //   (_) => Navigator.of(context).pop(),
+                // ),
+                onPressed: null,
                 icon: Icon(
                   CommonIcons.delete,
                 ),
@@ -116,15 +116,16 @@ class _ViewAccountViewState extends State<ViewAccountView> {
                   child: Center(
                     child: ElevatedButton(
                       child: Text(Texts.viewAccountViewPassword),
-                      onPressed: () => Utils.authenticate(
-                        Texts.fingerprintPasswordAuthTitle,
-                      ).then(
-                        (verified) => (verified)
-                            ? setState(
-                                () => revealedPassword = true,
-                              )
-                            : null,
-                      ),
+                      // onPressed: () => Utils.authenticate(
+                      //   Texts.fingerprintPasswordAuthTitle,
+                      // ).then(
+                      //   (verified) => (verified)
+                      //       ? setState(
+                      //           () => revealedPassword = true,
+                      //         )
+                      //       : null,
+                      // ),
+                      onPressed: null,
                     ),
                   ),
                 ),

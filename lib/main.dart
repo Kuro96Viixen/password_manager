@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/constants/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/constants/themes.dart';
-import 'package:password_manager/utils/utils.dart';
+import 'package:password_manager/di/app_di.dart' as app_di;
 
 void main() {
+  app_di.init();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  void asyncMethod() async {
-    await Utils.readAccounts();
-  }
-
   @override
   Widget build(BuildContext context) {
-    asyncMethod();
-
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationProvider:
+          app_di.navigationModulesDi<GoRouter>().routeInformationProvider,
+      routeInformationParser:
+          app_di.navigationModulesDi<GoRouter>().routeInformationParser,
+      routerDelegate: app_di.navigationModulesDi<GoRouter>().routerDelegate,
       title: Texts.title,
       themeMode: ThemeMode.dark,
       theme: CustomThemes.lightTheme,
       darkTheme: CustomThemes.darkTheme,
-      onGenerateRoute: Routes.routes,
-      initialRoute: Routes.accounts,
     );
   }
 }

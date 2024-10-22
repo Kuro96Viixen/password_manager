@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/ui/accounts_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:password_manager/ui/accounts/accounts_view.dart';
 import 'package:password_manager/ui/add_edit_view.dart';
 import 'package:password_manager/ui/view_account_view.dart';
 
+GoRoute _editView() => GoRoute(
+      path: 'AddEdit',
+      builder: (context, state) => const AccountsView(),
+      routes: const [],
+    );
+
+List<GoRoute> allAppRoutes = [
+  GoRoute(
+    path: AccountsView.routeName,
+    builder: (context, state) => const AccountsView(),
+    routes: [
+      GoRoute(
+        path: 'View',
+        builder: (context, state) => const AccountsView(),
+        routes: [
+          _editView(),
+        ],
+      ),
+      _editView(),
+    ],
+  ),
+];
+
 class Routes {
-  static const String accounts = 'Accounts';
-  static const String private = 'Private';
   static const String view = 'View';
   static const String addEdit = 'AddEdit';
 
@@ -13,7 +35,7 @@ class Routes {
     final arguments = settings.arguments;
 
     switch (settings.name) {
-      case accounts:
+      case AccountsView.routeName:
         return MaterialPageRoute(
           builder: (context) => const AccountsView(),
         );
