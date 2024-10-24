@@ -15,6 +15,13 @@ void _uiModulesInit() {
       getAccountsDataUseCase: uiModulesDi(),
       setAccountsDataUseCase: uiModulesDi(),
       getAccountsDataFromStorageUseCase: uiModulesDi(),
+    ),
+  );
+
+  uiModulesDi.registerFactory(
+    () => DetailsBloc(
+      getAccountsDataUseCase: uiModulesDi(),
+      setAccountsDataUseCase: uiModulesDi(),
       setAccountsDataOnStorageUseCase: uiModulesDi(),
     ),
   );

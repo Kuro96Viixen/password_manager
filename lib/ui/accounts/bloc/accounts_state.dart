@@ -27,11 +27,11 @@ class AccountsScreenState with _$AccountsScreenState {
 
 @freezed
 class AccountsNavigationState with _$AccountsNavigationState {
-  const factory AccountsNavigationState.goToAccountView({
-    required int accountIndex,
-  }) = _GoToAccountView;
+  const factory AccountsNavigationState.goToDetails({
+    required AccountData accountData,
+  }) = _GoToDetails;
 
-  const factory AccountsNavigationState.goToAdd() = _GoToAdd;
+  const factory AccountsNavigationState.goToModify() = _GoToModify;
 
   const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
 

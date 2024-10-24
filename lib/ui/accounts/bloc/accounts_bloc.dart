@@ -7,7 +7,6 @@ import 'package:password_manager/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
-import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
 
 part 'accounts_bloc.freezed.dart';
@@ -18,20 +17,21 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final GetAccountsDataFromStorageUseCase getAccountsDataFromStorageUseCase;
-  final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
 
   AccountsBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.getAccountsDataFromStorageUseCase,
-    required this.setAccountsDataOnStorageUseCase,
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
       await event.when(
         started: () async {
           // Emitting Loading ScreenState before while loading Accounts
           emit(
-            state.copyWith(screenState: const AccountsScreenState.loading()),
+            state.copyWith(
+              screenState: const AccountsScreenState.loading(),
+              navigationState: null,
+            ),
           );
 
           // Retrieving data from the MemoryDataSource
@@ -84,19 +84,26 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             },
           );
         },
-        viewAccount: (accountIndex) {
-          emit(
-            state.copyWith(
-              navigationState: AccountsNavigationState.goToAccountView(
-                accountIndex: accountIndex,
-              ),
-            ),
+        pressedAccount: (accountIndex) async {
+          final accountDataResult = await getAccountsDataUseCase();
+
+          accountDataResult.when(
+            failure: (error, message) {},
+            success: (accountsData) {
+              emit(
+                state.copyWith(
+                  navigationState: AccountsNavigationState.goToDetails(
+                    accountData: accountsData.accountsList[accountIndex],
+                  ),
+                ),
+              );
+            },
           );
         },
-        addAccount: () {
+        pressedModify: () {
           emit(
             state.copyWith(
-              navigationState: const AccountsNavigationState.goToAdd(),
+              navigationState: const AccountsNavigationState.goToModify(),
             ),
           );
         },

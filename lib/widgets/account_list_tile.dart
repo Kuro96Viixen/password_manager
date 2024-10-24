@@ -24,7 +24,7 @@ class AccountListTile extends StatelessWidget {
         ),
       ),
       onTap: () => context.read<AccountsBloc>().add(
-            AccountsEvent.viewAccount(index),
+            AccountsEvent.pressedAccount(index),
           ),
       leading: Icon(
         CommonIcons.account,
