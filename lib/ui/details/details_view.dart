@@ -4,11 +4,13 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/texts.dart';
+import 'package:password_manager/core/extension/context_extension.dart';
 import 'package:password_manager/di/app_di.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/ui/details/bloc/details_bloc.dart';
-import 'package:password_manager/widgets/account_field.dart';
-import 'package:password_manager/widgets/account_label.dart';
+import 'package:password_manager/ui/details/widgets/account_field.dart';
+import 'package:password_manager/ui/details/widgets/account_label.dart';
+import 'package:password_manager/ui/modify/modify_view.dart';
 
 class DetailsView extends StatelessWidget {
   static const routeName = 'DetailsPageRoute';
@@ -28,9 +30,8 @@ class DetailsView extends StatelessWidget {
         listener: (context, state) {
           state.navigationState?.when(
             goBack: () => context.pop(),
-            goToModify: () {
-              // TODO implement
-            },
+            // TODO Check extra
+            goToModify: () => context.goWithRoute(ModifyView.routeName),
             showSnackBar: (snackBarMessage) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

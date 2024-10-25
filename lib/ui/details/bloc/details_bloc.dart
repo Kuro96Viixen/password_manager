@@ -48,7 +48,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
                 accountsData.copyWith(accountsList: accountsList),
               );
 
-              String passwordsToSave =
+              String accountsToSave =
                   AccountsData(accountsList: accountsList).toStore();
 
               // TODO Delete account from Storage

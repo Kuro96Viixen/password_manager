@@ -4,21 +4,24 @@ import 'package:password_manager/constants/texts.dart';
 
 class AccountTextField extends StatelessWidget {
   final String label;
-  final TextEditingController controller;
-  final bool isPasswordVisible;
+  final String initialValue;
+  final Function(String) onChangedText;
+  final bool isPasswordHidden;
   final VoidCallback? onPressed;
 
   const AccountTextField({
     super.key,
     required this.label,
-    required this.controller,
-    this.isPasswordVisible = true,
+    required this.initialValue,
+    required this.onChangedText,
+    this.isPasswordHidden = false,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      onChanged: onChangedText,
       decoration: InputDecoration(
         labelText: label,
         hintText: label == Texts.passwordLengthTextFieldLabel
@@ -27,22 +30,22 @@ class AccountTextField extends StatelessWidget {
         suffixIcon: label == Texts.passwordTextFieldLabel
             ? IconButton(
                 icon: Icon(
-                  isPasswordVisible
-                      ? CommonIcons.hidePassword
-                      : CommonIcons.seePassword,
+                  isPasswordHidden
+                      ? CommonIcons.seePassword
+                      : CommonIcons.hidePassword,
                 ),
                 onPressed: onPressed,
-                tooltip: isPasswordVisible
-                    ? Texts.hidePasswordTooltip
-                    : Texts.seePasswordTooltip,
+                tooltip: isPasswordHidden
+                    ? Texts.seePasswordTooltip
+                    : Texts.hidePasswordTooltip,
               )
             : null,
       ),
       autocorrect: false,
       enableSuggestions: false,
-      controller: controller,
+      initialValue: initialValue,
       maxLines: 1,
-      obscureText: label == Texts.passwordTextFieldLabel && !isPasswordVisible,
+      obscureText: label == Texts.passwordTextFieldLabel && isPasswordHidden,
       keyboardType: label == Texts.passwordLengthTextFieldLabel
           ? TextInputType.number
           : label == Texts.usernameTextFieldLabel

@@ -7,8 +7,9 @@ import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/core/extension/context_extension.dart';
 import 'package:password_manager/di/app_di.dart';
 import 'package:password_manager/ui/accounts/bloc/accounts_bloc.dart';
+import 'package:password_manager/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/ui/details/details_view.dart';
-import 'package:password_manager/widgets/account_list_tile.dart';
+import 'package:password_manager/ui/modify/modify_view.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class AccountsView extends StatelessWidget {
@@ -29,9 +30,7 @@ class AccountsView extends StatelessWidget {
               DetailsView.routeName,
               extra: accountData,
             ),
-            goToModify: () {
-              // TODO Implement
-            },
+            goToModify: () => context.goWithRoute(ModifyView.routeName),
             showBottomMenu: () {
               showModalBottomSheet(
                 context: context,
@@ -102,7 +101,14 @@ class AccountsView extends StatelessWidget {
                       ? [
                           IconButton(
                             onPressed: () {
-                              FocusScope.of(context).unfocus();
+                              // Remove focus on TextField
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+
+                              if (!currentFocus.hasPrimaryFocus &&
+                                  currentFocus.focusedChild != null) {
+                                FocusManager.instance.primaryFocus!.unfocus();
+                              }
 
                               context
                                   .read<AccountsBloc>()

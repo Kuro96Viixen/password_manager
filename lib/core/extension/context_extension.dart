@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:password_manager/core/extension/go_router_extension.dart';
 
 extension ContextExtension on BuildContext {
   // Get the actual route
@@ -16,5 +17,12 @@ extension ContextExtension on BuildContext {
     final String previousRoute = this.previousRoute;
 
     go('$previousRoute/$pageName', extra: extra);
+  }
+
+  /// Navigate back to a specific route
+  ///
+  /// [ancestorPath]: The path to navigate back
+  void popUntilPath(String ancestorPath) {
+    GoRouter.of(this).popUntilPath(ancestorPath);
   }
 }

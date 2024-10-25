@@ -14,6 +14,7 @@ import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dar
 import 'package:password_manager/ui/accounts/accounts_view.dart';
 import 'package:password_manager/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/ui/details/bloc/details_bloc.dart';
+import 'package:password_manager/ui/modify/bloc/modify_bloc.dart';
 
 part 'modules/domain_modules.dart';
 part 'modules/local_modules.dart';
