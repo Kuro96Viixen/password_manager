@@ -8,7 +8,7 @@ import 'package:password_manager/data/memory_data_source/mapper/account_data_mem
 import 'package:password_manager/data/memory_data_source/model/account_data_memory_entity.dart';
 import 'package:password_manager/data/repository/data_source/memory_data_source.dart';
 import 'package:password_manager/data/repository/model/account_data_entity.dart';
-import 'package:password_manager/utils/encrypt.dart';
+import 'package:password_manager/utils/encryption.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MemoryDataSourceImpl implements MemoryDataSource {
@@ -139,9 +139,11 @@ class MemoryDataSourceImpl implements MemoryDataSource {
     List<AccountDataMemoryEntity> importedAccountsList = [];
 
     for (String accountCsv in accountsImport) {
-      importedAccountsList.add(AccountDataEntity.empty()
-          .fromCSV(accountCsv)
-          .toAccountDataMemoryEntity());
+      importedAccountsList.add(
+        AccountDataEntity.empty()
+            .fromCSV(accountCsv)
+            .toAccountDataMemoryEntity(),
+      );
     }
 
     return AccountsDataMemoryEntity(accountsList: importedAccountsList)

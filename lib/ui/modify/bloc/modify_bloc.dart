@@ -7,6 +7,7 @@ import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
+import 'package:password_manager/utils/encryption.dart';
 import 'package:password_manager/utils/utils.dart';
 
 part 'modify_bloc.freezed.dart';
@@ -147,12 +148,10 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           List<AccountData> accountsList = [];
 
           accountsDataResult.when(
-            failure: (error, message) {},
+            failure: (error, message) => null,
             success: (accountsData) {
               accountsList = accountsData.accountsList.toList();
 
-              // TODO missing encrypt password at set
-              // Encryption.encryptPassword(password);
               if (accountData != null) {
                 // Get index to update
                 final index = accountsData.accountsList.indexOf(accountData);
@@ -161,9 +160,11 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
                 accountsList[index] = AccountData(
                   name: state.name,
                   username: state.username,
-                  password: state.password != ''
-                      ? state.password
-                      : state.randomPassword,
+                  password: Encryption.encryptPassword(
+                    state.password != ''
+                        ? state.password
+                        : state.randomPassword,
+                  ),
                   private: state.isPrivateAccount,
                 );
               } else {

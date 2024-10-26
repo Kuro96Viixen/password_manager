@@ -97,6 +97,13 @@ class AccountsView extends StatelessWidget {
                         ? Texts.privateAccountsViewTitle
                         : Texts.accountsViewTitle,
                   ),
+                  bottom: state.screenState.when(
+                    loading: () => const PreferredSize(
+                      preferredSize: Size(0, 0),
+                      child: Loader(),
+                    ),
+                    loaded: (_) => null,
+                  ),
                   actions: (!state.arePrivateAccounts)
                       ? [
                           IconButton(
@@ -164,14 +171,7 @@ class AccountsView extends StatelessWidget {
                         ),
                       ),
                       state.screenState.when(
-                        loading: () => const Expanded(
-                          child: Center(
-                            child: Loader(
-                              // TODO Change Color
-                              color: Colors.purple,
-                            ),
-                          ),
-                        ),
+                        loading: () => Container(),
                         loaded: (searchText) => Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, index) => (state

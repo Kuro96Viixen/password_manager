@@ -59,7 +59,7 @@ class RepositoryImpl implements Repository {
       await memoryDataSource
           .exportAccounts(accountsData.toAccountsDataEntity());
 
-      return Result.success(data: null);
+      return const Result.success(data: null);
     } catch (error) {
       return Future.error(error);
     }

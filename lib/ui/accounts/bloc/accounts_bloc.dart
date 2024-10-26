@@ -55,7 +55,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
 
           accountsDataResult.when(
             // If failure
-            failure: (error, message) {},
+            failure: (error, message) => null,
             // If success
             success: (data) {
               List<AccountData> accountsList = [];
@@ -100,7 +100,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final accountDataResult = await getAccountsDataUseCase();
 
           accountDataResult.when(
-            failure: (error, message) {},
+            failure: (error, message) => null,
             success: (accountsData) {
               emit(
                 state.copyWith(
@@ -123,7 +123,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final authenticationResult = await getAuthenticationUseCase();
 
           authenticationResult.when(
-            failure: (error, message) {},
+            failure: (error, message) => null,
             success: (authenticated) {
               if (authenticated) {
                 emit(
@@ -173,7 +173,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final getAccountsDataResult = await getAccountsDataUseCase();
 
           getAccountsDataResult.when(
-            failure: (error, message) {},
+            failure: (error, message) => null,
             success: (accountsData) async {
               add(AccountsEvent.exportedAccounts(accountsData));
             },
@@ -220,10 +220,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             success: (importedAccounts) {
               setAccountsDataUseCase(importedAccounts);
 
-              // TODO This to store on SecureStorage
-              // setAccountsDataOnStorageUseCase(
-              //   AccountsData(accountsList: importedAccountsList).toStore(),
-              // );
+              setAccountsDataOnStorageUseCase(
+                importedAccounts.toStore(),
+              );
 
               // Resetting navigationState
               emit(

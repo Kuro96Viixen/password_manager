@@ -16,7 +16,7 @@ void _navigationModulesInit() {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.error,
                 color: Colors.white,
                 size: 100,
@@ -26,11 +26,11 @@ void _navigationModulesInit() {
               ),
               Text(
                 'Route not found: ${state.error}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
-              )
+              ),
             ],
           ),
         ),
