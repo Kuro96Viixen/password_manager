@@ -7,8 +7,11 @@ import 'package:password_manager/data/memory_data_source/memory_data_source.dart
 import 'package:password_manager/data/repository/data_source/memory_data_source.dart';
 import 'package:password_manager/data/repository/repository_impl.dart';
 import 'package:password_manager/domain/repository/repository.dart';
+import 'package:password_manager/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
+import 'package:password_manager/domain/use_cases/get_authentication_use_case.dart';
+import 'package:password_manager/domain/use_cases/import_accounts_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
 import 'package:password_manager/ui/accounts/accounts_view.dart';

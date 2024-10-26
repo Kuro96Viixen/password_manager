@@ -20,4 +20,16 @@ void _domainModulesInit() {
   domainModulesDi.registerFactory(
     () => SetAccountsDataOnStorageUseCase(domainModulesDi()),
   );
+
+  domainModulesDi.registerFactory(
+    () => GetAuthenticationUseCase(domainModulesDi()),
+  );
+
+  domainModulesDi.registerFactory(
+    () => ExportAccountsUseCase(domainModulesDi()),
+  );
+
+  domainModulesDi.registerFactory(
+    () => ImportAccountsUseCase(domainModulesDi()),
+  );
 }

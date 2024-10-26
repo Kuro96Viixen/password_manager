@@ -8,7 +8,6 @@ AccountData? accountData;
 
 GoRoute _editView() => GoRoute(
       path: ModifyView.routeName,
-      // TODO Check extra
       builder: (context, state) {
         if (state.extra is AccountData) {
           accountData = state.extra as AccountData;

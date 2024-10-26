@@ -3,7 +3,7 @@ part of 'package:password_manager/di/app_di.dart';
 final uiModulesDi = GetIt.instance;
 
 void _uiModulesInit() {
-  // TODO Blocs as:
+  // INFO Blocs as:
   // uiModulesDi.registerFactory(
   //   () => Bloc(
   //     param: param,
@@ -15,6 +15,10 @@ void _uiModulesInit() {
       getAccountsDataUseCase: uiModulesDi(),
       setAccountsDataUseCase: uiModulesDi(),
       getAccountsDataFromStorageUseCase: uiModulesDi(),
+      setAccountsDataOnStorageUseCase: uiModulesDi(),
+      getAuthenticationUseCase: uiModulesDi(),
+      exportAccountsUseCase: uiModulesDi(),
+      importAccountsUseCase: uiModulesDi(),
     ),
   );
 
@@ -23,6 +27,7 @@ void _uiModulesInit() {
       getAccountsDataUseCase: uiModulesDi(),
       setAccountsDataUseCase: uiModulesDi(),
       setAccountsDataOnStorageUseCase: uiModulesDi(),
+      getAuthenticationUseCase: uiModulesDi(),
     ),
   );
 

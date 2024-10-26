@@ -14,19 +14,10 @@ extension AccountDataExtension on AccountData {
         'private': private,
       };
 
-  String toCSV() => '$name,$username,$password,$private\n';
-
   AccountData fromJson(Map<String, dynamic> json) => AccountData(
         name: json['name'],
         username: json['username'],
         password: json['password'],
         private: json['private'],
-      );
-
-  AccountData fromCSV(String csv) => AccountData(
-        name: csv.split(',')[0],
-        username: csv.split(',')[1],
-        password: csv.split(',')[2],
-        private: csv.split(',')[3] == 'true',
       );
 }

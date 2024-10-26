@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,6 +7,7 @@ import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
+import 'package:password_manager/utils/utils.dart';
 
 part 'modify_bloc.freezed.dart';
 part 'modify_event.dart';
@@ -62,7 +61,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
             state.copyWith(
               username: usernameString,
               canBeSaved: accountCanBeSaved(
-                state.copyWith(name: usernameString),
+                state.copyWith(username: usernameString),
               ),
             ),
           );
@@ -84,9 +83,9 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
         onPasswordChanged: (passwordString) {
           emit(
             state.copyWith(
-              name: passwordString,
+              password: passwordString,
               canBeSaved: accountCanBeSaved(
-                state.copyWith(name: passwordString),
+                state.copyWith(password: passwordString),
               ),
             ),
           );
@@ -111,23 +110,12 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(state.copyWith(hasSymbolsCharacters: hasSymbolsCharacters));
         },
         generateRandomPassword: () {
-          const _chars =
-              'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-          Random _rnd = Random();
-
-          String getRandomString(int length) =>
-              String.fromCharCodes(Iterable.generate(length,
-                  (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-          final randomPassword = getRandomString(10);
-
-          // TODO Implement
-          // Utils.generatePassword(
-          //   length: state.randomPasswordLength,
-          //   hasSpanish: state.hasSpanishCharacters,
-          //   hasNumber: state.hasNumbersCharacters,
-          //   hasSymbol: state.hasSymbolsCharacters,
-          // );
+          final randomPassword = Utils.generateRandomPassword(
+            length: state.randomPasswordLength,
+            hasSpanishCharacters: state.hasSpanishCharacters,
+            hasNumbersCharacters: state.hasNumbersCharacters,
+            hasSymbolsCharacters: state.hasSymbolsCharacters,
+          );
 
           emit(
             state.copyWith(

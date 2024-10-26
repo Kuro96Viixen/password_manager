@@ -5,8 +5,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
+import 'package:password_manager/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
+import 'package:password_manager/domain/use_cases/get_authentication_use_case.dart';
+import 'package:password_manager/domain/use_cases/import_accounts_use_case.dart';
+import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
 
 part 'accounts_bloc.freezed.dart';
@@ -17,11 +21,19 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final GetAccountsDataFromStorageUseCase getAccountsDataFromStorageUseCase;
+  final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
+  final GetAuthenticationUseCase getAuthenticationUseCase;
+  final ExportAccountsUseCase exportAccountsUseCase;
+  final ImportAccountsUseCase importAccountsUseCase;
 
   AccountsBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.getAccountsDataFromStorageUseCase,
+    required this.setAccountsDataOnStorageUseCase,
+    required this.getAuthenticationUseCase,
+    required this.exportAccountsUseCase,
+    required this.importAccountsUseCase,
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
       await event.when(
@@ -107,18 +119,23 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           );
         },
-        showPrivate: () {
-          // TODO
-          // Utils.authenticate(
-          //   Texts.fingerprintPrivateAuthTitle,
-          // );
+        showPrivate: () async {
+          final authenticationResult = await getAuthenticationUseCase();
 
-          emit(
-            state.copyWith(
-              arePrivateAccounts: true,
-              screenState: const AccountsScreenState.loaded(searchText: ''),
-              navigationState: null,
-            ),
+          authenticationResult.when(
+            failure: (error, message) {},
+            success: (authenticated) {
+              if (authenticated) {
+                emit(
+                  state.copyWith(
+                    arePrivateAccounts: true,
+                    screenState:
+                        const AccountsScreenState.loaded(searchText: ''),
+                    navigationState: null,
+                  ),
+                );
+              }
+            },
           );
         },
         closePrivate: () {
@@ -152,46 +169,82 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           );
         },
-        exportAccounts: () {
-          // TODO
-          // Utils.exportAccounts();
+        exportAccounts: () async {
+          final getAccountsDataResult = await getAccountsDataUseCase();
 
-          // Resetting navigationState
-          emit(
-            state.copyWith(
-              navigationState: null,
-            ),
-          );
-
-          emit(
-            state.copyWith(
-              navigationState: AccountsNavigationState.showSnackBar(
-                snackBarMessage: Texts.exportedAccounts,
-              ),
-            ),
+          getAccountsDataResult.when(
+            failure: (error, message) {},
+            success: (accountsData) async {
+              add(AccountsEvent.exportedAccounts(accountsData));
+            },
           );
         },
-        importAccounts: () {
-          // TODO
-          // Utils.importAccounts();
+        exportedAccounts: (accountsData) async {
+          final exportAccountsResult =
+              await exportAccountsUseCase(accountsData);
 
-          // Resetting navigationState
-          emit(
-            state.copyWith(
-              navigationState: null,
-            ),
+          exportAccountsResult.when(
+            failure: (error, message) {
+              // TODO Check
+              // Duplicate
+              // Folder gone
+              // No Permissions
+            },
+            success: (_) {
+              // Resetting navigationState
+              emit(
+                state.copyWith(
+                  navigationState: null,
+                ),
+              );
+
+              emit(
+                state.copyWith(
+                  navigationState: AccountsNavigationState.showSnackBar(
+                    snackBarMessage: Texts.exportedAccounts,
+                  ),
+                ),
+              );
+            },
           );
+        },
+        importAccounts: () async {
+          final importAccountsResult = await importAccountsUseCase();
 
-          emit(
-            state.copyWith(
-              navigationState: AccountsNavigationState.showSnackBar(
-                snackBarMessage: Texts.importedAccounts,
-              ),
-            ),
+          importAccountsResult.when(
+            failure: (error, message) {
+              // TODO:
+              // When no file
+              // When no folder
+            },
+            success: (importedAccounts) {
+              setAccountsDataUseCase(importedAccounts);
+
+              // TODO This to store on SecureStorage
+              // setAccountsDataOnStorageUseCase(
+              //   AccountsData(accountsList: importedAccountsList).toStore(),
+              // );
+
+              // Resetting navigationState
+              emit(
+                state.copyWith(
+                  navigationState: null,
+                ),
+              );
+
+              emit(
+                state.copyWith(
+                  navigationState: AccountsNavigationState.showSnackBar(
+                    snackBarMessage: Texts.importedAccounts,
+                  ),
+                ),
+              );
+
+              add(const AccountsEvent.started());
+            },
           );
         },
       );
-      // TODO: implement event handler
     });
   }
 }

@@ -41,4 +41,38 @@ class RepositoryImpl implements Repository {
   Future<void> setAccountsDataOnStorage(String encodedAccountsData) async {
     memoryDataSource.setAccountsDataOnStorage(encodedAccountsData);
   }
+
+  @override
+  Future<Result<bool>> authenticate() async {
+    try {
+      final authenticated = await memoryDataSource.authenticate();
+
+      return Result.success(data: authenticated);
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
+
+  @override
+  Future<Result<void>> exportAccounts(AccountsData accountsData) async {
+    try {
+      await memoryDataSource
+          .exportAccounts(accountsData.toAccountsDataEntity());
+
+      return Result.success(data: null);
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
+
+  @override
+  Future<Result<AccountsData>> importAccounts() async {
+    try {
+      final importedAccounts = await memoryDataSource.importAccounts();
+
+      return Result.success(data: importedAccounts.toAccountsData());
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
 }

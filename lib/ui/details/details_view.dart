@@ -30,8 +30,10 @@ class DetailsView extends StatelessWidget {
         listener: (context, state) {
           state.navigationState?.when(
             goBack: () => context.pop(),
-            // TODO Check extra
-            goToModify: () => context.goWithRoute(ModifyView.routeName),
+            goToModify: () => context.goWithRoute(
+              ModifyView.routeName,
+              extra: accountData,
+            ),
             showSnackBar: (snackBarMessage) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

@@ -9,4 +9,10 @@ abstract class MemoryDataSource {
   Future<String?> getAccountsDataFromStorage();
 
   Future<void> setAccountsDataOnStorage(String encodedAccountsData);
+
+  Future<bool> authenticate();
+
+  Future<void> exportAccounts(AccountsDataEntity accountData);
+
+  Future<AccountsDataEntity> importAccounts();
 }

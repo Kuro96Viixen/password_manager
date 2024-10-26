@@ -9,7 +9,6 @@
 .svn/
 
 /lib/utils/encrypt.dart
-/lib/utils/utils.dart
 
 # User-specific configurations
 android/.idea

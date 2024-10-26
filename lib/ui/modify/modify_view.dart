@@ -138,7 +138,7 @@ class ModifyView extends StatelessWidget {
                     ),
                   ),
                   Visibility(
-                    visible: true,
+                    visible: state.canBeSaved,
                     child: Column(
                       children: [
                         CheckboxListTile(

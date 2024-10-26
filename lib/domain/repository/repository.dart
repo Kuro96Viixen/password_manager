@@ -9,4 +9,10 @@ abstract class Repository {
   Future<String?> getAccountsDataFromStorage();
 
   Future<void> setAccountsDataOnStorage(String accountsData);
+
+  Future<Result<bool>> authenticate();
+
+  Future<Result<void>> exportAccounts(AccountsData accountsData);
+
+  Future<Result<AccountsData>> importAccounts();
 }

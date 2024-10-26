@@ -4,6 +4,7 @@ import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
+import 'package:password_manager/domain/use_cases/get_authentication_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/set_accounts_data_use_case.dart';
 
@@ -15,14 +16,16 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
+  final GetAuthenticationUseCase getAuthenticationUseCase;
 
   DetailsBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.setAccountsDataOnStorageUseCase,
+    required this.getAuthenticationUseCase,
   }) : super(DetailsState.initial()) {
     on<DetailsEvent>((event, emit) async {
-      event.when(
+      await event.when(
         started: () {
           emit(state.copyWith(navigationState: null));
         },
@@ -62,18 +65,22 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
             },
           );
         },
-        revealPassword: (password) {
-          // TODO
-          // Utils.authenticate(
-          //   Texts.fingerprintPrivateAuthTitle,
-          // );
+        revealPassword: (password) async {
+          final authenticationResult = await getAuthenticationUseCase();
 
-          // TODO Uncomment when added Encryption
-          // final decryptedPassword = Encryption.decryptPassword(password);
-          //
-          // emit(state.copyWith(passwordString: decryptedPassword));
+          authenticationResult.when(
+            failure: (error, message) {},
+            success: (authenticated) {
+              if (authenticated) {
+                // TODO Uncomment when added Encryption
+                // final decryptedPassword = Encryption.decryptPassword(password);
+                //
+                // emit(state.copyWith(passwordString: decryptedPassword));
 
-          emit(state.copyWith(passwordString: password));
+                emit(state.copyWith(passwordString: password));
+              }
+            },
+          );
         },
         copyPassword: (password) {
           // TODO Uncomment when added Encryption
