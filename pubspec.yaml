@@ -11,18 +11,28 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Dependency Injection
   get_it: ^8.0.0
+  # Navigation
   go_router: ^14.3.0
 
+  # BLoC
   flutter_bloc: ^8.1.6
   freezed: ^2.5.2
   freezed_annotation: ^2.4.4
 
+  # Secure Storage
+  ## APP cache storage
   flutter_secure_storage: ^9.2.2
+  # Local Authentication
+  ## Fingerprint authentication
   local_auth: ^2.1.6
+  # Focus Detector
+  ## Mostly check if open screen
   focus_detector: ^2.0.1
 
-  path_provider: ^2.1.4
+  # File Picker
+  ## Store and read backup file
   file_picker: ^8.1.3
 
 dev_dependencies:
