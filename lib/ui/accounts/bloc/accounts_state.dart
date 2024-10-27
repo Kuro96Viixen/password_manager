@@ -38,4 +38,7 @@ class AccountsNavigationState with _$AccountsNavigationState {
   const factory AccountsNavigationState.showSnackBar({
     required String snackBarMessage,
   }) = _ShowSnackBar;
+
+  const factory AccountsNavigationState.showDialog(ErrorType dialogType) =
+      _ShowDialog;
 }

@@ -1,5 +1,4 @@
 import 'package:password_manager/domain/model/accounts_data.dart';
-import 'package:password_manager/domain/model/result.dart';
 import 'package:password_manager/domain/repository/repository.dart';
 
 class GetAccountsDataUseCase {
@@ -7,7 +6,7 @@ class GetAccountsDataUseCase {
 
   GetAccountsDataUseCase(this._repository);
 
-  Future<Result<AccountsData>> call() async {
+  Future<AccountsData> call() async {
     return _repository.getAccountsData();
   }
 }

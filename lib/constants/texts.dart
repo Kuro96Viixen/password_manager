@@ -61,4 +61,12 @@ class Texts {
   // See/Hide password
   static String seePasswordTooltip = 'See password';
   static String hidePasswordTooltip = 'Hide password';
+
+  // Dialog texts
+  static String dialogTitle = 'Oops, something went wrong';
+  static String dialogPickFileExceptionText =
+      'Allow permissions or select a valid file';
+  static String dialogPickFolderExceptionText =
+      'Allow permissions or select a folder';
+  static String dialogButtonText = 'Ok, I understand';
 }

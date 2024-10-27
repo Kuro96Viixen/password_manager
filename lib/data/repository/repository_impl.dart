@@ -4,6 +4,7 @@ import 'package:password_manager/data/repository/services/file_picker_service.da
 import 'package:password_manager/data/repository/services/local_auth_service.dart';
 import 'package:password_manager/data/repository/services/secure_storage_service.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
+import 'package:password_manager/domain/model/error_type.dart';
 import 'package:password_manager/domain/model/result.dart';
 import 'package:password_manager/domain/repository/repository.dart';
 
@@ -21,16 +22,10 @@ class RepositoryImpl implements Repository {
   });
 
   @override
-  Future<Result<AccountsData>> getAccountsData() async {
-    try {
-      final accountsList = await memoryDataSource.getAccountsData();
+  Future<AccountsData> getAccountsData() async {
+    final accountsList = await memoryDataSource.getAccountsData();
 
-      return Result.success(data: accountsList.toAccountsData());
-    } catch (error) {
-      return Result.failure(
-        message: error.toString(),
-      );
-    }
+    return accountsList.toAccountsData();
   }
 
   @override
@@ -63,9 +58,7 @@ class RepositoryImpl implements Repository {
 
       return Result.success(data: filePath);
     } catch (error) {
-      return Result.failure(
-        message: error.toString(),
-      );
+      return const Result.failure(errorType: ErrorType.pickFolderException());
     }
   }
 
@@ -78,9 +71,7 @@ class RepositoryImpl implements Repository {
 
       return Result.success(data: importedAccounts.toAccountsData());
     } catch (error) {
-      return Result.failure(
-        message: error.toString(),
-      );
+      return const Result.failure(errorType: ErrorType.pickFileException());
     }
   }
 }

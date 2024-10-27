@@ -143,58 +143,51 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(state.copyWith(isPrivateAccount: isPrivateAccount));
         },
         saveAccount: (accountData) async {
-          final accountsDataResult = await getAccountsDataUseCase();
+          final accountsData = await getAccountsDataUseCase();
 
           List<AccountData> accountsList = [];
 
-          accountsDataResult.when(
-            failure: (message) => null,
-            success: (accountsData) {
-              accountsList = accountsData.accountsList.toList();
+          accountsList = accountsData.accountsList.toList();
 
-              if (accountData != null) {
-                // Get index to update
-                final index = accountsData.accountsList.indexOf(accountData);
+          if (accountData != null) {
+            // Get index to update
+            final index = accountsData.accountsList.indexOf(accountData);
 
-                // Update account with form data
-                accountsList[index] = AccountData(
-                  name: state.name,
-                  username: state.username,
-                  password: Encryption.encryptPassword(
-                    state.password != ''
-                        ? state.password
-                        : state.randomPassword,
-                  ),
-                  private: state.isPrivateAccount,
-                );
-              } else {
-                // Append new data at the end
-                accountsList.add(
-                  AccountData(
-                    name: state.name,
-                    username: state.username,
-                    password: state.password != ''
-                        ? state.password
-                        : state.randomPassword,
-                    private: state.isPrivateAccount,
-                  ),
-                );
-              }
+            // Update account with form data
+            accountsList[index] = AccountData(
+              name: state.name,
+              username: state.username,
+              password: Encryption.encryptPassword(
+                state.password != '' ? state.password : state.randomPassword,
+              ),
+              private: state.isPrivateAccount,
+            );
+          } else {
+            // Append new data at the end
+            accountsList.add(
+              AccountData(
+                name: state.name,
+                username: state.username,
+                password: state.password != ''
+                    ? state.password
+                    : state.randomPassword,
+                private: state.isPrivateAccount,
+              ),
+            );
+          }
 
-              setAccountsDataUseCase(
-                accountsData.copyWith(accountsList: accountsList),
-              );
+          setAccountsDataUseCase(
+            accountsData.copyWith(accountsList: accountsList),
+          );
 
-              setAccountsDataOnStorageUseCase(
-                accountsData.copyWith(accountsList: accountsList).toStore(),
-              );
+          setAccountsDataOnStorageUseCase(
+            accountsData.copyWith(accountsList: accountsList).toStore(),
+          );
 
-              emit(
-                state.copyWith(
-                  navigationState: const ModifyNavigationState.goBack(true),
-                ),
-              );
-            },
+          emit(
+            state.copyWith(
+              navigationState: const ModifyNavigationState.goBack(true),
+            ),
           );
         },
       );

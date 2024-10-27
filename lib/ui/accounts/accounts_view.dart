@@ -6,6 +6,7 @@ import 'package:password_manager/constants/icons.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/core/extension/context_extension.dart';
 import 'package:password_manager/di/app_di.dart';
+import 'package:password_manager/domain/model/error_type.dart';
 import 'package:password_manager/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/ui/details/details_view.dart';
@@ -74,6 +75,32 @@ class AccountsView extends StatelessWidget {
                     snackBarMessage,
                   ),
                 ),
+              );
+            },
+            showDialog: (errorType) {
+              showDialog(
+                context: context,
+                builder: (BuildContext dialogContext) {
+                  return AlertDialog(
+                    title: Text(
+                      Texts.dialogTitle,
+                      textAlign: TextAlign.center,
+                    ),
+                    content: Text(
+                      errorType == const ErrorType.pickFileException()
+                          ? Texts.dialogPickFileExceptionText
+                          : Texts.dialogPickFolderExceptionText,
+                      textAlign: TextAlign.center,
+                    ),
+                    actionsAlignment: MainAxisAlignment.center,
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => dialogContext.pop(),
+                        child: Text(Texts.dialogButtonText),
+                      ),
+                    ],
+                  );
+                },
               );
             },
           );

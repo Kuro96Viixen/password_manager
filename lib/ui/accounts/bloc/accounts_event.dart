@@ -16,7 +16,5 @@ class AccountsEvent with _$AccountsEvent {
 
   const factory AccountsEvent.showSettings() = _ShowSettings;
   const factory AccountsEvent.exportAccounts() = _ExportAccounts;
-  const factory AccountsEvent.exportedAccounts(AccountsData accountsData) =
-      _ExportedAccounts;
   const factory AccountsEvent.importAccounts() = _ImportAccounts;
 }

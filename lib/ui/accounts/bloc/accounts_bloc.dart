@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/domain/model/accounts_data.dart';
+import 'package:password_manager/domain/model/error_type.dart';
 import 'package:password_manager/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/domain/use_cases/get_accounts_data_use_case.dart';
@@ -47,69 +48,57 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           );
 
           // Retrieving data from the MemoryDataSource
-          final accountsDataResult = await getAccountsDataUseCase();
+          final accountsData = await getAccountsDataUseCase();
 
           // Looking if there are Accounts in the SecureStorage
           String? storedAccountsData =
               await getAccountsDataFromStorageUseCase();
 
-          accountsDataResult.when(
-            // If failure
-            failure: (message) => null,
-            // If success
-            success: (data) {
-              List<AccountData> accountsList = [];
+          List<AccountData> accountsList = [];
 
-              // If the MemoryDataSource Accounts are empty read from Storage
-              // If not, fill the list above with them
-              if (data.accountsList.isEmpty) {
-                // If there are, formatting into list from JSON and
-                // setting them into the MemoryDataSource
-                if (storedAccountsData != null) {
-                  final accountsJson = jsonDecode(storedAccountsData);
+          // If the MemoryDataSource Accounts are empty read from Storage
+          // If not, fill the list above with them
+          if (accountsData.accountsList.isEmpty) {
+            // If there are, formatting into list from JSON and
+            // setting them into the MemoryDataSource
+            if (storedAccountsData != null) {
+              final accountsJson = jsonDecode(storedAccountsData);
 
-                  accountsList = List<AccountData>.from(
-                    accountsJson
-                        .map((e) => AccountData.empty().fromJson(e))
-                        .toList(),
-                  );
-
-                  // Shuffle to not showing up the same accounts at the top
-                  accountsList.shuffle();
-
-                  setAccountsDataUseCase(
-                    data.copyWith(accountsList: accountsList),
-                  );
-                }
-              } else {
-                accountsList = data.accountsList;
-              }
-
-              // Sending the accounts to the screen and
-              // remove the loader from the screen
-              emit(
-                state.copyWith(
-                  accountsList: accountsList,
-                  screenState: const AccountsScreenState.loaded(searchText: ''),
-                ),
+              accountsList = List<AccountData>.from(
+                accountsJson
+                    .map((e) => AccountData.empty().fromJson(e))
+                    .toList(),
               );
-            },
+
+              // Shuffle to not showing up the same accounts at the top
+              accountsList.shuffle();
+
+              setAccountsDataUseCase(
+                accountsData.copyWith(accountsList: accountsList),
+              );
+            }
+          } else {
+            accountsList = accountsData.accountsList;
+          }
+
+          // Sending the accounts to the screen and
+          // remove the loader from the screen
+          emit(
+            state.copyWith(
+              accountsList: accountsList,
+              screenState: const AccountsScreenState.loaded(searchText: ''),
+            ),
           );
         },
         pressedAccount: (accountIndex) async {
-          final accountDataResult = await getAccountsDataUseCase();
+          final accountsData = await getAccountsDataUseCase();
 
-          accountDataResult.when(
-            failure: (message) => null,
-            success: (accountsData) {
-              emit(
-                state.copyWith(
-                  navigationState: AccountsNavigationState.goToDetails(
-                    accountData: accountsData.accountsList[accountIndex],
-                  ),
-                ),
-              );
-            },
+          emit(
+            state.copyWith(
+              navigationState: AccountsNavigationState.goToDetails(
+                accountData: accountsData.accountsList[accountIndex],
+              ),
+            ),
           );
         },
         pressedModify: () {
@@ -162,35 +151,31 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           );
         },
         exportAccounts: () async {
-          final getAccountsDataResult = await getAccountsDataUseCase();
+          final accountsData = await getAccountsDataUseCase();
 
-          getAccountsDataResult.when(
-            failure: (message) => null,
-            success: (accountsData) async {
-              add(AccountsEvent.exportedAccounts(accountsData));
-            },
-          );
-        },
-        exportedAccounts: (accountsData) async {
           final exportAccountsResult =
               await exportAccountsUseCase(accountsData);
 
+          // Resetting navigationState
+          emit(
+            state.copyWith(
+              screenState: const AccountsScreenState.loading(),
+              navigationState: null,
+            ),
+          );
+
           exportAccountsResult.when(
             failure: (message) {
-              // TODO Check
-              // Duplicate
-              // Folder gone
-              // No Permissions
-              print(message);
-            },
-            success: (filePath) {
-              // TODO: This filePath returns different folder
-              // Resetting navigationState
               emit(
                 state.copyWith(
-                  navigationState: null,
+                  navigationState: const AccountsNavigationState.showDialog(
+                    ErrorType.pickFolderException(),
+                  ),
                 ),
               );
+            },
+            success: (filePath) {
+              // TODO: This filePath returns different folder (tested on Android 11)
 
               emit(
                 state.copyWith(
@@ -205,25 +190,27 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         importAccounts: () async {
           final importAccountsResult = await importAccountsUseCase();
 
+          // Resetting navigationState
+          emit(
+            state.copyWith(
+              navigationState: null,
+            ),
+          );
           importAccountsResult.when(
             failure: (message) {
-              // TODO:
-              /// No File or folder:
-              /// ErrorStatus.unknown()
-              /// PathNotFoundException: Cannot open file, path = '/storage/emulated/0/Documents/accounts.csv' (OS Error: No such file or directory, errno = 2)
+              emit(
+                state.copyWith(
+                  navigationState: const AccountsNavigationState.showDialog(
+                    ErrorType.pickFileException(),
+                  ),
+                ),
+              );
             },
             success: (importedAccounts) {
               setAccountsDataUseCase(importedAccounts);
 
               setAccountsDataOnStorageUseCase(
                 importedAccounts.toStore(),
-              );
-
-              // Resetting navigationState
-              emit(
-                state.copyWith(
-                  navigationState: null,
-                ),
               );
 
               emit(

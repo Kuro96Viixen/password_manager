@@ -44,31 +44,25 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           );
         },
         deleteAccount: (accountData) async {
-          final accountsDataResult = await getAccountsDataUseCase();
+          final accountsData = await getAccountsDataUseCase();
 
-          accountsDataResult.when(
-            failure: (message) => null,
-            success: (accountsData) {
-              List<AccountData> accountsList =
-                  accountsData.accountsList.toList();
+          List<AccountData> accountsList = accountsData.accountsList.toList();
 
-              accountsList.remove(accountData);
+          accountsList.remove(accountData);
 
-              setAccountsDataUseCase(
-                accountsData.copyWith(accountsList: accountsList),
-              );
+          setAccountsDataUseCase(
+            accountsData.copyWith(accountsList: accountsList),
+          );
 
-              String accountsToSave =
-                  AccountsData(accountsList: accountsList).toStore();
+          String accountsToSave =
+              AccountsData(accountsList: accountsList).toStore();
 
-              setAccountsDataOnStorageUseCase(accountsToSave);
+          setAccountsDataOnStorageUseCase(accountsToSave);
 
-              emit(
-                state.copyWith(
-                  navigationState: const DetailsNavigationState.goBack(),
-                ),
-              );
-            },
+          emit(
+            state.copyWith(
+              navigationState: const DetailsNavigationState.goBack(),
+            ),
           );
         },
         revealPassword: (password) async {

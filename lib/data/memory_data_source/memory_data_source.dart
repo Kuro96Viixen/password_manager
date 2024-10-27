@@ -44,8 +44,7 @@ class MemoryDataSourceImpl implements MemoryDataSource {
 
     if (filePath == null) {
       // If permission denied or closed picker
-      // TODO Allow enable permission or show select folder
-      throw Exception('Allow permissions or select a folder');
+      throw Exception();
     }
 
     return filePath;
@@ -59,8 +58,7 @@ class MemoryDataSourceImpl implements MemoryDataSource {
 
     if (filePath == null) {
       // If permission denied or closed picker
-      // TODO Allow enable permission or show valid files
-      throw Exception('Allow permissions or select a valid file');
+      throw Exception();
     }
 
     File file = File(filePath);
