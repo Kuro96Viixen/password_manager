@@ -4,11 +4,15 @@ import 'package:password_manager/ui/accounts/accounts_view.dart';
 import 'package:password_manager/ui/details/details_view.dart';
 import 'package:password_manager/ui/modify/modify_view.dart';
 
-AccountData? accountData;
-
 GoRoute _editView() => GoRoute(
       path: ModifyView.routeName,
       builder: (context, state) {
+        // Added this statement here, as is giving an issue if:
+        /// Open Account > Edit Account > Close edition > Close Account > ...
+        /// ... > Add new Account *previous account displayed* > ...
+        /// ... > Add password > Save *Exception thrown as trying to find index*
+        AccountData? accountData;
+
         if (state.extra is AccountData) {
           accountData = state.extra as AccountData;
         }
@@ -27,6 +31,8 @@ List<GoRoute> allAppRoutes = [
       GoRoute(
         path: DetailsView.routeName,
         builder: (context, state) {
+          AccountData? accountData;
+
           if (state.extra is AccountData) {
             accountData = state.extra as AccountData?;
           }

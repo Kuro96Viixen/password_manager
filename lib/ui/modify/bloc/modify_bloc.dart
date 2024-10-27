@@ -27,18 +27,14 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     on<ModifyEvent>((event, emit) {
       event.when(
         started: (accountData) {
-          if (accountData != null) {
-            emit(
-              state.copyWith(
-                name: accountData.name,
-                username: accountData.username,
-                isPrivateAccount: accountData.private,
-                canBeSaved: false,
-              ),
-            );
-          } else {
-            emit(state.copyWith(canBeSaved: false));
-          }
+          emit(
+            state.copyWith(
+              name: accountData?.name ?? '',
+              username: accountData?.username ?? '',
+              isPrivateAccount: accountData?.private ?? false,
+              canBeSaved: false,
+            ),
+          );
         },
         backPressed: (backToList) {
           emit(
