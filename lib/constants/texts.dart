@@ -62,11 +62,17 @@ class Texts {
   static String seePasswordTooltip = 'See password';
   static String hidePasswordTooltip = 'Hide password';
 
-  // Dialog texts
+  // Dialog Export/Import exception texts
   static String dialogTitle = 'Oops, something went wrong';
   static String dialogPickFileExceptionText =
-      'Allow permissions or select a valid file';
+      'The app couldn\'t import your previously saved accounts list, '
+      'either you don\'t have permissions or you close the picker.\n\n'
+      'If you closed the picker you can close this advice and try again.\n\n'
+      'If you denied permissions you should enable them in the App settings.';
   static String dialogPickFolderExceptionText =
-      'Allow permissions or select a folder';
+      'The app couldn\'t export your accounts list, '
+      'either you don\'t have permissions or you close the picker.\n\n'
+      'If you closed the picker you can close this advice and try again.\n\n'
+      'If you denied permissions you should enable them in the App settings.';
   static String dialogButtonText = 'Ok, I understand';
 }
