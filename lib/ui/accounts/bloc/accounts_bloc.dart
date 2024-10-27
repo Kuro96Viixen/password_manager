@@ -50,15 +50,15 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           // Retrieving data from the MemoryDataSource
           final accountsData = await getAccountsDataUseCase();
 
-          // Looking if there are Accounts in the SecureStorage
-          String? storedAccountsData =
-              await getAccountsDataFromStorageUseCase();
-
           List<AccountData> accountsList = [];
 
           // If the MemoryDataSource Accounts are empty read from Storage
           // If not, fill the list above with them
           if (accountsData.accountsList.isEmpty) {
+            // Looking if there are Accounts in the SecureStorage
+            String? storedAccountsData =
+                await getAccountsDataFromStorageUseCase();
+
             // If there are, formatting into list from JSON and
             // setting them into the MemoryDataSource
             if (storedAccountsData != null) {
@@ -175,7 +175,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
               );
             },
             success: (filePath) {
-              // TODO: This filePath returns different folder (tested on Android 11)
+              // TODO
+              // This filePath returns different folder (tested on Android 11)
 
               emit(
                 state.copyWith(
