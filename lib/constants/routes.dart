@@ -1,38 +1,49 @@
-import 'package:flutter/material.dart';
-import 'package:password_manager/screens/accounts_view.dart';
-import 'package:password_manager/screens/add_edit_view.dart';
-import 'package:password_manager/screens/view_account_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:password_manager/domain/model/accounts_data.dart';
+import 'package:password_manager/ui/accounts/accounts_view.dart';
+import 'package:password_manager/ui/details/details_view.dart';
+import 'package:password_manager/ui/modify/modify_view.dart';
 
-class Routes {
-  static const String accounts = 'Accounts';
-  static const String private = 'Private';
-  static const String view = 'View';
-  static const String addEdit = 'AddEdit';
+GoRoute _editView() => GoRoute(
+      path: ModifyView.routeName,
+      builder: (context, state) {
+        // Added this statement here, as is giving an issue if:
+        /// Open Account > Edit Account > Close edition > Close Account > ...
+        /// ... > Add new Account *previous account displayed* > ...
+        /// ... > Add password > Save *Exception thrown as trying to find index*
+        AccountData? accountData;
 
-  static Route<dynamic> routes(RouteSettings settings) {
-    final arguments = settings.arguments;
+        if (state.extra is AccountData) {
+          accountData = state.extra as AccountData;
+        }
 
-    switch (settings.name) {
-      case accounts:
-        return MaterialPageRoute(
-          builder: (context) => const AccountsView(),
+        return ModifyView(
+          accountData: accountData,
         );
-      case view:
-        return MaterialPageRoute(
-          builder: (context) => ViewAccountView(
-            arguments as ViewAccountViewArguments,
-          ),
-        );
-      case addEdit:
-        return MaterialPageRoute(
-          builder: (context) => AddEditView(
-            arguments: arguments as EditArguments?,
-          ),
-        );
-      default:
-        return MaterialPageRoute(
-          builder: (context) => const AccountsView(),
-        );
-    }
-  }
-}
+      },
+    );
+
+List<GoRoute> allAppRoutes = [
+  GoRoute(
+    path: AccountsView.routeName,
+    builder: (context, state) => const AccountsView(),
+    routes: [
+      GoRoute(
+        path: DetailsView.routeName,
+        builder: (context, state) {
+          AccountData? accountData;
+
+          if (state.extra is AccountData) {
+            accountData = state.extra as AccountData?;
+          }
+
+          return DetailsView(accountData: accountData!);
+        },
+        routes: [
+          _editView(),
+        ],
+      ),
+      _editView(),
+    ],
+  ),
+];

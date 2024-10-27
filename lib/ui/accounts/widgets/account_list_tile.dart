@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/constants/icons.dart';
-import 'package:password_manager/constants/routes.dart';
-import 'package:password_manager/model/account.dart';
-import 'package:password_manager/screens/view_account_view.dart';
+import 'package:password_manager/domain/model/accounts_data.dart';
+import 'package:password_manager/ui/accounts/bloc/accounts_bloc.dart';
 
 class AccountListTile extends StatelessWidget {
   final int index;
-  final Account account;
+  final AccountData account;
 
   const AccountListTile({
     super.key,
@@ -23,13 +23,9 @@ class AccountListTile extends StatelessWidget {
           width: 1,
         ),
       ),
-      onTap: () => Navigator.of(context).pushNamed(
-        Routes.view,
-        arguments: ViewAccountViewArguments(
-          index,
-          account,
-        ),
-      ),
+      onTap: () => context.read<AccountsBloc>().add(
+            AccountsEvent.pressedAccount(index),
+          ),
       leading: Icon(
         CommonIcons.account,
       ),

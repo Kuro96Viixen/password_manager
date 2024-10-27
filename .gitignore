@@ -8,8 +8,7 @@
 .history
 .svn/
 
-/lib/utils/encrypt.dart
-/lib/utils/utils.dart
+/lib/utils/encryption.dart
 
 # User-specific configurations
 android/.idea

@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/constants/texts.dart';
-import 'package:password_manager/widgets/account_text_field.dart';
+import 'package:password_manager/ui/modify/bloc/modify_bloc.dart';
+import 'package:password_manager/ui/modify/widgets/account_text_field.dart';
 
 class RandomPasswordForm extends StatelessWidget {
-  final TextEditingController passwordLengthController;
   final bool hasSpanishCharacters;
-  final Function(bool?) onPressedSpanish;
-  final bool hasNumbers;
-  final Function(bool?) onPressedNumbers;
-  final bool hasSymbols;
-  final Function(bool?) onPressedSymbols;
+  final bool hasNumbersCharacters;
+  final bool hasSymbolsCharacters;
   final String randomPassword;
-  final VoidCallback onPressedButton;
 
   const RandomPasswordForm({
     super.key,
-    required this.passwordLengthController,
     required this.hasSpanishCharacters,
-    required this.onPressedSpanish,
-    required this.hasNumbers,
-    required this.onPressedNumbers,
-    required this.hasSymbols,
-    required this.onPressedSymbols,
+    required this.hasNumbersCharacters,
+    required this.hasSymbolsCharacters,
     required this.randomPassword,
-    required this.onPressedButton,
   });
 
   @override
@@ -33,34 +24,48 @@ class RandomPasswordForm extends StatelessWidget {
       children: [
         AccountTextField(
           label: Texts.passwordLengthTextFieldLabel,
-          controller: passwordLengthController,
+          initialValue: '',
+          onChangedText: (randomPasswordLength) =>
+              context.read<ModifyBloc>().add(
+                    ModifyEvent.onRandomPasswordLengthChanged(
+                      randomPasswordLength,
+                    ),
+                  ),
         ),
         const SizedBox(height: 8.0),
         CheckboxListTile(
           value: hasSpanishCharacters,
-          onChanged: onPressedSpanish,
+          onChanged: (hasSpanishCharacters) => context.read<ModifyBloc>().add(
+                ModifyEvent.hasSpanishCharacters(hasSpanishCharacters ?? false),
+              ),
           title: Text(
             Texts.spanishCheckBoxTitle,
           ),
         ),
         const SizedBox(height: 8.0),
         CheckboxListTile(
-          value: hasNumbers,
-          onChanged: onPressedNumbers,
+          value: hasNumbersCharacters,
+          onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
+                ModifyEvent.hasNumbersCharacters(hasNumbersCharacters ?? false),
+              ),
           title: Text(
             Texts.numbersCheckBoxTitle,
           ),
         ),
         CheckboxListTile(
-          value: hasSymbols,
-          onChanged: onPressedSymbols,
+          value: hasSymbolsCharacters,
+          onChanged: (hasSymbolsCharacters) => context.read<ModifyBloc>().add(
+                ModifyEvent.hasSymbolsCharacters(hasSymbolsCharacters ?? false),
+              ),
           title: Text(
             Texts.symbolsCheckBoxTitle,
           ),
         ),
         const SizedBox(height: 8.0),
         ElevatedButton(
-          onPressed: onPressedButton,
+          onPressed: () => context
+              .read<ModifyBloc>()
+              .add(const ModifyEvent.generateRandomPassword()),
           child: Text(Texts.generateRandomPasswordButton),
         ),
         const SizedBox(
@@ -69,16 +74,9 @@ class RandomPasswordForm extends StatelessWidget {
         Visibility(
           visible: randomPassword != '',
           child: GestureDetector(
-            onLongPress: () =>
-                Clipboard.setData(ClipboardData(text: randomPassword)).then(
-              (value) => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    Texts.copiedToClipboard,
-                  ),
-                ),
-              ),
-            ),
+            onLongPress: () => context
+                .read<ModifyBloc>()
+                .add(ModifyEvent.copyPassword(randomPassword)),
             child: Text(
               Texts.randomPasswordText + randomPassword,
               style: const TextStyle(

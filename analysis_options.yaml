@@ -33,8 +33,8 @@ dart_code_metrics:
     - avoid-returning-widgets:
       ignored-names:
         - testFunction
-    - ignored-annotations:
-        allowedAnnotation
+      ignored-annotations:
+        - allowedAnnotation
     - newline-before-return
     - no-boolean-literal-compare
     - no-empty-block
