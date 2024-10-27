@@ -6,6 +6,9 @@ void _repositoryModulesDi() {
   repositoryModulesDi.registerLazySingleton<Repository>(
     () => RepositoryImpl(
       memoryDataSource: repositoryModulesDi(),
+      filePickerService: repositoryModulesDi(),
+      localAuthService: repositoryModulesDi(),
+      secureStorageService: repositoryModulesDi(),
     ),
   );
 }

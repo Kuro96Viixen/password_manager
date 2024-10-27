@@ -55,7 +55,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
 
           accountsDataResult.when(
             // If failure
-            failure: (error, message) => null,
+            failure: (message) => null,
             // If success
             success: (data) {
               List<AccountData> accountsList = [];
@@ -100,7 +100,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final accountDataResult = await getAccountsDataUseCase();
 
           accountDataResult.when(
-            failure: (error, message) => null,
+            failure: (message) => null,
             success: (accountsData) {
               emit(
                 state.copyWith(
@@ -120,23 +120,15 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           );
         },
         showPrivate: () async {
-          final authenticationResult = await getAuthenticationUseCase();
-
-          authenticationResult.when(
-            failure: (error, message) => null,
-            success: (authenticated) {
-              if (authenticated) {
-                emit(
-                  state.copyWith(
-                    arePrivateAccounts: true,
-                    screenState:
-                        const AccountsScreenState.loaded(searchText: ''),
-                    navigationState: null,
-                  ),
-                );
-              }
-            },
-          );
+          if (await getAuthenticationUseCase()) {
+            emit(
+              state.copyWith(
+                arePrivateAccounts: true,
+                screenState: const AccountsScreenState.loaded(searchText: ''),
+                navigationState: null,
+              ),
+            );
+          }
         },
         closePrivate: () {
           emit(
@@ -173,7 +165,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final getAccountsDataResult = await getAccountsDataUseCase();
 
           getAccountsDataResult.when(
-            failure: (error, message) => null,
+            failure: (message) => null,
             success: (accountsData) async {
               add(AccountsEvent.exportedAccounts(accountsData));
             },
@@ -184,13 +176,15 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
               await exportAccountsUseCase(accountsData);
 
           exportAccountsResult.when(
-            failure: (error, message) {
+            failure: (message) {
               // TODO Check
               // Duplicate
               // Folder gone
               // No Permissions
+              print(message);
             },
-            success: (_) {
+            success: (filePath) {
+              // TODO: This filePath returns different folder
               // Resetting navigationState
               emit(
                 state.copyWith(
@@ -212,10 +206,11 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final importAccountsResult = await importAccountsUseCase();
 
           importAccountsResult.when(
-            failure: (error, message) {
+            failure: (message) {
               // TODO:
-              // When no file
-              // When no folder
+              /// No File or folder:
+              /// ErrorStatus.unknown()
+              /// PathNotFoundException: Cannot open file, path = '/storage/emulated/0/Documents/accounts.csv' (OS Error: No such file or directory, errno = 2)
             },
             success: (importedAccounts) {
               setAccountsDataUseCase(importedAccounts);

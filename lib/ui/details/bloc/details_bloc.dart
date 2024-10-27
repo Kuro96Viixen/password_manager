@@ -29,7 +29,12 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     on<DetailsEvent>((event, emit) async {
       await event.when(
         started: () {
-          emit(state.copyWith(navigationState: null));
+          emit(
+            state.copyWith(
+              passwordString: Texts.hiddenPasswordText,
+              navigationState: null,
+            ),
+          );
         },
         pressedBack: () {
           emit(
@@ -42,7 +47,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           final accountsDataResult = await getAccountsDataUseCase();
 
           accountsDataResult.when(
-            failure: (error, message) => null,
+            failure: (message) => null,
             success: (accountsData) {
               List<AccountData> accountsList =
                   accountsData.accountsList.toList();
@@ -67,18 +72,11 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           );
         },
         revealPassword: (password) async {
-          final authenticationResult = await getAuthenticationUseCase();
+          if (await getAuthenticationUseCase()) {
+            final decryptedPassword = Encryption.decryptPassword(password);
 
-          authenticationResult.when(
-            failure: (error, message) => null,
-            success: (authenticated) {
-              if (authenticated) {
-                final decryptedPassword = Encryption.decryptPassword(password);
-
-                emit(state.copyWith(passwordString: decryptedPassword));
-              }
-            },
-          );
+            emit(state.copyWith(passwordString: decryptedPassword));
+          }
         },
         copyPassword: (password) {
           final decryptedPassword = Encryption.decryptPassword(password);

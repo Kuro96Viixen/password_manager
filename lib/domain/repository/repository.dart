@@ -10,7 +10,7 @@ abstract class Repository {
 
   Future<void> setAccountsDataOnStorage(String accountsData);
 
-  Future<Result<bool>> authenticate();
+  Future<bool> authenticate();
 
   Future<Result<void>> exportAccounts(AccountsData accountsData);
 

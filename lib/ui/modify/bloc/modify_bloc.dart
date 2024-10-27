@@ -148,7 +148,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           List<AccountData> accountsList = [];
 
           accountsDataResult.when(
-            failure: (error, message) => null,
+            failure: (message) => null,
             success: (accountsData) {
               accountsList = accountsData.accountsList.toList();
 

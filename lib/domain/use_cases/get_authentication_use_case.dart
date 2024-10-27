@@ -1,4 +1,3 @@
-import 'package:password_manager/domain/model/result.dart';
 import 'package:password_manager/domain/repository/repository.dart';
 
 class GetAuthenticationUseCase {
@@ -6,7 +5,7 @@ class GetAuthenticationUseCase {
 
   GetAuthenticationUseCase(this._repository);
 
-  Future<Result<bool>> call() async {
+  Future<bool> call() async {
     return _repository.authenticate();
   }
 }

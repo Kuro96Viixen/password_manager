@@ -1,25 +1,14 @@
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:password_manager/constants/texts.dart';
 import 'package:password_manager/data/memory_data_source/mapper/account_data_memory_entity_mapper.dart';
 import 'package:password_manager/data/memory_data_source/model/account_data_memory_entity.dart';
 import 'package:password_manager/data/repository/data_source/memory_data_source.dart';
 import 'package:password_manager/data/repository/model/account_data_entity.dart';
-import 'package:password_manager/utils/encryption.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:password_manager/data/repository/services/file_picker_service.dart';
 
 class MemoryDataSourceImpl implements MemoryDataSource {
   AccountsDataMemoryEntity? _accountsDataMemoryEntity;
-
-  final _secureStorage = const FlutterSecureStorage();
-  final _auth = LocalAuthentication();
-
-  final _documentsFolder = '/storage/emulated/0/Documents/';
-  final _filenameName = 'accounts.csv';
-  final _deviceInfo = DeviceInfoPlugin();
 
   @override
   Future<AccountsDataEntity> getAccountsData() async {
@@ -35,48 +24,12 @@ class MemoryDataSourceImpl implements MemoryDataSource {
     _accountsDataMemoryEntity = accountsDataEntity.toAccountsDataMemoryEntity();
   }
 
-  // TODO Can be moved?
   @override
-  Future<String?> getAccountsDataFromStorage() {
-    return _secureStorage.read(key: Encryption.secureStorageKey);
-  }
-
-  @override
-  Future<void> setAccountsDataOnStorage(String encodedAccountsData) async {
-    _secureStorage.write(
-      key: Encryption.secureStorageKey,
-      value: encodedAccountsData,
-    );
-  }
-
-  @override
-  Future<bool> authenticate() async {
-    final authenticated = await _auth.authenticate(
-      localizedReason: Texts.fingerprintPrivateAuthTitle,
-      // authMessages: [
-      //   AndroidAuthMessages(
-      //     signInTitle: Texts.fingerprintDialogTitle,
-      //     biometricHint: Texts.fingerprintDialogSubtitle,
-      //   ),
-      // ],
-      options: const AuthenticationOptions(
-        stickyAuth: true,
-        useErrorDialogs: false,
-      ),
-    );
-
-    return authenticated;
-  }
-
-  @override
-  Future<void> exportAccounts(AccountsDataEntity accountsData) async {
+  Future<String> exportAccounts(
+    AccountsDataEntity accountsData,
+    FilePickerService filePicker,
+  ) async {
     _accountsDataMemoryEntity = accountsData.toAccountsDataMemoryEntity();
-
-    Directory documents = Directory(_documentsFolder);
-    String filename = _filenameName;
-    String filePath = documents.path + filename;
-
-    File file = File(filePath);
 
     String accountsCsv = '';
 
@@ -85,56 +38,34 @@ class MemoryDataSourceImpl implements MemoryDataSource {
       accountsCsv += account.toCSV();
     }
 
-    final deviceInfo = await _deviceInfo.androidInfo;
+    String? filePath = await filePicker.saveFile(
+      Uint8List.fromList(accountsCsv.codeUnits),
+    );
 
-    if (deviceInfo.version.sdkInt >= 30) {
-      await Permission.manageExternalStorage.request().then(
-        (status) {
-          if (status == PermissionStatus.granted) {
-            file.writeAsString(accountsCsv);
-          }
-        },
-      );
-    } else {
-      await Permission.storage.request().then(
-        (status) {
-          if (status == PermissionStatus.granted) {
-            file.writeAsString(accountsCsv);
-          }
-        },
-      );
+    if (filePath == null) {
+      // If permission denied or closed picker
+      // TODO Allow enable permission or show select folder
+      throw Exception('Allow permissions or select a folder');
     }
+
+    return filePath;
   }
 
   @override
-  Future<AccountsDataEntity> importAccounts() async {
-    final deviceInfo = await _deviceInfo.androidInfo;
+  Future<AccountsDataEntity> importAccounts(
+    FilePickerService filePicker,
+  ) async {
+    String? filePath = await filePicker.pickFile();
 
-    Directory documents = Directory(_documentsFolder);
-    String filename = _filenameName;
-    String filePath = documents.path + filename;
+    if (filePath == null) {
+      // If permission denied or closed picker
+      // TODO Allow enable permission or show valid files
+      throw Exception('Allow permissions or select a valid file');
+    }
 
     File file = File(filePath);
 
-    List<String> accountsImport = [];
-
-    if (deviceInfo.version.sdkInt >= 30) {
-      await Permission.manageExternalStorage.request().then(
-        (status) async {
-          if (status == PermissionStatus.granted) {
-            accountsImport = await file.readAsLines();
-          }
-        },
-      );
-    } else {
-      await Permission.storage.request().then(
-        (status) async {
-          if (status == PermissionStatus.granted) {
-            accountsImport = await file.readAsLines();
-          }
-        },
-      );
-    }
+    List<String> accountsImport = await file.readAsLines();
 
     List<AccountDataMemoryEntity> importedAccountsList = [];
 

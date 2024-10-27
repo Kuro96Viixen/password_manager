@@ -1,18 +1,15 @@
 import 'package:password_manager/data/repository/model/account_data_entity.dart';
+import 'package:password_manager/data/repository/services/file_picker_service.dart';
 
 abstract class MemoryDataSource {
   Future<AccountsDataEntity> getAccountsData();
 
   Future<void> setAccountData(AccountsDataEntity accountsDataEntity);
 
-  // TODO Can be moved?
-  Future<String?> getAccountsDataFromStorage();
+  Future<String> exportAccounts(
+    AccountsDataEntity accountData,
+    FilePickerService filePicker,
+  );
 
-  Future<void> setAccountsDataOnStorage(String encodedAccountsData);
-
-  Future<bool> authenticate();
-
-  Future<void> exportAccounts(AccountsDataEntity accountData);
-
-  Future<AccountsDataEntity> importAccounts();
+  Future<AccountsDataEntity> importAccounts(FilePickerService filePicker);
 }

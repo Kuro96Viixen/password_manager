@@ -6,4 +6,16 @@ void _localModulesInit() {
   localModulesDi.registerLazySingleton<MemoryDataSource>(
     () => MemoryDataSourceImpl(),
   );
+
+  localModulesDi.registerLazySingleton<FilePickerService>(
+    () => FilePickerServiceImpl(),
+  );
+
+  localModulesDi.registerLazySingleton<LocalAuthService>(
+    () => LocalAuthServiceImpl(),
+  );
+
+  localModulesDi.registerLazySingleton<SecureStorageService>(
+    () => SecureStorageServiceImpl(),
+  );
 }
