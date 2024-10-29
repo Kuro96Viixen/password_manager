@@ -19,6 +19,7 @@ void _uiModulesInit() {
       getAuthenticationUseCase: uiModulesDi(),
       exportAccountsUseCase: uiModulesDi(),
       importAccountsUseCase: uiModulesDi(),
+      initializeEncryptionUseCase: uiModulesDi(),
     ),
   );
 
@@ -28,6 +29,7 @@ void _uiModulesInit() {
       setAccountsDataUseCase: uiModulesDi(),
       setAccountsDataOnStorageUseCase: uiModulesDi(),
       getAuthenticationUseCase: uiModulesDi(),
+      decryptPasswordUseCase: uiModulesDi(),
     ),
   );
 
@@ -36,6 +38,7 @@ void _uiModulesInit() {
       getAccountsDataUseCase: uiModulesDi(),
       setAccountsDataUseCase: uiModulesDi(),
       setAccountsDataOnStorageUseCase: uiModulesDi(),
+      encryptPasswordUseCase: uiModulesDi(),
     ),
   );
 }

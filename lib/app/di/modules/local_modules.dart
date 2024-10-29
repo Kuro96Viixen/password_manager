@@ -18,4 +18,8 @@ void _localModulesInit() {
   localModulesDi.registerLazySingleton<SecureStorageService>(
     () => SecureStorageServiceImpl(),
   );
+
+  localModulesDi.registerLazySingleton<EncryptionService>(
+    () => EncryptionServiceImpl(),
+  );
 }

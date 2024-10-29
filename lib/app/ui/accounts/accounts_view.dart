@@ -107,8 +107,11 @@ class AccountsView extends StatelessWidget {
         },
         builder: (context, state) {
           return FocusDetector(
-            onFocusGained: () =>
-                context.read<AccountsBloc>().add(const AccountsEvent.started()),
+            onFocusGained: () => context.read<AccountsBloc>().add(
+                  const AccountsEvent.started(
+                    String.fromEnvironment('encryption_key'),
+                  ),
+                ),
             child: SafeArea(
               child: Scaffold(
                 appBar: AppBar(

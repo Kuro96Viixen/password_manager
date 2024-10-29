@@ -14,7 +14,7 @@ class Texts {
   // Add view
   static String addViewTitle = 'Add new account';
   static String nameTextFieldLabel = 'Name';
-  static String usernameTextFieldLabel = 'Userame';
+  static String usernameTextFieldLabel = 'Username';
   static String passwordTextFieldLabel = 'Password';
   static String useRandomPasswordSwitchTitle = 'Use random password';
   static String passwordLengthTextFieldLabel = 'Random password length';

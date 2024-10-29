@@ -4,10 +4,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
+import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
-import 'package:password_manager/utils/encryption.dart';
 import 'package:password_manager/utils/utils.dart';
 
 part 'modify_bloc.freezed.dart';
@@ -18,11 +18,13 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
+  final EncryptPasswordUseCase encryptPasswordUseCase;
 
   ModifyBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.setAccountsDataOnStorageUseCase,
+    required this.encryptPasswordUseCase,
   }) : super(ModifyState.initial()) {
     on<ModifyEvent>((event, emit) {
       event.when(
@@ -145,6 +147,10 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
 
           accountsList = accountsData.accountsList.toList();
 
+          final encryptedPassword = await encryptPasswordUseCase(
+            state.password != '' ? state.password : state.randomPassword,
+          );
+
           if (accountData != null) {
             // Get index to update
             final index = accountsData.accountsList.indexOf(accountData);
@@ -153,9 +159,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
             accountsList[index] = AccountData(
               name: state.name,
               username: state.username,
-              password: Encryption.encryptPassword(
-                state.password != '' ? state.password : state.randomPassword,
-              ),
+              password: encryptedPassword,
               private: state.isPrivateAccount,
             );
           } else {
@@ -164,9 +168,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
               AccountData(
                 name: state.name,
                 username: state.username,
-                password: state.password != ''
-                    ? state.password
-                    : state.randomPassword,
+                password: encryptedPassword,
                 private: state.isPrivateAccount,
               ),
             );

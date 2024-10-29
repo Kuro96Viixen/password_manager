@@ -11,6 +11,7 @@ import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_sto
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_authentication_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/import_accounts_use_case.dart';
+import 'package:password_manager/app/domain/use_cases/initialize_encryption_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
 
@@ -26,6 +27,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAuthenticationUseCase getAuthenticationUseCase;
   final ExportAccountsUseCase exportAccountsUseCase;
   final ImportAccountsUseCase importAccountsUseCase;
+  final InitializeEncryptionUseCase initializeEncryptionUseCase;
 
   AccountsBloc({
     required this.getAccountsDataUseCase,
@@ -35,10 +37,11 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     required this.getAuthenticationUseCase,
     required this.exportAccountsUseCase,
     required this.importAccountsUseCase,
+    required this.initializeEncryptionUseCase,
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
       await event.when(
-        started: () async {
+        started: (encryptionKey) async {
           // Emitting Loading ScreenState before while loading Accounts
           emit(
             state.copyWith(
@@ -46,6 +49,10 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
               navigationState: null,
             ),
           );
+
+          if (encryptionKey != '') {
+            await initializeEncryptionUseCase(encryptionKey);
+          }
 
           // Retrieving data from the MemoryDataSource
           final accountsData = await getAccountsDataUseCase();
@@ -222,7 +229,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
                 ),
               );
 
-              add(const AccountsEvent.started());
+              add(const AccountsEvent.started(''));
             },
           );
         },

@@ -2,7 +2,7 @@ part of 'accounts_bloc.dart';
 
 @freezed
 class AccountsEvent with _$AccountsEvent {
-  const factory AccountsEvent.started() = _Started;
+  const factory AccountsEvent.started(String encryptionKey) = _Started;
 
   const factory AccountsEvent.pressedAccount(int accountIndex) =
       _PressedAccount;

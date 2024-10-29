@@ -1,14 +1,15 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
+import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_authentication_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
-import 'package:password_manager/utils/encryption.dart';
 
 part 'details_bloc.freezed.dart';
 part 'details_event.dart';
@@ -19,12 +20,14 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
   final GetAuthenticationUseCase getAuthenticationUseCase;
+  final DecryptPasswordUseCase decryptPasswordUseCase;
 
   DetailsBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.setAccountsDataOnStorageUseCase,
     required this.getAuthenticationUseCase,
+    required this.decryptPasswordUseCase,
   }) : super(DetailsState.initial()) {
     on<DetailsEvent>((event, emit) async {
       await event.when(
@@ -67,13 +70,15 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         },
         revealPassword: (password) async {
           if (await getAuthenticationUseCase()) {
-            final decryptedPassword = Encryption.decryptPassword(password);
+            final decryptedPassword = await decryptPasswordUseCase(
+                password, IV(Uint8List.fromList([])));
 
             emit(state.copyWith(passwordString: decryptedPassword));
           }
         },
-        copyPassword: (password) {
-          final decryptedPassword = Encryption.decryptPassword(password);
+        copyPassword: (password) async {
+          final decryptedPassword = await decryptPasswordUseCase(
+              password, IV(Uint8List.fromList([])));
 
           Clipboard.setData(ClipboardData(text: decryptedPassword));
 

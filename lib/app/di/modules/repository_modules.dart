@@ -9,6 +9,7 @@ void _repositoryModulesDi() {
       filePickerService: repositoryModulesDi(),
       localAuthService: repositoryModulesDi(),
       secureStorageService: repositoryModulesDi(),
+      encryptionService: repositoryModulesDi(),
     ),
   );
 }

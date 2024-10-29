@@ -32,4 +32,16 @@ void _domainModulesInit() {
   domainModulesDi.registerFactory(
     () => ImportAccountsUseCase(domainModulesDi()),
   );
+
+  domainModulesDi.registerFactory(
+    () => InitializeEncryptionUseCase(domainModulesDi()),
+  );
+
+  domainModulesDi.registerFactory(
+    () => EncryptPasswordUseCase(domainModulesDi()),
+  );
+
+  domainModulesDi.registerFactory(
+    () => DecryptPasswordUseCase(domainModulesDi()),
+  );
 }
