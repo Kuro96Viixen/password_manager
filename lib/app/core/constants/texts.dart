@@ -75,4 +75,12 @@ class Texts {
       'If you closed the picker you can close this advice and try again.\n\n'
       'If you denied permissions you should enable them in the App settings.';
   static String dialogButtonText = 'Ok, I understand';
+
+  // Dialog Export/Import exception texts
+  static String deleteDialogTitle = 'Are you sure?';
+  static String deleteDialogBody = 'You are going to delete the account:\n\n'
+      '{account}\n\nAre you sure do you want to remove it?';
+  static String deleteDialogAdvice = 'This action cannot be undone.';
+  static String deleteDialogCancel = 'No, go back';
+  static String deleteDialogConfirm = 'Yes, I\'m sure';
 }

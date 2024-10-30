@@ -17,7 +17,9 @@ class DetailsState with _$DetailsState {
 class DetailsNavigationState with _$DetailsNavigationState {
   const factory DetailsNavigationState.goBack() = _GoBack;
 
-  const factory DetailsNavigationState.goToModify() = _goToModify;
+  const factory DetailsNavigationState.goToModify() = _GoToModify;
+
+  const factory DetailsNavigationState.showPopUp() = _ShowPopUp;
 
   const factory DetailsNavigationState.showSnackBar(String snackBarMessage) =
       _ShowSnackBar;
