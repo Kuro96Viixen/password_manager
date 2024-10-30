@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:password_manager/constants/texts.dart';
-import 'package:password_manager/constants/themes.dart';
-import 'package:password_manager/di/app_di.dart' as app_di;
+import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/app/core/constants/themes.dart';
+import 'package:password_manager/app/di/app_di.dart' as app_di;
 
 void main() {
   app_di.init();
