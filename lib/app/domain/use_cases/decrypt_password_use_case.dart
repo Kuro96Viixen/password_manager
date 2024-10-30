@@ -1,4 +1,4 @@
-import 'package:encrypt/encrypt.dart';
+import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/domain/repository/repository.dart';
 
 class DecryptPasswordUseCase {
@@ -6,7 +6,7 @@ class DecryptPasswordUseCase {
 
   DecryptPasswordUseCase(this.repository);
 
-  Future<String> call(String password, IV passwordIV) async {
-    return await repository.decrypt(password, passwordIV);
+  Future<String> call(Password password) async {
+    return await repository.decrypt(password);
   }
 }

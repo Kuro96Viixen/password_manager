@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/extension/context_extension.dart';
+import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
@@ -98,7 +99,10 @@ class DetailsView extends StatelessWidget {
                         onLongPress: () {
                           context.read<DetailsBloc>().add(
                                 DetailsEvent.copyPassword(
-                                  accountData.password,
+                                  Password(
+                                    password: accountData.password,
+                                    iv: accountData.passwordIV,
+                                  ),
                                 ),
                               );
                         },
@@ -116,7 +120,10 @@ class DetailsView extends StatelessWidget {
                             child: Text(Texts.viewAccountViewPassword),
                             onPressed: () => context.read<DetailsBloc>().add(
                                   DetailsEvent.revealPassword(
-                                    accountData.password,
+                                    Password(
+                                      password: accountData.password,
+                                      iv: accountData.passwordIV,
+                                    ),
                                   ),
                                 ),
                           ),

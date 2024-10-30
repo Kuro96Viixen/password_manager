@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:encrypt/encrypt.dart';
+import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/data/repository/services/encryption_service.dart';
 
 class EncryptionServiceImpl implements EncryptionService {
@@ -17,17 +18,26 @@ class EncryptionServiceImpl implements EncryptionService {
   }
 
   @override
-  Future<String> encrypt(String password) async {
+  Future<Password> encrypt(String passwordToEncrypt) async {
     final iv = IV.fromLength(16);
 
-    String encryptedPassword = _encrypter.encrypt(password, iv: iv).base64;
+    String encryptedPassword = _encrypter
+        .encrypt(
+          passwordToEncrypt,
+          iv: iv,
+        )
+        .base64;
 
-    return encryptedPassword;
+    final password = Password(password: encryptedPassword, iv: iv.base64);
+
+    return password;
   }
 
   @override
-  Future<String> decrypt(String password, IV passwordIV) async {
-    String decryptedPassword = _encrypter.decrypt64(password, iv: passwordIV);
+  Future<String> decrypt(Password password) async {
+    final iv = IV.fromBase64(password.iv);
+
+    String decryptedPassword = _encrypter.decrypt64(password.password, iv: iv);
 
     return decryptedPassword;
   }

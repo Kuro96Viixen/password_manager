@@ -12,6 +12,7 @@ extension AccountDataEntityExtension on AccountDataEntity {
         name: name,
         username: username,
         password: password,
+        passwordIV: passwordIV,
         private: private,
       );
 }
@@ -27,6 +28,7 @@ extension AccountDataExtension on AccountData {
         name: name,
         username: username,
         password: password,
+        passwordIV: passwordIV,
         private: private,
       );
 }

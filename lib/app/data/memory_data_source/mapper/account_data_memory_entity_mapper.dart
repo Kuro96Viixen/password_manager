@@ -12,10 +12,11 @@ extension AccountDataMemoryEntityExtension on AccountDataMemoryEntity {
         name: name,
         username: username,
         password: password,
+        passwordIV: passwordIV,
         private: private,
       );
 
-  String toCSV() => '$name,$username,$password,$private\n';
+  String toCSV() => '$name,$username,$password,$passwordIV,$private\n';
 }
 
 extension AccountsDataEntityExtension on AccountsDataEntity {
@@ -35,6 +36,7 @@ extension AccountDataEntityExtension on AccountDataEntity {
         name: name,
         username: username,
         password: password,
+        passwordIV: passwordIV,
         private: private,
       );
 
@@ -42,6 +44,7 @@ extension AccountDataEntityExtension on AccountDataEntity {
         name: csv.split(',')[0],
         username: csv.split(',')[1],
         password: csv.split(',')[2],
-        private: csv.split(',')[3] == 'true',
+        passwordIV: csv.split(',')[3],
+        private: csv.split(',')[4] == 'true',
       );
 }

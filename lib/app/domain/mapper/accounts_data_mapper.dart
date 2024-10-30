@@ -11,6 +11,7 @@ extension AccountDataExtension on AccountData {
         'name': name,
         'username': username,
         'password': password,
+        'passwordIV': passwordIV,
         'private': private,
       };
 
@@ -18,6 +19,7 @@ extension AccountDataExtension on AccountData {
         name: json['name'],
         username: json['username'],
         password: json['password'],
+        passwordIV: json['passwordIV'],
         private: json['private'],
       );
 }

@@ -1,8 +1,8 @@
-import 'package:encrypt/encrypt.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
@@ -71,14 +71,14 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         revealPassword: (password) async {
           if (await getAuthenticationUseCase()) {
             final decryptedPassword = await decryptPasswordUseCase(
-                password, IV(Uint8List.fromList([])));
+              password,
+            );
 
             emit(state.copyWith(passwordString: decryptedPassword));
           }
         },
         copyPassword: (password) async {
-          final decryptedPassword = await decryptPasswordUseCase(
-              password, IV(Uint8List.fromList([])));
+          final decryptedPassword = await decryptPasswordUseCase(password);
 
           Clipboard.setData(ClipboardData(text: decryptedPassword));
 

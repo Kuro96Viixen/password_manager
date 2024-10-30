@@ -15,6 +15,7 @@ class AccountData with _$AccountData {
     required String name,
     required String username,
     required String password,
+    required String passwordIV,
     required bool private,
   }) = _AccountData;
 
@@ -22,6 +23,7 @@ class AccountData with _$AccountData {
         name: '',
         username: '',
         password: '',
+        passwordIV: '',
         private: false,
       );
 }

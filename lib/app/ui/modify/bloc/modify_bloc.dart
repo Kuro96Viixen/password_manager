@@ -26,13 +26,14 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     required this.setAccountsDataOnStorageUseCase,
     required this.encryptPasswordUseCase,
   }) : super(ModifyState.initial()) {
-    on<ModifyEvent>((event, emit) {
-      event.when(
+    on<ModifyEvent>((event, emit) async {
+      await event.when(
         started: (accountData) {
           emit(
             state.copyWith(
               name: accountData?.name ?? '',
               username: accountData?.username ?? '',
+              passwordIV: accountData?.passwordIV ?? '',
               isPrivateAccount: accountData?.private ?? false,
               canBeSaved: false,
             ),
@@ -49,7 +50,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(
             state.copyWith(
               name: nameString,
-              canBeSaved: accountCanBeSaved(
+              canBeSaved: _accountCanBeSaved(
                 state.copyWith(name: nameString),
               ),
             ),
@@ -59,7 +60,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(
             state.copyWith(
               username: usernameString,
-              canBeSaved: accountCanBeSaved(
+              canBeSaved: _accountCanBeSaved(
                 state.copyWith(username: usernameString),
               ),
             ),
@@ -83,7 +84,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(
             state.copyWith(
               password: passwordString,
-              canBeSaved: accountCanBeSaved(
+              canBeSaved: _accountCanBeSaved(
                 state.copyWith(password: passwordString),
               ),
             ),
@@ -119,7 +120,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
           emit(
             state.copyWith(
               randomPassword: randomPassword,
-              canBeSaved: accountCanBeSaved(
+              canBeSaved: _accountCanBeSaved(
                 state.copyWith(randomPassword: randomPassword),
               ),
             ),
@@ -143,12 +144,18 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
         saveAccount: (accountData) async {
           final accountsData = await getAccountsDataUseCase();
 
-          List<AccountData> accountsList = [];
-
-          accountsList = accountsData.accountsList.toList();
+          List<AccountData> accountsList = accountsData.accountsList.toList();
 
           final encryptedPassword = await encryptPasswordUseCase(
             state.password != '' ? state.password : state.randomPassword,
+          );
+
+          final accountToSave = AccountData(
+            name: state.name,
+            username: state.username,
+            password: encryptedPassword.password,
+            passwordIV: encryptedPassword.iv,
+            private: state.isPrivateAccount,
           );
 
           if (accountData != null) {
@@ -156,29 +163,17 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
             final index = accountsData.accountsList.indexOf(accountData);
 
             // Update account with form data
-            accountsList[index] = AccountData(
-              name: state.name,
-              username: state.username,
-              password: encryptedPassword,
-              private: state.isPrivateAccount,
-            );
+            accountsList[index] = accountToSave;
           } else {
             // Append new data at the end
-            accountsList.add(
-              AccountData(
-                name: state.name,
-                username: state.username,
-                password: encryptedPassword,
-                private: state.isPrivateAccount,
-              ),
-            );
+            accountsList.add(accountToSave);
           }
 
-          setAccountsDataUseCase(
+          await setAccountsDataUseCase(
             accountsData.copyWith(accountsList: accountsList),
           );
 
-          setAccountsDataOnStorageUseCase(
+          await setAccountsDataOnStorageUseCase(
             accountsData.copyWith(accountsList: accountsList).toStore(),
           );
 
@@ -192,7 +187,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     });
   }
 
-  bool accountCanBeSaved(ModifyState state) {
+  bool _accountCanBeSaved(ModifyState state) {
     return state.name != '' &&
         state.username != '' &&
         (state.randomPassword != '' || state.password != '');

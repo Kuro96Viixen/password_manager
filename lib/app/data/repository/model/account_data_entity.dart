@@ -19,6 +19,7 @@ class AccountDataEntity with _$AccountDataEntity {
     required String name,
     required String username,
     required String password,
+    required String passwordIV,
     required bool private,
   }) = _AccountDataEntity;
 
@@ -26,6 +27,7 @@ class AccountDataEntity with _$AccountDataEntity {
         name: '',
         username: '',
         password: '',
+        passwordIV: '',
         private: false,
       );
 }

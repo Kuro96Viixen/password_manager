@@ -9,9 +9,10 @@ class DetailsEvent with _$DetailsEvent {
   const factory DetailsEvent.deleteAccount(AccountData accountData) =
       _DeleteAccount;
 
-  const factory DetailsEvent.revealPassword(String password) = _RevealPassword;
+  const factory DetailsEvent.revealPassword(Password password) =
+      _RevealPassword;
 
-  const factory DetailsEvent.copyPassword(String password) = _CopyPassword;
+  const factory DetailsEvent.copyPassword(Password password) = _CopyPassword;
 
   const factory DetailsEvent.pressedModify() = _PressedModify;
 }
