@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
-import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
@@ -28,9 +26,7 @@ class ModifyView extends StatelessWidget {
       child: BlocConsumer<ModifyBloc, ModifyState>(
         listener: (context, state) {
           state.navigationState?.when(
-            goBack: (backToList) => backToList
-                ? context.popUntilPath(AccountsView.routeName)
-                : context.pop(),
+            goBack: () => context.pop(),
             showSnackBar: (snackBarMessage) =>
                 ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -48,7 +44,7 @@ class ModifyView extends StatelessWidget {
                 leading: BackButton(
                   onPressed: () => context
                       .read<ModifyBloc>()
-                      .add(const ModifyEvent.backPressed(false)),
+                      .add(const ModifyEvent.backPressed()),
                 ),
                 title: Text(
                   accountData == null

@@ -31,10 +31,20 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   }) : super(DetailsState.initial()) {
     on<DetailsEvent>((event, emit) async {
       await event.when(
-        started: () {
+        started: (accountData) async {
+          final accountsData = await getAccountsDataUseCase();
+
+          int accountPosition = accountsData.accountsList.indexOf(accountData);
+
+          if (accountPosition == -1) {
+            accountPosition = state.accountPosition;
+          }
+
           emit(
             state.copyWith(
               passwordString: Texts.hiddenPasswordText,
+              accountData: accountsData.accountsList[accountPosition],
+              accountPosition: accountPosition,
               navigationState: null,
             ),
           );

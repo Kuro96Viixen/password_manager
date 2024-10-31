@@ -43,7 +43,7 @@ class DetailsView extends StatelessWidget {
                   return DeleteDialog(
                     title: Texts.deleteDialogTitle,
                     body: Texts.deleteDialogBody
-                        .replaceAll('{account}', accountData.name),
+                        .replaceAll('{account}', state.accountData.name),
                     advice: Texts.deleteDialogAdvice,
                     onPressedConfirm: () {
                       dialogContext.pop();
@@ -72,7 +72,7 @@ class DetailsView extends StatelessWidget {
         builder: (context, state) {
           return FocusDetector(
             onFocusGained: () => context.read<DetailsBloc>().add(
-                  const DetailsEvent.started(),
+                  DetailsEvent.started(accountData),
                 ),
             child: SafeArea(
               child: Scaffold(
@@ -107,13 +107,13 @@ class DetailsView extends StatelessWidget {
                         text: Texts.viewAccountNameLabel,
                       ),
                       AccountField(
-                        text: accountData.name,
+                        text: state.accountData.name,
                       ),
                       AccountLabel(
                         text: Texts.viewAccountUsernameLabel,
                       ),
                       AccountField(
-                        text: accountData.username,
+                        text: state.accountData.username,
                       ),
                       AccountLabel(
                         text: Texts.viewAccountPasswordLabel,
@@ -123,8 +123,8 @@ class DetailsView extends StatelessWidget {
                           context.read<DetailsBloc>().add(
                                 DetailsEvent.copyPassword(
                                   Password(
-                                    password: accountData.password,
-                                    iv: accountData.passwordIV,
+                                    password: state.accountData.password,
+                                    iv: state.accountData.passwordIV,
                                   ),
                                 ),
                               );
@@ -144,8 +144,8 @@ class DetailsView extends StatelessWidget {
                             onPressed: () => context.read<DetailsBloc>().add(
                                   DetailsEvent.revealPassword(
                                     Password(
-                                      password: accountData.password,
-                                      iv: accountData.passwordIV,
+                                      password: state.accountData.password,
+                                      iv: state.accountData.passwordIV,
                                     ),
                                   ),
                                 ),

@@ -4,11 +4,15 @@ part of 'details_bloc.dart';
 class DetailsState with _$DetailsState {
   const factory DetailsState({
     required String passwordString,
+    required AccountData accountData,
+    required int accountPosition,
     DetailsNavigationState? navigationState,
   }) = _DetailsState;
 
   factory DetailsState.initial() => DetailsState(
         passwordString: Texts.hiddenPasswordText,
+        accountData: AccountData.empty(),
+        accountPosition: 0,
         navigationState: null,
       );
 }
