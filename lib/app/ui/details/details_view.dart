@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
 import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/widgets/loader.dart';
 
 class DetailsView extends StatelessWidget {
   static const routeName = 'DetailsPageRoute';
@@ -43,7 +44,7 @@ class DetailsView extends StatelessWidget {
                   return DeleteDialog(
                     title: Texts.deleteDialogTitle,
                     body: Texts.deleteDialogBody
-                        .replaceAll('{account}', accountData.name),
+                        .replaceAll('{account}', state.accountData.name),
                     advice: Texts.deleteDialogAdvice,
                     onPressedConfirm: () {
                       dialogContext.pop();
@@ -72,7 +73,7 @@ class DetailsView extends StatelessWidget {
         builder: (context, state) {
           return FocusDetector(
             onFocusGained: () => context.read<DetailsBloc>().add(
-                  const DetailsEvent.started(),
+                  DetailsEvent.started(accountData),
                 ),
             child: SafeArea(
               child: Scaffold(
@@ -95,6 +96,13 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ],
+                  bottom: state.screenState.when(
+                    loading: () => const PreferredSize(
+                      preferredSize: Size(0, 0),
+                      child: Loader(),
+                    ),
+                    loaded: () => null,
+                  ),
                 ),
                 body: Container(
                   padding: const EdgeInsets.all(
@@ -107,13 +115,13 @@ class DetailsView extends StatelessWidget {
                         text: Texts.viewAccountNameLabel,
                       ),
                       AccountField(
-                        text: accountData.name,
+                        text: state.accountData.name,
                       ),
                       AccountLabel(
                         text: Texts.viewAccountUsernameLabel,
                       ),
                       AccountField(
-                        text: accountData.username,
+                        text: state.accountData.username,
                       ),
                       AccountLabel(
                         text: Texts.viewAccountPasswordLabel,
@@ -123,14 +131,17 @@ class DetailsView extends StatelessWidget {
                           context.read<DetailsBloc>().add(
                                 DetailsEvent.copyPassword(
                                   Password(
-                                    password: accountData.password,
-                                    iv: accountData.passwordIV,
+                                    password: state.accountData.password,
+                                    iv: state.accountData.passwordIV,
                                   ),
                                 ),
                               );
                         },
                         child: AccountField(
-                          text: state.passwordString,
+                          text: state.screenState.when(
+                            loading: () => '',
+                            loaded: () => state.passwordString,
+                          ),
                           viewPassword: true,
                         ),
                       ),
@@ -144,8 +155,8 @@ class DetailsView extends StatelessWidget {
                             onPressed: () => context.read<DetailsBloc>().add(
                                   DetailsEvent.revealPassword(
                                     Password(
-                                      password: accountData.password,
-                                      iv: accountData.passwordIV,
+                                      password: state.accountData.password,
+                                      iv: state.accountData.passwordIV,
                                     ),
                                   ),
                                 ),

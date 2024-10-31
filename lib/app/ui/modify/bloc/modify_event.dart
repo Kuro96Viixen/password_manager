@@ -4,7 +4,7 @@ part of 'modify_bloc.dart';
 class ModifyEvent with _$ModifyEvent {
   const factory ModifyEvent.started(AccountData? accountData) = _Started;
 
-  const factory ModifyEvent.backPressed(bool backToList) = _BackPressed;
+  const factory ModifyEvent.backPressed() = _BackPressed;
 
   const factory ModifyEvent.onNameChanged(String nameString) = _OnNameChanged;
   const factory ModifyEvent.onUsernameChanged(String usernameString) =

@@ -2,7 +2,7 @@ part of 'details_bloc.dart';
 
 @freezed
 class DetailsEvent with _$DetailsEvent {
-  const factory DetailsEvent.started() = _Started;
+  const factory DetailsEvent.started(AccountData accountData) = _Started;
 
   const factory DetailsEvent.pressedBack() = _PressedBack;
 

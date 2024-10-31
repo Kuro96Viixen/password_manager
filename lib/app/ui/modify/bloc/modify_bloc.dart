@@ -39,10 +39,10 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
             ),
           );
         },
-        backPressed: (backToList) {
+        backPressed: () {
           emit(
             state.copyWith(
-              navigationState: ModifyNavigationState.goBack(backToList),
+              navigationState: ModifyNavigationState.goBack(),
             ),
           );
         },
@@ -179,7 +179,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
 
           emit(
             state.copyWith(
-              navigationState: const ModifyNavigationState.goBack(true),
+              navigationState: const ModifyNavigationState.goBack(),
             ),
           );
         },

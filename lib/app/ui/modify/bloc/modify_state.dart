@@ -46,7 +46,7 @@ class ModifyScreenState with _$ModifyScreenState {
 
 @freezed
 class ModifyNavigationState with _$ModifyNavigationState {
-  const factory ModifyNavigationState.goBack(bool backToList) = _GoBack;
+  const factory ModifyNavigationState.goBack() = _GoBack;
 
   const factory ModifyNavigationState.showSnackBar(String snackBarMessage) =
       _ShowSnackBar;
