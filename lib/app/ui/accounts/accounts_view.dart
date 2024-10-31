@@ -127,13 +127,6 @@ class AccountsView extends StatelessWidget {
                         ? Texts.privateAccountsViewTitle
                         : Texts.accountsViewTitle,
                   ),
-                  bottom: state.screenState.when(
-                    loading: () => const PreferredSize(
-                      preferredSize: Size(0, 0),
-                      child: Loader(),
-                    ),
-                    loaded: (_) => null,
-                  ),
                   actions: (!state.arePrivateAccounts)
                       ? [
                           IconButton(
@@ -185,10 +178,14 @@ class AccountsView extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+                      state.screenState.when(
+                        loading: () => Loader(),
+                        loaded: (_) => SizedBox(height: 4),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
-                          vertical: 8,
+                          vertical: 4,
                         ),
                         child: TextField(
                           onChanged: (searchText) =>
