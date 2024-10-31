@@ -96,75 +96,80 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ],
-                  bottom: state.screenState.when(
-                    loading: () => const PreferredSize(
-                      preferredSize: Size(0, 0),
-                      child: Loader(),
-                    ),
-                    loaded: () => null,
-                  ),
                 ),
-                body: Container(
-                  padding: const EdgeInsets.all(
-                    16.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AccountLabel(
-                        text: Texts.viewAccountNameLabel,
+                body: Column(
+                  children: [
+                    state.screenState.when(
+                      loading: () => Loader(),
+                      loaded: () => SizedBox(
+                        height: 4,
                       ),
-                      AccountField(
-                        text: state.accountData.name,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        12.0,
                       ),
-                      AccountLabel(
-                        text: Texts.viewAccountUsernameLabel,
-                      ),
-                      AccountField(
-                        text: state.accountData.username,
-                      ),
-                      AccountLabel(
-                        text: Texts.viewAccountPasswordLabel,
-                      ),
-                      GestureDetector(
-                        onLongPress: () {
-                          context.read<DetailsBloc>().add(
-                                DetailsEvent.copyPassword(
-                                  Password(
-                                    password: state.accountData.password,
-                                    iv: state.accountData.passwordIV,
-                                  ),
-                                ),
-                              );
-                        },
-                        child: AccountField(
-                          text: state.screenState.when(
-                            loading: () => '',
-                            loaded: () => state.passwordString,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AccountLabel(
+                            text: Texts.viewAccountNameLabel,
                           ),
-                          viewPassword: true,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Visibility(
-                        visible:
-                            state.passwordString == Texts.hiddenPasswordText,
-                        child: Center(
-                          child: ElevatedButton(
-                            child: Text(Texts.viewAccountViewPassword),
-                            onPressed: () => context.read<DetailsBloc>().add(
-                                  DetailsEvent.revealPassword(
-                                    Password(
-                                      password: state.accountData.password,
-                                      iv: state.accountData.passwordIV,
+                          AccountField(
+                            text: state.accountData.name,
+                          ),
+                          AccountLabel(
+                            text: Texts.viewAccountUsernameLabel,
+                          ),
+                          AccountField(
+                            text: state.accountData.username,
+                          ),
+                          AccountLabel(
+                            text: Texts.viewAccountPasswordLabel,
+                          ),
+                          GestureDetector(
+                            onLongPress: () {
+                              context.read<DetailsBloc>().add(
+                                    DetailsEvent.copyPassword(
+                                      Password(
+                                        password: state.accountData.password,
+                                        iv: state.accountData.passwordIV,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                            },
+                            child: AccountField(
+                              text: state.screenState.when(
+                                loading: () => '',
+                                loaded: () => state.passwordString,
+                              ),
+                              viewPassword: true,
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 8.0),
+                          Visibility(
+                            visible: state.passwordString ==
+                                Texts.hiddenPasswordText,
+                            child: Center(
+                              child: ElevatedButton(
+                                child: Text(Texts.viewAccountViewPassword),
+                                onPressed: () => context
+                                    .read<DetailsBloc>()
+                                    .add(
+                                      DetailsEvent.revealPassword(
+                                        Password(
+                                          password: state.accountData.password,
+                                          iv: state.accountData.passwordIV,
+                                        ),
+                                      ),
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () => context
