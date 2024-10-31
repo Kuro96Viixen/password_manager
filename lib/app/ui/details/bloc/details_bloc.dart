@@ -32,6 +32,13 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     on<DetailsEvent>((event, emit) async {
       await event.when(
         started: (accountData) async {
+          emit(
+            state.copyWith(
+              screenState: DetailsScreenState.loading(),
+              navigationState: null,
+            ),
+          );
+
           final accountsData = await getAccountsDataUseCase();
 
           int accountPosition = accountsData.accountsList.indexOf(accountData);
@@ -45,6 +52,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
               passwordString: Texts.hiddenPasswordText,
               accountData: accountsData.accountsList[accountPosition],
               accountPosition: accountPosition,
+              screenState: DetailsScreenState.loaded(),
               navigationState: null,
             ),
           );
@@ -114,6 +122,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
           emit(
             state.copyWith(
+              screenState: DetailsScreenState.loading(),
               navigationState: const DetailsNavigationState.goToModify(),
             ),
           );

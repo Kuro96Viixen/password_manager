@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
 import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/widgets/loader.dart';
 
 class DetailsView extends StatelessWidget {
   static const routeName = 'DetailsPageRoute';
@@ -95,6 +96,13 @@ class DetailsView extends StatelessWidget {
                       ),
                     ),
                   ],
+                  bottom: state.screenState.when(
+                    loading: () => const PreferredSize(
+                      preferredSize: Size(0, 0),
+                      child: Loader(),
+                    ),
+                    loaded: () => null,
+                  ),
                 ),
                 body: Container(
                   padding: const EdgeInsets.all(
@@ -130,7 +138,10 @@ class DetailsView extends StatelessWidget {
                               );
                         },
                         child: AccountField(
-                          text: state.passwordString,
+                          text: state.screenState.when(
+                            loading: () => '',
+                            loaded: () => state.passwordString,
+                          ),
                           viewPassword: true,
                         ),
                       ),

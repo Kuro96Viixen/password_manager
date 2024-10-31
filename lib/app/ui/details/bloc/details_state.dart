@@ -6,6 +6,7 @@ class DetailsState with _$DetailsState {
     required String passwordString,
     required AccountData accountData,
     required int accountPosition,
+    required DetailsScreenState screenState,
     DetailsNavigationState? navigationState,
   }) = _DetailsState;
 
@@ -13,8 +14,16 @@ class DetailsState with _$DetailsState {
         passwordString: Texts.hiddenPasswordText,
         accountData: AccountData.empty(),
         accountPosition: 0,
+        screenState: DetailsScreenState.loading(),
         navigationState: null,
       );
+}
+
+@freezed
+class DetailsScreenState with _$DetailsScreenState {
+  const factory DetailsScreenState.loading() = _Loading;
+
+  const factory DetailsScreenState.loaded() = _Loaded;
 }
 
 @freezed
