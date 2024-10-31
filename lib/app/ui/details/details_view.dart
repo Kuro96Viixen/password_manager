@@ -11,6 +11,7 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
 import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
+import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 
 class DetailsView extends StatelessWidget {
@@ -35,6 +36,28 @@ class DetailsView extends StatelessWidget {
               ModifyView.routeName,
               extra: accountData,
             ),
+            showPopUp: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext dialogContext) {
+                  return DeleteDialog(
+                    title: Texts.deleteDialogTitle,
+                    body: Texts.deleteDialogBody
+                        .replaceAll('{account}', accountData.name),
+                    advice: Texts.deleteDialogAdvice,
+                    onPressedConfirm: () {
+                      dialogContext.pop();
+
+                      context
+                          .read<DetailsBloc>()
+                          .add(DetailsEvent.deleteAccount(accountData));
+                    },
+                    confirmButtonText: Texts.deleteDialogConfirm,
+                    cancelButtonText: Texts.deleteDialogCancel,
+                  );
+                },
+              );
+            },
             showSnackBar: (snackBarMessage) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -66,7 +89,7 @@ class DetailsView extends StatelessWidget {
                     IconButton(
                       onPressed: () => context
                           .read<DetailsBloc>()
-                          .add(DetailsEvent.deleteAccount(accountData)),
+                          .add(const DetailsEvent.pressedDelete()),
                       icon: Icon(
                         CommonIcons.delete,
                       ),

@@ -46,6 +46,15 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
             ),
           );
         },
+        pressedDelete: () {
+          emit(state.copyWith(navigationState: null));
+
+          emit(
+            state.copyWith(
+              navigationState: DetailsNavigationState.showPopUp(),
+            ),
+          );
+        },
         deleteAccount: (accountData) async {
           final accountsData = await getAccountsDataUseCase();
 

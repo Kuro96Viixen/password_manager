@@ -6,6 +6,8 @@ class DetailsEvent with _$DetailsEvent {
 
   const factory DetailsEvent.pressedBack() = _PressedBack;
 
+  const factory DetailsEvent.pressedDelete() = _PressedDelete;
+
   const factory DetailsEvent.deleteAccount(AccountData accountData) =
       _DeleteAccount;
 
