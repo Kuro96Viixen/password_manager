@@ -11,6 +11,7 @@ import 'package:password_manager/app/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/widgets/custom_app_bar.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class AccountsView extends StatelessWidget {
@@ -114,12 +115,17 @@ class AccountsView extends StatelessWidget {
                 ),
             child: SafeArea(
               child: Scaffold(
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   leading: (state.arePrivateAccounts)
                       ? BackButton(
-                          onPressed: () => context.read<AccountsBloc>().add(
-                                const AccountsEvent.closePrivate(),
-                              ),
+                          onPressed: () {
+                            // Remove focus on TextField
+                            FocusScope.of(context).unfocus();
+
+                            context.read<AccountsBloc>().add(
+                                  const AccountsEvent.closePrivate(),
+                                );
+                          },
                         )
                       : null,
                   title: Text(
@@ -132,13 +138,7 @@ class AccountsView extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               // Remove focus on TextField
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-
-                              if (!currentFocus.hasPrimaryFocus &&
-                                  currentFocus.focusedChild != null) {
-                                FocusManager.instance.primaryFocus!.unfocus();
-                              }
+                              FocusScope.of(context).unfocus();
 
                               context
                                   .read<AccountsBloc>()
@@ -152,13 +152,7 @@ class AccountsView extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               // Remove focus on TextField
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-
-                              if (!currentFocus.hasPrimaryFocus &&
-                                  currentFocus.focusedChild != null) {
-                                FocusManager.instance.primaryFocus!.unfocus();
-                              }
+                              FocusManager.instance.primaryFocus!.unfocus();
 
                               context
                                   .read<AccountsBloc>()

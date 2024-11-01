@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
 import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/widgets/custom_app_bar.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class DetailsView extends StatelessWidget {
@@ -77,7 +78,7 @@ class DetailsView extends StatelessWidget {
                 ),
             child: SafeArea(
               child: Scaffold(
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   leading: BackButton(
                     onPressed: () => context
                         .read<DetailsBloc>()

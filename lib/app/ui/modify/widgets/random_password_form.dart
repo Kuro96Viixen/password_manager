@@ -42,7 +42,6 @@ class RandomPasswordForm extends StatelessWidget {
             Texts.spanishCheckBoxTitle,
           ),
         ),
-        const SizedBox(height: 8.0),
         CheckboxListTile(
           value: hasNumbersCharacters,
           onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
@@ -63,9 +62,14 @@ class RandomPasswordForm extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         ElevatedButton(
-          onPressed: () => context
-              .read<ModifyBloc>()
-              .add(const ModifyEvent.generateRandomPassword()),
+          onPressed: () {
+            // Remove focus on TextField
+            FocusScope.of(context).unfocus();
+
+            context
+                .read<ModifyBloc>()
+                .add(const ModifyEvent.generateRandomPassword());
+          },
           child: Text(Texts.generateRandomPasswordButton),
         ),
         const SizedBox(

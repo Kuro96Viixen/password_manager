@@ -23,9 +23,14 @@ class AccountListTile extends StatelessWidget {
           width: 1,
         ),
       ),
-      onTap: () => context.read<AccountsBloc>().add(
-            AccountsEvent.pressedAccount(index),
-          ),
+      onTap: () {
+        // Remove focus on TextField
+        FocusManager.instance.primaryFocus!.unfocus();
+
+        context.read<AccountsBloc>().add(
+              AccountsEvent.pressedAccount(index),
+            );
+      },
       leading: Icon(
         CommonIcons.account,
       ),
