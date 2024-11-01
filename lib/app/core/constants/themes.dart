@@ -8,14 +8,19 @@ class CustomThemes {
     fontFamily: 'Verdana',
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
+      // Main color
       primary: Colors.purple[200]!,
-      onPrimary: Colors.purple,
-      secondary: Colors.purple[200]!,
-      onSecondary: Colors.purple,
+      // Color for errors
       error: Colors.red,
-      onError: Colors.grey[500]!,
+      // Background color
       surface: Colors.grey[800]!,
+      // Colors of items in screen
       onSurface: Colors.white,
+      // Unused but required
+      onPrimary: Colors.black,
+      secondary: Colors.black,
+      onSecondary: Colors.black,
+      onError: Colors.black,
     ),
     listTileTheme: const ListTileThemeData(),
     bottomSheetTheme: BottomSheetThemeData(
@@ -37,7 +42,7 @@ class CustomThemes {
       ),
     ),
     appBarTheme: AppBarTheme(
-      color: Colors.grey[800]!,
+      color: Colors.grey[850]!,
       foregroundColor: Colors.purple[200]!,
     ),
     snackBarTheme: SnackBarThemeData(
@@ -50,7 +55,7 @@ class CustomThemes {
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStatePropertyAll(Colors.purple[200]!),
       trackColor: const WidgetStatePropertyAll(Colors.transparent),
-      trackOutlineColor: WidgetStatePropertyAll(Colors.purple[200]!),
+      trackOutlineColor: WidgetStatePropertyAll(Colors.white),
       splashRadius: 0.0,
     ),
     checkboxTheme: CheckboxThemeData(
@@ -60,6 +65,9 @@ class CustomThemes {
             ? Colors.purple[200]!
             : Colors.transparent,
       ),
+    ),
+    dividerTheme: DividerThemeData(
+      color: Colors.white24,
     ),
   );
 }

@@ -25,4 +25,13 @@ extension ContextExtension on BuildContext {
   void popUntilPath(String ancestorPath) {
     GoRouter.of(this).popUntilPath(ancestorPath);
   }
+
+  /// Check if the device is with the DarkMode enabled
+  bool get isDarkMode {
+    // TODO: review this when adding Light theme
+    // context.isDarkMode
+    final brightness = MediaQuery.of(this).platformBrightness;
+
+    return brightness == Brightness.dark;
+  }
 }

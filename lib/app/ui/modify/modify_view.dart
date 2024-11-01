@@ -7,6 +7,7 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
+import 'package:password_manager/widgets/custom_app_bar.dart';
 
 class ModifyView extends StatelessWidget {
   static const routeName = 'ModifyPageRoute';
@@ -40,7 +41,7 @@ class ModifyView extends StatelessWidget {
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
-              appBar: AppBar(
+              appBar: CustomAppBar(
                 leading: BackButton(
                   onPressed: () => context
                       .read<ModifyBloc>()
@@ -85,13 +86,7 @@ class ModifyView extends StatelessWidget {
                                   const ModifyScreenState.randomForm(),
                               onChanged: (isRandomPasswordForm) {
                                 // Remove focus on TextField
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
-
-                                if (!currentFocus.hasPrimaryFocus &&
-                                    currentFocus.focusedChild != null) {
-                                  FocusManager.instance.primaryFocus!.unfocus();
-                                }
+                                FocusScope.of(context).unfocus();
 
                                 context.read<ModifyBloc>().add(
                                       ModifyEvent.onChangePasswordForm(
