@@ -194,7 +194,7 @@ class AccountsView extends StatelessWidget {
                       state.screenState.when(
                         loading: () => Container(),
                         loaded: (searchText) => Expanded(
-                          child: ListView.builder(
+                          child: ListView.separated(
                             itemBuilder: (context, index) => (state
                                         .accountsList[index].name
                                         .toLowerCase()
@@ -206,6 +206,19 @@ class AccountsView extends StatelessWidget {
                                 ? AccountListTile(
                                     index: index,
                                     account: state.accountsList[index],
+                                  )
+                                : Container(),
+                            separatorBuilder: (context, index) => (state
+                                        .accountsList[index].name
+                                        .toLowerCase()
+                                        .startsWith(searchText) &&
+                                    ((!state.accountsList[index].private ==
+                                            !state.arePrivateAccounts) ||
+                                        (state.accountsList[index].private ==
+                                            state.arePrivateAccounts)))
+                                ? Divider(
+                                    height: 1,
+                                    color: Colors.grey,
                                   )
                                 : Container(),
                             itemCount: state.accountsList.length,

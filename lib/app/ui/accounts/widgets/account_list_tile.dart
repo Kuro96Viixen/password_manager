@@ -17,12 +17,6 @@ class AccountListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      shape: const Border(
-        bottom: BorderSide(
-          color: Colors.grey,
-          width: 1,
-        ),
-      ),
       onTap: () {
         // Remove focus on TextField
         FocusManager.instance.primaryFocus!.unfocus();
