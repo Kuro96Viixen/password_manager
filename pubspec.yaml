@@ -27,9 +27,6 @@ dependencies:
   # Local Authentication
   ## Fingerprint authentication
   local_auth: ^2.3.0
-  # Focus Detector
-  ## Mostly check if open screen
-  focus_detector: ^2.0.1
 
   # File Picker
   ## Store and read backup file

@@ -100,6 +100,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         pressedAccount: (accountIndex) async {
           final accountsData = await getAccountsDataUseCase();
 
+          // Resetting navigationState
+          emit(state.copyWith(navigationState: null));
+
           emit(
             state.copyWith(
               navigationState: AccountsNavigationState.goToDetails(
@@ -109,6 +112,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           );
         },
         pressedModify: () {
+          // Resetting navigationState
+          emit(state.copyWith(navigationState: null));
+
           emit(
             state.copyWith(
               navigationState: const AccountsNavigationState.goToModify(),
@@ -116,24 +122,16 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           );
         },
         showPrivate: () async {
+          // Resetting navigationState
+          emit(state.copyWith(navigationState: null));
+
           if (await getAuthenticationUseCase()) {
             emit(
               state.copyWith(
-                arePrivateAccounts: true,
-                screenState: const AccountsScreenState.loaded(searchText: ''),
-                navigationState: null,
+                navigationState: const AccountsNavigationState.goToPrivate(),
               ),
             );
           }
-        },
-        closePrivate: () {
-          emit(
-            state.copyWith(
-              arePrivateAccounts: false,
-              screenState: const AccountsScreenState.loaded(searchText: ''),
-              navigationState: null,
-            ),
-          );
         },
         searchAccount: (String searchString) {
           emit(
@@ -145,11 +143,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         },
         showSettings: () {
           // Resetting navigationState
-          emit(
-            state.copyWith(
-              navigationState: null,
-            ),
-          );
+          emit(state.copyWith(navigationState: null));
 
           emit(
             state.copyWith(
@@ -199,11 +193,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           final importAccountsResult = await importAccountsUseCase();
 
           // Resetting navigationState
-          emit(
-            state.copyWith(
-              navigationState: null,
-            ),
-          );
+          emit(state.copyWith(navigationState: null));
           importAccountsResult.when(
             failure: (message) {
               emit(

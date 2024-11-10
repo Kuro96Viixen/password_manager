@@ -30,7 +30,8 @@ class DetailsScreenState with _$DetailsScreenState {
 class DetailsNavigationState with _$DetailsNavigationState {
   const factory DetailsNavigationState.goBack() = _GoBack;
 
-  const factory DetailsNavigationState.goToModify() = _GoToModify;
+  const factory DetailsNavigationState.goToModify(AccountData accountData) =
+      _GoToModify;
 
   const factory DetailsNavigationState.showPopUp() = _ShowPopUp;
 

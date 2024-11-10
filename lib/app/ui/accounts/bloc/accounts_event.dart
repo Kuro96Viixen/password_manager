@@ -9,7 +9,6 @@ class AccountsEvent with _$AccountsEvent {
   const factory AccountsEvent.pressedModify() = _PressedModify;
 
   const factory AccountsEvent.showPrivate() = _ShowPrivate;
-  const factory AccountsEvent.closePrivate() = _ClosePrivate;
 
   const factory AccountsEvent.searchAccount(String searchString) =
       _SearchAccount;

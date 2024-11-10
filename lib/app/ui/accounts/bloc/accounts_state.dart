@@ -4,14 +4,12 @@ part of 'accounts_bloc.dart';
 class AccountsState with _$AccountsState {
   const factory AccountsState({
     required List<AccountData> accountsList,
-    required bool arePrivateAccounts,
     required AccountsScreenState screenState,
     AccountsNavigationState? navigationState,
   }) = _AccountsState;
 
   factory AccountsState.initial() => const AccountsState(
         accountsList: [],
-        arePrivateAccounts: false,
         screenState: AccountsScreenState.loading(),
         navigationState: null,
       );
@@ -27,6 +25,8 @@ class AccountsScreenState with _$AccountsScreenState {
 
 @freezed
 class AccountsNavigationState with _$AccountsNavigationState {
+  const factory AccountsNavigationState.goToPrivate() = _GoToPrivate;
+
   const factory AccountsNavigationState.goToDetails({
     required AccountData accountData,
   }) = _GoToDetails;
