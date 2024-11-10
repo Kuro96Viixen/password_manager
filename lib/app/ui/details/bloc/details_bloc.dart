@@ -117,13 +117,16 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
             ),
           );
         },
-        pressedModify: () {
+        pressedModify: () async {
           emit(state.copyWith(navigationState: null));
+
+          final accountsData = await getAccountsDataUseCase();
 
           emit(
             state.copyWith(
-              screenState: DetailsScreenState.loading(),
-              navigationState: const DetailsNavigationState.goToModify(),
+              navigationState: DetailsNavigationState.goToModify(
+                accountsData.accountsList[state.accountPosition],
+              ),
             ),
           );
         },

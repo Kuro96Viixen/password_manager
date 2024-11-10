@@ -24,6 +24,12 @@ void _uiModulesInit() {
   );
 
   uiModulesDi.registerFactory(
+    () => PrivateBloc(
+      getAccountsDataUseCase: uiModulesDi(),
+    ),
+  );
+
+  uiModulesDi.registerFactory(
     () => DetailsBloc(
       getAccountsDataUseCase: uiModulesDi(),
       setAccountsDataUseCase: uiModulesDi(),

@@ -44,6 +44,7 @@ class CustomThemes {
     appBarTheme: AppBarTheme(
       color: Colors.grey[850]!,
       foregroundColor: Colors.purple[200]!,
+      scrolledUnderElevation: 0,
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: Colors.purple[200]!,

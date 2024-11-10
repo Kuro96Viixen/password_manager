@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
@@ -11,11 +12,14 @@ import 'package:password_manager/app/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
-import 'package:password_manager/widgets/custom_app_bar.dart';
+import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class AccountsView extends StatelessWidget {
   static const routeName = '/AccountsPageRoute';
+
+  static late Completer<void> modifyCompleter;
+  static bool isFinishedEdition = false;
 
   const AccountsView({
     super.key,
@@ -24,15 +28,45 @@ class AccountsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => uiModulesDi<AccountsBloc>(),
+      create: (context) => uiModulesDi<AccountsBloc>()
+        ..add(
+          const AccountsEvent.started(
+            String.fromEnvironment('encryption_key'),
+          ),
+        ),
       child: BlocConsumer<AccountsBloc, AccountsState>(
         listener: (context, state) {
           state.navigationState?.when(
-            goToDetails: (accountData) => context.goWithRoute(
-              DetailsView.routeName,
-              extra: accountData,
-            ),
-            goToModify: () => context.goWithRoute(ModifyView.routeName),
+            goToPrivate: () => context.goWithRoute(PrivateView.routeName),
+            goToDetails: (accountData) async {
+              isFinishedEdition = false;
+              modifyCompleter = Completer<void>();
+
+              context.goWithRoute(
+                DetailsView.routeName,
+                extra: accountData,
+              );
+
+              while (!isFinishedEdition) {
+                await modifyCompleter.future;
+                modifyCompleter = Completer<void>();
+
+                if (context.mounted) {
+                  context.read<AccountsBloc>().add(AccountsEvent.started(''));
+                }
+              }
+            },
+            goToModify: () async {
+              modifyCompleter = Completer<void>();
+
+              context.goWithRoute(ModifyView.routeName);
+
+              await modifyCompleter.future;
+
+              if (context.mounted) {
+                context.read<AccountsBloc>().add(AccountsEvent.started(''));
+              }
+            },
             showBottomMenu: () {
               showModalBottomSheet(
                 context: context,
@@ -107,135 +141,135 @@ class AccountsView extends StatelessWidget {
           );
         },
         builder: (context, state) {
-          return FocusDetector(
-            onFocusGained: () => context.read<AccountsBloc>().add(
-                  const AccountsEvent.started(
-                    String.fromEnvironment('encryption_key'),
+          return SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  Texts.accountsViewTitle,
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      // Remove focus on TextField
+                      FocusScope.of(context).unfocus();
+
+                      context
+                          .read<AccountsBloc>()
+                          .add(const AccountsEvent.showPrivate());
+                    },
+                    icon: Icon(
+                      CommonIcons.private,
+                    ),
+                    tooltip: Texts.showPrivateTooltip,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // Remove focus on TextField
+                      FocusManager.instance.primaryFocus!.unfocus();
+
+                      context
+                          .read<AccountsBloc>()
+                          .add(const AccountsEvent.showSettings());
+                    },
+                    icon: Icon(
+                      CommonIcons.settings,
+                    ),
+                    tooltip: Texts.settingsTooltip,
+                  ),
+                ],
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(4.0),
+                  child: Divider(
+                    height: 4.0,
                   ),
                 ),
-            child: SafeArea(
-              child: Scaffold(
-                appBar: CustomAppBar(
-                  leading: (state.arePrivateAccounts)
-                      ? BackButton(
-                          onPressed: () {
-                            // Remove focus on TextField
-                            FocusScope.of(context).unfocus();
-
+                // Kept this as I like the look it gives
+                // flexibleSpace: Container(
+                //   decoration: BoxDecoration(
+                //     gradient: LinearGradient(
+                //       begin: Alignment.topCenter,
+                //       end: Alignment.bottomCenter,
+                //       colors: <Color>[
+                //         Colors.black,
+                //         Colors.grey[900]!,
+                //         Colors.grey[800]!,
+                //       ],
+                //     ),
+                //   ),
+                // ),
+              ),
+              body: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height,
+                ),
+                child: Column(
+                  children: [
+                    state.screenState.when(
+                      loading: () => Loader(),
+                      loaded: (_) => SizedBox(height: 4),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      child: TextField(
+                        onChanged: (searchText) =>
                             context.read<AccountsBloc>().add(
-                                  const AccountsEvent.closePrivate(),
-                                );
-                          },
-                        )
-                      : null,
-                  title: Text(
-                    state.arePrivateAccounts
-                        ? Texts.privateAccountsViewTitle
-                        : Texts.accountsViewTitle,
-                  ),
-                  actions: (!state.arePrivateAccounts)
-                      ? [
-                          IconButton(
-                            onPressed: () {
-                              // Remove focus on TextField
-                              FocusScope.of(context).unfocus();
+                                  AccountsEvent.searchAccount(searchText),
+                                ),
+                        decoration: InputDecoration(
+                          hintText: Texts.searchHintText,
+                        ),
+                      ),
+                    ),
+                    state.screenState.when(
+                      loading: () => Container(),
+                      loaded: (searchText) => Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) => (state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText) &&
+                                  !state.accountsList[index].private)
+                              ? AccountListTile(
+                                  index: index,
+                                  account: state.accountsList[index],
+                                  onTap: () {
+                                    // Remove focus on TextField
+                                    FocusManager.instance.primaryFocus!
+                                        .unfocus();
 
-                              context
-                                  .read<AccountsBloc>()
-                                  .add(const AccountsEvent.showPrivate());
-                            },
-                            icon: Icon(
-                              CommonIcons.private,
-                            ),
-                            tooltip: Texts.showPrivateTooltip,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              // Remove focus on TextField
-                              FocusManager.instance.primaryFocus!.unfocus();
-
-                              context
-                                  .read<AccountsBloc>()
-                                  .add(const AccountsEvent.showSettings());
-                            },
-                            icon: Icon(
-                              CommonIcons.settings,
-                            ),
-                            tooltip: Texts.settingsTooltip,
-                          ),
-                        ]
-                      : null,
+                                    context.read<AccountsBloc>().add(
+                                          AccountsEvent.pressedAccount(index),
+                                        );
+                                  },
+                                )
+                              : Container(),
+                          separatorBuilder: (context, index) => (state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText) &&
+                                  !state.accountsList[index].private)
+                              ? Divider(
+                                  height: 1,
+                                  color: Colors.grey,
+                                )
+                              : Container(),
+                          itemCount: state.accountsList.length,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                body: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height,
-                  ),
-                  child: Column(
-                    children: [
-                      state.screenState.when(
-                        loading: () => Loader(),
-                        loaded: (_) => SizedBox(height: 4),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        child: TextField(
-                          onChanged: (searchText) =>
-                              context.read<AccountsBloc>().add(
-                                    AccountsEvent.searchAccount(searchText),
-                                  ),
-                          decoration: InputDecoration(
-                            hintText: Texts.searchHintText,
-                          ),
-                        ),
-                      ),
-                      state.screenState.when(
-                        loading: () => Container(),
-                        loaded: (searchText) => Expanded(
-                          child: ListView.separated(
-                            itemBuilder: (context, index) => (state
-                                        .accountsList[index].name
-                                        .toLowerCase()
-                                        .startsWith(searchText) &&
-                                    ((!state.accountsList[index].private ==
-                                            !state.arePrivateAccounts) ||
-                                        (state.accountsList[index].private ==
-                                            state.arePrivateAccounts)))
-                                ? AccountListTile(
-                                    index: index,
-                                    account: state.accountsList[index],
-                                  )
-                                : Container(),
-                            separatorBuilder: (context, index) => (state
-                                        .accountsList[index].name
-                                        .toLowerCase()
-                                        .startsWith(searchText) &&
-                                    ((!state.accountsList[index].private ==
-                                            !state.arePrivateAccounts) ||
-                                        (state.accountsList[index].private ==
-                                            state.arePrivateAccounts)))
-                                ? Divider(
-                                    height: 1,
-                                    color: Colors.grey,
-                                  )
-                                : Container(),
-                            itemCount: state.accountsList.length,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () => context.read<AccountsBloc>().add(
-                        const AccountsEvent.pressedModify(),
-                      ),
-                  tooltip: Texts.addNewAccountTooltip,
-                  child: Icon(
-                    CommonIcons.add,
-                  ),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => context.read<AccountsBloc>().add(
+                      AccountsEvent.pressedModify(),
+                    ),
+                tooltip: Texts.addNewAccountTooltip,
+                child: Icon(
+                  CommonIcons.add,
                 ),
               ),
             ),
