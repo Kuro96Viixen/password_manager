@@ -29,7 +29,9 @@ class PrivateView extends StatelessWidget {
         listener: (context, state) {
           state.navigationState?.when(
             goToDetails: (accountData) async {
+              isFinishedEdition = false;
               modifyCompleter = Completer<void>();
+
               context.goWithRoute(
                 DetailsView.routeName,
                 extra: accountData,

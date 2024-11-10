@@ -39,7 +39,9 @@ class AccountsView extends StatelessWidget {
           state.navigationState?.when(
             goToPrivate: () => context.goWithRoute(PrivateView.routeName),
             goToDetails: (accountData) async {
+              isFinishedEdition = false;
               modifyCompleter = Completer<void>();
+
               context.goWithRoute(
                 DetailsView.routeName,
                 extra: accountData,

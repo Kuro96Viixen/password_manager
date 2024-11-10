@@ -42,6 +42,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     on<AccountsEvent>((event, emit) async {
       await event.when(
         started: (encryptionKey) async {
+          final oldScreenState = state.screenState;
           // Emitting Loading ScreenState before while loading Accounts
           emit(
             state.copyWith(
@@ -93,7 +94,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           emit(
             state.copyWith(
               accountsList: accountsList,
-              screenState: const AccountsScreenState.loaded(searchText: ''),
+              screenState: oldScreenState == AccountsScreenState.loading()
+                  ? AccountsScreenState.loaded(searchText: '')
+                  : oldScreenState,
             ),
           );
         },
@@ -128,6 +131,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           if (await getAuthenticationUseCase()) {
             emit(
               state.copyWith(
+                screenState: const AccountsScreenState.loaded(searchText: ''),
                 navigationState: const AccountsNavigationState.goToPrivate(),
               ),
             );
