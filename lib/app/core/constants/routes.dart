@@ -3,8 +3,25 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/app/ui/private/private_view.dart';
 
-GoRoute _editView() => GoRoute(
+GoRoute _detailsView() => GoRoute(
+      path: DetailsView.routeName,
+      builder: (context, state) {
+        AccountData? accountData;
+
+        if (state.extra is AccountData) {
+          accountData = state.extra as AccountData?;
+        }
+
+        return DetailsView(accountData: accountData!);
+      },
+      routes: [
+        _modifyView(),
+      ],
+    );
+
+GoRoute _modifyView() => GoRoute(
       path: ModifyView.routeName,
       builder: (context, state) {
         // Added this statement here, as is giving an issue if:
@@ -29,21 +46,14 @@ List<GoRoute> allAppRoutes = [
     builder: (context, state) => const AccountsView(),
     routes: [
       GoRoute(
-        path: DetailsView.routeName,
-        builder: (context, state) {
-          AccountData? accountData;
-
-          if (state.extra is AccountData) {
-            accountData = state.extra as AccountData?;
-          }
-
-          return DetailsView(accountData: accountData!);
-        },
+        path: PrivateView.routeName,
+        builder: (context, state) => const PrivateView(),
         routes: [
-          _editView(),
+          _detailsView(),
         ],
       ),
-      _editView(),
+      _detailsView(),
+      _modifyView(),
     ],
   ),
 ];

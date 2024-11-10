@@ -39,13 +39,6 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
             ),
           );
         },
-        backPressed: () {
-          emit(
-            state.copyWith(
-              navigationState: ModifyNavigationState.goBack(),
-            ),
-          );
-        },
         onNameChanged: (nameString) {
           emit(
             state.copyWith(
