@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/model/error_type.dart';
@@ -145,88 +144,89 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           );
         },
-        showSettings: () {
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-
-          emit(
-            state.copyWith(
-              navigationState: const AccountsNavigationState.showBottomMenu(),
-            ),
-          );
-        },
-        exportAccounts: () async {
-          final accountsData = await getAccountsDataUseCase();
-
-          final exportAccountsResult =
-              await exportAccountsUseCase(accountsData);
-
-          // Resetting navigationState
-          emit(
-            state.copyWith(
-              screenState: const AccountsScreenState.loading(),
-              navigationState: null,
-            ),
-          );
-
-          exportAccountsResult.when(
-            failure: (message) {
-              emit(
-                state.copyWith(
-                  navigationState: const AccountsNavigationState.showDialog(
-                    ErrorType.pickFolderException(),
-                  ),
-                ),
-              );
-            },
-            success: (filePath) {
-              // TODO
-              // This filePath returns different folder (tested on Android 11)
-
-              emit(
-                state.copyWith(
-                  navigationState: AccountsNavigationState.showSnackBar(
-                    snackBarMessage: Texts.exportedAccounts,
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        importAccounts: () async {
-          final importAccountsResult = await importAccountsUseCase();
-
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-          importAccountsResult.when(
-            failure: (message) {
-              emit(
-                state.copyWith(
-                  navigationState: const AccountsNavigationState.showDialog(
-                    ErrorType.pickFileException(),
-                  ),
-                ),
-              );
-            },
-            success: (importedAccounts) {
-              setAccountsDataUseCase(importedAccounts);
-
-              setAccountsDataOnStorageUseCase(
-                importedAccounts.toStore(),
-              );
-
-              emit(
-                state.copyWith(
-                  navigationState: AccountsNavigationState.showSnackBar(
-                    snackBarMessage: Texts.importedAccounts,
-                  ),
-                ),
-              );
-
-              add(const AccountsEvent.started(''));
-            },
-          );
-        },
+        // TODO(Kuro): Uncomment this when GP deployed
+        // showSettings: () {
+        //   // Resetting navigationState
+        //   emit(state.copyWith(navigationState: null));
+        //
+        //   emit(
+        //     state.copyWith(
+        //       navigationState: const AccountsNavigationState.showBottomMenu(),
+        //     ),
+        //   );
+        // },
+        // exportAccounts: () async {
+        //   final accountsData = await getAccountsDataUseCase();
+        //
+        //   final exportAccountsResult =
+        //       await exportAccountsUseCase(accountsData);
+        //
+        //   // Resetting navigationState
+        //   emit(
+        //     state.copyWith(
+        //       screenState: const AccountsScreenState.loading(),
+        //       navigationState: null,
+        //     ),
+        //   );
+        //
+        //   exportAccountsResult.when(
+        //     failure: (message) {
+        //       emit(
+        //         state.copyWith(
+        //           navigationState: const AccountsNavigationState.showDialog(
+        //             ErrorType.pickFolderException(),
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //     success: (filePath) {
+        //       // TODO
+        //       // This filePath returns different folder (tested on Android 11)
+        //
+        //       emit(
+        //         state.copyWith(
+        //           navigationState: AccountsNavigationState.showSnackBar(
+        //             snackBarMessage: Texts.exportedAccounts,
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //   );
+        // },
+        // importAccounts: () async {
+        //   final importAccountsResult = await importAccountsUseCase();
+        //
+        //   // Resetting navigationState
+        //   emit(state.copyWith(navigationState: null));
+        //   importAccountsResult.when(
+        //     failure: (message) {
+        //       emit(
+        //         state.copyWith(
+        //           navigationState: const AccountsNavigationState.showDialog(
+        //             ErrorType.pickFileException(),
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //     success: (importedAccounts) {
+        //       setAccountsDataUseCase(importedAccounts);
+        //
+        //       setAccountsDataOnStorageUseCase(
+        //         importedAccounts.toStore(),
+        //       );
+        //
+        //       emit(
+        //         state.copyWith(
+        //           navigationState: AccountsNavigationState.showSnackBar(
+        //             snackBarMessage: Texts.importedAccounts,
+        //           ),
+        //         ),
+        //       );
+        //
+        //       add(const AccountsEvent.started(''));
+        //     },
+        //   );
+        // },
       );
     });
   }

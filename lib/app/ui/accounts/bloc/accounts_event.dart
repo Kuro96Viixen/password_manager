@@ -13,7 +13,8 @@ class AccountsEvent with _$AccountsEvent {
   const factory AccountsEvent.searchAccount(String searchString) =
       _SearchAccount;
 
-  const factory AccountsEvent.showSettings() = _ShowSettings;
-  const factory AccountsEvent.exportAccounts() = _ExportAccounts;
-  const factory AccountsEvent.importAccounts() = _ImportAccounts;
+  // TODO(Kuro): Uncomment this when GP deployed
+  // const factory AccountsEvent.showSettings() = _ShowSettings;
+  // const factory AccountsEvent.exportAccounts() = _ExportAccounts;
+  // const factory AccountsEvent.importAccounts() = _ImportAccounts;
 }

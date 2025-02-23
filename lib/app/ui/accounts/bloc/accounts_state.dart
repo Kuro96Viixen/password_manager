@@ -33,7 +33,8 @@ class AccountsNavigationState with _$AccountsNavigationState {
 
   const factory AccountsNavigationState.goToModify() = _GoToModify;
 
-  const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
+  // TODO(Kuro): Uncomment this when GP deployed
+  // const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
 
   const factory AccountsNavigationState.showSnackBar({
     required String snackBarMessage,

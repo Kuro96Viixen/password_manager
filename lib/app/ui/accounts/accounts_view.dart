@@ -67,42 +67,43 @@ class AccountsView extends StatelessWidget {
                 context.read<AccountsBloc>().add(AccountsEvent.started(''));
               }
             },
-            showBottomMenu: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext bottomMenuContext) {
-                  return Wrap(
-                    children: [
-                      Center(
-                        child: ElevatedButton(
-                          child: Text(Texts.exportAccounts),
-                          onPressed: () {
-                            context.pop();
-
-                            context
-                                .read<AccountsBloc>()
-                                .add(const AccountsEvent.exportAccounts());
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Center(
-                        child: ElevatedButton(
-                          child: Text(Texts.importAccounts),
-                          onPressed: () {
-                            context.pop();
-
-                            context
-                                .read<AccountsBloc>()
-                                .add(const AccountsEvent.importAccounts());
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
+            // TODO(Kuro): Uncomment this when GP deployed
+            // showBottomMenu: () {
+            //   showModalBottomSheet(
+            //     context: context,
+            //     builder: (BuildContext bottomMenuContext) {
+            //       return Wrap(
+            //         children: [
+            //           Center(
+            //             child: ElevatedButton(
+            //               child: Text(Texts.exportAccounts),
+            //               onPressed: () {
+            //                 context.pop();
+            //
+            //                 context
+            //                     .read<AccountsBloc>()
+            //                     .add(const AccountsEvent.exportAccounts());
+            //               },
+            //             ),
+            //           ),
+            //           const SizedBox(height: 8.0),
+            //           Center(
+            //             child: ElevatedButton(
+            //               child: Text(Texts.importAccounts),
+            //               onPressed: () {
+            //                 context.pop();
+            //
+            //                 context
+            //                     .read<AccountsBloc>()
+            //                     .add(const AccountsEvent.importAccounts());
+            //               },
+            //             ),
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   );
+            // },
             showSnackBar: (snackBarMessage) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -162,20 +163,21 @@ class AccountsView extends StatelessWidget {
                     ),
                     tooltip: Texts.showPrivateTooltip,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Remove focus on TextField
-                      FocusManager.instance.primaryFocus!.unfocus();
-
-                      context
-                          .read<AccountsBloc>()
-                          .add(const AccountsEvent.showSettings());
-                    },
-                    icon: Icon(
-                      CommonIcons.settings,
-                    ),
-                    tooltip: Texts.settingsTooltip,
-                  ),
+                  // TODO(Kuro): Uncomment this when GP deployed
+                  // IconButton(
+                  //   onPressed: () {
+                  //     // Remove focus on TextField
+                  //     FocusManager.instance.primaryFocus!.unfocus();
+                  //
+                  //     context
+                  //         .read<AccountsBloc>()
+                  //         .add(const AccountsEvent.showSettings());
+                  //   },
+                  //   icon: Icon(
+                  //     CommonIcons.settings,
+                  //   ),
+                  //   tooltip: Texts.settingsTooltip,
+                  // ),
                 ],
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(4.0),
