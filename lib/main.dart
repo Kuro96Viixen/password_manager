@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/constants/themes.dart';
@@ -15,6 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp.router(
       routeInformationProvider:
           app_di.navigationModulesDi<GoRouter>().routeInformationProvider,

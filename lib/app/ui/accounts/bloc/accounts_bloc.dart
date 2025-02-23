@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/domain/model/error_type.dart';
 import 'package:password_manager/app/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
@@ -13,10 +11,8 @@ import 'package:password_manager/app/domain/use_cases/import_accounts_use_case.d
 import 'package:password_manager/app/domain/use_cases/initialize_encryption_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
-
-part 'accounts_bloc.freezed.dart';
-part 'accounts_event.dart';
-part 'accounts_state.dart';
+import 'package:password_manager/app/ui/accounts/bloc/accounts_event.dart';
+import 'package:password_manager/app/ui/accounts/bloc/accounts_state.dart';
 
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
@@ -141,6 +137,13 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             state.copyWith(
               screenState: AccountsScreenState.loaded(searchText: searchString),
               navigationState: null,
+            ),
+          );
+        },
+        onRandomPasswordPressed: () {
+          emit(
+            state.copyWith(
+              navigationState: AccountsNavigationState.goToGeneratePassword(),
             ),
           );
         },

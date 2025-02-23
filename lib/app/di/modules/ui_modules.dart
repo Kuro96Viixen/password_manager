@@ -47,4 +47,8 @@ void _uiModulesInit() {
       encryptPasswordUseCase: uiModulesDi(),
     ),
   );
+
+  uiModulesDi.registerFactory(
+    () => RandomPasswordBloc(),
+  );
 }

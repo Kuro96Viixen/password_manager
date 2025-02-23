@@ -1,4 +1,6 @@
-part of 'accounts_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'accounts_event.freezed.dart';
 
 @freezed
 class AccountsEvent with _$AccountsEvent {
@@ -12,6 +14,9 @@ class AccountsEvent with _$AccountsEvent {
 
   const factory AccountsEvent.searchAccount(String searchString) =
       _SearchAccount;
+
+  const factory AccountsEvent.onRandomPasswordPressed() =
+      _OnRandomPasswordPressed;
 
   // TODO(Kuro): Uncomment this when GP deployed
   // const factory AccountsEvent.showSettings() = _ShowSettings;
