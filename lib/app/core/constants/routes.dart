@@ -4,6 +4,7 @@ import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
+import 'package:password_manager/app/ui/random_password/random_password_view.dart';
 
 GoRoute _detailsView() => GoRoute(
       path: DetailsView.routeName,
@@ -54,6 +55,10 @@ List<GoRoute> allAppRoutes = [
       ),
       _detailsView(),
       _modifyView(),
+      GoRoute(
+        path: RandomPasswordView.routeName,
+        builder: (context, state) => const RandomPasswordView(),
+      ),
     ],
   ),
 ];
