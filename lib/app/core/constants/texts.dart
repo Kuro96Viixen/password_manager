@@ -8,6 +8,8 @@ class Texts {
   static String addNewAccountTooltip = 'Add new password';
   static String settingsTooltip = 'Settings';
 
+  static String randomPasswordListTile = 'Generate Random password';
+
   // Private accounts view
   static String privateAccountsViewTitle = 'Private accounts list';
 
@@ -83,4 +85,11 @@ class Texts {
   static String deleteDialogAdvice = 'This action cannot be undone.';
   static String deleteDialogCancel = 'No, go back';
   static String deleteDialogConfirm = 'Yes, I\'m sure';
+
+  // Random Password View
+  static String randomPasswordViewTitle = 'Random Password Generator';
+  static String randomPasswordDisclaimer = 'This random generated password '
+      'won\'t be stored anywhere and will be discarded once exit, '
+      'to store it you might use the form to save an account, '
+      'this password can be copied by long-pressing it';
 }

@@ -1,4 +1,8 @@
-part of 'accounts_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:password_manager/app/domain/model/accounts_data.dart';
+import 'package:password_manager/app/domain/model/error_type.dart';
+
+part 'accounts_state.freezed.dart';
 
 @freezed
 class AccountsState with _$AccountsState {
@@ -33,7 +37,11 @@ class AccountsNavigationState with _$AccountsNavigationState {
 
   const factory AccountsNavigationState.goToModify() = _GoToModify;
 
-  const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
+  const factory AccountsNavigationState.goToGeneratePassword() =
+      _GoToGeneratePassword;
+
+  // TODO(Kuro): Uncomment this when GP deployed
+  // const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
 
   const factory AccountsNavigationState.showSnackBar({
     required String snackBarMessage,

@@ -30,6 +30,7 @@ import 'package:password_manager/app/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
+import 'package:password_manager/app/ui/random_password/bloc/random_password_bloc.dart';
 
 part 'modules/domain_modules.dart';
 part 'modules/local_modules.dart';
