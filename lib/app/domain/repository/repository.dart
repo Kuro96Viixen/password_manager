@@ -1,6 +1,5 @@
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/domain/model/result.dart';
 
 abstract class Repository {
   Future<void> setAccountsData(AccountsData accountsData);
@@ -12,10 +11,10 @@ abstract class Repository {
   Future<void> setAccountsDataOnStorage(String accountsData);
 
   Future<bool> authenticate();
-
-  Future<Result<void>> exportAccounts(AccountsData accountsData);
-
-  Future<Result<AccountsData>> importAccounts();
+  //
+  // Future<Result<void>> exportAccounts(AccountsData accountsData);
+  //
+  // Future<Result<AccountsData>> importAccounts();
 
   Future<void> initializeEncryption(String keyValue);
 
