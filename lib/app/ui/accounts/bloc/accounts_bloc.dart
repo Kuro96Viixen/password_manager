@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_authentication_use_case.dart';
-import 'package:password_manager/app/domain/use_cases/import_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/initialize_encryption_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
@@ -20,8 +18,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAccountsDataFromStorageUseCase getAccountsDataFromStorageUseCase;
   final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
   final GetAuthenticationUseCase getAuthenticationUseCase;
-  final ExportAccountsUseCase exportAccountsUseCase;
-  final ImportAccountsUseCase importAccountsUseCase;
+  // final ExportAccountsUseCase exportAccountsUseCase;
+  // final ImportAccountsUseCase importAccountsUseCase;
   final InitializeEncryptionUseCase initializeEncryptionUseCase;
 
   AccountsBloc({
@@ -30,8 +28,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     required this.getAccountsDataFromStorageUseCase,
     required this.setAccountsDataOnStorageUseCase,
     required this.getAuthenticationUseCase,
-    required this.exportAccountsUseCase,
-    required this.importAccountsUseCase,
+    // required this.exportAccountsUseCase,
+    // required this.importAccountsUseCase,
     required this.initializeEncryptionUseCase,
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
