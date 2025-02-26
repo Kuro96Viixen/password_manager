@@ -175,6 +175,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
               navigationState: const ModifyNavigationState.goBack(),
             ),
           );
+          emit(state.copyWith(navigationState: null));
         },
       );
     });
