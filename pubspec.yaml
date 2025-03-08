@@ -2,7 +2,7 @@ name: password_manager
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 3.3.8+27
+version: 3.4.0+28
 
 environment:
   sdk: '>=2.18.0 <3.0.0'

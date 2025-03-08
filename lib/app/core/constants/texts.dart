@@ -45,9 +45,10 @@ class Texts {
   // Fingerprint
   // static String fingerprintDialogTitle = 'Authentication required';
   // static String fingerprintDialogSubtitle = 'Verify identity';
-  static String fingerprintPrivateAuthTitle = 'Use fingerprint to unlock';
+  static String fingerprintPrivateAuthTitle =
+      'Use device authentication to unlock';
   static String fingerprintPasswordAuthTitle =
-      'Use fingerprint to see the password';
+      'Use device authentication to see the password';
 
   // Settings
   static String exportAccounts = 'Export';
