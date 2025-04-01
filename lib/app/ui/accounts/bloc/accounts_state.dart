@@ -40,8 +40,7 @@ class AccountsNavigationState with _$AccountsNavigationState {
   const factory AccountsNavigationState.goToGeneratePassword() =
       _GoToGeneratePassword;
 
-  // TODO(Kuro): Uncomment this when GP deployed
-  // const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
+  const factory AccountsNavigationState.showBottomMenu() = _ShowBottomMenu;
 
   const factory AccountsNavigationState.showSnackBar({
     required String snackBarMessage,

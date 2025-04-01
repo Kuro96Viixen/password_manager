@@ -25,13 +25,13 @@ void _domainModulesInit() {
     () => GetAuthenticationUseCase(domainModulesDi()),
   );
 
-  // domainModulesDi.registerFactory(
-  //   () => ExportAccountsUseCase(domainModulesDi()),
-  // );
-  //
-  // domainModulesDi.registerFactory(
-  //   () => ImportAccountsUseCase(domainModulesDi()),
-  // );
+  domainModulesDi.registerFactory(
+    () => ExportAccountsUseCase(domainModulesDi()),
+  );
+
+  domainModulesDi.registerFactory(
+    () => ImportAccountsUseCase(domainModulesDi()),
+  );
 
   domainModulesDi.registerFactory(
     () => InitializeEncryptionUseCase(domainModulesDi()),
