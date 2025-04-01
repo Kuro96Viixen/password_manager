@@ -17,8 +17,8 @@ void _uiModulesInit() {
       getAccountsDataFromStorageUseCase: uiModulesDi(),
       setAccountsDataOnStorageUseCase: uiModulesDi(),
       getAuthenticationUseCase: uiModulesDi(),
-      // exportAccountsUseCase: uiModulesDi(),
-      // importAccountsUseCase: uiModulesDi(),
+      exportAccountsUseCase: uiModulesDi(),
+      importAccountsUseCase: uiModulesDi(),
       initializeEncryptionUseCase: uiModulesDi(),
     ),
   );
