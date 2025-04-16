@@ -192,6 +192,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
                   navigationState: AccountsNavigationState.showSnackBar(
                     snackBarMessage: Texts.exportedAccounts,
                   ),
+                  screenState: const AccountsScreenState.loaded(searchText: ''),
                 ),
               );
             },
