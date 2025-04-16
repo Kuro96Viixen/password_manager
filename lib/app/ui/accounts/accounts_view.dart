@@ -143,6 +143,14 @@ class AccountsView extends StatelessWidget {
                         builder: (BuildContext bottomMenuContext) {
                           return Wrap(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  Texts.importExportDisclaimer,
+                                  style: TextStyle(fontSize: 10),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                               Center(
                                 child: ElevatedButton(
                                   child: Text(Texts.exportAccounts),
@@ -150,7 +158,8 @@ class AccountsView extends StatelessWidget {
                                     context.pop();
 
                                     context.read<AccountsBloc>().add(
-                                        const AccountsEvent.exportAccounts());
+                                          const AccountsEvent.exportAccounts(),
+                                        );
                                   },
                                 ),
                               ),
@@ -162,7 +171,8 @@ class AccountsView extends StatelessWidget {
                                     context.pop();
 
                                     context.read<AccountsBloc>().add(
-                                        const AccountsEvent.importAccounts());
+                                          const AccountsEvent.importAccounts(),
+                                        );
                                   },
                                 ),
                               ),
