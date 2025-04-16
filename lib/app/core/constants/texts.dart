@@ -51,6 +51,10 @@ class Texts {
       'Use device authentication to see the password';
 
   // Settings
+  static String importExportDisclaimer = 'The following options will allow you '
+      'to import/export the previously saved accounts.\n'
+      'By default this file will be stored in/read from the downloads folder '
+      'with CSV format, only CSV file format allowed.';
   static String exportAccounts = 'Export';
   static String importAccounts = 'Import';
 
@@ -69,14 +73,12 @@ class Texts {
   static String dialogTitle = 'Oops, something went wrong';
   static String dialogPickFileExceptionText =
       'The app couldn\'t import your previously saved accounts list, '
-      'either you don\'t have permissions or you close the picker.\n\n'
-      'If you closed the picker you can close this advice and try again.\n\n'
-      'If you denied permissions you should enable them in the App settings.';
+      'either the file is corrupted or you closed the picker.\n\n'
+      'If you closed the picker you can close this advice and try again.';
   static String dialogPickFolderExceptionText =
       'The app couldn\'t export your accounts list, '
-      'either you don\'t have permissions or you close the picker.\n\n'
-      'If you closed the picker you can close this advice and try again.\n\n'
-      'If you denied permissions you should enable them in the App settings.';
+      'either you got an exception with the file or you closed the picker.\n\n'
+      'If you closed the picker you can close this advice and try again.';
   static String dialogButtonText = 'Ok, I understand';
 
   // Dialog Export/Import exception texts

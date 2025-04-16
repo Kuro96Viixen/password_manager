@@ -63,11 +63,16 @@ class MemoryDataSourceImpl implements MemoryDataSource {
 
     File file = File(filePath);
 
-    List<String> accountsImport = await file.readAsLines();
+    Uint8List accountsImportBytes = await file.readAsBytes();
+
+    List<String> accountsImport =
+        String.fromCharCodes(accountsImportBytes).split('\n');
 
     List<AccountDataMemoryEntity> importedAccountsList = [];
 
     for (String accountCsv in accountsImport) {
+      if (accountCsv == '') continue;
+
       importedAccountsList.add(
         AccountDataEntity.empty()
             .fromCSV(accountCsv)
