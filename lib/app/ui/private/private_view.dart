@@ -97,7 +97,6 @@ class PrivateView extends StatelessWidget {
                                       .startsWith(searchText) &&
                                   state.accountsList[index].private)
                               ? AccountListTile(
-                                  index: index,
                                   account: state.accountsList[index],
                                   onTap: () {
                                     // Remove focus on TextField

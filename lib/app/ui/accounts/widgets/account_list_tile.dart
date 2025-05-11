@@ -3,15 +3,13 @@ import 'package:password_manager/app/core/constants/icons.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 
 class AccountListTile extends StatelessWidget {
-  final int index;
   final AccountData account;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const AccountListTile({
-    super.key,
-    required this.index,
     required this.account,
-    required this.onTap,
+    super.key,
+    this.onTap,
   });
 
   @override
