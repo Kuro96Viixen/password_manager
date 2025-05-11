@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
+import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_password_checker_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
@@ -58,6 +59,10 @@ List<GoRoute> allAppRoutes = [
       GoRoute(
         path: RandomPasswordView.routeName,
         builder: (context, state) => const RandomPasswordView(),
+      ),
+      GoRoute(
+        path: DuplicatedPasswordCheckerView.routeName,
+        builder: (context, state) => const DuplicatedPasswordCheckerView(),
       ),
     ],
   ),

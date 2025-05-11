@@ -51,4 +51,10 @@ void _uiModulesInit() {
   uiModulesDi.registerFactory(
     () => RandomPasswordBloc(),
   );
+
+  uiModulesDi.registerFactory(
+    () => DuplicatedPasswordCheckerBloc(
+      getAccountsDataUseCase: uiModulesDi(),
+    ),
+  );
 }

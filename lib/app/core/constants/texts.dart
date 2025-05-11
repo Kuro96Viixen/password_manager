@@ -95,4 +95,15 @@ class Texts {
       'won\'t be stored anywhere and will be discarded once exit, '
       'to store it you might use the form to save an account, '
       'this password can be copied by long-pressing it';
+
+  // Duplicated Password Checker
+  static String duplicatedPasswordCheckerSettings = 'Duplicated Passwords';
+  static String duplicatedPasswordCheckerSettingsDisclaimer =
+      'This feature is still experimental, '
+      'sorry if something is wrong, feedback appreciated.';
+  static String duplicatedPasswordCheckerViewTitle =
+      'Duplicated Password Checker';
+  static String duplicatedPasswordCheckerViewLoading =
+      'Loading stats, this may take a while '
+      'depending on how many accounts you have stored';
 }

@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/accounts/bloc/accounts_event.dart';
 import 'package:password_manager/app/ui/accounts/bloc/accounts_state.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
+import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_password_checker_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
@@ -143,6 +144,27 @@ class AccountsView extends StatelessWidget {
                         builder: (BuildContext bottomMenuContext) {
                           return Wrap(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  Texts
+                                      .duplicatedPasswordCheckerSettingsDisclaimer,
+                                  style: TextStyle(fontSize: 10),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  child: Text(
+                                    Texts.duplicatedPasswordCheckerSettings,
+                                  ),
+                                  onPressed: () {
+                                    context.goWithRoute(
+                                      DuplicatedPasswordCheckerView.routeName,
+                                    );
+                                  },
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
