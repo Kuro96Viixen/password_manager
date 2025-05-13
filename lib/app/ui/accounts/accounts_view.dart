@@ -159,9 +159,11 @@ class AccountsView extends StatelessWidget {
                                     Texts.duplicatedPasswordCheckerSettings,
                                   ),
                                   onPressed: () {
-                                    context.goWithRoute(
-                                      DuplicatedPasswordCheckerView.routeName,
-                                    );
+                                    context
+                                      ..goWithRoute(
+                                        DuplicatedPasswordCheckerView.routeName,
+                                      )
+                                      ..pop();
                                   },
                                 ),
                               ),

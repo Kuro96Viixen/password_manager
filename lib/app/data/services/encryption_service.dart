@@ -41,4 +41,16 @@ class EncryptionServiceImpl implements EncryptionService {
 
     return decryptedPassword;
   }
+
+  @override
+  Future<String> encryptForDuplicate(String password, IV iv) async {
+    String encryptedPassword = _encrypter
+        .encrypt(
+          password,
+          iv: iv,
+        )
+        .base64;
+
+    return encryptedPassword;
+  }
 }

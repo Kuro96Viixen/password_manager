@@ -6,13 +6,15 @@ part 'duplicated_password_checker_state.freezed.dart';
 @freezed
 class DuplicatedPasswordCheckerState with _$DuplicatedPasswordCheckerState {
   factory DuplicatedPasswordCheckerState({
-    required List<AccountData> accountsList,
+    required Map<int, List<AccountData>> accountsList,
+    required int differentAccountsPercentage,
     required DuplicatedPasswordCheckerScreenState screenState,
   }) = _DuplicatedPasswordCheckerState;
 
   factory DuplicatedPasswordCheckerState.initial() =>
       DuplicatedPasswordCheckerState(
-        accountsList: [],
+        accountsList: {},
+        differentAccountsPercentage: 0,
         screenState: DuplicatedPasswordCheckerScreenState.loading(),
       );
 }
@@ -23,4 +25,6 @@ class DuplicatedPasswordCheckerScreenState
   factory DuplicatedPasswordCheckerScreenState.loading() = _Loading;
 
   factory DuplicatedPasswordCheckerScreenState.success() = _Success;
+
+  factory DuplicatedPasswordCheckerScreenState.unique() = _Unique;
 }

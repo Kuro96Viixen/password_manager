@@ -55,6 +55,8 @@ void _uiModulesInit() {
   uiModulesDi.registerFactory(
     () => DuplicatedPasswordCheckerBloc(
       getAccountsDataUseCase: uiModulesDi(),
+      decryptPasswordUseCase: uiModulesDi(),
+      encryptForDuplicateUseCase: uiModulesDi(),
     ),
   );
 }

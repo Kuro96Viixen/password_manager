@@ -16,6 +16,7 @@ import 'package:password_manager/app/data/services/local_auth_service.dart';
 import 'package:password_manager/app/data/services/secure_storage_service.dart';
 import 'package:password_manager/app/domain/repository/repository.dart';
 import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
+import 'package:password_manager/app/domain/use_cases/encrypt_for_duplicate_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_storage_use_case.dart';

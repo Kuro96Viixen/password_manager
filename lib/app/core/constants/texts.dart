@@ -106,4 +106,13 @@ class Texts {
   static String duplicatedPasswordCheckerViewLoading =
       'Loading stats, this may take a while '
       'depending on how many accounts you have stored';
+  static String duplicatedPasswordCheckerViewSuccess =
+      'The passwords of the {percentage}% of the accounts are different';
+  static String duplicatedPasswordCheckerViewSuccessDisclaimer =
+      'The following list are only to show the accounts '
+      'that share the same password, you cannot see the password nor '
+      'the email/username assigned to that account, '
+      'only the name that was used to save the account.\n\n'
+      'Note: Private accounts are counted but not shown';
+  static String duplicatedPasswordCheckerViewCardTitle = 'Password #{index}';
 }

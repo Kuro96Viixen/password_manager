@@ -1,3 +1,4 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/data/repository/data_source/memory_data_source.dart';
 import 'package:password_manager/app/data/repository/mapper/account_data_mapper.dart';
@@ -93,5 +94,10 @@ class RepositoryImpl implements Repository {
   @override
   Future<String> decrypt(Password password) async {
     return await encryptionService.decrypt(password);
+  }
+
+  @override
+  Future<String> encryptForDuplicate(String password, IV iv) async {
+    return await encryptionService.encryptForDuplicate(password, iv);
   }
 }

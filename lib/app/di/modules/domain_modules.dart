@@ -44,4 +44,8 @@ void _domainModulesInit() {
   domainModulesDi.registerFactory(
     () => DecryptPasswordUseCase(domainModulesDi()),
   );
+
+  domainModulesDi.registerFactory(
+    () => EncryptForDuplicateUseCase(domainModulesDi()),
+  );
 }
