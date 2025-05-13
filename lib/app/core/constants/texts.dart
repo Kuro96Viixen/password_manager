@@ -114,5 +114,6 @@ class Texts {
       'the email/username assigned to that account, '
       'only the name that was used to save the account.\n\n'
       'Note: Private accounts are counted but not shown';
-  static String duplicatedPasswordCheckerViewCardTitle = 'Password #{index}';
+  static String duplicatedPasswordCheckerViewSuccessCardTitle =
+      'Password #{index}';
 }

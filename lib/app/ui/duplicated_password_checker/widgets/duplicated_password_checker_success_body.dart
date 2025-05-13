@@ -46,7 +46,8 @@ class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
                     side: BorderSide.none,
                   ),
                   title: Text(
-                    Texts.duplicatedPasswordCheckerViewCardTitle.replaceAll(
+                    Texts.duplicatedPasswordCheckerViewSuccessCardTitle
+                        .replaceAll(
                       '{index}',
                       e.key.toString(),
                     ),
