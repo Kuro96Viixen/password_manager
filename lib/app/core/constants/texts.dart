@@ -101,8 +101,7 @@ class Texts {
   static String duplicatedPasswordCheckerSettingsDisclaimer =
       'This feature is still experimental, '
       'sorry if something is wrong, feedback appreciated.';
-  static String duplicatedPasswordCheckerViewTitle =
-      'Duplicated Password Checker';
+  static String duplicatedPasswordCheckerViewTitle = 'Duplication Checker';
   static String duplicatedPasswordCheckerViewLoading =
       'Loading stats, this may take a while '
       'depending on how many accounts you have stored';
@@ -116,6 +115,11 @@ class Texts {
       'Note: Private accounts are counted but not shown';
   static String duplicatedPasswordCheckerViewSuccessCardTitle =
       'Password #{index}';
+  static String duplicatedPasswordCheckerViewUniqueCongrats =
+      'Congratulations!!';
+  static String duplicatedPasswordCheckerViewUniqueBody =
+      'All of your accounts have a different password';
+  static String duplicatedPasswordCheckerViewUniqueGoBack = 'Go back';
 
   // Experimental feature info dialog
   static String experimentalFeatureInfoTooltip = 'Experimental feature info';

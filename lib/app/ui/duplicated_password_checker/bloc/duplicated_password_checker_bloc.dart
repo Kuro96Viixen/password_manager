@@ -21,7 +21,7 @@ class DuplicatedPasswordCheckerBloc extends Bloc<DuplicatedPasswordCheckerEvent,
   }) : super(DuplicatedPasswordCheckerState.initial()) {
     on<DuplicatedPasswordCheckerEvent>((event, emit) async {
       await event.when(
-        started: () async => await _mapStartedEventToState(emit),
+        started: () async => _mapStartedEventToState(emit),
       );
     });
   }
