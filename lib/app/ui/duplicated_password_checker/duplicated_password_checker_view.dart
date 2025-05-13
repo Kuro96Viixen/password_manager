@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/widgets/dupl
 import 'package:password_manager/widgets/confetti/confetti.dart';
 import 'package:password_manager/widgets/confetti/confetti_options.dart';
 import 'package:password_manager/widgets/confetti/confetti_star.dart';
+import 'package:password_manager/widgets/experimental_feature/experimental_feature_info_icon.dart';
 
 part 'duplicated_password_checker_methods.dart';
 
@@ -29,6 +30,9 @@ class DuplicatedPasswordCheckerView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(Texts.duplicatedPasswordCheckerViewTitle),
+          actions: const [
+            ExperimentalFeatureInfoIcon(),
+          ],
         ),
         body: BlocConsumer<DuplicatedPasswordCheckerBloc,
             DuplicatedPasswordCheckerState>(

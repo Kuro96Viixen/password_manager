@@ -62,7 +62,7 @@ class DeleteDialogState extends State<DeleteDialog> {
         widget.title,
         textAlign: TextAlign.center,
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

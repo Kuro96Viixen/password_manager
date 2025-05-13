@@ -39,6 +39,10 @@ dependencies:
   ## Encrypt/Decrypt Passwords
   encrypt: ^5.0.3
 
+  # Url Launcher
+  ## Open URL links
+  url_launcher: ^6.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

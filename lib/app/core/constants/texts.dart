@@ -116,4 +116,17 @@ class Texts {
       'Note: Private accounts are counted but not shown';
   static String duplicatedPasswordCheckerViewSuccessCardTitle =
       'Password #{index}';
+
+  // Experimental feature info dialog
+  static String experimentalFeatureInfoTooltip = 'Experimental feature info';
+  static String experimentalFeatureInfoDialogTitle = 'Experimental feature';
+  static String experimentalFeatureInfoDialogBody =
+      'The current functionality is still in experimental phase '
+      'and may contain bugs, if you are having problems '
+      'or have any suggestions, feel free to leave a review on the Play Store '
+      'or open a new ticket on the project github page (if possible)\n\n'
+      'Thank you so much for your support.';
+  static String experimentalFeatureInfoDialogPlayStore = 'Play Store';
+  static String experimentalFeatureInfoDialogGitHub = 'Github';
+  static String experimentalFeatureInfoDialogConfirm = 'Ok';
 }
