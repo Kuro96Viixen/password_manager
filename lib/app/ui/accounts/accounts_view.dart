@@ -276,11 +276,10 @@ class AccountsView extends StatelessWidget {
                           loading: Container.new,
                           loaded: (searchText) => Expanded(
                             child: ListView.separated(
-                              itemBuilder: (context, index) => (state
-                                          .accountsList[index].name
-                                          .toLowerCase()
-                                          .startsWith(searchText) &&
-                                      !state.accountsList[index].private)
+                              itemBuilder: (context, index) => state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText)
                                   ? AccountListTile(
                                       account: state.accountsList[index],
                                       onTap: () {
@@ -296,11 +295,10 @@ class AccountsView extends StatelessWidget {
                                       },
                                     )
                                   : Container(),
-                              separatorBuilder: (context, index) => (state
-                                          .accountsList[index].name
-                                          .toLowerCase()
-                                          .startsWith(searchText) &&
-                                      !state.accountsList[index].private)
+                              separatorBuilder: (context, index) => state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText)
                                   ? const Divider(
                                       height: 1,
                                       color: Colors.grey,

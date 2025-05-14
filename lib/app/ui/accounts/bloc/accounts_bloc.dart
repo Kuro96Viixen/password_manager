@@ -90,11 +90,14 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             accountsList = accountsData.accountsList;
           }
 
+          final accountsToShow = List<AccountData>.from(accountsList)
+            ..removeWhere((account) => account.private);
+
           // Sending the accounts to the screen and
           // remove the loader from the screen
           emit(
             state.copyWith(
-              accountsList: accountsList,
+              accountsList: accountsToShow,
               screenState: oldScreenState == const AccountsScreenState.loading()
                   ? const AccountsScreenState.loaded(searchText: '')
                   : oldScreenState,
@@ -104,13 +107,16 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         pressedAccount: (accountIndex) async {
           final accountsData = await getAccountsDataUseCase();
 
+          final index = accountsData.accountsList
+              .indexOf(state.accountsList[accountIndex]);
+
           // Resetting navigationState
           emit(state.copyWith(navigationState: null));
 
           emit(
             state.copyWith(
               navigationState: AccountsNavigationState.goToDetails(
-                accountData: accountsData.accountsList[accountIndex],
+                accountData: accountsData.accountsList[index],
               ),
             ),
           );
