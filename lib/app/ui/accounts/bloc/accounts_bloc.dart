@@ -38,7 +38,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
       await event.when(
-        started: (encryptionKey) async {
+        started: (initializeEncryption) async {
           final oldScreenState = state.screenState;
           // Emitting Loading ScreenState before while loading Accounts
           emit(
@@ -48,8 +48,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           );
 
-          if (encryptionKey != '') {
-            await initializeEncryptionUseCase(encryptionKey);
+          if (initializeEncryption) {
+            await initializeEncryptionUseCase();
           }
 
           // Retrieving data from the MemoryDataSource
@@ -239,7 +239,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
                 ),
               );
 
-              add(const AccountsEvent.started(''));
+              add(const AccountsEvent.started());
             },
           );
         },
