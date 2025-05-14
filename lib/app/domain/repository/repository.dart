@@ -18,7 +18,7 @@ abstract class Repository {
 
   Future<Result<AccountsData>> importAccounts();
 
-  Future<void> initializeEncryption(String keyValue);
+  Future<void> initializeEncryption();
 
   Future<Password> encrypt(String password);
 

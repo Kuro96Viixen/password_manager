@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:encrypt/encrypt.dart';
 import 'package:password_manager/app/core/model/password.dart';
@@ -8,10 +8,12 @@ class EncryptionServiceImpl implements EncryptionService {
   late Encrypter _encryptor;
 
   @override
-  Future<void> initialize(String keyValue) async {
+  Future<void> initialize() async {
+    const keyValue = String.fromEnvironment('encryption_key_b64');
+
     _encryptor = Encrypter(
       AES(
-        Key(Uint8List.fromList(keyValue.codeUnits)),
+        Key(base64Decode(keyValue)),
         mode: AESMode.cbc,
       ),
     );

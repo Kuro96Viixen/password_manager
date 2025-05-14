@@ -2,7 +2,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:password_manager/app/core/model/password.dart';
 
 abstract class EncryptionService {
-  Future<void> initialize(String keyValue);
+  Future<void> initialize();
 
   Future<Password> encrypt(String password);
 

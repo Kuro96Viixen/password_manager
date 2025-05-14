@@ -4,7 +4,9 @@ part 'accounts_event.freezed.dart';
 
 @freezed
 class AccountsEvent with _$AccountsEvent {
-  const factory AccountsEvent.started(String encryptionKey) = _Started;
+  const factory AccountsEvent.started({
+    @Default(false) bool initializeEncryption,
+  }) = _Started;
 
   const factory AccountsEvent.pressedAccount(int accountIndex) =
       _PressedAccount;

@@ -5,7 +5,7 @@ class InitializeEncryptionUseCase {
 
   InitializeEncryptionUseCase(this._repository);
 
-  Future<void> call(String keyValue) async {
-    await _repository.initializeEncryption(keyValue);
+  Future<void> call() async {
+    await _repository.initializeEncryption();
   }
 }
