@@ -14,8 +14,7 @@ class DetailsState with _$DetailsState {
         passwordString: Texts.hiddenPasswordText,
         accountData: AccountData.empty(),
         accountPosition: 0,
-        screenState: DetailsScreenState.loading(),
-        navigationState: null,
+        screenState: const DetailsScreenState.loading(),
       );
 }
 

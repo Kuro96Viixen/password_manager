@@ -55,30 +55,34 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           // Retrieving data from the MemoryDataSource
           final accountsData = await getAccountsDataUseCase();
 
-          List<AccountData> accountsList = [];
+          var accountsList = <AccountData>[];
 
           // If the MemoryDataSource Accounts are empty read from Storage
           // If not, fill the list above with them
           if (accountsData.accountsList.isEmpty) {
             // Looking if there are Accounts in the SecureStorage
-            String? storedAccountsData =
+            final storedAccountsData =
                 await getAccountsDataFromStorageUseCase();
 
             // If there are, formatting into list from JSON and
             // setting them into the MemoryDataSource
             if (storedAccountsData != null) {
-              final accountsJson = jsonDecode(storedAccountsData);
+              final accountsJson =
+                  jsonDecode(storedAccountsData) as List<dynamic>;
 
               accountsList = List<AccountData>.from(
                 accountsJson
-                    .map((e) => AccountData.empty().fromJson(e))
+                    .map(
+                      (e) => AccountData.empty()
+                          .fromJson(e as Map<String, dynamic>),
+                    )
                     .toList(),
-              );
+              )
 
-              // Shuffle to not showing up the same accounts at the top
-              accountsList.shuffle();
+                // Shuffle to not showing up the same accounts at the top
+                ..shuffle();
 
-              setAccountsDataUseCase(
+              await setAccountsDataUseCase(
                 accountsData.copyWith(accountsList: accountsList),
               );
             }
@@ -86,13 +90,16 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             accountsList = accountsData.accountsList;
           }
 
+          final accountsToShow = List<AccountData>.from(accountsList)
+            ..removeWhere((account) => account.private);
+
           // Sending the accounts to the screen and
           // remove the loader from the screen
           emit(
             state.copyWith(
-              accountsList: accountsList,
-              screenState: oldScreenState == AccountsScreenState.loading()
-                  ? AccountsScreenState.loaded(searchText: '')
+              accountsList: accountsToShow,
+              screenState: oldScreenState == const AccountsScreenState.loading()
+                  ? const AccountsScreenState.loaded(searchText: '')
                   : oldScreenState,
             ),
           );
@@ -100,13 +107,16 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         pressedAccount: (accountIndex) async {
           final accountsData = await getAccountsDataUseCase();
 
+          final index = accountsData.accountsList
+              .indexOf(state.accountsList[accountIndex]);
+
           // Resetting navigationState
           emit(state.copyWith(navigationState: null));
 
           emit(
             state.copyWith(
               navigationState: AccountsNavigationState.goToDetails(
-                accountData: accountsData.accountsList[accountIndex],
+                accountData: accountsData.accountsList[index],
               ),
             ),
           );
@@ -145,7 +155,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         onRandomPasswordPressed: () {
           emit(
             state.copyWith(
-              navigationState: AccountsNavigationState.goToGeneratePassword(),
+              navigationState:
+                  const AccountsNavigationState.goToGeneratePassword(),
             ),
           );
         },
@@ -184,7 +195,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
               );
             },
             success: (filePath) {
-              // TODO
+              // TODO(Kuro): Review this
               // This filePath returns different folder (tested on Android 11)
 
               emit(

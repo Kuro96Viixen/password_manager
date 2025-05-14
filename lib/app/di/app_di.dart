@@ -16,6 +16,7 @@ import 'package:password_manager/app/data/services/local_auth_service.dart';
 import 'package:password_manager/app/data/services/secure_storage_service.dart';
 import 'package:password_manager/app/domain/repository/repository.dart';
 import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
+import 'package:password_manager/app/domain/use_cases/encrypt_for_duplicate_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
@@ -28,6 +29,7 @@ import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case
 import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/accounts/bloc/accounts_bloc.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
+import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_bloc.dart';

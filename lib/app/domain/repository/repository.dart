@@ -1,3 +1,4 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/model/result.dart';
@@ -22,4 +23,6 @@ abstract class Repository {
   Future<Password> encrypt(String password);
 
   Future<String> decrypt(Password password);
+
+  Future<String> encryptForDuplicate(String password, IV iv);
 }

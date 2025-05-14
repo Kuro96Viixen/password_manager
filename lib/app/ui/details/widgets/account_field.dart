@@ -5,8 +5,8 @@ class AccountField extends StatelessWidget {
   final bool viewPassword;
 
   const AccountField({
-    super.key,
     required this.text,
+    super.key,
     this.viewPassword = true,
   });
 
@@ -14,10 +14,7 @@ class AccountField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        color: Colors.grey,
-        fontSize: 20.0,
-      ),
+      style: const TextStyle(color: Colors.grey, fontSize: 20),
     );
   }
 }

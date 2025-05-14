@@ -31,15 +31,14 @@ class MemoryDataSourceImpl implements MemoryDataSource {
   ) async {
     _accountsDataMemoryEntity = accountsData.toAccountsDataMemoryEntity();
 
-    String accountsCsv = '';
+    final accountsCsv = StringBuffer();
 
-    for (AccountDataMemoryEntity account
-        in _accountsDataMemoryEntity!.accountsList) {
-      accountsCsv += account.toCSV();
+    for (final account in _accountsDataMemoryEntity!.accountsList) {
+      accountsCsv.write(account.toCSV());
     }
 
-    String? filePath = await filePicker.saveFile(
-      Uint8List.fromList(accountsCsv.codeUnits),
+    final filePath = await filePicker.saveFile(
+      Uint8List.fromList(accountsCsv.toString().codeUnits),
     );
 
     if (filePath == null) {
@@ -54,23 +53,23 @@ class MemoryDataSourceImpl implements MemoryDataSource {
   Future<AccountsDataEntity> importAccounts(
     FilePickerService filePicker,
   ) async {
-    String? filePath = await filePicker.pickFile();
+    final filePath = await filePicker.pickFile();
 
     if (filePath == null) {
       // If permission denied or closed picker
       throw Exception();
     }
 
-    File file = File(filePath);
+    final file = File(filePath);
 
-    Uint8List accountsImportBytes = await file.readAsBytes();
+    final accountsImportBytes = await file.readAsBytes();
 
-    List<String> accountsImport =
+    final accountsImport =
         String.fromCharCodes(accountsImportBytes).split('\n');
 
-    List<AccountDataMemoryEntity> importedAccountsList = [];
+    final importedAccountsList = <AccountDataMemoryEntity>[];
 
-    for (String accountCsv in accountsImport) {
+    for (final accountCsv in accountsImport) {
       if (accountCsv == '') continue;
 
       importedAccountsList.add(

@@ -34,14 +34,14 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         started: (accountData) async {
           emit(
             state.copyWith(
-              screenState: DetailsScreenState.loading(),
+              screenState: const DetailsScreenState.loading(),
               navigationState: null,
             ),
           );
 
           final accountsData = await getAccountsDataUseCase();
 
-          int accountPosition = accountsData.accountsList.indexOf(accountData);
+          var accountPosition = accountsData.accountsList.indexOf(accountData);
 
           if (accountPosition == -1) {
             accountPosition = state.accountPosition;
@@ -52,7 +52,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
               passwordString: Texts.hiddenPasswordText,
               accountData: accountsData.accountsList[accountPosition],
               accountPosition: accountPosition,
-              screenState: DetailsScreenState.loaded(),
+              screenState: const DetailsScreenState.loaded(),
               navigationState: null,
             ),
           );
@@ -69,25 +69,24 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
           emit(
             state.copyWith(
-              navigationState: DetailsNavigationState.showPopUp(),
+              navigationState: const DetailsNavigationState.showPopUp(),
             ),
           );
         },
         deleteAccount: (accountData) async {
           final accountsData = await getAccountsDataUseCase();
 
-          List<AccountData> accountsList = accountsData.accountsList.toList();
+          final accountsList = accountsData.accountsList.toList()
+            ..remove(accountData);
 
-          accountsList.remove(accountData);
-
-          setAccountsDataUseCase(
+          await setAccountsDataUseCase(
             accountsData.copyWith(accountsList: accountsList),
           );
 
-          String accountsToSave =
+          final accountsToSave =
               AccountsData(accountsList: accountsList).toStore();
 
-          setAccountsDataOnStorageUseCase(accountsToSave);
+          await setAccountsDataOnStorageUseCase(accountsToSave);
 
           emit(
             state.copyWith(
@@ -107,7 +106,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         copyPassword: (password) async {
           final decryptedPassword = await decryptPasswordUseCase(password);
 
-          Clipboard.setData(ClipboardData(text: decryptedPassword));
+          await Clipboard.setData(ClipboardData(text: decryptedPassword));
 
           emit(
             state.copyWith(

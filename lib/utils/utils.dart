@@ -11,19 +11,19 @@ class Utils {
     const upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const spanishCharacters = 'ñÑ';
     const numbersCharacters = '0123456789';
-    const symbolsCharacters = '@#%*<>\$@?/()[]=+';
+    const symbolsCharacters = r'@#%*<>$@?/()[]=+';
 
-    String chars = '$lowerCaseChars$upperCaseChars';
+    var chars = '$lowerCaseChars$upperCaseChars';
     if (hasSpanishCharacters) chars += spanishCharacters;
     if (hasNumbersCharacters) chars += numbersCharacters;
     if (hasSymbolsCharacters) chars += symbolsCharacters;
 
-    chars = (chars.split('')..shuffle()).join('');
+    chars = (chars.split('')..shuffle()).join();
 
     return List.generate(length, (index) {
       final indexRandom = Random.secure().nextInt(chars.length);
 
       return chars[indexRandom];
-    }).join('');
+    }).join();
   }
 }

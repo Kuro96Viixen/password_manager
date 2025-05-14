@@ -15,7 +15,6 @@ class AccountsState with _$AccountsState {
   factory AccountsState.initial() => const AccountsState(
         accountsList: [],
         screenState: AccountsScreenState.loading(),
-        navigationState: null,
       );
 }
 

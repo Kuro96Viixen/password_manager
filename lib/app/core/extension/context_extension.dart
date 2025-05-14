@@ -14,7 +14,7 @@ extension ContextExtension on BuildContext {
   /// Use this to add a page to the stack,
   /// to be able to navigate back with back button
   void goWithRoute(String pageName, {Object? extra}) {
-    final String previousRoute = this.previousRoute;
+    final previousRoute = this.previousRoute;
 
     go('$previousRoute/$pageName', extra: extra);
   }
@@ -28,7 +28,7 @@ extension ContextExtension on BuildContext {
 
   /// Check if the device is with the DarkMode enabled
   bool get isDarkMode {
-    // TODO: review this when adding Light theme
+    // TODO(Kuro): review this when adding Light theme
     // context.isDarkMode
     final brightness = MediaQuery.of(this).platformBrightness;
 

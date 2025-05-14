@@ -11,11 +11,11 @@ class RandomPasswordForm extends StatelessWidget {
   final String randomPassword;
 
   const RandomPasswordForm({
-    super.key,
     required this.hasSpanishCharacters,
     required this.hasNumbersCharacters,
     required this.hasSymbolsCharacters,
     required this.randomPassword,
+    super.key,
   });
 
   @override
@@ -32,35 +32,29 @@ class RandomPasswordForm extends StatelessWidget {
                     ),
                   ),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         CheckboxListTile(
           value: hasSpanishCharacters,
           onChanged: (hasSpanishCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSpanishCharacters(hasSpanishCharacters ?? false),
+                ModifyEvent.hasSpanishCharacters(hasSpanishCharacters: hasSpanishCharacters ?? false),
               ),
-          title: Text(
-            Texts.spanishCheckBoxTitle,
-          ),
+          title: Text(Texts.spanishCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasNumbersCharacters,
           onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasNumbersCharacters(hasNumbersCharacters ?? false),
+                ModifyEvent.hasNumbersCharacters(hasNumbersCharacters: hasNumbersCharacters ?? false),
               ),
-          title: Text(
-            Texts.numbersCheckBoxTitle,
-          ),
+          title: Text(Texts.numbersCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasSymbolsCharacters,
           onChanged: (hasSymbolsCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSymbolsCharacters(hasSymbolsCharacters ?? false),
+                ModifyEvent.hasSymbolsCharacters(hasSymbolsCharacters: hasSymbolsCharacters ?? false),
               ),
-          title: Text(
-            Texts.symbolsCheckBoxTitle,
-          ),
+          title: Text(Texts.symbolsCheckBoxTitle),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         ElevatedButton(
           onPressed: () {
             // Remove focus on TextField
@@ -73,7 +67,7 @@ class RandomPasswordForm extends StatelessWidget {
           child: Text(Texts.generateRandomPasswordButton),
         ),
         const SizedBox(
-          height: 16.0,
+          height: 16,
         ),
         Visibility(
           visible: randomPassword != '',
@@ -83,9 +77,7 @@ class RandomPasswordForm extends StatelessWidget {
                 .add(ModifyEvent.copyPassword(randomPassword)),
             child: Text(
               Texts.randomPasswordText + randomPassword,
-              style: const TextStyle(
-                fontSize: 20.0,
-              ),
+              style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),
           ),

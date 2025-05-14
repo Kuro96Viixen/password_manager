@@ -5,15 +5,15 @@ import 'package:password_manager/app/core/constants/texts.dart';
 class AccountTextField extends StatelessWidget {
   final String label;
   final String initialValue;
-  final Function(String) onChangedText;
+  final void Function(String) onChangedText;
   final bool isPasswordHidden;
   final VoidCallback? onPressed;
 
   const AccountTextField({
-    super.key,
     required this.label,
     required this.initialValue,
     required this.onChangedText,
+    super.key,
     this.isPasswordHidden = false,
     this.onPressed,
   });
@@ -44,7 +44,6 @@ class AccountTextField extends StatelessWidget {
       autocorrect: false,
       enableSuggestions: false,
       initialValue: initialValue,
-      maxLines: 1,
       obscureText: label == Texts.passwordTextFieldLabel && isPasswordHidden,
       keyboardType: label == Texts.passwordLengthTextFieldLabel
           ? TextInputType.number

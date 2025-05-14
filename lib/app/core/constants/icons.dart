@@ -14,4 +14,6 @@ class CommonIcons {
   static IconData hidePassword = Icons.password_rounded;
 
   static IconData randomPassword = Icons.shuffle_rounded;
+
+  static IconData info = Icons.info_outline_rounded;
 }

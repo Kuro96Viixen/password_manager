@@ -24,7 +24,7 @@ class PrivateView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          uiModulesDi<PrivateBloc>()..add(PrivateEvent.started()),
+          uiModulesDi<PrivateBloc>()..add(const PrivateEvent.started()),
       child: BlocConsumer<PrivateBloc, PrivateState>(
         listener: (context, state) {
           state.navigationState?.when(
@@ -42,7 +42,7 @@ class PrivateView extends StatelessWidget {
                 modifyCompleter = Completer<void>();
 
                 if (context.mounted) {
-                  context.read<PrivateBloc>().add(PrivateEvent.started());
+                  context.read<PrivateBloc>().add(const PrivateEvent.started());
                 }
               }
             },
@@ -55,11 +55,9 @@ class PrivateView extends StatelessWidget {
                 title: Text(
                   Texts.privateAccountsViewTitle,
                 ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(4.0),
-                  child: Divider(
-                    height: 4.0,
-                  ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4),
+                  child: Divider(height: 4),
                 ),
               ),
               body: ConstrainedBox(
@@ -69,8 +67,8 @@ class PrivateView extends StatelessWidget {
                 child: Column(
                   children: [
                     state.screenState.when(
-                      loading: () => Loader(),
-                      loaded: (_) => SizedBox(height: 4),
+                      loading: () => const Loader(),
+                      loaded: (_) => const SizedBox(height: 4),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -88,16 +86,14 @@ class PrivateView extends StatelessWidget {
                       ),
                     ),
                     state.screenState.when(
-                      loading: () => Container(),
+                      loading: Container.new,
                       loaded: (searchText) => Expanded(
                         child: ListView.separated(
-                          itemBuilder: (context, index) => (state
-                                      .accountsList[index].name
-                                      .toLowerCase()
-                                      .startsWith(searchText) &&
-                                  state.accountsList[index].private)
+                          itemBuilder: (context, index) => state
+                                  .accountsList[index].name
+                                  .toLowerCase()
+                                  .startsWith(searchText)
                               ? AccountListTile(
-                                  index: index,
                                   account: state.accountsList[index],
                                   onTap: () {
                                     // Remove focus on TextField
@@ -110,12 +106,11 @@ class PrivateView extends StatelessWidget {
                                   },
                                 )
                               : Container(),
-                          separatorBuilder: (context, index) => (state
-                                      .accountsList[index].name
-                                      .toLowerCase()
-                                      .startsWith(searchText) &&
-                                  state.accountsList[index].private)
-                              ? Divider(
+                          separatorBuilder: (context, index) => state
+                                  .accountsList[index].name
+                                  .toLowerCase()
+                                  .startsWith(searchText)
+                              ? const Divider(
                                   height: 1,
                                   color: Colors.grey,
                                 )

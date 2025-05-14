@@ -1,3 +1,4 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/data/repository/data_source/memory_data_source.dart';
 import 'package:password_manager/app/data/repository/mapper/account_data_mapper.dart';
@@ -40,7 +41,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<String?> getAccountsDataFromStorage() async {
-    return await secureStorageService.read();
+    return secureStorageService.read();
   }
 
   @override
@@ -50,7 +51,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<bool> authenticate() async {
-    return await localAuthService.authenticate();
+    return localAuthService.authenticate();
   }
 
   @override
@@ -87,11 +88,16 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Password> encrypt(String password) async {
-    return await encryptionService.encrypt(password);
+    return encryptionService.encrypt(password);
   }
 
   @override
   Future<String> decrypt(Password password) async {
-    return await encryptionService.decrypt(password);
+    return encryptionService.decrypt(password);
+  }
+
+  @override
+  Future<String> encryptForDuplicate(String password, IV iv) async {
+    return encryptionService.encryptForDuplicate(password, iv);
   }
 }

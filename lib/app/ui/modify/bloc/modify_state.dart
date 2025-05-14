@@ -33,7 +33,6 @@ class ModifyState with _$ModifyState {
         screenState: ModifyScreenState.passwordForm(),
         isPrivateAccount: false,
         canBeSaved: false,
-        navigationState: null,
       );
 }
 

@@ -3,23 +3,20 @@ part of 'package:password_manager/app/di/app_di.dart';
 final localModulesDi = GetIt.instance;
 
 void _localModulesInit() {
-  localModulesDi.registerLazySingleton<MemoryDataSource>(
-    () => MemoryDataSourceImpl(),
-  );
-
-  localModulesDi.registerLazySingleton<FilePickerService>(
-    () => FilePickerServiceImpl(),
-  );
-
-  localModulesDi.registerLazySingleton<LocalAuthService>(
-    () => LocalAuthServiceImpl(),
-  );
-
-  localModulesDi.registerLazySingleton<SecureStorageService>(
-    () => SecureStorageServiceImpl(),
-  );
-
-  localModulesDi.registerLazySingleton<EncryptionService>(
-    () => EncryptionServiceImpl(),
-  );
+  localModulesDi
+    ..registerLazySingleton<MemoryDataSource>(
+      MemoryDataSourceImpl.new,
+    )
+    ..registerLazySingleton<FilePickerService>(
+      FilePickerServiceImpl.new,
+    )
+    ..registerLazySingleton<LocalAuthService>(
+      LocalAuthServiceImpl.new,
+    )
+    ..registerLazySingleton<SecureStorageService>(
+      SecureStorageServiceImpl.new,
+    )
+    ..registerLazySingleton<EncryptionService>(
+      EncryptionServiceImpl.new,
+    );
 }

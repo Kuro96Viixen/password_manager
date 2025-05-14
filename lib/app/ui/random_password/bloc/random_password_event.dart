@@ -8,17 +8,17 @@ class RandomPasswordEvent with _$RandomPasswordEvent {
     String randomPasswordLengthString,
   ) = _OnRandomPasswordLengthChanged;
 
-  const factory RandomPasswordEvent.hasSpanishCharacters(
-    bool hasSpanishCharacters,
-  ) = _HasSpanishCharacters;
+  const factory RandomPasswordEvent.hasSpanishCharacters({
+    required bool hasSpanishCharacters,
+  }) = _HasSpanishCharacters;
 
-  const factory RandomPasswordEvent.hasNumbersCharacters(
-    bool hasNumbersCharacters,
-  ) = _HasNumbersCharacters;
+  const factory RandomPasswordEvent.hasNumbersCharacters({
+    required bool hasNumbersCharacters,
+  }) = _HasNumbersCharacters;
 
-  const factory RandomPasswordEvent.hasSymbolsCharacters(
-    bool hasSymbolsCharacters,
-  ) = _HasSymbolsCharacters;
+  const factory RandomPasswordEvent.hasSymbolsCharacters({
+    required bool hasSymbolsCharacters,
+  }) = _HasSymbolsCharacters;
 
   const factory RandomPasswordEvent.generateRandomPassword() =
       _GenerateRandomPassword;

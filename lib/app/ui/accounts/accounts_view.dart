@@ -13,6 +13,7 @@ import 'package:password_manager/app/ui/accounts/bloc/accounts_event.dart';
 import 'package:password_manager/app/ui/accounts/bloc/accounts_state.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
+import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_password_checker_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
@@ -42,9 +43,7 @@ class AccountsView extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(
-                  Texts.accountsViewTitle,
-                ),
+                title: Text(Texts.accountsViewTitle),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -55,9 +54,7 @@ class AccountsView extends StatelessWidget {
                           .read<AccountsBloc>()
                           .add(const AccountsEvent.showPrivate());
                     },
-                    icon: Icon(
-                      CommonIcons.private,
-                    ),
+                    icon: Icon(CommonIcons.private),
                     tooltip: Texts.showPrivateTooltip,
                   ),
                   IconButton(
@@ -69,17 +66,13 @@ class AccountsView extends StatelessWidget {
                           .read<AccountsBloc>()
                           .add(const AccountsEvent.showSettings());
                     },
-                    icon: Icon(
-                      CommonIcons.settings,
-                    ),
+                    icon: Icon(CommonIcons.settings),
                     tooltip: Texts.settingsTooltip,
                   ),
                 ],
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(4.0),
-                  child: Divider(
-                    height: 4.0,
-                  ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4),
+                  child: Divider(height: 4),
                 ),
                 // Kept this as I like the look it gives
                 // flexibleSpace: Container(
@@ -117,7 +110,7 @@ class AccountsView extends StatelessWidget {
                         if (context.mounted) {
                           context
                               .read<AccountsBloc>()
-                              .add(AccountsEvent.started(''));
+                              .add(const AccountsEvent.started(''));
                         }
                       }
                     },
@@ -131,23 +124,46 @@ class AccountsView extends StatelessWidget {
                       if (context.mounted) {
                         context
                             .read<AccountsBloc>()
-                            .add(AccountsEvent.started(''));
+                            .add(const AccountsEvent.started(''));
                       }
                     },
                     goToGeneratePassword: () => context.goWithRoute(
                       RandomPasswordView.routeName,
                     ),
                     showBottomMenu: () {
-                      showModalBottomSheet(
+                      showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext bottomMenuContext) {
                           return Wrap(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  Texts
+                                      .duplicatedPasswordCheckerSettingsDisclaimer,
+                                  style: const TextStyle(fontSize: 10),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  child: Text(
+                                    Texts.duplicatedPasswordCheckerSettings,
+                                  ),
+                                  onPressed: () {
+                                    context
+                                      ..goWithRoute(
+                                        DuplicatedPasswordCheckerView.routeName,
+                                      )
+                                      ..pop();
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
                                 child: Text(
                                   Texts.importExportDisclaimer,
-                                  style: TextStyle(fontSize: 10),
+                                  style: const TextStyle(fontSize: 10),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -163,7 +179,7 @@ class AccountsView extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              const SizedBox(height: 8.0),
+                              const SizedBox(height: 8),
                               Center(
                                 child: ElevatedButton(
                                   child: Text(Texts.importAccounts),
@@ -191,7 +207,7 @@ class AccountsView extends StatelessWidget {
                       );
                     },
                     showDialog: (errorType) {
-                      showDialog(
+                      showDialog<void>(
                         context: context,
                         builder: (BuildContext dialogContext) {
                           return AlertDialog(
@@ -226,24 +242,20 @@ class AccountsView extends StatelessWidget {
                     child: Column(
                       children: [
                         state.screenState.when(
-                          loading: () => Loader(),
-                          loaded: (_) => SizedBox(height: 4),
+                          loading: () => const Loader(),
+                          loaded: (_) => const SizedBox(height: 4),
                         ),
                         ListTile(
                           onTap: () =>
                               context.goWithRoute(RandomPasswordView.routeName),
-                          leading: Icon(
-                            CommonIcons.randomPassword,
-                          ),
+                          leading: Icon(CommonIcons.randomPassword),
                           title: Text(
                             Texts.randomPasswordListTile,
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.fade,
                           ),
-                          trailing: Icon(
-                            CommonIcons.next,
-                          ),
+                          trailing: Icon(CommonIcons.next),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -261,16 +273,14 @@ class AccountsView extends StatelessWidget {
                           ),
                         ),
                         state.screenState.when(
-                          loading: () => Container(),
+                          loading: Container.new,
                           loaded: (searchText) => Expanded(
                             child: ListView.separated(
-                              itemBuilder: (context, index) => (state
-                                          .accountsList[index].name
-                                          .toLowerCase()
-                                          .startsWith(searchText) &&
-                                      !state.accountsList[index].private)
+                              itemBuilder: (context, index) => state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText)
                                   ? AccountListTile(
-                                      index: index,
                                       account: state.accountsList[index],
                                       onTap: () {
                                         // Remove focus on TextField
@@ -285,12 +295,11 @@ class AccountsView extends StatelessWidget {
                                       },
                                     )
                                   : Container(),
-                              separatorBuilder: (context, index) => (state
-                                          .accountsList[index].name
-                                          .toLowerCase()
-                                          .startsWith(searchText) &&
-                                      !state.accountsList[index].private)
-                                  ? Divider(
+                              separatorBuilder: (context, index) => state
+                                      .accountsList[index].name
+                                      .toLowerCase()
+                                      .startsWith(searchText)
+                                  ? const Divider(
                                       height: 1,
                                       color: Colors.grey,
                                     )
@@ -306,12 +315,10 @@ class AccountsView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () => context.read<AccountsBloc>().add(
-                      AccountsEvent.pressedModify(),
+                      const AccountsEvent.pressedModify(),
                     ),
                 tooltip: Texts.addNewAccountTooltip,
-                child: Icon(
-                  CommonIcons.add,
-                ),
+                child: Icon(CommonIcons.add),
               ),
             ),
           );

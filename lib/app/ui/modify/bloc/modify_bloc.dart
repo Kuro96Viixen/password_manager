@@ -137,7 +137,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
         saveAccount: (accountData) async {
           final accountsData = await getAccountsDataUseCase();
 
-          List<AccountData> accountsList = accountsData.accountsList.toList();
+          final accountsList = accountsData.accountsList.toList();
 
           final encryptedPassword = await encryptPasswordUseCase(
             state.password != '' ? state.password : state.randomPassword,
