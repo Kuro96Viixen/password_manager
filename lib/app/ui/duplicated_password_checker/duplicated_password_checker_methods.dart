@@ -23,19 +23,13 @@ void shootingStars(BuildContext context) {
     // Big Star
     Confetti.launch(
       context,
-      options: options.copyWith(
-        particleCount: 40,
-        scalar: 1.2,
-      ),
+      options: options.copyWith(particleCount: 40, scalar: 1.2),
       particleBuilder: (index) => ConfettiStar(),
     );
     // Small Star
     Confetti.launch(
       context,
-      options: options.copyWith(
-        particleCount: 10,
-        scalar: 0.75,
-      ),
+      options: options.copyWith(particleCount: 10, scalar: 0.75),
       particleBuilder: (index) => ConfettiStar(),
     );
   });

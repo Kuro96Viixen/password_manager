@@ -26,8 +26,8 @@ class DetailsView extends StatelessWidget {
   final AccountData accountData;
 
   const DetailsView({
-    super.key,
     required this.accountData,
+    super.key,
   });
 
   @override
@@ -67,7 +67,7 @@ class DetailsView extends StatelessWidget {
               }
             },
             showPopUp: () {
-              showDialog(
+              showDialog<void>(
                 context: context,
                 builder: (BuildContext dialogContext) {
                   return DeleteDialog(
@@ -90,11 +90,7 @@ class DetailsView extends StatelessWidget {
             },
             showSnackBar: (snackBarMessage) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    snackBarMessage,
-                  ),
-                ),
+                SnackBar(content: Text(snackBarMessage)),
               );
             },
           );
@@ -108,56 +104,36 @@ class DetailsView extends StatelessWidget {
                       .read<DetailsBloc>()
                       .add(const DetailsEvent.pressedBack()),
                 ),
-                title: Text(
-                  Texts.viewAccountViewTitle,
-                ),
+                title: Text(Texts.viewAccountViewTitle),
                 actions: [
                   IconButton(
                     onPressed: () => context
                         .read<DetailsBloc>()
                         .add(const DetailsEvent.pressedDelete()),
-                    icon: Icon(
-                      CommonIcons.delete,
-                    ),
+                    icon: Icon(CommonIcons.delete),
                   ),
                 ],
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(4.0),
-                  child: Divider(
-                    height: 4.0,
-                  ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4),
+                  child: Divider(height: 4),
                 ),
               ),
               body: Column(
                 children: [
                   state.screenState.when(
-                    loading: () => Loader(),
-                    loaded: () => SizedBox(
-                      height: 4,
-                    ),
+                    loading: () => const Loader(),
+                    loaded: () => const SizedBox(height: 4),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(
-                      12.0,
-                    ),
+                    padding: const EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AccountLabel(
-                          text: Texts.viewAccountNameLabel,
-                        ),
-                        AccountField(
-                          text: state.accountData.name,
-                        ),
-                        AccountLabel(
-                          text: Texts.viewAccountUsernameLabel,
-                        ),
-                        AccountField(
-                          text: state.accountData.username,
-                        ),
-                        AccountLabel(
-                          text: Texts.viewAccountPasswordLabel,
-                        ),
+                        AccountLabel(text: Texts.viewAccountNameLabel),
+                        AccountField(text: state.accountData.name),
+                        AccountLabel(text: Texts.viewAccountUsernameLabel),
+                        AccountField(text: state.accountData.username),
+                        AccountLabel(text: Texts.viewAccountPasswordLabel),
                         GestureDetector(
                           onLongPress: () {
                             context.read<DetailsBloc>().add(
@@ -174,10 +150,9 @@ class DetailsView extends StatelessWidget {
                               loading: () => '',
                               loaded: () => state.passwordString,
                             ),
-                            viewPassword: true,
                           ),
                         ),
-                        const SizedBox(height: 8.0),
+                        const SizedBox(height: 8),
                         Visibility(
                           visible:
                               state.passwordString == Texts.hiddenPasswordText,

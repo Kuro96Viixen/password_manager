@@ -7,6 +7,6 @@ class DecryptPasswordUseCase {
   DecryptPasswordUseCase(this.repository);
 
   Future<String> call(Password password) async {
-    return await repository.decrypt(password);
+    return repository.decrypt(password);
   }
 }

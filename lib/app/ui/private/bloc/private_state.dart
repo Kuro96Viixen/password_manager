@@ -11,7 +11,6 @@ class PrivateState with _$PrivateState {
   factory PrivateState.initial() => const PrivateState(
         accountsList: [],
         screenState: PrivateScreenState.loading(),
-        navigationState: null,
       );
 }
 

@@ -19,7 +19,6 @@ class RandomPasswordState with _$RandomPasswordState {
         hasSpanishCharacters: true,
         hasNumbersCharacters: true,
         hasSymbolsCharacters: true,
-        navigationState: null,
       );
 }
 

@@ -36,9 +36,7 @@ class ExperimentalFeatureInfoDialog extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(
-            Texts.experimentalFeatureInfoDialogConfirm,
-          ),
+          child: Text(Texts.experimentalFeatureInfoDialogConfirm),
         ),
       ],
     );

@@ -14,21 +14,16 @@ void _navigationModulesInit() {
           padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Icon(
                 Icons.error,
                 color: Colors.white,
                 size: 100,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Text(
                 'Route not found: ${state.error}',
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
+                style: const TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -38,9 +33,9 @@ void _navigationModulesInit() {
     },
   );
 
-  navigationModulesDi.registerLazySingleton<GoRouter>(() => router);
-
-  navigationModulesDi.registerLazySingleton<NavigationService>(
-    () => GoRouterNavigationService(navigationModulesDi()),
-  );
+  navigationModulesDi
+    ..registerLazySingleton<GoRouter>(() => router)
+    ..registerLazySingleton<NavigationService>(
+      () => GoRouterNavigationService(navigationModulesDi()),
+    );
 }

@@ -72,11 +72,11 @@ class Texts {
   // Dialog Export/Import exception texts
   static String dialogTitle = 'Oops, something went wrong';
   static String dialogPickFileExceptionText =
-      'The app couldn\'t import your previously saved accounts list, '
+      "The app couldn't import your previously saved accounts list, "
       'either the file is corrupted or you closed the picker.\n\n'
       'If you closed the picker you can close this advice and try again.';
   static String dialogPickFolderExceptionText =
-      'The app couldn\'t export your accounts list, '
+      "The app couldn't export your accounts list, "
       'either you got an exception with the file or you closed the picker.\n\n'
       'If you closed the picker you can close this advice and try again.';
   static String dialogButtonText = 'Ok, I understand';
@@ -87,12 +87,12 @@ class Texts {
       '{account}\n\nAre you sure do you want to remove it?';
   static String deleteDialogAdvice = 'This action cannot be undone.';
   static String deleteDialogCancel = 'No, go back';
-  static String deleteDialogConfirm = 'Yes, I\'m sure';
+  static String deleteDialogConfirm = "Yes, I'm sure";
 
   // Random Password View
   static String randomPasswordViewTitle = 'Random Password Generator';
   static String randomPasswordDisclaimer = 'This random generated password '
-      'won\'t be stored anywhere and will be discarded once exit, '
+      "won't be stored anywhere and will be discarded once exit, "
       'to store it you might use the form to save an account, '
       'this password can be copied by long-pressing it';
 

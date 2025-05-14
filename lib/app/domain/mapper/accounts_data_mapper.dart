@@ -16,10 +16,10 @@ extension AccountDataExtension on AccountData {
       };
 
   AccountData fromJson(Map<String, dynamic> json) => AccountData(
-        name: json['name'],
-        username: json['username'],
-        password: json['password'],
-        passwordIV: json['passwordIV'],
-        private: json['private'],
+        name: json['name'] as String,
+        username: json['username'] as String,
+        password: json['password'] as String,
+        passwordIV: json['passwordIV'] as String,
+        private: json['private'] as bool,
       );
 }

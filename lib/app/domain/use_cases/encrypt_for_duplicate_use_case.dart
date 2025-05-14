@@ -7,6 +7,6 @@ class EncryptForDuplicateUseCase {
   EncryptForDuplicateUseCase(this.repository);
 
   Future<String> call(String password, IV iv) async {
-    return await repository.encryptForDuplicate(password, iv);
+    return repository.encryptForDuplicate(password, iv);
   }
 }

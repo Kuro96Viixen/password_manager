@@ -12,13 +12,13 @@ class DeleteDialog extends StatefulWidget {
   final String cancelButtonText;
 
   const DeleteDialog({
-    super.key,
     required this.title,
     required this.body,
     required this.advice,
     required this.onPressedConfirm,
     required this.confirmButtonText,
     required this.cancelButtonText,
+    super.key,
   });
 
   @override
@@ -43,7 +43,7 @@ class DeleteDialogState extends State<DeleteDialog> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
@@ -66,13 +66,8 @@ class DeleteDialogState extends State<DeleteDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            widget.body,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 24,
-          ),
+          Text(widget.body, textAlign: TextAlign.center),
+          const SizedBox(height: 24),
           Text(
             widget.advice,
             textAlign: TextAlign.center,
@@ -86,7 +81,6 @@ class DeleteDialogState extends State<DeleteDialog> {
       actionsAlignment: MainAxisAlignment.center,
       actions: <Widget>[
         Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
               onPressed: () => context.pop(),

@@ -17,10 +17,7 @@ class ModifyView extends StatelessWidget {
 
   final AccountData? accountData;
 
-  const ModifyView({
-    super.key,
-    required this.accountData,
-  });
+  const ModifyView({required this.accountData, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +59,16 @@ class ModifyView extends StatelessWidget {
                       ? Texts.addViewTitle
                       : Texts.editViewTitle,
                 ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(4.0),
-                  child: Divider(
-                    height: 4.0,
-                  ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4),
+                  child: Divider(height: 4),
                 ),
               ),
               body: Column(
                 children: [
                   Expanded(
                     child: ListView(
-                      padding: const EdgeInsets.all(
-                        16.0,
-                      ),
+                      padding: const EdgeInsets.all(16),
                       children: [
                         Column(
                           children: [
@@ -96,7 +89,7 @@ class ModifyView extends StatelessWidget {
                                         ),
                                       ),
                             ),
-                            const SizedBox(height: 8.0),
+                            const SizedBox(height: 8),
                             SwitchListTile(
                               value: state.screenState ==
                                   const ModifyScreenState.randomForm(),
@@ -106,7 +99,7 @@ class ModifyView extends StatelessWidget {
 
                                 context.read<ModifyBloc>().add(
                                       ModifyEvent.onChangePasswordForm(
-                                        isRandomPasswordForm,
+                                        isRandomPasswordForm: isRandomPasswordForm,
                                       ),
                                     );
                               },
@@ -153,12 +146,12 @@ class ModifyView extends StatelessWidget {
                           onChanged: (isPrivateAccount) =>
                               context.read<ModifyBloc>().add(
                                     ModifyEvent.setIsPrivateAccount(
-                                      isPrivateAccount ?? false,
+                                      isPrivateAccount: isPrivateAccount ?? false,
                                     ),
                                   ),
                           title: Text(Texts.isPrivateAccountCheckBoxTitle),
                         ),
-                        const SizedBox(height: 8.0),
+                        const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () => context
                               .read<ModifyBloc>()

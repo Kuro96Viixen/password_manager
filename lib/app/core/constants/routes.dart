@@ -33,7 +33,7 @@ GoRoute _modifyView() => GoRoute(
         AccountData? accountData;
 
         if (state.extra is AccountData) {
-          accountData = state.extra as AccountData;
+          accountData = state.extra! as AccountData;
         }
 
         return ModifyView(

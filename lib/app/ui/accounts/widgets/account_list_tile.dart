@@ -16,18 +16,14 @@ class AccountListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: Icon(
-        CommonIcons.account,
-      ),
+      leading: Icon(CommonIcons.account),
       title: Text(
         account.name,
         maxLines: 1,
         softWrap: false,
         overflow: TextOverflow.fade,
       ),
-      trailing: Icon(
-        CommonIcons.next,
-      ),
+      trailing: Icon(CommonIcons.next),
     );
   }
 }

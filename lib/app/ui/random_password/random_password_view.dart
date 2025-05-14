@@ -23,13 +23,11 @@ class RandomPasswordView extends StatelessWidget {
               appBar: AppBar(
                 title: Text(
                   Texts.randomPasswordViewTitle,
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(4.0),
-                  child: Divider(
-                    height: 4.0,
-                  ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4),
+                  child: Divider(height: 4),
                 ),
               ),
               body: BlocConsumer<RandomPasswordBloc, RandomPasswordState>(
@@ -37,17 +35,13 @@ class RandomPasswordView extends StatelessWidget {
                   state.navigationState?.when(
                     showSnackBar: (snackBarMessage) =>
                         ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          snackBarMessage,
-                        ),
-                      ),
+                      SnackBar(content: Text(snackBarMessage)),
                     ),
                   );
                 },
                 builder: (context, state) {
                   return Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
                         Expanded(
@@ -55,7 +49,6 @@ class RandomPasswordView extends StatelessWidget {
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   AccountTextField(
                                     label: Texts.passwordLengthTextFieldLabel,
@@ -68,14 +61,14 @@ class RandomPasswordView extends StatelessWidget {
                                               ),
                                             ),
                                   ),
-                                  const SizedBox(height: 8.0),
+                                  const SizedBox(height: 8),
                                   CheckboxListTile(
                                     value: state.hasSpanishCharacters,
                                     onChanged: (hasSpanishCharacters) =>
                                         context.read<RandomPasswordBloc>().add(
                                               RandomPasswordEvent
                                                   .hasSpanishCharacters(
-                                                hasSpanishCharacters ?? false,
+                                                hasSpanishCharacters: hasSpanishCharacters ?? false,
                                               ),
                                             ),
                                     title: Text(
@@ -88,12 +81,10 @@ class RandomPasswordView extends StatelessWidget {
                                         context.read<RandomPasswordBloc>().add(
                                               RandomPasswordEvent
                                                   .hasNumbersCharacters(
-                                                hasNumbersCharacters ?? false,
+                                                hasNumbersCharacters: hasNumbersCharacters ?? false,
                                               ),
                                             ),
-                                    title: Text(
-                                      Texts.numbersCheckBoxTitle,
-                                    ),
+                                    title: Text(Texts.numbersCheckBoxTitle),
                                   ),
                                   CheckboxListTile(
                                     value: state.hasSymbolsCharacters,
@@ -101,14 +92,12 @@ class RandomPasswordView extends StatelessWidget {
                                         context.read<RandomPasswordBloc>().add(
                                               RandomPasswordEvent
                                                   .hasSymbolsCharacters(
-                                                hasSymbolsCharacters ?? false,
+                                                hasSymbolsCharacters: hasSymbolsCharacters ?? false,
                                               ),
                                             ),
-                                    title: Text(
-                                      Texts.symbolsCheckBoxTitle,
-                                    ),
+                                    title: Text(Texts.symbolsCheckBoxTitle),
                                   ),
-                                  const SizedBox(height: 8.0),
+                                  const SizedBox(height: 8),
                                   ElevatedButton(
                                     onPressed: () {
                                       // Remove focus on TextField
@@ -123,23 +112,20 @@ class RandomPasswordView extends StatelessWidget {
                                       Texts.generateRandomPasswordButton,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 16.0,
-                                  ),
+                                  const SizedBox(height: 16),
                                   Visibility(
                                     visible: state.randomPassword != '',
                                     child: GestureDetector(
                                       onLongPress: () => context
                                           .read<RandomPasswordBloc>()
                                           .add(
-                                            RandomPasswordEvent.copyPassword(),
+                                            const RandomPasswordEvent
+                                                .copyPassword(),
                                           ),
                                       child: Text(
                                         Texts.randomPasswordText +
                                             state.randomPassword,
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                        ),
+                                        style: const TextStyle(fontSize: 20),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -151,7 +137,7 @@ class RandomPasswordView extends StatelessWidget {
                         ),
                         Text(
                           Texts.randomPasswordDisclaimer,
-                          style: TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 10),
                         ),
                       ],
                     ),

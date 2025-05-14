@@ -7,6 +7,6 @@ class EncryptPasswordUseCase {
   EncryptPasswordUseCase(this.repository);
 
   Future<Password> call(String password) async {
-    return await repository.encrypt(password);
+    return repository.encrypt(password);
   }
 }

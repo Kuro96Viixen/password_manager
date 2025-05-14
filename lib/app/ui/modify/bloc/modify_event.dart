@@ -9,8 +9,9 @@ class ModifyEvent with _$ModifyEvent {
       _OnUsernameChanged;
 
   // Switch to change forms
-  const factory ModifyEvent.onChangePasswordForm(bool isRandomPasswordForm) =
-      _OnChangePasswordForm;
+  const factory ModifyEvent.onChangePasswordForm({
+    required bool isRandomPasswordForm,
+  }) = _OnChangePasswordForm;
 
   // Password form
   const factory ModifyEvent.onPasswordChanged(String passwordString) =
@@ -21,18 +22,22 @@ class ModifyEvent with _$ModifyEvent {
   const factory ModifyEvent.onRandomPasswordLengthChanged(
     String randomPasswordLengthString,
   ) = _OnRandomPasswordLengthChanged;
-  const factory ModifyEvent.hasSpanishCharacters(bool hasSpanishCharacters) =
-      _HasSpanishCharacters;
-  const factory ModifyEvent.hasNumbersCharacters(bool hasNumbersCharacters) =
-      _HasNumbersCharacters;
-  const factory ModifyEvent.hasSymbolsCharacters(bool hasSymbolsCharacters) =
-      _HasSymbolsCharacters;
+  const factory ModifyEvent.hasSpanishCharacters({
+    required bool hasSpanishCharacters,
+  }) = _HasSpanishCharacters;
+  const factory ModifyEvent.hasNumbersCharacters({
+    required bool hasNumbersCharacters,
+  }) = _HasNumbersCharacters;
+  const factory ModifyEvent.hasSymbolsCharacters({
+    required bool hasSymbolsCharacters,
+  }) = _HasSymbolsCharacters;
   const factory ModifyEvent.generateRandomPassword() = _GenerateRandomPassword;
   const factory ModifyEvent.copyPassword(String password) = _CopyPassword;
 
   // Save Account
-  const factory ModifyEvent.setIsPrivateAccount(bool isPrivateAccount) =
-      _SetIsPrivateAccount;
+  const factory ModifyEvent.setIsPrivateAccount({
+    required bool isPrivateAccount,
+  }) = _SetIsPrivateAccount;
   const factory ModifyEvent.saveAccount(AccountData? accountData) =
       _SaveAccount;
 }

@@ -27,7 +27,7 @@ class PrivateBloc extends Bloc<PrivateEvent, PrivateState> {
           // Retrieving data from the MemoryDataSource
           final accountsData = await getAccountsDataUseCase();
 
-          List<AccountData> accountsList = accountsData.accountsList;
+          final accountsList = accountsData.accountsList;
 
           // Sending the accounts to the screen and
           // remove the loader from the screen

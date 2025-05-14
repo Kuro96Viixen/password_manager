@@ -129,7 +129,7 @@ class _ConfettiState extends State<Confetti>
         animationController.stop();
 
         if (widget.onFinished != null) {
-          widget.onFinished!();
+          widget.onFinished?.call();
         }
       }
     }

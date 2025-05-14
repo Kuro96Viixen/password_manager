@@ -5,11 +5,11 @@ import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/data/repository/services/encryption_service.dart';
 
 class EncryptionServiceImpl implements EncryptionService {
-  late Encrypter _encrypter;
+  late Encrypter _encryptor;
 
   @override
   Future<void> initialize(String keyValue) async {
-    _encrypter = Encrypter(
+    _encryptor = Encrypter(
       AES(
         Key(Uint8List.fromList(keyValue.codeUnits)),
         mode: AESMode.cbc,
@@ -21,12 +21,8 @@ class EncryptionServiceImpl implements EncryptionService {
   Future<Password> encrypt(String passwordToEncrypt) async {
     final iv = IV.fromLength(16);
 
-    String encryptedPassword = _encrypter
-        .encrypt(
-          passwordToEncrypt,
-          iv: iv,
-        )
-        .base64;
+    final encryptedPassword =
+        _encryptor.encrypt(passwordToEncrypt, iv: iv).base64;
 
     final password = Password(password: encryptedPassword, iv: iv.base64);
 
@@ -37,19 +33,14 @@ class EncryptionServiceImpl implements EncryptionService {
   Future<String> decrypt(Password password) async {
     final iv = IV.fromBase64(password.iv);
 
-    String decryptedPassword = _encrypter.decrypt64(password.password, iv: iv);
+    final decryptedPassword = _encryptor.decrypt64(password.password, iv: iv);
 
     return decryptedPassword;
   }
 
   @override
   Future<String> encryptForDuplicate(String password, IV iv) async {
-    String encryptedPassword = _encrypter
-        .encrypt(
-          password,
-          iv: iv,
-        )
-        .base64;
+    final encryptedPassword = _encryptor.encrypt(password, iv: iv).base64;
 
     return encryptedPassword;
   }
