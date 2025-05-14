@@ -82,8 +82,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<void> initializeEncryption(String keyValue) async {
-    await encryptionService.initialize(keyValue);
+  Future<void> initializeEncryption() async {
+    await encryptionService.initialize();
   }
 
   @override

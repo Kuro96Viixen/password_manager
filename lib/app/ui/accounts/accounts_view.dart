@@ -34,9 +34,7 @@ class AccountsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => uiModulesDi<AccountsBloc>()
         ..add(
-          const AccountsEvent.started(
-            String.fromEnvironment('encryption_key'),
-          ),
+          const AccountsEvent.started(initializeEncryption: true),
         ),
       child: Builder(
         builder: (context) {
@@ -110,7 +108,7 @@ class AccountsView extends StatelessWidget {
                         if (context.mounted) {
                           context
                               .read<AccountsBloc>()
-                              .add(const AccountsEvent.started(''));
+                              .add(const AccountsEvent.started());
                         }
                       }
                     },
@@ -124,7 +122,7 @@ class AccountsView extends StatelessWidget {
                       if (context.mounted) {
                         context
                             .read<AccountsBloc>()
-                            .add(const AccountsEvent.started(''));
+                            .add(const AccountsEvent.started());
                       }
                     },
                     goToGeneratePassword: () => context.goWithRoute(
