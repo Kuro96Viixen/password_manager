@@ -112,7 +112,9 @@ class Texts {
       'that share the same password, you cannot see the password nor '
       'the email/username assigned to that account, '
       'only the name that was used to save the account.\n\n'
-      'Note: Private accounts are counted but not shown';
+      'Notes:\n'
+      'Private accounts are counted but not shown\n'
+      'The name of the card is a placeholder, not the real password';
   static String duplicatedPasswordCheckerViewSuccessCardTitle =
       'Password #{index}';
   static String duplicatedPasswordCheckerViewUniqueCongrats =
