@@ -9,7 +9,6 @@ import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
 import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
@@ -19,7 +18,7 @@ import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class DetailsView extends StatelessWidget {
-  static const routeName = 'DetailsPageRoute';
+  static const routeName = '/DetailsPageRoute';
 
   static late Completer<void> modifyCompleter;
 
@@ -44,11 +43,8 @@ class DetailsView extends StatelessWidget {
               if (context.previousRoute.contains(PrivateView.routeName)) {
                 PrivateView.isFinishedEdition = true;
                 PrivateView.modifyCompleter.complete();
-              } else {
-                AccountsView.isFinishedEdition = true;
-                AccountsView.modifyCompleter.complete();
               }
-              context.pop();
+              context.pop(true);
             },
             goToModify: (accountData) async {
               modifyCompleter = Completer<void>();
@@ -99,11 +95,6 @@ class DetailsView extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                leading: BackButton(
-                  onPressed: () => context
-                      .read<DetailsBloc>()
-                      .add(const DetailsEvent.pressedBack()),
-                ),
                 title: Text(Texts.viewAccountViewTitle),
                 actions: [
                   IconButton(

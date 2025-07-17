@@ -6,21 +6,27 @@ part 'accounts_event.freezed.dart';
 class AccountsEvent with _$AccountsEvent {
   const factory AccountsEvent.started({
     @Default(false) bool initializeEncryption,
-  }) = _Started;
+  }) = Started;
 
-  const factory AccountsEvent.pressedAccount(int accountIndex) =
-      _PressedAccount;
-  const factory AccountsEvent.pressedModify() = _PressedModify;
+  const factory AccountsEvent.pressedAccount(int accountIndex) = PressedAccount;
+  const factory AccountsEvent.pressedModify() = PressedModify;
 
-  const factory AccountsEvent.showPrivate() = _ShowPrivate;
+  const factory AccountsEvent.showPrivate() = ShowPrivate;
 
   const factory AccountsEvent.searchAccount(String searchString) =
-      _SearchAccount;
+      SearchAccount;
 
   const factory AccountsEvent.onRandomPasswordPressed() =
-      _OnRandomPasswordPressed;
+      OnRandomPasswordPressed;
 
-  const factory AccountsEvent.showSettings() = _ShowSettings;
-  const factory AccountsEvent.exportAccounts() = _ExportAccounts;
-  const factory AccountsEvent.importAccounts() = _ImportAccounts;
+  const factory AccountsEvent.showSettings() = ShowSettings;
+  const factory AccountsEvent.exportAccounts() = ExportAccounts;
+  const factory AccountsEvent.importAccounts() = ImportAccounts;
+
+  const factory AccountsEvent.markNavigationEventAsConsumed() =
+      MarkNavigationEventAsConsumed;
+  const factory AccountsEvent.markBottomMenuAsConsumed() =
+      MarkBottomMenuAsConsumed;
+  const factory AccountsEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  const factory AccountsEvent.markDialogAsConsumed() = MarkDialogAsConsumed;
 }

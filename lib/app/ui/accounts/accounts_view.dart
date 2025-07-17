@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,11 +17,10 @@ import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
 import 'package:password_manager/widgets/loader.dart';
 
+part 'accounts_view_methods.dart';
+
 class AccountsView extends StatelessWidget {
   static const routeName = '/AccountsPageRoute';
-
-  static late Completer<void> modifyCompleter;
-  static bool isFinishedEdition = false;
 
   const AccountsView({
     super.key,
@@ -88,149 +85,75 @@ class AccountsView extends StatelessWidget {
                 // ),
               ),
               body: BlocConsumer<AccountsBloc, AccountsState>(
-                listener: (context, state) {
-                  state.navigationState?.when(
-                    goToPrivate: () =>
-                        context.goWithRoute(PrivateView.routeName),
-                    goToDetails: (accountData) async {
-                      isFinishedEdition = false;
-                      modifyCompleter = Completer<void>();
+                listenWhen: (previous, current) {
+                  final hasNewNavigationEvent =
+                      previous.navigationEvent != current.navigationEvent;
 
-                      context.goWithRoute(
-                        DetailsView.routeName,
-                        extra: accountData,
-                      );
+                  final hasNewBottomMenuEvent =
+                      previous.bottomMenuEvent != current.bottomMenuEvent;
 
-                      while (!isFinishedEdition) {
-                        await modifyCompleter.future;
-                        modifyCompleter = Completer<void>();
+                  final hasNewSnackBarEvent =
+                      previous.snackBarEvent != current.snackBarEvent;
 
-                        if (context.mounted) {
-                          context
-                              .read<AccountsBloc>()
-                              .add(const AccountsEvent.started());
-                        }
-                      }
-                    },
-                    goToModify: () async {
-                      modifyCompleter = Completer<void>();
+                  final hasNewDialogEvent =
+                      previous.dialogEvent != current.dialogEvent;
 
-                      context.goWithRoute(ModifyView.routeName);
+                  return hasNewNavigationEvent ||
+                      hasNewBottomMenuEvent ||
+                      hasNewSnackBarEvent ||
+                      hasNewDialogEvent;
+                },
+                listener: (context, state) async {
+                  if (!state.bottomMenuEvent.consumed) {
+                    _showBottomMenu(context);
+                  }
 
-                      await modifyCompleter.future;
-
-                      if (context.mounted) {
-                        context
-                            .read<AccountsBloc>()
-                            .add(const AccountsEvent.started());
-                      }
-                    },
-                    goToGeneratePassword: () => context.goWithRoute(
-                      RandomPasswordView.routeName,
-                    ),
-                    showBottomMenu: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext bottomMenuContext) {
-                          return Wrap(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  Texts
-                                      .duplicatedPasswordCheckerSettingsDisclaimer,
-                                  style: const TextStyle(fontSize: 10),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  child: Text(
-                                    Texts.duplicatedPasswordCheckerSettings,
-                                  ),
-                                  onPressed: () {
-                                    context
-                                      ..goWithRoute(
-                                        DuplicatedPasswordCheckerView.routeName,
-                                      )
-                                      ..pop();
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  Texts.importExportDisclaimer,
-                                  style: const TextStyle(fontSize: 10),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  child: Text(Texts.exportAccounts),
-                                  onPressed: () {
-                                    context.pop();
-
-                                    context.read<AccountsBloc>().add(
-                                          const AccountsEvent.exportAccounts(),
-                                        );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Center(
-                                child: ElevatedButton(
-                                  child: Text(Texts.importAccounts),
-                                  onPressed: () {
-                                    context.pop();
-
-                                    context.read<AccountsBloc>().add(
-                                          const AccountsEvent.importAccounts(),
-                                        );
-                                  },
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    showSnackBar: (snackBarMessage) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            snackBarMessage,
-                          ),
+                  if (!state.snackBarEvent.consumed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.snackBarEvent.data!,
                         ),
-                      );
-                    },
-                    showDialog: (errorType) {
-                      showDialog<void>(
-                        context: context,
-                        builder: (BuildContext dialogContext) {
-                          return AlertDialog(
-                            title: Text(
-                              Texts.dialogTitle,
-                              textAlign: TextAlign.center,
-                            ),
-                            content: Text(
-                              errorType == const ErrorType.pickFileException()
-                                  ? Texts.dialogPickFileExceptionText
-                                  : Texts.dialogPickFolderExceptionText,
-                              textAlign: TextAlign.center,
-                            ),
-                            actionsAlignment: MainAxisAlignment.center,
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => dialogContext.pop(),
-                                child: Text(Texts.dialogButtonText),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  );
+                      ),
+                    );
+
+                    context.read<AccountsBloc>().add(
+                          const AccountsEvent.markSnackBarAsConsumed(),
+                        );
+                  }
+
+                  if (!state.dialogEvent.consumed) {
+                    _showDialog(context, state.dialogEvent.data!);
+
+                    context.read<AccountsBloc>().add(
+                          const AccountsEvent.markDialogAsConsumed(),
+                        );
+                  }
+
+                  if (!state.navigationEvent.consumed) {
+                    context.read<AccountsBloc>().add(
+                          const AccountsEvent.markNavigationEventAsConsumed(),
+                        );
+
+                    switch (state.navigationEvent.data) {
+                      case PrivateView.routeName:
+                      case RandomPasswordView.routeName:
+                        context.goWithRoute(state.navigationEvent.data!);
+
+                      case ModifyView.routeName:
+                      case DetailsView.routeName:
+                        final bloc = context.read<AccountsBloc>();
+
+                        final success = await context.push<bool>(
+                          state.navigationEvent.data!,
+                          extra: state.selectedAccount,
+                        );
+
+                        if (success != null && success) {
+                          bloc.add(const AccountsEvent.started());
+                        }
+                    }
+                  }
                 },
                 builder: (context, state) {
                   return ConstrainedBox(

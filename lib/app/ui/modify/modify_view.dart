@@ -5,7 +5,6 @@ import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
@@ -13,7 +12,7 @@ import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart
 import 'package:password_manager/app/ui/private/private_view.dart';
 
 class ModifyView extends StatelessWidget {
-  static const routeName = 'ModifyPageRoute';
+  static const routeName = '/ModifyPageRoute';
 
   final AccountData? accountData;
 
@@ -34,11 +33,9 @@ class ModifyView extends StatelessWidget {
 
               if (context.previousRoute.contains(PrivateView.routeName)) {
                 PrivateView.modifyCompleter.complete();
-              } else {
-                AccountsView.modifyCompleter.complete();
               }
 
-              context.pop();
+              context.pop(true);
             },
             showSnackBar: (snackBarMessage) =>
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -99,7 +96,8 @@ class ModifyView extends StatelessWidget {
 
                                 context.read<ModifyBloc>().add(
                                       ModifyEvent.onChangePasswordForm(
-                                        isRandomPasswordForm: isRandomPasswordForm,
+                                        isRandomPasswordForm:
+                                            isRandomPasswordForm,
                                       ),
                                     );
                               },
@@ -143,12 +141,13 @@ class ModifyView extends StatelessWidget {
                       children: [
                         CheckboxListTile(
                           value: state.isPrivateAccount,
-                          onChanged: (isPrivateAccount) =>
-                              context.read<ModifyBloc>().add(
-                                    ModifyEvent.setIsPrivateAccount(
-                                      isPrivateAccount: isPrivateAccount ?? false,
-                                    ),
-                                  ),
+                          onChanged: (isPrivateAccount) => context
+                              .read<ModifyBloc>()
+                              .add(
+                                ModifyEvent.setIsPrivateAccount(
+                                  isPrivateAccount: isPrivateAccount ?? false,
+                                ),
+                              ),
                           title: Text(Texts.isPrivateAccountCheckBoxTitle),
                         ),
                         const SizedBox(height: 8),

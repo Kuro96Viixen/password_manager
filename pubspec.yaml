@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 3.6.2+32
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -17,7 +17,7 @@ dependencies:
   go_router: ^14.8.1
 
   # BLoC
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.1
   freezed: ^2.5.2
   freezed_annotation: ^2.4.4
 

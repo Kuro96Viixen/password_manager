@@ -15,6 +15,11 @@ import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_stora
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
 import 'package:password_manager/app/ui/accounts/bloc/accounts_event.dart';
 import 'package:password_manager/app/ui/accounts/bloc/accounts_state.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
+import 'package:password_manager/app/ui/details/details_view.dart';
+import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/app/ui/private/private_view.dart';
+import 'package:password_manager/app/ui/random_password/random_password_view.dart';
 
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
@@ -37,213 +42,215 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     required this.initializeEncryptionUseCase,
   }) : super(AccountsState.initial()) {
     on<AccountsEvent>((event, emit) async {
-      await event.when(
-        started: (initializeEncryption) async {
-          final oldScreenState = state.screenState;
-          // Emitting Loading ScreenState before while loading Accounts
+      switch (event) {
+        case Started(initializeEncryption: final initializeEncryption):
+          await _mapStartedEventToState(emit, initializeEncryption);
+        case PressedAccount(accountIndex: final accountIndex):
+          await _mapPressedAccountEventToState(accountIndex, emit);
+        case PressedModify():
           emit(
             state.copyWith(
-              screenState: const AccountsScreenState.loading(),
-              navigationState: null,
+              navigationEvent: const UIEvent(data: ModifyView.routeName),
             ),
           );
-
-          if (initializeEncryption) {
-            await initializeEncryptionUseCase();
-          }
-
-          // Retrieving data from the MemoryDataSource
-          final accountsData = await getAccountsDataUseCase();
-
-          var accountsList = <AccountData>[];
-
-          // If the MemoryDataSource Accounts are empty read from Storage
-          // If not, fill the list above with them
-          if (accountsData.accountsList.isEmpty) {
-            // Looking if there are Accounts in the SecureStorage
-            final storedAccountsData =
-                await getAccountsDataFromStorageUseCase();
-
-            // If there are, formatting into list from JSON and
-            // setting them into the MemoryDataSource
-            if (storedAccountsData != null) {
-              final accountsJson =
-                  jsonDecode(storedAccountsData) as List<dynamic>;
-
-              accountsList = List<AccountData>.from(
-                accountsJson
-                    .map(
-                      (e) => AccountData.empty()
-                          .fromJson(e as Map<String, dynamic>),
-                    )
-                    .toList(),
-              )
-
-                // Shuffle to not showing up the same accounts at the top
-                ..shuffle();
-
-              await setAccountsDataUseCase(
-                accountsData.copyWith(accountsList: accountsList),
-              );
-            }
-          } else {
-            accountsList = accountsData.accountsList;
-          }
-
-          final accountsToShow = List<AccountData>.from(accountsList)
-            ..removeWhere((account) => account.private);
-
-          // Sending the accounts to the screen and
-          // remove the loader from the screen
-          emit(
-            state.copyWith(
-              accountsList: accountsToShow,
-              screenState: oldScreenState == const AccountsScreenState.loading()
-                  ? const AccountsScreenState.loaded(searchText: '')
-                  : oldScreenState,
-            ),
-          );
-        },
-        pressedAccount: (accountIndex) async {
-          final accountsData = await getAccountsDataUseCase();
-
-          final index = accountsData.accountsList
-              .indexOf(state.accountsList[accountIndex]);
-
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-
-          emit(
-            state.copyWith(
-              navigationState: AccountsNavigationState.goToDetails(
-                accountData: accountsData.accountsList[index],
-              ),
-            ),
-          );
-        },
-        pressedModify: () {
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-
-          emit(
-            state.copyWith(
-              navigationState: const AccountsNavigationState.goToModify(),
-            ),
-          );
-        },
-        showPrivate: () async {
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-
+        case ShowPrivate():
           if (await getAuthenticationUseCase()) {
             emit(
               state.copyWith(
                 screenState: const AccountsScreenState.loaded(searchText: ''),
-                navigationState: const AccountsNavigationState.goToPrivate(),
+                navigationEvent: const UIEvent(data: PrivateView.routeName),
               ),
             );
           }
-        },
-        searchAccount: (String searchString) {
+        case SearchAccount(:final searchString):
           emit(
             state.copyWith(
               screenState: AccountsScreenState.loaded(searchText: searchString),
-              navigationState: null,
             ),
           );
-        },
-        onRandomPasswordPressed: () {
+        case OnRandomPasswordPressed():
           emit(
             state.copyWith(
-              navigationState:
-                  const AccountsNavigationState.goToGeneratePassword(),
+              navigationEvent:
+                  const UIEvent(data: RandomPasswordView.routeName),
             ),
           );
-        },
-        showSettings: () {
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
+        case ShowSettings():
+          emit(state.copyWith(bottomMenuEvent: const UIEvent()));
+        case ExportAccounts():
+          await _mapExportAccountsEventToState(emit);
+        case ImportAccounts():
+          await _mapImportAccountsEventToState(emit);
 
+        case MarkNavigationEventAsConsumed():
           emit(
             state.copyWith(
-              navigationState: const AccountsNavigationState.showBottomMenu(),
+              selectedAccount: null,
+              navigationEvent: state.navigationEvent.asConsumed(),
             ),
           );
-        },
-        exportAccounts: () async {
-          final accountsData = await getAccountsDataUseCase();
-
-          final exportAccountsResult =
-              await exportAccountsUseCase(accountsData);
-
-          // Resetting navigationState
+        case MarkBottomMenuAsConsumed():
           emit(
-            state.copyWith(
-              screenState: const AccountsScreenState.loading(),
-              navigationState: null,
-            ),
+            state.copyWith(bottomMenuEvent: state.bottomMenuEvent.asConsumed()),
           );
-
-          exportAccountsResult.when(
-            failure: (message) {
-              emit(
-                state.copyWith(
-                  navigationState: const AccountsNavigationState.showDialog(
-                    ErrorType.pickFolderException(),
-                  ),
-                ),
-              );
-            },
-            success: (filePath) {
-              // TODO(Kuro): Review this
-              // This filePath returns different folder (tested on Android 11)
-
-              emit(
-                state.copyWith(
-                  navigationState: AccountsNavigationState.showSnackBar(
-                    snackBarMessage: Texts.exportedAccounts,
-                  ),
-                  screenState: const AccountsScreenState.loaded(searchText: ''),
-                ),
-              );
-            },
-          );
-        },
-        importAccounts: () async {
-          final importAccountsResult = await importAccountsUseCase();
-
-          // Resetting navigationState
-          emit(state.copyWith(navigationState: null));
-          importAccountsResult.when(
-            failure: (message) {
-              emit(
-                state.copyWith(
-                  navigationState: const AccountsNavigationState.showDialog(
-                    ErrorType.pickFileException(),
-                  ),
-                ),
-              );
-            },
-            success: (importedAccounts) {
-              setAccountsDataUseCase(importedAccounts);
-
-              setAccountsDataOnStorageUseCase(
-                importedAccounts.toStore(),
-              );
-
-              emit(
-                state.copyWith(
-                  navigationState: AccountsNavigationState.showSnackBar(
-                    snackBarMessage: Texts.importedAccounts,
-                  ),
-                ),
-              );
-
-              add(const AccountsEvent.started());
-            },
-          );
-        },
-      );
+        case MarkSnackBarAsConsumed():
+          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+        case MarkDialogAsConsumed():
+          emit(state.copyWith(dialogEvent: state.dialogEvent.asConsumed()));
+      }
     });
+  }
+
+  Future<void> _mapStartedEventToState(
+    Emitter<AccountsState> emit,
+    bool initializeEncryption,
+  ) async {
+    final oldScreenState = state.screenState;
+    // Emitting Loading ScreenState before while loading Accounts
+    emit(
+      state.copyWith(
+        screenState: const AccountsScreenState.loading(),
+      ),
+    );
+
+    if (initializeEncryption) {
+      await initializeEncryptionUseCase();
+    }
+
+    // Retrieving data from the MemoryDataSource
+    final accountsData = await getAccountsDataUseCase();
+
+    var accountsList = <AccountData>[];
+
+    // If the MemoryDataSource Accounts are empty read from Storage
+    // If not, fill the list above with them
+    if (accountsData.accountsList.isEmpty) {
+      // Looking if there are Accounts in the SecureStorage
+      final storedAccountsData = await getAccountsDataFromStorageUseCase();
+
+      // If there are, formatting into list from JSON and
+      // setting them into the MemoryDataSource
+      if (storedAccountsData != null) {
+        final accountsJson = jsonDecode(storedAccountsData) as List<dynamic>;
+
+        accountsList = List<AccountData>.from(
+          accountsJson
+              .map(
+                (e) => AccountData.empty().fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
+        )
+
+          // Shuffle to not showing up the same accounts at the top
+          ..shuffle();
+
+        await setAccountsDataUseCase(
+          accountsData.copyWith(accountsList: accountsList),
+        );
+      }
+    } else {
+      accountsList = accountsData.accountsList;
+    }
+
+    final accountsToShow = List<AccountData>.from(accountsList)
+      ..removeWhere((account) => account.private);
+
+    // Sending the accounts to the screen and
+    // remove the loader from the screen
+    emit(
+      state.copyWith(
+        accountsList: accountsToShow,
+        screenState: oldScreenState == const AccountsScreenState.loading()
+            ? const AccountsScreenState.loaded(searchText: '')
+            : oldScreenState,
+      ),
+    );
+  }
+
+  Future<void> _mapPressedAccountEventToState(
+    int accountIndex,
+    Emitter<AccountsState> emit,
+  ) async {
+    final accountsData = await getAccountsDataUseCase();
+
+    final index =
+        accountsData.accountsList.indexOf(state.accountsList[accountIndex]);
+
+    emit(
+      state.copyWith(
+        selectedAccount: accountsData.accountsList[index],
+        navigationEvent: const UIEvent(data: DetailsView.routeName),
+      ),
+    );
+  }
+
+  Future<void> _mapExportAccountsEventToState(
+    Emitter<AccountsState> emit,
+  ) async {
+    final accountsData = await getAccountsDataUseCase();
+
+    final exportAccountsResult = await exportAccountsUseCase(accountsData);
+
+    emit(
+      state.copyWith(
+        screenState: const AccountsScreenState.loading(),
+      ),
+    );
+
+    exportAccountsResult.when(
+      failure: (message) {
+        emit(
+          state.copyWith(
+            dialogEvent: const UIEvent(
+              data: ErrorType.pickFolderException(),
+            ),
+          ),
+        );
+      },
+      success: (filePath) {
+        // TODO(Kuro): Review this
+        // This filePath returns different folder (tested on Android 11)
+
+        emit(
+          state.copyWith(
+            snackBarEvent: UIEvent(data: Texts.exportedAccounts),
+            screenState: const AccountsScreenState.loaded(searchText: ''),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _mapImportAccountsEventToState(
+    Emitter<AccountsState> emit,
+  ) async {
+    final importAccountsResult = await importAccountsUseCase();
+
+    importAccountsResult.when(
+      failure: (message) {
+        emit(
+          state.copyWith(
+            dialogEvent: const UIEvent(
+              data: ErrorType.pickFileException(),
+            ),
+          ),
+        );
+      },
+      success: (importedAccounts) {
+        setAccountsDataUseCase(importedAccounts);
+
+        setAccountsDataOnStorageUseCase(
+          importedAccounts.toStore(),
+        );
+
+        emit(
+          state.copyWith(
+            snackBarEvent: UIEvent(data: Texts.importedAccounts),
+          ),
+        );
+
+        add(const AccountsEvent.started());
+      },
+    );
   }
 }
