@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
@@ -8,11 +7,10 @@ import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
+import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
+import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
 import 'package:password_manager/utils/utils.dart';
-
-part 'modify_bloc.freezed.dart';
-part 'modify_event.dart';
-part 'modify_state.dart';
 
 class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
@@ -27,8 +25,8 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     required this.encryptPasswordUseCase,
   }) : super(ModifyState.initial()) {
     on<ModifyEvent>((event, emit) async {
-      await event.when(
-        started: (accountData) {
+      switch (event) {
+        case Started(accountData: final accountData):
           emit(
             state.copyWith(
               name: accountData?.name ?? '',
@@ -38,28 +36,27 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
               canBeSaved: false,
             ),
           );
-        },
-        onNameChanged: (nameString) {
+        case OnNameChanged(nameString: final name):
           emit(
             state.copyWith(
-              name: nameString,
+              name: name,
               canBeSaved: _accountCanBeSaved(
-                state.copyWith(name: nameString),
+                state.copyWith(name: name),
               ),
             ),
           );
-        },
-        onUsernameChanged: (usernameString) {
+        case OnUsernameChanged(usernameString: final username):
           emit(
             state.copyWith(
-              username: usernameString,
+              username: username,
               canBeSaved: _accountCanBeSaved(
-                state.copyWith(username: usernameString),
+                state.copyWith(username: username),
               ),
             ),
           );
-        },
-        onChangePasswordForm: (isRandomPasswordForm) {
+        case OnChangePasswordForm(
+            isRandomPasswordForm: final isRandomPasswordForm
+          ):
           emit(
             state.copyWith(
               password: '',
@@ -72,37 +69,38 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
                   : const ModifyScreenState.passwordForm(),
             ),
           );
-        },
-        onPasswordChanged: (passwordString) {
+        case OnPasswordChanged(passwordString: final password):
           emit(
             state.copyWith(
-              password: passwordString,
+              password: password,
               canBeSaved: _accountCanBeSaved(
-                state.copyWith(password: passwordString),
+                state.copyWith(password: password),
               ),
             ),
           );
-        },
-        hidePassword: () {
+        case HidePassword():
           emit(state.copyWith(isPasswordHidden: !state.isPasswordHidden));
-        },
-        onRandomPasswordLengthChanged: (randomPasswordLength) {
+        case OnRandomPasswordLengthChanged(
+            randomPasswordLengthString: final randomPasswordLength
+          ):
           emit(
             state.copyWith(
               randomPasswordLength: int.tryParse(randomPasswordLength) ?? 10,
             ),
           );
-        },
-        hasSpanishCharacters: (hasSpanishCharacters) {
+        case HasSpanishCharacters(
+            hasSpanishCharacters: final hasSpanishCharacters
+          ):
           emit(state.copyWith(hasSpanishCharacters: hasSpanishCharacters));
-        },
-        hasNumbersCharacters: (hasNumbersCharacters) {
+        case HasNumbersCharacters(
+            hasNumbersCharacters: final hasNumbersCharacters
+          ):
           emit(state.copyWith(hasNumbersCharacters: hasNumbersCharacters));
-        },
-        hasSymbolsCharacters: (hasSymbolsCharacters) {
+        case HasSymbolsCharacters(
+            hasSymbolsCharacters: final hasSymbolsCharacters
+          ):
           emit(state.copyWith(hasSymbolsCharacters: hasSymbolsCharacters));
-        },
-        generateRandomPassword: () {
+        case GenerateRandomPassword():
           final randomPassword = Utils.generateRandomPassword(
             length: state.randomPasswordLength,
             hasSpanishCharacters: state.hasSpanishCharacters,
@@ -118,23 +116,17 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
               ),
             ),
           );
-        },
-        copyPassword: (password) {
-          Clipboard.setData(ClipboardData(text: password));
+        case CopyPassword(password: final password):
+          await Clipboard.setData(ClipboardData(text: password));
 
           emit(
             state.copyWith(
-              navigationState:
-                  ModifyNavigationState.showSnackBar(Texts.copiedToClipboard),
+              snackBarEvent: UIEvent(data: Texts.copiedToClipboard),
             ),
           );
-
-          emit(state.copyWith(navigationState: null));
-        },
-        setIsPrivateAccount: (isPrivateAccount) {
+        case SetIsPrivateAccount(isPrivateAccount: final isPrivateAccount):
           emit(state.copyWith(isPrivateAccount: isPrivateAccount));
-        },
-        saveAccount: (accountData) async {
+        case SaveAccount(accountData: final accountData):
           final accountsData = await getAccountsDataUseCase();
 
           final accountsList = accountsData.accountsList.toList();
@@ -172,12 +164,12 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
 
           emit(
             state.copyWith(
-              navigationState: const ModifyNavigationState.goBack(),
+              goBackEvent: const UIEvent(),
             ),
           );
-          emit(state.copyWith(navigationState: null));
-        },
-      );
+        case MarkSnackBarAsConsumed():
+          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+      }
     });
   }
 

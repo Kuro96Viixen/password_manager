@@ -1,4 +1,7 @@
-part of 'modify_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
+
+part 'modify_state.freezed.dart';
 
 @freezed
 class ModifyState with _$ModifyState {
@@ -16,7 +19,8 @@ class ModifyState with _$ModifyState {
     required ModifyScreenState screenState,
     required bool isPrivateAccount,
     required bool canBeSaved,
-    ModifyNavigationState? navigationState,
+    required UIEvent<void> goBackEvent,
+    required UIEvent<String> snackBarEvent,
   }) = _ModifyState;
 
   factory ModifyState.initial() => const ModifyState(
@@ -33,20 +37,14 @@ class ModifyState with _$ModifyState {
         screenState: ModifyScreenState.passwordForm(),
         isPrivateAccount: false,
         canBeSaved: false,
+        goBackEvent: UIEvent(consumed: true),
+        snackBarEvent: UIEvent(consumed: true),
       );
 }
 
 @freezed
 class ModifyScreenState with _$ModifyScreenState {
-  const factory ModifyScreenState.passwordForm() = _PasswordForm;
+  const factory ModifyScreenState.passwordForm() = PasswordForm;
 
-  const factory ModifyScreenState.randomForm() = _RandomForm;
-}
-
-@freezed
-class ModifyNavigationState with _$ModifyNavigationState {
-  const factory ModifyNavigationState.goBack() = _GoBack;
-
-  const factory ModifyNavigationState.showSnackBar(String snackBarMessage) =
-      _ShowSnackBar;
+  const factory ModifyScreenState.randomForm() = RandomForm;
 }

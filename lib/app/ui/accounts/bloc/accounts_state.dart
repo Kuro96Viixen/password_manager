@@ -15,7 +15,6 @@ class AccountsState with _$AccountsState {
     required UIEvent<void> bottomMenuEvent,
     required UIEvent<String> snackBarEvent,
     required UIEvent<ErrorType> dialogEvent,
-    AccountsNavigationState? navigationState,
   }) = _AccountsState;
 
   factory AccountsState.initial() => const AccountsState(
@@ -35,18 +34,4 @@ class AccountsScreenState with _$AccountsScreenState {
 
   const factory AccountsScreenState.loaded({required String searchText}) =
       Loaded;
-}
-
-@freezed
-class AccountsNavigationState with _$AccountsNavigationState {
-  const factory AccountsNavigationState.goToPrivate() = GoToPrivate;
-
-  const factory AccountsNavigationState.goToDetails({
-    required AccountData accountData,
-  }) = GoToDetails;
-
-  const factory AccountsNavigationState.goToModify() = GoToModify;
-
-  const factory AccountsNavigationState.goToGeneratePassword() =
-      GoToGeneratePassword;
 }
