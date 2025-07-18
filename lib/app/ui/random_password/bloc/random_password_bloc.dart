@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
 import 'package:password_manager/utils/utils.dart';
@@ -9,24 +10,28 @@ class RandomPasswordBloc
     extends Bloc<RandomPasswordEvent, RandomPasswordState> {
   RandomPasswordBloc() : super(RandomPasswordState.initial()) {
     on<RandomPasswordEvent>((event, emit) {
-      event.when(
-        onRandomPasswordLengthChanged: (randomPasswordLength) {
+      switch (event) {
+        case OnRandomPasswordLengthChanged(
+            randomPasswordLengthString: final randomPasswordLength
+          ):
           emit(
             state.copyWith(
               randomPasswordLength: int.tryParse(randomPasswordLength) ?? 10,
             ),
           );
-        },
-        hasSpanishCharacters: (hasSpanishCharacters) {
+        case HasSpanishCharacters(
+            hasSpanishCharacters: final hasSpanishCharacters
+          ):
           emit(state.copyWith(hasSpanishCharacters: hasSpanishCharacters));
-        },
-        hasNumbersCharacters: (hasNumbersCharacters) {
+        case HasNumbersCharacters(
+            hasNumbersCharacters: final hasNumbersCharacters
+          ):
           emit(state.copyWith(hasNumbersCharacters: hasNumbersCharacters));
-        },
-        hasSymbolsCharacters: (hasSymbolsCharacters) {
+        case HasSymbolsCharacters(
+            hasSymbolsCharacters: final hasSymbolsCharacters
+          ):
           emit(state.copyWith(hasSymbolsCharacters: hasSymbolsCharacters));
-        },
-        generateRandomPassword: () {
+        case GenerateRandomPassword():
           final randomPassword = Utils.generateRandomPassword(
             length: state.randomPasswordLength,
             hasSpanishCharacters: state.hasSpanishCharacters,
@@ -39,21 +44,19 @@ class RandomPasswordBloc
               randomPassword: randomPassword,
             ),
           );
-        },
-        copyPassword: () {
+        case CopyPassword():
           Clipboard.setData(ClipboardData(text: state.randomPassword));
 
           emit(
             state.copyWith(
-              navigationState: RandomPasswordNavigationState.showSnackBar(
-                Texts.copiedToClipboard,
+              snackBarEvent: UIEvent(
+                data: Texts.copiedToClipboard,
               ),
             ),
           );
-
-          emit(state.copyWith(navigationState: null));
-        },
-      );
+        case MarkSnackBarEventAsConsumed():
+          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+      }
     });
   }
 }

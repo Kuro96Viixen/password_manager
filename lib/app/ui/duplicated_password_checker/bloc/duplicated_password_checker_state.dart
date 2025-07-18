@@ -22,9 +22,9 @@ class DuplicatedPasswordCheckerState with _$DuplicatedPasswordCheckerState {
 @freezed
 class DuplicatedPasswordCheckerScreenState
     with _$DuplicatedPasswordCheckerScreenState {
-  factory DuplicatedPasswordCheckerScreenState.loading() = _Loading;
+  factory DuplicatedPasswordCheckerScreenState.loading() = Loading;
 
-  factory DuplicatedPasswordCheckerScreenState.success() = _Success;
+  factory DuplicatedPasswordCheckerScreenState.success() = Success;
 
-  factory DuplicatedPasswordCheckerScreenState.unique() = _Unique;
+  factory DuplicatedPasswordCheckerScreenState.unique() = Unique;
 }

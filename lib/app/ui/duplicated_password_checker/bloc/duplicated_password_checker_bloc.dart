@@ -20,9 +20,10 @@ class DuplicatedPasswordCheckerBloc extends Bloc<DuplicatedPasswordCheckerEvent,
     required this.encryptForDuplicateUseCase,
   }) : super(DuplicatedPasswordCheckerState.initial()) {
     on<DuplicatedPasswordCheckerEvent>((event, emit) async {
-      await event.when(
-        started: () async => _mapStartedEventToState(emit),
-      );
+      switch (event) {
+        case Started():
+          await _mapStartedEventToState(emit);
+      }
     });
   }
 
