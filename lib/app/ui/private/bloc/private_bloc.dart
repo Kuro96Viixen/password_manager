@@ -1,11 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
-
-part 'private_bloc.freezed.dart';
-part 'private_event.dart';
-part 'private_state.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
+import 'package:password_manager/app/ui/private/bloc/private_event.dart';
+import 'package:password_manager/app/ui/private/bloc/private_state.dart';
 
 class PrivateBloc extends Bloc<PrivateEvent, PrivateState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
@@ -14,52 +12,55 @@ class PrivateBloc extends Bloc<PrivateEvent, PrivateState> {
     required this.getAccountsDataUseCase,
   }) : super(PrivateState.initial()) {
     on<PrivateEvent>((event, emit) async {
-      await event.when(
-        started: () async {
-          // Emitting Loading ScreenState before while loading Accounts
+      switch (event) {
+        case Started():
+          await _mapStartedEventToState(emit);
+        case PressedAccount(accountIndex: final accountIndex):
           emit(
             state.copyWith(
-              screenState: const PrivateScreenState.loading(),
-              navigationState: null,
-            ),
-          );
-
-          // Retrieving data from the MemoryDataSource
-          final accountsData = await getAccountsDataUseCase();
-
-          final accountsList = List<AccountData>.from(accountsData.accountsList)
-            ..removeWhere((account) => !account.private)
-            ..toList();
-
-          // Sending the accounts to the screen and
-          // remove the loader from the screen
-          emit(
-            state.copyWith(
-              accountsList: accountsList,
-              screenState: const PrivateScreenState.loaded(searchText: ''),
-            ),
-          );
-        },
-        pressedAccount: (accountIndex) async {
-          final accountsData = await getAccountsDataUseCase();
-
-          emit(
-            state.copyWith(
-              navigationState: PrivateNavigationState.goToDetails(
-                accountData: accountsData.accountsList[accountIndex],
+              navigationEvent: UIEvent(
+                data: state.accountsList[accountIndex],
               ),
             ),
           );
-        },
-        searchAccount: (searchString) {
+        case SearchAccount(searchString: final searchString):
           emit(
             state.copyWith(
               screenState: PrivateScreenState.loaded(searchText: searchString),
-              navigationState: null,
             ),
           );
-        },
-      );
+        case MarkNavigationEventAsConsumed():
+          emit(
+            state.copyWith(
+              navigationEvent: state.navigationEvent.asConsumed(),
+            ),
+          );
+      }
     });
+  }
+
+  Future<void> _mapStartedEventToState(Emitter<PrivateState> emit) async {
+    // Emitting Loading ScreenState before while loading Accounts
+    emit(
+      state.copyWith(
+        screenState: const PrivateScreenState.loading(),
+      ),
+    );
+
+    // Retrieving data from the MemoryDataSource
+    final accountsData = await getAccountsDataUseCase();
+
+    final accountsList = List<AccountData>.from(accountsData.accountsList)
+      ..removeWhere((account) => !account.private)
+      ..toList();
+
+    // Sending the accounts to the screen and
+    // remove the loader from the screen
+    emit(
+      state.copyWith(
+        accountsList: accountsList,
+        screenState: const PrivateScreenState.loaded(searchText: ''),
+      ),
+    );
   }
 }

@@ -46,7 +46,12 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         case Started(initializeEncryption: final initializeEncryption):
           await _mapStartedEventToState(emit, initializeEncryption);
         case PressedAccount(accountIndex: final accountIndex):
-          await _mapPressedAccountEventToState(accountIndex, emit);
+          emit(
+            state.copyWith(
+              selectedAccount: state.accountsList[accountIndex],
+              navigationEvent: const UIEvent(data: DetailsView.routeName),
+            ),
+          );
         case PressedModify():
           emit(
             state.copyWith(
@@ -163,23 +168,6 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         screenState: oldScreenState == const AccountsScreenState.loading()
             ? const AccountsScreenState.loaded(searchText: '')
             : oldScreenState,
-      ),
-    );
-  }
-
-  Future<void> _mapPressedAccountEventToState(
-    int accountIndex,
-    Emitter<AccountsState> emit,
-  ) async {
-    final accountsData = await getAccountsDataUseCase();
-
-    final index =
-        accountsData.accountsList.indexOf(state.accountsList[accountIndex]);
-
-    emit(
-      state.copyWith(
-        selectedAccount: accountsData.accountsList[index],
-        navigationEvent: const UIEvent(data: DetailsView.routeName),
       ),
     );
   }

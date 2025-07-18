@@ -1,11 +1,18 @@
-part of 'private_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'private_event.freezed.dart';
 
 @freezed
 class PrivateEvent with _$PrivateEvent {
-  const factory PrivateEvent.started() = _Started;
+  const factory PrivateEvent.started() = Started;
 
-  const factory PrivateEvent.pressedAccount(int accountIndex) = _PressedAccount;
+  // Account List Tile
+  const factory PrivateEvent.pressedAccount(int accountIndex) = PressedAccount;
 
-  const factory PrivateEvent.searchAccount(String searchString) =
-      _SearchAccount;
+  // Search Bar
+  const factory PrivateEvent.searchAccount(String searchString) = SearchAccount;
+
+  // Event Consumer
+  const factory PrivateEvent.markNavigationEventAsConsumed() =
+      MarkNavigationEventAsConsumed;
 }
