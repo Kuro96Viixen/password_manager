@@ -4,7 +4,7 @@ import 'package:password_manager/app/ui/bloc/ui_event.dart';
 part 'modify_state.freezed.dart';
 
 @freezed
-class ModifyState with _$ModifyState {
+sealed class ModifyState with _$ModifyState {
   const factory ModifyState({
     required String name,
     required String username,
@@ -43,7 +43,7 @@ class ModifyState with _$ModifyState {
 }
 
 @freezed
-class ModifyScreenState with _$ModifyScreenState {
+sealed class ModifyScreenState with _$ModifyScreenState {
   const factory ModifyScreenState.passwordForm() = PasswordForm;
 
   const factory ModifyScreenState.randomForm() = RandomForm;

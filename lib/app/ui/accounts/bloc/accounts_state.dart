@@ -6,7 +6,7 @@ import 'package:password_manager/app/ui/bloc/ui_event.dart';
 part 'accounts_state.freezed.dart';
 
 @freezed
-class AccountsState with _$AccountsState {
+sealed class AccountsState with _$AccountsState {
   const factory AccountsState({
     required List<AccountData> accountsList,
     required AccountsScreenState screenState,
@@ -29,7 +29,7 @@ class AccountsState with _$AccountsState {
 }
 
 @freezed
-class AccountsScreenState with _$AccountsScreenState {
+sealed class AccountsScreenState with _$AccountsScreenState {
   const factory AccountsScreenState.loading() = Loading;
 
   const factory AccountsScreenState.loaded({required String searchText}) =

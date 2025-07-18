@@ -5,6 +5,7 @@ import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/model/error_type.dart';
+import 'package:password_manager/app/domain/model/result.dart';
 import 'package:password_manager/app/domain/use_cases/export_accounts_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_from_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
@@ -185,8 +186,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
       ),
     );
 
-    exportAccountsResult.when(
-      failure: (message) {
+    switch (exportAccountsResult) {
+      case Failure():
         emit(
           state.copyWith(
             dialogEvent: const UIEvent(
@@ -194,8 +195,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           ),
         );
-      },
-      success: (filePath) {
+      case Success():
         // TODO(Kuro): Review this
         // This filePath returns different folder (tested on Android 11)
 
@@ -205,8 +205,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             screenState: const AccountsScreenState.loaded(searchText: ''),
           ),
         );
-      },
-    );
+    }
   }
 
   Future<void> _mapImportAccountsEventToState(
@@ -214,8 +213,8 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   ) async {
     final importAccountsResult = await importAccountsUseCase();
 
-    importAccountsResult.when(
-      failure: (message) {
+    switch (importAccountsResult) {
+      case Failure():
         emit(
           state.copyWith(
             dialogEvent: const UIEvent(
@@ -223,11 +222,10 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
             ),
           ),
         );
-      },
-      success: (importedAccounts) {
-        setAccountsDataUseCase(importedAccounts);
+      case Success(data: final importedAccounts):
+        await setAccountsDataUseCase(importedAccounts);
 
-        setAccountsDataOnStorageUseCase(
+        await setAccountsDataOnStorageUseCase(
           importedAccounts.toStore(),
         );
 
@@ -238,7 +236,6 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         );
 
         add(const AccountsEvent.started());
-      },
-    );
+    }
   }
 }

@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'account_data_entity.freezed.dart';
 
 @freezed
-class AccountsDataEntity with _$AccountsDataEntity {
+sealed class AccountsDataEntity with _$AccountsDataEntity {
   const factory AccountsDataEntity({
     required List<AccountDataEntity> accountsList,
   }) = _AccountsDataEntity;
@@ -14,7 +14,7 @@ class AccountsDataEntity with _$AccountsDataEntity {
 }
 
 @freezed
-class AccountDataEntity with _$AccountDataEntity {
+sealed class AccountDataEntity with _$AccountDataEntity {
   const factory AccountDataEntity({
     required String name,
     required String username,

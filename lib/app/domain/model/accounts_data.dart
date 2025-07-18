@@ -3,14 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'accounts_data.freezed.dart';
 
 @freezed
-class AccountsData with _$AccountsData {
+sealed class AccountsData with _$AccountsData {
   const factory AccountsData({
     required List<AccountData> accountsList,
   }) = _AccountsData;
 }
 
 @freezed
-class AccountData with _$AccountData {
+sealed class AccountData with _$AccountData {
   const factory AccountData({
     required String name,
     required String username,

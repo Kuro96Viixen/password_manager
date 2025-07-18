@@ -4,7 +4,7 @@ import 'package:password_manager/app/ui/bloc/ui_event.dart';
 part 'random_password_state.freezed.dart';
 
 @freezed
-class RandomPasswordState with _$RandomPasswordState {
+sealed class RandomPasswordState with _$RandomPasswordState {
   const factory RandomPasswordState({
     required int randomPasswordLength,
     required String randomPassword,

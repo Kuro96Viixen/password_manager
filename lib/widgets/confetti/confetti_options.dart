@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'confetti_options.freezed.dart';
 
 @freezed
-class ConfettiOptions with _$ConfettiOptions {
+sealed class ConfettiOptions with _$ConfettiOptions {
   factory ConfettiOptions({
     required double spread,
     required int ticks,

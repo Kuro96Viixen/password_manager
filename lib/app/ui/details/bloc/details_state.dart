@@ -6,7 +6,7 @@ import 'package:password_manager/app/ui/bloc/ui_event.dart';
 part 'details_state.freezed.dart';
 
 @freezed
-class DetailsState with _$DetailsState {
+sealed class DetailsState with _$DetailsState {
   const factory DetailsState({
     required String passwordString,
     required AccountData accountData,
@@ -31,7 +31,7 @@ class DetailsState with _$DetailsState {
 }
 
 @freezed
-class DetailsScreenState with _$DetailsScreenState {
+sealed class DetailsScreenState with _$DetailsScreenState {
   const factory DetailsScreenState.loading() = Loading;
 
   const factory DetailsScreenState.loaded() = Loaded;

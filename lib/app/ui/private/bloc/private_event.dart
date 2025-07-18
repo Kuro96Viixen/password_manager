@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'private_event.freezed.dart';
 
 @freezed
-class PrivateEvent with _$PrivateEvent {
+sealed class PrivateEvent with _$PrivateEvent {
   const factory PrivateEvent.started() = Started;
 
   // Account List Tile

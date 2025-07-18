@@ -63,7 +63,7 @@ part 'ui_event.freezed.dart';
 /// @param T The type of data held by the event. This can be `void` if the
 ///          event only needs to signal an occurrence without carrying data.
 @freezed
-class UIEvent<T> with _$UIEvent<T> {
+sealed class UIEvent<T> with _$UIEvent<T> {
   /// Creates an instance of [UIEvent].
   ///
   /// [data] holds the information associated with the event (e.g., an error

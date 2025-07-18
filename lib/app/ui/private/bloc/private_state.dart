@@ -5,7 +5,7 @@ import 'package:password_manager/app/ui/bloc/ui_event.dart';
 part 'private_state.freezed.dart';
 
 @freezed
-class PrivateState with _$PrivateState {
+sealed class PrivateState with _$PrivateState {
   const factory PrivateState({
     required List<AccountData> accountsList,
     required PrivateScreenState screenState,
@@ -20,7 +20,7 @@ class PrivateState with _$PrivateState {
 }
 
 @freezed
-class PrivateScreenState with _$PrivateScreenState {
+sealed class PrivateScreenState with _$PrivateScreenState {
   const factory PrivateScreenState.loading() = Loading;
 
   const factory PrivateScreenState.loaded({required String searchText}) =

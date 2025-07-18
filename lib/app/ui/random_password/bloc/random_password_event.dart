@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'random_password_event.freezed.dart';
 
 @freezed
-class RandomPasswordEvent with _$RandomPasswordEvent {
+sealed class RandomPasswordEvent with _$RandomPasswordEvent {
   // Password Length
   const factory RandomPasswordEvent.onRandomPasswordLengthChanged(
     String randomPasswordLengthString,

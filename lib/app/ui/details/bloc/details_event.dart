@@ -5,7 +5,7 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 part 'details_event.freezed.dart';
 
 @freezed
-class DetailsEvent with _$DetailsEvent {
+sealed class DetailsEvent with _$DetailsEvent {
   const factory DetailsEvent.started(AccountData accountData) = Started;
 
   // AppBar Buttons Pressed

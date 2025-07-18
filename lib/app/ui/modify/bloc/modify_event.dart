@@ -4,7 +4,7 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 part 'modify_event.freezed.dart';
 
 @freezed
-class ModifyEvent with _$ModifyEvent {
+sealed class ModifyEvent with _$ModifyEvent {
   const factory ModifyEvent.started(AccountData? accountData) = Started;
 
   const factory ModifyEvent.onNameChanged(String nameString) = OnNameChanged;
