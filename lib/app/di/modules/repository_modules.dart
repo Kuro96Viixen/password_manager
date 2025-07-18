@@ -1,6 +1,6 @@
 part of 'package:password_manager/app/di/app_di.dart';
 
-final repositoryModulesDi = GetIt.instance;
+final GetIt repositoryModulesDi = GetIt.instance;
 
 void _repositoryModulesDi() {
   repositoryModulesDi.registerLazySingleton<Repository>(

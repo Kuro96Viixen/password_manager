@@ -1,6 +1,6 @@
 part of 'package:password_manager/app/di/app_di.dart';
 
-final domainModulesDi = GetIt.instance;
+final GetIt domainModulesDi = GetIt.instance;
 
 void _domainModulesInit() {
   // Register UseCases here

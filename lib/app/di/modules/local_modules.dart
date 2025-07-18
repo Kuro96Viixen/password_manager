@@ -1,6 +1,6 @@
 part of 'package:password_manager/app/di/app_di.dart';
 
-final localModulesDi = GetIt.instance;
+final GetIt localModulesDi = GetIt.instance;
 
 void _localModulesInit() {
   localModulesDi

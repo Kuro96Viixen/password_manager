@@ -1,6 +1,6 @@
 part of 'package:password_manager/app/di/app_di.dart';
 
-final uiModulesDi = GetIt.instance;
+final GetIt uiModulesDi = GetIt.instance;
 
 void _uiModulesInit() {
   // INFO Blocs as:

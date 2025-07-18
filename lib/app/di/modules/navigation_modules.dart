@@ -1,6 +1,6 @@
 part of 'package:password_manager/app/di/app_di.dart';
 
-final navigationModulesDi = GetIt.instance;
+final GetIt navigationModulesDi = GetIt.instance;
 
 void _navigationModulesInit() {
   final router = GoRouter(
