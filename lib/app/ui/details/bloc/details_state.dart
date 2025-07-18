@@ -1,4 +1,9 @@
-part of 'details_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/app/domain/model/accounts_data.dart';
+import 'package:password_manager/app/ui/bloc/ui_event.dart';
+
+part 'details_state.freezed.dart';
 
 @freezed
 class DetailsState with _$DetailsState {
@@ -7,7 +12,10 @@ class DetailsState with _$DetailsState {
     required AccountData accountData,
     required int accountPosition,
     required DetailsScreenState screenState,
-    DetailsNavigationState? navigationState,
+    required UIEvent<AccountData> modifyEvent,
+    required UIEvent<void> goBackEvent,
+    required UIEvent<String> snackBarEvent,
+    required UIEvent<void> popUpEvent,
   }) = _DetailsState;
 
   factory DetailsState.initial() => DetailsState(
@@ -15,25 +23,16 @@ class DetailsState with _$DetailsState {
         accountData: AccountData.empty(),
         accountPosition: 0,
         screenState: const DetailsScreenState.loading(),
+        modifyEvent: const UIEvent(consumed: true),
+        goBackEvent: const UIEvent(consumed: true),
+        snackBarEvent: const UIEvent(consumed: true),
+        popUpEvent: const UIEvent(consumed: true),
       );
 }
 
 @freezed
 class DetailsScreenState with _$DetailsScreenState {
-  const factory DetailsScreenState.loading() = _Loading;
+  const factory DetailsScreenState.loading() = Loading;
 
-  const factory DetailsScreenState.loaded() = _Loaded;
-}
-
-@freezed
-class DetailsNavigationState with _$DetailsNavigationState {
-  const factory DetailsNavigationState.goBack() = _GoBack;
-
-  const factory DetailsNavigationState.goToModify(AccountData accountData) =
-      _GoToModify;
-
-  const factory DetailsNavigationState.showPopUp() = _ShowPopUp;
-
-  const factory DetailsNavigationState.showSnackBar(String snackBarMessage) =
-      _ShowSnackBar;
+  const factory DetailsScreenState.loaded() = Loaded;
 }
