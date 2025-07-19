@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:password_manager/app/data/repository/services/file_picker_service.dart';
 
 class FilePickerServiceImpl implements FilePickerService {
-  final _filePicker = FilePicker.platform;
+  final FilePicker _filePicker = FilePicker.platform;
 
   @override
   Future<String?> pickFile() async {

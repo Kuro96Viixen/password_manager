@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
-import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
-import 'package:password_manager/app/ui/accounts/accounts_view.dart';
-import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
+import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
+import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
-import 'package:password_manager/app/ui/private/private_view.dart';
 
 class ModifyView extends StatelessWidget {
-  static const routeName = 'ModifyPageRoute';
+  static const routeName = '/ModifyPageRoute';
 
   final AccountData? accountData;
 
@@ -25,30 +23,32 @@ class ModifyView extends StatelessWidget {
       create: (context) =>
           uiModulesDi<ModifyBloc>()..add(ModifyEvent.started(accountData)),
       child: BlocConsumer<ModifyBloc, ModifyState>(
+        listenWhen: (previous, current) {
+          final hasGoBackEvent = previous.goBackEvent != current.goBackEvent;
+
+          final hasSnackBarEvent =
+              previous.snackBarEvent != current.snackBarEvent;
+
+          return hasGoBackEvent || hasSnackBarEvent;
+        },
         listener: (context, state) {
-          state.navigationState?.when(
-            goBack: () {
-              if (context.previousRoute.contains(DetailsView.routeName)) {
-                DetailsView.modifyCompleter.complete();
-              }
+          if (!state.goBackEvent.consumed) {
+            context.pop(true);
+          }
 
-              if (context.previousRoute.contains(PrivateView.routeName)) {
-                PrivateView.modifyCompleter.complete();
-              } else {
-                AccountsView.modifyCompleter.complete();
-              }
-
-              context.pop();
-            },
-            showSnackBar: (snackBarMessage) =>
-                ScaffoldMessenger.of(context).showSnackBar(
+          if (!state.snackBarEvent.consumed) {
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  snackBarMessage,
+                  state.snackBarEvent.data!,
                 ),
               ),
-            ),
-          );
+            );
+
+            context.read<ModifyBloc>().add(
+                  const ModifyEvent.markSnackBarAsConsumed(),
+                );
+          }
         },
         builder: (context, state) {
           return SafeArea(
@@ -99,7 +99,8 @@ class ModifyView extends StatelessWidget {
 
                                 context.read<ModifyBloc>().add(
                                       ModifyEvent.onChangePasswordForm(
-                                        isRandomPasswordForm: isRandomPasswordForm,
+                                        isRandomPasswordForm:
+                                            isRandomPasswordForm,
                                       ),
                                     );
                               },
@@ -143,12 +144,13 @@ class ModifyView extends StatelessWidget {
                       children: [
                         CheckboxListTile(
                           value: state.isPrivateAccount,
-                          onChanged: (isPrivateAccount) =>
-                              context.read<ModifyBloc>().add(
-                                    ModifyEvent.setIsPrivateAccount(
-                                      isPrivateAccount: isPrivateAccount ?? false,
-                                    ),
-                                  ),
+                          onChanged: (isPrivateAccount) => context
+                              .read<ModifyBloc>()
+                              .add(
+                                ModifyEvent.setIsPrivateAccount(
+                                  isPrivateAccount: isPrivateAccount ?? false,
+                                ),
+                              ),
                           title: Text(Texts.isPrivateAccountCheckBoxTitle),
                         ),
                         const SizedBox(height: 8),

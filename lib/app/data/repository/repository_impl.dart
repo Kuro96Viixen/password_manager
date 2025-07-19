@@ -63,7 +63,7 @@ class RepositoryImpl implements Repository {
       );
 
       return Result.success(data: filePath);
-    } catch (error) {
+    } on Exception catch (_) {
       return const Result.failure(errorType: ErrorType.pickFolderException());
     }
   }
@@ -76,7 +76,7 @@ class RepositoryImpl implements Repository {
       );
 
       return Result.success(data: importedAccounts.toAccountsData());
-    } catch (error) {
+    } on Exception catch (_) {
       return const Result.failure(errorType: ErrorType.pickFileException());
     }
   }

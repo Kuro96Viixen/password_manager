@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
+import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 
 class RandomPasswordForm extends StatelessWidget {
@@ -36,21 +37,27 @@ class RandomPasswordForm extends StatelessWidget {
         CheckboxListTile(
           value: hasSpanishCharacters,
           onChanged: (hasSpanishCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSpanishCharacters(hasSpanishCharacters: hasSpanishCharacters ?? false),
+                ModifyEvent.hasSpanishCharacters(
+                  hasSpanishCharacters: hasSpanishCharacters ?? false,
+                ),
               ),
           title: Text(Texts.spanishCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasNumbersCharacters,
           onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasNumbersCharacters(hasNumbersCharacters: hasNumbersCharacters ?? false),
+                ModifyEvent.hasNumbersCharacters(
+                  hasNumbersCharacters: hasNumbersCharacters ?? false,
+                ),
               ),
           title: Text(Texts.numbersCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasSymbolsCharacters,
           onChanged: (hasSymbolsCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSymbolsCharacters(hasSymbolsCharacters: hasSymbolsCharacters ?? false),
+                ModifyEvent.hasSymbolsCharacters(
+                  hasSymbolsCharacters: hasSymbolsCharacters ?? false,
+                ),
               ),
           title: Text(Texts.symbolsCheckBoxTitle),
         ),

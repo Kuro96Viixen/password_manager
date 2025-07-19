@@ -1,20 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/texts.dart';
-import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
+import 'package:password_manager/app/ui/private/bloc/private_event.dart';
+import 'package:password_manager/app/ui/private/bloc/private_state.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class PrivateView extends StatelessWidget {
   static const routeName = 'PrivatePageRoute';
-
-  static late Completer<void> modifyCompleter;
-  static bool isFinishedEdition = false;
 
   const PrivateView({
     super.key,
@@ -26,27 +23,23 @@ class PrivateView extends StatelessWidget {
       create: (context) =>
           uiModulesDi<PrivateBloc>()..add(const PrivateEvent.started()),
       child: BlocConsumer<PrivateBloc, PrivateState>(
-        listener: (context, state) {
-          state.navigationState?.when(
-            goToDetails: (accountData) async {
-              isFinishedEdition = false;
-              modifyCompleter = Completer<void>();
+        listenWhen: (previous, current) =>
+            previous.navigationEvent != current.navigationEvent,
+        listener: (context, state) async {
+          if (!state.navigationEvent.consumed) {
+            final bloc = context.read<PrivateBloc>();
 
-              context.goWithRoute(
-                DetailsView.routeName,
-                extra: accountData,
-              );
+            final success = await context.push<bool>(
+              DetailsView.routeName,
+              extra: state.navigationEvent.data,
+            );
 
-              while (!isFinishedEdition) {
-                await modifyCompleter.future;
-                modifyCompleter = Completer<void>();
-
-                if (context.mounted) {
-                  context.read<PrivateBloc>().add(const PrivateEvent.started());
-                }
-              }
-            },
-          );
+            if (success != null && success) {
+              bloc
+                ..add(const PrivateEvent.started())
+                ..add(const PrivateEvent.markNavigationEventAsConsumed());
+            }
+          }
         },
         builder: (context, state) {
           return SafeArea(

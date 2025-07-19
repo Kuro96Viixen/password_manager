@@ -10,11 +10,11 @@ linter:
     prefer_if_elements_to_conditional_expressions: false
     one_member_abstracts: false
     no_default_cases: false
+    require_trailing_commas: true
 
 #    - prefer_single_quotes
 #    - always_use_package_imports
 #    - package_names
-#    - require_trailing_commas
 #    - lines_longer_than_80_chars
 
 analyzer:

@@ -3,24 +3,38 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'accounts_event.freezed.dart';
 
 @freezed
-class AccountsEvent with _$AccountsEvent {
+sealed class AccountsEvent with _$AccountsEvent {
   const factory AccountsEvent.started({
     @Default(false) bool initializeEncryption,
-  }) = _Started;
+  }) = Started;
 
-  const factory AccountsEvent.pressedAccount(int accountIndex) =
-      _PressedAccount;
-  const factory AccountsEvent.pressedModify() = _PressedModify;
+  // Account List Tile
+  const factory AccountsEvent.pressedAccount(int accountIndex) = PressedAccount;
 
-  const factory AccountsEvent.showPrivate() = _ShowPrivate;
+  // Screen Buttons
+  const factory AccountsEvent.pressedModify() = PressedModify;
 
+  // AppBar Buttons
+  const factory AccountsEvent.showPrivate() = ShowPrivate;
+
+  // Search Bar
   const factory AccountsEvent.searchAccount(String searchString) =
-      _SearchAccount;
+      SearchAccount;
 
+  // Random Password Button
   const factory AccountsEvent.onRandomPasswordPressed() =
-      _OnRandomPasswordPressed;
+      OnRandomPasswordPressed;
 
-  const factory AccountsEvent.showSettings() = _ShowSettings;
-  const factory AccountsEvent.exportAccounts() = _ExportAccounts;
-  const factory AccountsEvent.importAccounts() = _ImportAccounts;
+  // Bottom Menu Buttons
+  const factory AccountsEvent.showSettings() = ShowSettings;
+  const factory AccountsEvent.exportAccounts() = ExportAccounts;
+  const factory AccountsEvent.importAccounts() = ImportAccounts;
+
+  // Event Consumer
+  const factory AccountsEvent.markNavigationEventAsConsumed() =
+      MarkNavigationEventAsConsumed;
+  const factory AccountsEvent.markBottomMenuAsConsumed() =
+      MarkBottomMenuAsConsumed;
+  const factory AccountsEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  const factory AccountsEvent.markDialogAsConsumed() = MarkDialogAsConsumed;
 }

@@ -3,25 +3,31 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'random_password_event.freezed.dart';
 
 @freezed
-class RandomPasswordEvent with _$RandomPasswordEvent {
+sealed class RandomPasswordEvent with _$RandomPasswordEvent {
+  // Password Length
   const factory RandomPasswordEvent.onRandomPasswordLengthChanged(
     String randomPasswordLengthString,
-  ) = _OnRandomPasswordLengthChanged;
+  ) = OnRandomPasswordLengthChanged;
 
+  // CheckBox
   const factory RandomPasswordEvent.hasSpanishCharacters({
     required bool hasSpanishCharacters,
-  }) = _HasSpanishCharacters;
-
+  }) = HasSpanishCharacters;
   const factory RandomPasswordEvent.hasNumbersCharacters({
     required bool hasNumbersCharacters,
-  }) = _HasNumbersCharacters;
-
+  }) = HasNumbersCharacters;
   const factory RandomPasswordEvent.hasSymbolsCharacters({
     required bool hasSymbolsCharacters,
-  }) = _HasSymbolsCharacters;
+  }) = HasSymbolsCharacters;
 
+  // Button
   const factory RandomPasswordEvent.generateRandomPassword() =
-      _GenerateRandomPassword;
+      GenerateRandomPassword;
 
-  const factory RandomPasswordEvent.copyPassword() = _CopyPassword;
+  // Copy Password
+  const factory RandomPasswordEvent.copyPassword() = CopyPassword;
+
+  // Event Consumer
+  const factory RandomPasswordEvent.markSnackBarEventAsConsumed() =
+      MarkSnackBarEventAsConsumed;
 }

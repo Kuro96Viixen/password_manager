@@ -4,12 +4,12 @@ import 'package:password_manager/app/domain/model/error_type.dart';
 part 'result.freezed.dart';
 
 @freezed
-class Result<T> with _$Result<T> {
+sealed class Result<T> with _$Result<T> {
   const factory Result.failure({
     ErrorType? errorType,
-  }) = _Failure<T>;
+  }) = Failure<T>;
 
   const factory Result.success({
     required T data,
-  }) = _Success<T>;
+  }) = Success<T>;
 }

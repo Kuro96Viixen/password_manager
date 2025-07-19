@@ -31,13 +31,19 @@ class RandomPasswordView extends StatelessWidget {
                 ),
               ),
               body: BlocConsumer<RandomPasswordBloc, RandomPasswordState>(
+                listenWhen: (previous, current) =>
+                    previous.snackBarEvent != current.snackBarEvent,
                 listener: (context, state) {
-                  state.navigationState?.when(
-                    showSnackBar: (snackBarMessage) =>
-                        ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(snackBarMessage)),
-                    ),
-                  );
+                  if (!state.snackBarEvent.consumed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.snackBarEvent.data!)),
+                    );
+
+                    context.read<RandomPasswordBloc>().add(
+                          const RandomPasswordEvent
+                              .markSnackBarEventAsConsumed(),
+                        );
+                  }
                 },
                 builder: (context, state) {
                   return Padding(
@@ -64,37 +70,43 @@ class RandomPasswordView extends StatelessWidget {
                                   const SizedBox(height: 8),
                                   CheckboxListTile(
                                     value: state.hasSpanishCharacters,
-                                    onChanged: (hasSpanishCharacters) =>
-                                        context.read<RandomPasswordBloc>().add(
-                                              RandomPasswordEvent
-                                                  .hasSpanishCharacters(
-                                                hasSpanishCharacters: hasSpanishCharacters ?? false,
-                                              ),
-                                            ),
+                                    onChanged: (hasSpanishCharacters) => context
+                                        .read<RandomPasswordBloc>()
+                                        .add(
+                                          RandomPasswordEvent
+                                              .hasSpanishCharacters(
+                                            hasSpanishCharacters:
+                                                hasSpanishCharacters ?? false,
+                                          ),
+                                        ),
                                     title: Text(
                                       Texts.spanishCheckBoxTitle,
                                     ),
                                   ),
                                   CheckboxListTile(
                                     value: state.hasNumbersCharacters,
-                                    onChanged: (hasNumbersCharacters) =>
-                                        context.read<RandomPasswordBloc>().add(
-                                              RandomPasswordEvent
-                                                  .hasNumbersCharacters(
-                                                hasNumbersCharacters: hasNumbersCharacters ?? false,
-                                              ),
-                                            ),
+                                    onChanged: (hasNumbersCharacters) => context
+                                        .read<RandomPasswordBloc>()
+                                        .add(
+                                          RandomPasswordEvent
+                                              .hasNumbersCharacters(
+                                            hasNumbersCharacters:
+                                                hasNumbersCharacters ?? false,
+                                          ),
+                                        ),
                                     title: Text(Texts.numbersCheckBoxTitle),
                                   ),
                                   CheckboxListTile(
                                     value: state.hasSymbolsCharacters,
-                                    onChanged: (hasSymbolsCharacters) =>
-                                        context.read<RandomPasswordBloc>().add(
-                                              RandomPasswordEvent
-                                                  .hasSymbolsCharacters(
-                                                hasSymbolsCharacters: hasSymbolsCharacters ?? false,
-                                              ),
-                                            ),
+                                    onChanged: (hasSymbolsCharacters) => context
+                                        .read<RandomPasswordBloc>()
+                                        .add(
+                                          RandomPasswordEvent
+                                              .hasSymbolsCharacters(
+                                            hasSymbolsCharacters:
+                                                hasSymbolsCharacters ?? false,
+                                          ),
+                                        ),
                                     title: Text(Texts.symbolsCheckBoxTitle),
                                   ),
                                   const SizedBox(height: 8),

@@ -4,7 +4,8 @@ import 'package:password_manager/app/domain/model/accounts_data.dart';
 part 'duplicated_password_checker_state.freezed.dart';
 
 @freezed
-class DuplicatedPasswordCheckerState with _$DuplicatedPasswordCheckerState {
+sealed class DuplicatedPasswordCheckerState
+    with _$DuplicatedPasswordCheckerState {
   factory DuplicatedPasswordCheckerState({
     required Map<int, List<AccountData>> accountsList,
     required int differentAccountsPercentage,
@@ -20,11 +21,11 @@ class DuplicatedPasswordCheckerState with _$DuplicatedPasswordCheckerState {
 }
 
 @freezed
-class DuplicatedPasswordCheckerScreenState
+sealed class DuplicatedPasswordCheckerScreenState
     with _$DuplicatedPasswordCheckerScreenState {
-  factory DuplicatedPasswordCheckerScreenState.loading() = _Loading;
+  factory DuplicatedPasswordCheckerScreenState.loading() = Loading;
 
-  factory DuplicatedPasswordCheckerScreenState.success() = _Success;
+  factory DuplicatedPasswordCheckerScreenState.success() = Success;
 
-  factory DuplicatedPasswordCheckerScreenState.unique() = _Unique;
+  factory DuplicatedPasswordCheckerScreenState.unique() = Unique;
 }

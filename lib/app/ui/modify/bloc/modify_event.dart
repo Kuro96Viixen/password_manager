@@ -1,43 +1,50 @@
-part of 'modify_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:password_manager/app/domain/model/accounts_data.dart';
+
+part 'modify_event.freezed.dart';
 
 @freezed
-class ModifyEvent with _$ModifyEvent {
-  const factory ModifyEvent.started(AccountData? accountData) = _Started;
+sealed class ModifyEvent with _$ModifyEvent {
+  const factory ModifyEvent.started(AccountData? accountData) = Started;
 
-  const factory ModifyEvent.onNameChanged(String nameString) = _OnNameChanged;
+  const factory ModifyEvent.onNameChanged(String nameString) = OnNameChanged;
   const factory ModifyEvent.onUsernameChanged(String usernameString) =
-      _OnUsernameChanged;
+      OnUsernameChanged;
 
   // Switch to change forms
   const factory ModifyEvent.onChangePasswordForm({
     required bool isRandomPasswordForm,
-  }) = _OnChangePasswordForm;
+  }) = OnChangePasswordForm;
 
   // Password form
   const factory ModifyEvent.onPasswordChanged(String passwordString) =
-      _OnPasswordChanged;
-  const factory ModifyEvent.hidePassword() = _HidePassword;
+      OnPasswordChanged;
+  const factory ModifyEvent.hidePassword() = HidePassword;
 
   // Random password form
   const factory ModifyEvent.onRandomPasswordLengthChanged(
     String randomPasswordLengthString,
-  ) = _OnRandomPasswordLengthChanged;
+  ) = OnRandomPasswordLengthChanged;
   const factory ModifyEvent.hasSpanishCharacters({
     required bool hasSpanishCharacters,
-  }) = _HasSpanishCharacters;
+  }) = HasSpanishCharacters;
   const factory ModifyEvent.hasNumbersCharacters({
     required bool hasNumbersCharacters,
-  }) = _HasNumbersCharacters;
+  }) = HasNumbersCharacters;
   const factory ModifyEvent.hasSymbolsCharacters({
     required bool hasSymbolsCharacters,
-  }) = _HasSymbolsCharacters;
-  const factory ModifyEvent.generateRandomPassword() = _GenerateRandomPassword;
-  const factory ModifyEvent.copyPassword(String password) = _CopyPassword;
+  }) = HasSymbolsCharacters;
+  const factory ModifyEvent.generateRandomPassword() = GenerateRandomPassword;
+  const factory ModifyEvent.copyPassword(String password) = CopyPassword;
 
   // Save Account
   const factory ModifyEvent.setIsPrivateAccount({
     required bool isPrivateAccount,
-  }) = _SetIsPrivateAccount;
-  const factory ModifyEvent.saveAccount(AccountData? accountData) =
-      _SaveAccount;
+  }) = SetIsPrivateAccount;
+  const factory ModifyEvent.saveAccount(AccountData? accountData) = SaveAccount;
+
+  // Event Consumer
+  // No need to consume goBackEvent as it will close the page
+  // const factory ModifyEvent.markGoBackAsConsumed() = MarkGoBackAsConsumed;
+  const factory ModifyEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
 }
