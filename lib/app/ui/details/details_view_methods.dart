@@ -9,20 +9,22 @@ Future<void> _showDeleteDialog(
     context: context,
     builder: (BuildContext dialogContext) {
       context.read<DetailsBloc>().add(
-            const DetailsEvent.markPopUpAsConsumed(),
-          );
+        const DetailsEvent.markPopUpAsConsumed(),
+      );
 
       return DeleteDialog(
         title: Texts.deleteDialogTitle,
-        body: Texts.deleteDialogBody
-            .replaceAll('{account}', state.accountData.name),
+        body: Texts.deleteDialogBody.replaceAll(
+          '{account}',
+          state.accountData.name,
+        ),
         advice: Texts.deleteDialogAdvice,
         onPressedConfirm: () {
           dialogContext.pop();
 
-          context
-              .read<DetailsBloc>()
-              .add(DetailsEvent.deleteAccount(accountData));
+          context.read<DetailsBloc>().add(
+            DetailsEvent.deleteAccount(accountData),
+          );
         },
         confirmButtonText: Texts.deleteDialogConfirm,
         cancelButtonText: Texts.deleteDialogCancel,

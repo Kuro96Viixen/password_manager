@@ -82,8 +82,8 @@ class DetailsView extends StatelessWidget {
               );
 
               context.read<DetailsBloc>().add(
-                    const DetailsEvent.markSnackBarAsConsumed(),
-                  );
+                const DetailsEvent.markSnackBarAsConsumed(),
+              );
             }
           }
 
@@ -112,9 +112,9 @@ class DetailsView extends StatelessWidget {
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () => context
-                          .read<DetailsBloc>()
-                          .add(const DetailsEvent.pressedDelete()),
+                      onPressed: () => context.read<DetailsBloc>().add(
+                        const DetailsEvent.pressedDelete(),
+                      ),
                       icon: Icon(CommonIcons.delete),
                     ),
                   ],
@@ -142,13 +142,13 @@ class DetailsView extends StatelessWidget {
                           GestureDetector(
                             onLongPress: () {
                               context.read<DetailsBloc>().add(
-                                    DetailsEvent.copyPassword(
-                                      Password(
-                                        password: state.accountData.password,
-                                        iv: state.accountData.passwordIV,
-                                      ),
-                                    ),
-                                  );
+                                DetailsEvent.copyPassword(
+                                  Password(
+                                    password: state.accountData.password,
+                                    iv: state.accountData.passwordIV,
+                                  ),
+                                ),
+                              );
                             },
                             child: AccountField(
                               text: state.screenState.when(
@@ -159,14 +159,14 @@ class DetailsView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Visibility(
-                            visible: state.passwordString ==
+                            visible:
+                                state.passwordString ==
                                 Texts.hiddenPasswordText,
                             child: Center(
                               child: ElevatedButton(
                                 child: Text(Texts.viewAccountViewPassword),
-                                onPressed: () => context
-                                    .read<DetailsBloc>()
-                                    .add(
+                                onPressed: () =>
+                                    context.read<DetailsBloc>().add(
                                       DetailsEvent.revealPassword(
                                         Password(
                                           password: state.accountData.password,
@@ -183,9 +183,9 @@ class DetailsView extends StatelessWidget {
                   ],
                 ),
                 floatingActionButton: FloatingActionButton(
-                  onPressed: () => context
-                      .read<DetailsBloc>()
-                      .add(const DetailsEvent.pressedModify()),
+                  onPressed: () => context.read<DetailsBloc>().add(
+                    const DetailsEvent.pressedModify(),
+                  ),
                   tooltip: Texts.viewAccountViewEditTooltip,
                   child: Icon(CommonIcons.edit),
                 ),

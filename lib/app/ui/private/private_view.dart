@@ -71,8 +71,8 @@ class PrivateView extends StatelessWidget {
                       child: TextField(
                         onChanged: (searchText) =>
                             context.read<PrivateBloc>().add(
-                                  PrivateEvent.searchAccount(searchText),
-                                ),
+                              PrivateEvent.searchAccount(searchText),
+                            ),
                         decoration: InputDecoration(
                           hintText: Texts.searchHintText,
                         ),
@@ -82,8 +82,8 @@ class PrivateView extends StatelessWidget {
                       loading: Container.new,
                       loaded: (searchText) => Expanded(
                         child: ListView.separated(
-                          itemBuilder: (context, index) => state
-                                  .accountsList[index].name
+                          itemBuilder: (context, index) =>
+                              state.accountsList[index].name
                                   .toLowerCase()
                                   .startsWith(searchText)
                               ? AccountListTile(
@@ -94,13 +94,13 @@ class PrivateView extends StatelessWidget {
                                         .unfocus();
 
                                     context.read<PrivateBloc>().add(
-                                          PrivateEvent.pressedAccount(index),
-                                        );
+                                      PrivateEvent.pressedAccount(index),
+                                    );
                                   },
                                 )
                               : Container(),
-                          separatorBuilder: (context, index) => state
-                                  .accountsList[index].name
+                          separatorBuilder: (context, index) =>
+                              state.accountsList[index].name
                                   .toLowerCase()
                                   .startsWith(searchText)
                               ? const Divider(

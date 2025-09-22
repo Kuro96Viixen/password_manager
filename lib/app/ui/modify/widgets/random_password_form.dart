@@ -28,37 +28,37 @@ class RandomPasswordForm extends StatelessWidget {
           initialValue: '',
           onChangedText: (randomPasswordLength) =>
               context.read<ModifyBloc>().add(
-                    ModifyEvent.onRandomPasswordLengthChanged(
-                      randomPasswordLength,
-                    ),
-                  ),
+                ModifyEvent.onRandomPasswordLengthChanged(
+                  randomPasswordLength,
+                ),
+              ),
         ),
         const SizedBox(height: 8),
         CheckboxListTile(
           value: hasSpanishCharacters,
           onChanged: (hasSpanishCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSpanishCharacters(
-                  hasSpanishCharacters: hasSpanishCharacters ?? false,
-                ),
-              ),
+            ModifyEvent.hasSpanishCharacters(
+              hasSpanishCharacters: hasSpanishCharacters ?? false,
+            ),
+          ),
           title: Text(Texts.spanishCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasNumbersCharacters,
           onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasNumbersCharacters(
-                  hasNumbersCharacters: hasNumbersCharacters ?? false,
-                ),
-              ),
+            ModifyEvent.hasNumbersCharacters(
+              hasNumbersCharacters: hasNumbersCharacters ?? false,
+            ),
+          ),
           title: Text(Texts.numbersCheckBoxTitle),
         ),
         CheckboxListTile(
           value: hasSymbolsCharacters,
           onChanged: (hasSymbolsCharacters) => context.read<ModifyBloc>().add(
-                ModifyEvent.hasSymbolsCharacters(
-                  hasSymbolsCharacters: hasSymbolsCharacters ?? false,
-                ),
-              ),
+            ModifyEvent.hasSymbolsCharacters(
+              hasSymbolsCharacters: hasSymbolsCharacters ?? false,
+            ),
+          ),
           title: Text(Texts.symbolsCheckBoxTitle),
         ),
         const SizedBox(height: 8),
@@ -67,9 +67,9 @@ class RandomPasswordForm extends StatelessWidget {
             // Remove focus on TextField
             FocusScope.of(context).unfocus();
 
-            context
-                .read<ModifyBloc>()
-                .add(const ModifyEvent.generateRandomPassword());
+            context.read<ModifyBloc>().add(
+              const ModifyEvent.generateRandomPassword(),
+            );
           },
           child: Text(Texts.generateRandomPasswordButton),
         ),
@@ -79,9 +79,9 @@ class RandomPasswordForm extends StatelessWidget {
         Visibility(
           visible: randomPassword != '',
           child: GestureDetector(
-            onLongPress: () => context
-                .read<ModifyBloc>()
-                .add(ModifyEvent.copyPassword(randomPassword)),
+            onLongPress: () => context.read<ModifyBloc>().add(
+              ModifyEvent.copyPassword(randomPassword),
+            ),
             child: Text(
               Texts.randomPasswordText + randomPassword,
               style: const TextStyle(fontSize: 20),

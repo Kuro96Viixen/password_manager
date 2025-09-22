@@ -13,10 +13,10 @@ sealed class PrivateState with _$PrivateState {
   }) = _PrivateState;
 
   factory PrivateState.initial() => const PrivateState(
-        accountsList: [],
-        screenState: PrivateScreenState.loading(),
-        navigationEvent: UIEvent(consumed: true),
-      );
+    accountsList: [],
+    screenState: PrivateScreenState.loading(),
+    navigationEvent: UIEvent(consumed: true),
+  );
 }
 
 @freezed

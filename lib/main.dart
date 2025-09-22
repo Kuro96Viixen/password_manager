@@ -22,10 +22,12 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MaterialApp.router(
-      routeInformationProvider:
-          app_di.navigationModulesDi<GoRouter>().routeInformationProvider,
-      routeInformationParser:
-          app_di.navigationModulesDi<GoRouter>().routeInformationParser,
+      routeInformationProvider: app_di
+          .navigationModulesDi<GoRouter>()
+          .routeInformationProvider,
+      routeInformationParser: app_di
+          .navigationModulesDi<GoRouter>()
+          .routeInformationParser,
       routerDelegate: app_di.navigationModulesDi<GoRouter>().routerDelegate,
       title: Texts.title,
       themeMode: ThemeMode.dark,

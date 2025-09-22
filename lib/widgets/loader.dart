@@ -33,9 +33,10 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
 
     _positionAnimation = TweenSequence([
       TweenSequenceItem(
-        tween:
-            Tween(begin: (-screenWidth / 2) - 45, end: (screenWidth / 2) + 45)
-                .chain(CurveTween(curve: Curves.easeInOut)),
+        tween: Tween(
+          begin: (-screenWidth / 2) - 45,
+          end: (screenWidth / 2) + 45,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
         weight: 1,
       ),
     ]).animate(_movingController);

@@ -48,8 +48,8 @@ class AccountTextField extends StatelessWidget {
       keyboardType: label == Texts.passwordLengthTextFieldLabel
           ? TextInputType.number
           : label == Texts.usernameTextFieldLabel
-              ? TextInputType.emailAddress
-              : TextInputType.name,
+          ? TextInputType.emailAddress
+          : TextInputType.name,
     );
   }
 }

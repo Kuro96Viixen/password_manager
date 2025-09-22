@@ -12,24 +12,24 @@ class RandomPasswordBloc
     on<RandomPasswordEvent>((event, emit) {
       switch (event) {
         case OnRandomPasswordLengthChanged(
-            randomPasswordLengthString: final randomPasswordLength
-          ):
+          randomPasswordLengthString: final randomPasswordLength,
+        ):
           emit(
             state.copyWith(
               randomPasswordLength: int.tryParse(randomPasswordLength) ?? 10,
             ),
           );
         case HasSpanishCharacters(
-            hasSpanishCharacters: final hasSpanishCharacters
-          ):
+          hasSpanishCharacters: final hasSpanishCharacters,
+        ):
           emit(state.copyWith(hasSpanishCharacters: hasSpanishCharacters));
         case HasNumbersCharacters(
-            hasNumbersCharacters: final hasNumbersCharacters
-          ):
+          hasNumbersCharacters: final hasNumbersCharacters,
+        ):
           emit(state.copyWith(hasNumbersCharacters: hasNumbersCharacters));
         case HasSymbolsCharacters(
-            hasSymbolsCharacters: final hasSymbolsCharacters
-          ):
+          hasSymbolsCharacters: final hasSymbolsCharacters,
+        ):
           emit(state.copyWith(hasSymbolsCharacters: hasSymbolsCharacters));
         case GenerateRandomPassword():
           final randomPassword = Utils.generateRandomPassword(

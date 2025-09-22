@@ -4,9 +4,8 @@ part 'accounts_data.freezed.dart';
 
 @freezed
 sealed class AccountsData with _$AccountsData {
-  const factory AccountsData({
-    required List<AccountData> accountsList,
-  }) = _AccountsData;
+  const factory AccountsData({required List<AccountData> accountsList}) =
+      _AccountsData;
 }
 
 @freezed
@@ -20,10 +19,10 @@ sealed class AccountData with _$AccountData {
   }) = _AccountData;
 
   factory AccountData.empty() => const AccountData(
-        name: '',
-        username: '',
-        password: '',
-        passwordIV: '',
-        private: false,
-      );
+    name: '',
+    username: '',
+    password: '',
+    passwordIV: '',
+    private: false,
+  );
 }
