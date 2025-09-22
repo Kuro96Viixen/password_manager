@@ -19,15 +19,15 @@ sealed class DetailsState with _$DetailsState {
   }) = _DetailsState;
 
   factory DetailsState.initial() => DetailsState(
-        passwordString: Texts.hiddenPasswordText,
-        accountData: AccountData.empty(),
-        accountPosition: 0,
-        screenState: const DetailsScreenState.loading(),
-        modifyEvent: const UIEvent(consumed: true),
-        goBackEvent: const UIEvent(consumed: true),
-        snackBarEvent: const UIEvent(consumed: true),
-        popUpEvent: const UIEvent(consumed: true),
-      );
+    passwordString: Texts.hiddenPasswordText,
+    accountData: AccountData.empty(),
+    accountPosition: 0,
+    screenState: const DetailsScreenState.loading(),
+    modifyEvent: const UIEvent(consumed: true),
+    goBackEvent: const UIEvent(consumed: true),
+    snackBarEvent: const UIEvent(consumed: true),
+    popUpEvent: const UIEvent(consumed: true),
+  );
 }
 
 @freezed

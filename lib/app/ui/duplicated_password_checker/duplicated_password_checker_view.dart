@@ -25,8 +25,9 @@ class DuplicatedPasswordCheckerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => uiModulesDi<DuplicatedPasswordCheckerBloc>()
-        ..add(const DuplicatedPasswordCheckerEvent.started()),
+      create: (context) =>
+          uiModulesDi<DuplicatedPasswordCheckerBloc>()
+            ..add(const DuplicatedPasswordCheckerEvent.started()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(Texts.duplicatedPasswordCheckerViewTitle),
@@ -34,18 +35,22 @@ class DuplicatedPasswordCheckerView extends StatelessWidget {
             ExperimentalFeatureInfoIcon(),
           ],
         ),
-        body: BlocConsumer<DuplicatedPasswordCheckerBloc,
-            DuplicatedPasswordCheckerState>(
-          listener: (context, state) => state.screenState.maybeWhen(
-            unique: () => shootingStars(context),
-            orElse: DoNothingAction.new,
-          ),
-          builder: (context, state) => state.screenState.when(
-            loading: DuplicatedPasswordsCheckerLoadingBody.new,
-            success: () => DuplicatedPasswordCheckerSuccessBody(state: state),
-            unique: DuplicatedPasswordsCheckerUniqueBody.new,
-          ),
-        ),
+        body:
+            BlocConsumer<
+              DuplicatedPasswordCheckerBloc,
+              DuplicatedPasswordCheckerState
+            >(
+              listener: (context, state) => state.screenState.maybeWhen(
+                unique: () => shootingStars(context),
+                orElse: DoNothingAction.new,
+              ),
+              builder: (context, state) => state.screenState.when(
+                loading: DuplicatedPasswordsCheckerLoadingBody.new,
+                success: () =>
+                    DuplicatedPasswordCheckerSuccessBody(state: state),
+                unique: DuplicatedPasswordsCheckerUniqueBody.new,
+              ),
+            ),
       ),
     );
   }

@@ -8,8 +8,9 @@ import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_event.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_state.dart';
 
-class DuplicatedPasswordCheckerBloc extends Bloc<DuplicatedPasswordCheckerEvent,
-    DuplicatedPasswordCheckerState> {
+class DuplicatedPasswordCheckerBloc
+    extends
+        Bloc<DuplicatedPasswordCheckerEvent, DuplicatedPasswordCheckerState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final DecryptPasswordUseCase decryptPasswordUseCase;
   final EncryptForDuplicateUseCase encryptForDuplicateUseCase;

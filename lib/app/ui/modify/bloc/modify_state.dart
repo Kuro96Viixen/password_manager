@@ -24,22 +24,22 @@ sealed class ModifyState with _$ModifyState {
   }) = _ModifyState;
 
   factory ModifyState.initial() => const ModifyState(
-        name: '',
-        username: '',
-        password: '',
-        isPasswordHidden: false,
-        randomPasswordLength: 10,
-        randomPassword: '',
-        passwordIV: '',
-        hasSpanishCharacters: true,
-        hasNumbersCharacters: true,
-        hasSymbolsCharacters: true,
-        screenState: ModifyScreenState.passwordForm(),
-        isPrivateAccount: false,
-        canBeSaved: false,
-        goBackEvent: UIEvent(consumed: true),
-        snackBarEvent: UIEvent(consumed: true),
-      );
+    name: '',
+    username: '',
+    password: '',
+    isPasswordHidden: false,
+    randomPasswordLength: 10,
+    randomPassword: '',
+    passwordIV: '',
+    hasSpanishCharacters: true,
+    hasNumbersCharacters: true,
+    hasSymbolsCharacters: true,
+    screenState: ModifyScreenState.passwordForm(),
+    isPrivateAccount: false,
+    canBeSaved: false,
+    goBackEvent: UIEvent(consumed: true),
+    snackBarEvent: UIEvent(consumed: true),
+  );
 }
 
 @freezed

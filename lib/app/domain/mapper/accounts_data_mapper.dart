@@ -8,18 +8,18 @@ extension AccountsDataExtension on AccountsData {
 
 extension AccountDataExtension on AccountData {
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'username': username,
-        'password': password,
-        'passwordIV': passwordIV,
-        'private': private,
-      };
+    'name': name,
+    'username': username,
+    'password': password,
+    'passwordIV': passwordIV,
+    'private': private,
+  };
 
   AccountData fromJson(Map<String, dynamic> json) => AccountData(
-        name: json['name'] as String,
-        username: json['username'] as String,
-        password: json['password'] as String,
-        passwordIV: json['passwordIV'] as String,
-        private: json['private'] as bool,
-      );
+    name: json['name'] as String,
+    username: json['username'] as String,
+    password: json['password'] as String,
+    passwordIV: json['passwordIV'] as String,
+    private: json['private'] as bool,
+  );
 }

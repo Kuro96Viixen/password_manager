@@ -18,14 +18,14 @@ sealed class AccountsState with _$AccountsState {
   }) = _AccountsState;
 
   factory AccountsState.initial() => const AccountsState(
-        accountsList: [],
-        screenState: AccountsScreenState.loading(),
-        selectedAccount: null,
-        navigationEvent: UIEvent<String>(consumed: true),
-        bottomMenuEvent: UIEvent<void>(consumed: true),
-        snackBarEvent: UIEvent<String>(consumed: true),
-        dialogEvent: UIEvent<ErrorType>(consumed: true),
-      );
+    accountsList: [],
+    screenState: AccountsScreenState.loading(),
+    selectedAccount: null,
+    navigationEvent: UIEvent<String>(consumed: true),
+    bottomMenuEvent: UIEvent<void>(consumed: true),
+    snackBarEvent: UIEvent<String>(consumed: true),
+    dialogEvent: UIEvent<ErrorType>(consumed: true),
+  );
 }
 
 @freezed

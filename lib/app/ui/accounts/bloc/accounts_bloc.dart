@@ -77,8 +77,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         case OnRandomPasswordPressed():
           emit(
             state.copyWith(
-              navigationEvent:
-                  const UIEvent(data: RandomPasswordView.routeName),
+              navigationEvent: const UIEvent(
+                data: RandomPasswordView.routeName,
+              ),
             ),
           );
         case ShowSettings():
@@ -139,16 +140,18 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
       if (storedAccountsData != null) {
         final accountsJson = jsonDecode(storedAccountsData) as List<dynamic>;
 
-        accountsList = List<AccountData>.from(
-          accountsJson
-              .map(
-                (e) => AccountData.empty().fromJson(e as Map<String, dynamic>),
+        accountsList =
+            List<AccountData>.from(
+                accountsJson
+                    .map(
+                      (e) => AccountData.empty().fromJson(
+                        e as Map<String, dynamic>,
+                      ),
+                    )
+                    .toList(),
               )
-              .toList(),
-        )
-
-          // Shuffle to not showing up the same accounts at the top
-          ..shuffle();
+              // Shuffle to not showing up the same accounts at the top
+              ..shuffle();
 
         await setAccountsDataUseCase(
           accountsData.copyWith(accountsList: accountsList),

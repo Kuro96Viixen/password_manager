@@ -64,8 +64,9 @@ class MemoryDataSourceImpl implements MemoryDataSource {
 
     final accountsImportBytes = await file.readAsBytes();
 
-    final accountsImport =
-        String.fromCharCodes(accountsImportBytes).split('\n');
+    final accountsImport = String.fromCharCodes(
+      accountsImportBytes,
+    ).split('\n');
 
     final importedAccountsList = <AccountDataMemoryEntity>[];
 
@@ -79,7 +80,8 @@ class MemoryDataSourceImpl implements MemoryDataSource {
       );
     }
 
-    return AccountsDataMemoryEntity(accountsList: importedAccountsList)
-        .toAccountsDataEntity();
+    return AccountsDataMemoryEntity(
+      accountsList: importedAccountsList,
+    ).toAccountsDataEntity();
   }
 }

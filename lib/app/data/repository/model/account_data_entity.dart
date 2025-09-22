@@ -9,8 +9,8 @@ sealed class AccountsDataEntity with _$AccountsDataEntity {
   }) = _AccountsDataEntity;
 
   factory AccountsDataEntity.empty() => const AccountsDataEntity(
-        accountsList: [],
-      );
+    accountsList: [],
+  );
 }
 
 @freezed
@@ -24,10 +24,10 @@ sealed class AccountDataEntity with _$AccountDataEntity {
   }) = _AccountDataEntity;
 
   factory AccountDataEntity.empty() => const AccountDataEntity(
-        name: '',
-        username: '',
-        password: '',
-        passwordIV: '',
-        private: false,
-      );
+    name: '',
+    username: '',
+    password: '',
+    passwordIV: '',
+    private: false,
+  );
 }

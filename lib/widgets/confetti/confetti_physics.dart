@@ -65,7 +65,8 @@ class ConfettiPhysics {
     return ConfettiPhysics(
       wobble: Random().nextDouble() * 10,
       wobbleSpeed: min(0.11, Random().nextDouble() * 0.1 + 0.05),
-      velocity: options.startVelocity * 0.5 +
+      velocity:
+          options.startVelocity * 0.5 +
           Random().nextDouble() * options.startVelocity,
       angle2D:
           -radAngle + (0.5 * radSpread - Random().nextDouble() * radSpread),

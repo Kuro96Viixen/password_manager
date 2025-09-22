@@ -3,18 +3,18 @@ import 'package:password_manager/app/data/repository/model/account_data_entity.d
 
 extension AccountsDataMemoryEntityExtension on AccountsDataMemoryEntity {
   AccountsDataEntity toAccountsDataEntity() => AccountsDataEntity(
-        accountsList: accountsList.map((e) => e.toAccountDataEntity()).toList(),
-      );
+    accountsList: accountsList.map((e) => e.toAccountDataEntity()).toList(),
+  );
 }
 
 extension AccountDataMemoryEntityExtension on AccountDataMemoryEntity {
   AccountDataEntity toAccountDataEntity() => AccountDataEntity(
-        name: name,
-        username: username,
-        password: password,
-        passwordIV: passwordIV,
-        private: private,
-      );
+    name: name,
+    username: username,
+    password: password,
+    passwordIV: passwordIV,
+    private: private,
+  );
 
   String toCSV() => '$name,$username,$password,$passwordIV,$private\n';
 }
@@ -41,10 +41,10 @@ extension AccountDataEntityExtension on AccountDataEntity {
       );
 
   AccountDataEntity fromCSV(String csv) => AccountDataEntity(
-        name: csv.split(',')[0],
-        username: csv.split(',')[1],
-        password: csv.split(',')[2],
-        passwordIV: csv.split(',')[3],
-        private: csv.split(',')[4] == 'true',
-      );
+    name: csv.split(',')[0],
+    username: csv.split(',')[1],
+    password: csv.split(',')[2],
+    passwordIV: csv.split(',')[3],
+    private: csv.split(',')[4] == 'true',
+  );
 }
