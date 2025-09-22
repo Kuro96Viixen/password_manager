@@ -40,9 +40,8 @@ class RandomPasswordView extends StatelessWidget {
                     );
 
                     context.read<RandomPasswordBloc>().add(
-                          const RandomPasswordEvent
-                              .markSnackBarEventAsConsumed(),
-                        );
+                      const RandomPasswordEvent.markSnackBarEventAsConsumed(),
+                    );
                   }
                 },
                 builder: (context, state) {
@@ -61,20 +60,17 @@ class RandomPasswordView extends StatelessWidget {
                                     initialValue: '',
                                     onChangedText: (randomPasswordLength) =>
                                         context.read<RandomPasswordBloc>().add(
-                                              RandomPasswordEvent
-                                                  .onRandomPasswordLengthChanged(
-                                                randomPasswordLength,
-                                              ),
-                                            ),
+                                          RandomPasswordEvent.onRandomPasswordLengthChanged(
+                                            randomPasswordLength,
+                                          ),
+                                        ),
                                   ),
                                   const SizedBox(height: 8),
                                   CheckboxListTile(
                                     value: state.hasSpanishCharacters,
-                                    onChanged: (hasSpanishCharacters) => context
-                                        .read<RandomPasswordBloc>()
-                                        .add(
-                                          RandomPasswordEvent
-                                              .hasSpanishCharacters(
+                                    onChanged: (hasSpanishCharacters) =>
+                                        context.read<RandomPasswordBloc>().add(
+                                          RandomPasswordEvent.hasSpanishCharacters(
                                             hasSpanishCharacters:
                                                 hasSpanishCharacters ?? false,
                                           ),
@@ -85,11 +81,9 @@ class RandomPasswordView extends StatelessWidget {
                                   ),
                                   CheckboxListTile(
                                     value: state.hasNumbersCharacters,
-                                    onChanged: (hasNumbersCharacters) => context
-                                        .read<RandomPasswordBloc>()
-                                        .add(
-                                          RandomPasswordEvent
-                                              .hasNumbersCharacters(
+                                    onChanged: (hasNumbersCharacters) =>
+                                        context.read<RandomPasswordBloc>().add(
+                                          RandomPasswordEvent.hasNumbersCharacters(
                                             hasNumbersCharacters:
                                                 hasNumbersCharacters ?? false,
                                           ),
@@ -98,11 +92,9 @@ class RandomPasswordView extends StatelessWidget {
                                   ),
                                   CheckboxListTile(
                                     value: state.hasSymbolsCharacters,
-                                    onChanged: (hasSymbolsCharacters) => context
-                                        .read<RandomPasswordBloc>()
-                                        .add(
-                                          RandomPasswordEvent
-                                              .hasSymbolsCharacters(
+                                    onChanged: (hasSymbolsCharacters) =>
+                                        context.read<RandomPasswordBloc>().add(
+                                          RandomPasswordEvent.hasSymbolsCharacters(
                                             hasSymbolsCharacters:
                                                 hasSymbolsCharacters ?? false,
                                           ),
@@ -116,9 +108,8 @@ class RandomPasswordView extends StatelessWidget {
                                       FocusScope.of(context).unfocus();
 
                                       context.read<RandomPasswordBloc>().add(
-                                            const RandomPasswordEvent
-                                                .generateRandomPassword(),
-                                          );
+                                        const RandomPasswordEvent.generateRandomPassword(),
+                                      );
                                     },
                                     child: Text(
                                       Texts.generateRandomPasswordButton,
@@ -131,8 +122,7 @@ class RandomPasswordView extends StatelessWidget {
                                       onLongPress: () => context
                                           .read<RandomPasswordBloc>()
                                           .add(
-                                            const RandomPasswordEvent
-                                                .copyPassword(),
+                                            const RandomPasswordEvent.copyPassword(),
                                           ),
                                       child: Text(
                                         Texts.randomPasswordText +

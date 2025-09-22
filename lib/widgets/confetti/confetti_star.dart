@@ -6,10 +6,7 @@ import 'package:password_manager/widgets/confetti/confetti_physics.dart';
 
 class ConfettiStar extends ConfettiParticle {
   @override
-  void paint({
-    required ConfettiPhysics physics,
-    required Canvas canvas,
-  }) {
+  void paint({required ConfettiPhysics physics, required Canvas canvas}) {
     canvas.save();
 
     final innerRadius = 4 * physics.scalar;

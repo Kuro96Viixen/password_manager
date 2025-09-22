@@ -26,10 +26,9 @@ class DuplicatedPasswordsCheckerUniqueBody extends StatelessWidget {
             onPressed: () => context.pop(),
             child: Text(
               Texts.duplicatedPasswordCheckerViewUniqueGoBack,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: Theme.of(context).colorScheme.primary),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ),
         ],

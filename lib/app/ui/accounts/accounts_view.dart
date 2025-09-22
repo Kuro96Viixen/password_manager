@@ -45,9 +45,9 @@ class AccountsView extends StatelessWidget {
                       // Remove focus on TextField
                       FocusScope.of(context).unfocus();
 
-                      context
-                          .read<AccountsBloc>()
-                          .add(const AccountsEvent.showPrivate());
+                      context.read<AccountsBloc>().add(
+                        const AccountsEvent.showPrivate(),
+                      );
                     },
                     icon: Icon(CommonIcons.private),
                     tooltip: Texts.showPrivateTooltip,
@@ -57,9 +57,9 @@ class AccountsView extends StatelessWidget {
                       // Remove focus on TextField
                       FocusManager.instance.primaryFocus!.unfocus();
 
-                      context
-                          .read<AccountsBloc>()
-                          .add(const AccountsEvent.showSettings());
+                      context.read<AccountsBloc>().add(
+                        const AccountsEvent.showSettings(),
+                      );
                     },
                     icon: Icon(CommonIcons.settings),
                     tooltip: Texts.settingsTooltip,
@@ -118,22 +118,22 @@ class AccountsView extends StatelessWidget {
                     );
 
                     context.read<AccountsBloc>().add(
-                          const AccountsEvent.markSnackBarAsConsumed(),
-                        );
+                      const AccountsEvent.markSnackBarAsConsumed(),
+                    );
                   }
 
                   if (!state.dialogEvent.consumed) {
                     _showDialog(context, state.dialogEvent.data!);
 
                     context.read<AccountsBloc>().add(
-                          const AccountsEvent.markDialogAsConsumed(),
-                        );
+                      const AccountsEvent.markDialogAsConsumed(),
+                    );
                   }
 
                   if (!state.navigationEvent.consumed) {
                     context.read<AccountsBloc>().add(
-                          const AccountsEvent.markNavigationEventAsConsumed(),
-                        );
+                      const AccountsEvent.markNavigationEventAsConsumed(),
+                    );
 
                     switch (state.navigationEvent.data) {
                       case PrivateView.routeName:
@@ -186,8 +186,8 @@ class AccountsView extends StatelessWidget {
                           child: TextField(
                             onChanged: (searchText) =>
                                 context.read<AccountsBloc>().add(
-                                      AccountsEvent.searchAccount(searchText),
-                                    ),
+                                  AccountsEvent.searchAccount(searchText),
+                                ),
                             decoration: InputDecoration(
                               hintText: Texts.searchHintText,
                             ),
@@ -197,8 +197,8 @@ class AccountsView extends StatelessWidget {
                           loading: Container.new,
                           loaded: (searchText) => Expanded(
                             child: ListView.separated(
-                              itemBuilder: (context, index) => state
-                                      .accountsList[index].name
+                              itemBuilder: (context, index) =>
+                                  state.accountsList[index].name
                                       .toLowerCase()
                                       .startsWith(searchText)
                                   ? AccountListTile(
@@ -209,15 +209,15 @@ class AccountsView extends StatelessWidget {
                                             .unfocus();
 
                                         context.read<AccountsBloc>().add(
-                                              AccountsEvent.pressedAccount(
-                                                index,
-                                              ),
-                                            );
+                                          AccountsEvent.pressedAccount(
+                                            index,
+                                          ),
+                                        );
                                       },
                                     )
                                   : Container(),
-                              separatorBuilder: (context, index) => state
-                                      .accountsList[index].name
+                              separatorBuilder: (context, index) =>
+                                  state.accountsList[index].name
                                       .toLowerCase()
                                       .startsWith(searchText)
                                   ? const Divider(
@@ -236,8 +236,8 @@ class AccountsView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () => context.read<AccountsBloc>().add(
-                      const AccountsEvent.pressedModify(),
-                    ),
+                  const AccountsEvent.pressedModify(),
+                ),
                 tooltip: Texts.addNewAccountTooltip,
                 child: Icon(CommonIcons.add),
               ),

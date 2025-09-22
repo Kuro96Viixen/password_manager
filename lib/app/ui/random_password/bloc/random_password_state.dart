@@ -15,11 +15,11 @@ sealed class RandomPasswordState with _$RandomPasswordState {
   }) = _RandomPasswordState;
 
   factory RandomPasswordState.initial() => const RandomPasswordState(
-        randomPasswordLength: 10,
-        randomPassword: '',
-        hasSpanishCharacters: true,
-        hasNumbersCharacters: true,
-        hasSymbolsCharacters: true,
-        snackBarEvent: UIEvent(consumed: true),
-      );
+    randomPasswordLength: 10,
+    randomPassword: '',
+    hasSpanishCharacters: true,
+    hasNumbersCharacters: true,
+    hasSymbolsCharacters: true,
+    snackBarEvent: UIEvent(consumed: true),
+  );
 }

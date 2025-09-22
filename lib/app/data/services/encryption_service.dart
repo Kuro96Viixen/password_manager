@@ -23,8 +23,9 @@ class EncryptionServiceImpl implements EncryptionService {
   Future<Password> encrypt(String passwordToEncrypt) async {
     final iv = IV.fromLength(16);
 
-    final encryptedPassword =
-        _encryptor.encrypt(passwordToEncrypt, iv: iv).base64;
+    final encryptedPassword = _encryptor
+        .encrypt(passwordToEncrypt, iv: iv)
+        .base64;
 
     final password = Password(password: encryptedPassword, iv: iv.base64);
 
