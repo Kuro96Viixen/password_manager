@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get device language setting via PlatformDispatcher
+    final deviceLocale = PlatformDispatcher.instance.locale;
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -33,6 +38,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       theme: CustomThemes.lightTheme,
       darkTheme: CustomThemes.darkTheme,
+      locale: deviceLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
