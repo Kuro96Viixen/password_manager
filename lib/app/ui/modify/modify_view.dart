@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
@@ -9,6 +8,7 @@ import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class ModifyView extends StatelessWidget {
   static const routeName = '/ModifyPageRoute';
@@ -59,8 +59,12 @@ class ModifyView extends StatelessWidget {
               appBar: AppBar(
                 title: Text(
                   accountData == null
-                      ? Texts.addViewTitle
-                      : Texts.editViewTitle,
+                      ? AppLocalizations.of(
+                          context,
+                        )!.addViewTitle
+                      : AppLocalizations.of(
+                          context,
+                        )!.editViewTitle,
                 ),
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(4),
@@ -76,14 +80,18 @@ class ModifyView extends StatelessWidget {
                         Column(
                           children: [
                             AccountTextField(
-                              label: Texts.nameTextFieldLabel,
+                              label: AppLocalizations.of(
+                                context,
+                              )!.nameTextFieldLabel,
                               initialValue: accountData?.name ?? '',
                               onChangedText: (nameString) => context
                                   .read<ModifyBloc>()
                                   .add(ModifyEvent.onNameChanged(nameString)),
                             ),
                             AccountTextField(
-                              label: Texts.usernameTextFieldLabel,
+                              label: AppLocalizations.of(
+                                context,
+                              )!.usernameTextFieldLabel,
                               initialValue: accountData?.username ?? '',
                               onChangedText: (usernameString) =>
                                   context.read<ModifyBloc>().add(
@@ -108,12 +116,16 @@ class ModifyView extends StatelessWidget {
                                 );
                               },
                               title: Text(
-                                Texts.useRandomPasswordSwitchTitle,
+                                AppLocalizations.of(
+                                  context,
+                                )!.useRandomPasswordSwitchTitle,
                               ),
                             ),
                             state.screenState.when(
                               passwordForm: () => AccountTextField(
-                                label: Texts.passwordTextFieldLabel,
+                                label: AppLocalizations.of(
+                                  context,
+                                )!.passwordTextFieldLabel,
                                 initialValue: '',
                                 onChangedText: (passwordString) =>
                                     context.read<ModifyBloc>().add(
@@ -153,14 +165,22 @@ class ModifyView extends StatelessWidget {
                                   isPrivateAccount: isPrivateAccount ?? false,
                                 ),
                               ),
-                          title: Text(Texts.isPrivateAccountCheckBoxTitle),
+                          title: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.isPrivateAccountCheckBoxTitle,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () => context.read<ModifyBloc>().add(
                             ModifyEvent.saveAccount(accountData),
                           ),
-                          child: Text(Texts.saveAccountButton),
+                          child: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.saveAccountButton,
+                          ),
                         ),
                       ],
                     ),

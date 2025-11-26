@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/links.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExperimentalFeatureInfoDialog extends StatelessWidget {
@@ -11,7 +11,9 @@ class ExperimentalFeatureInfoDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        Texts.experimentalFeatureInfoDialogTitle,
+        AppLocalizations.of(
+          context,
+        )!.experimentalFeatureInfoDialogTitle,
         textAlign: TextAlign.center,
       ),
       contentPadding: const EdgeInsets.only(left: 24, top: 24, right: 24),
@@ -19,16 +21,26 @@ class ExperimentalFeatureInfoDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            Texts.experimentalFeatureInfoDialogBody,
+            AppLocalizations.of(
+              context,
+            )!.experimentalFeatureInfoDialogBody,
             textAlign: TextAlign.center,
           ),
           TextButton(
             onPressed: () => launchUrl(Uri.parse(Links.googlePlayLink)),
-            child: Text(Texts.experimentalFeatureInfoDialogPlayStore),
+            child: Text(
+              AppLocalizations.of(
+                context,
+              )!.experimentalFeatureInfoDialogPlayStore,
+            ),
           ),
           TextButton(
             onPressed: () => launchUrl(Uri.parse(Links.gitHubLink)),
-            child: Text(Texts.experimentalFeatureInfoDialogGitHub),
+            child: Text(
+              AppLocalizations.of(
+                context,
+              )!.experimentalFeatureInfoDialogGitHub,
+            ),
           ),
         ],
       ),
@@ -36,7 +48,11 @@ class ExperimentalFeatureInfoDialog extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(Texts.experimentalFeatureInfoDialogConfirm),
+          child: Text(
+            AppLocalizations.of(
+              context,
+            )!.experimentalFeatureInfoDialogConfirm,
+          ),
         ),
       ],
     );

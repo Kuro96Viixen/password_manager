@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
@@ -15,6 +14,7 @@ import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
 import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 part 'details_view_methods.dart';
@@ -106,7 +106,11 @@ class DetailsView extends StatelessWidget {
               },
               child: Scaffold(
                 appBar: AppBar(
-                  title: Text(Texts.viewAccountViewTitle),
+                  title: Text(
+                    AppLocalizations.of(
+                      context,
+                    )!.viewAccountViewTitle,
+                  ),
                   leading: BackButton(
                     onPressed: () => context.pop(true),
                   ),
@@ -134,11 +138,23 @@ class DetailsView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AccountLabel(text: Texts.viewAccountNameLabel),
+                          AccountLabel(
+                            text: AppLocalizations.of(
+                              context,
+                            )!.viewAccountNameLabel,
+                          ),
                           AccountField(text: state.accountData.name),
-                          AccountLabel(text: Texts.viewAccountUsernameLabel),
+                          AccountLabel(
+                            text: AppLocalizations.of(
+                              context,
+                            )!.viewAccountUsernameLabel,
+                          ),
                           AccountField(text: state.accountData.username),
-                          AccountLabel(text: Texts.viewAccountPasswordLabel),
+                          AccountLabel(
+                            text: AppLocalizations.of(
+                              context,
+                            )!.viewAccountPasswordLabel,
+                          ),
                           GestureDetector(
                             onLongPress: () {
                               context.read<DetailsBloc>().add(
@@ -161,10 +177,16 @@ class DetailsView extends StatelessWidget {
                           Visibility(
                             visible:
                                 state.passwordString ==
-                                Texts.hiddenPasswordText,
+                                AppLocalizations.of(
+                                  context,
+                                )!.hiddenPasswordText,
                             child: Center(
                               child: ElevatedButton(
-                                child: Text(Texts.viewAccountViewPassword),
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.viewAccountViewPassword,
+                                ),
                                 onPressed: () =>
                                     context.read<DetailsBloc>().add(
                                       DetailsEvent.revealPassword(
@@ -186,7 +208,9 @@ class DetailsView extends StatelessWidget {
                   onPressed: () => context.read<DetailsBloc>().add(
                     const DetailsEvent.pressedModify(),
                   ),
-                  tooltip: Texts.viewAccountViewEditTooltip,
+                  tooltip: AppLocalizations.of(
+                    context,
+                  )!.viewAccountViewEditTooltip,
                   child: Icon(CommonIcons.edit),
                 ),
               ),

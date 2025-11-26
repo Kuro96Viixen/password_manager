@@ -217,8 +217,8 @@ abstract class AppLocalizations {
   /// No description provided for @randomPasswordText.
   ///
   /// In en, this message translates to:
-  /// **'Your random password is:\n'**
-  String get randomPasswordText;
+  /// **'Your random password is:\n{password}'**
+  String randomPasswordText(String password);
 
   /// No description provided for @isPrivateAccountCheckBoxTitle.
   ///
@@ -424,17 +424,17 @@ abstract class AppLocalizations {
   /// **'This random generated password won\'t be stored anywhere and will be discarded once exit, to store it you might use the form to save an account, this password can be copied by long-pressing it.'**
   String get randomPasswordDisclaimer;
 
-  /// No description provided for @duplicatePasswordCheckerSettings.
+  /// No description provided for @duplicatedPasswordCheckerSettings.
   ///
   /// In en, this message translates to:
   /// **'Duplicated Passwords'**
-  String get duplicatePasswordCheckerSettings;
+  String get duplicatedPasswordCheckerSettings;
 
-  /// No description provided for @duplicatePasswordCheckerSettingsDisclaimer.
+  /// No description provided for @duplicatedPasswordCheckerSettingsDisclaimer.
   ///
   /// In en, this message translates to:
   /// **'This feature is still experimental, sorry if something is wrong, feedback appreciated.'**
-  String get duplicatePasswordCheckerSettingsDisclaimer;
+  String get duplicatedPasswordCheckerSettingsDisclaimer;
 
   /// No description provided for @duplicatedPasswordCheckerViewTitle.
   ///

@@ -21,7 +21,15 @@
   "numbersCheckBoxTitle" : "Numbers",
   "symbolsCheckBoxTitle" : "Symbols",
   "generateRandomPasswordButton" : "Generate",
-  "randomPasswordText" : "Your random password is:\n",
+  "randomPasswordText" : "Your random password is:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
   "isPrivateAccountCheckBoxTitle" : "Is private?",
   "saveAccountButton" : "Save account",
 
@@ -75,8 +83,8 @@
   "randomPasswordViewTitle" : "Random Password Generator",
   "randomPasswordDisclaimer" : "This random generated password won't be stored anywhere and will be discarded once exit, to store it you might use the form to save an account, this password can be copied by long-pressing it.",
 
-  "duplicatePasswordCheckerSettings" : "Duplicated Passwords",
-  "duplicatePasswordCheckerSettingsDisclaimer" : "This feature is still experimental, sorry if something is wrong, feedback appreciated.",
+  "duplicatedPasswordCheckerSettings" : "Duplicated Passwords",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "This feature is still experimental, sorry if something is wrong, feedback appreciated.",
   "duplicatedPasswordCheckerViewTitle" : "Duplication Checker",
   "duplicatedPasswordCheckerViewLoading": "Loading stats, this may take a while depending on how many accounts you have stored",
   "duplicatedPasswordCheckerViewSuccess": "The passwords of the {percentage} of the accounts are different",

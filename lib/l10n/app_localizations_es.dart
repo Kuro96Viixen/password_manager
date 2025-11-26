@@ -64,7 +64,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get generateRandomPasswordButton => 'Generar';
 
   @override
-  String get randomPasswordText => 'Tu contraseña aleatoria es:\n';
+  String randomPasswordText(String password) {
+    return 'Tu contraseña aleatoria es:\n$password';
+  }
 
   @override
   String get isPrivateAccountCheckBoxTitle => '¿Es privada?';
@@ -177,10 +179,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Esta contraseña generada aleatoriamente no se guardará en ningún sitio y se descartará una vez que salgas. Para guardarla, puedes usar el formulario para guardar una cuenta. Esta contraseña se puede copiar manteniéndola pulsada.';
 
   @override
-  String get duplicatePasswordCheckerSettings => 'Contraseñas duplicadas';
+  String get duplicatedPasswordCheckerSettings => 'Contraseñas duplicadas';
 
   @override
-  String get duplicatePasswordCheckerSettingsDisclaimer =>
+  String get duplicatedPasswordCheckerSettingsDisclaimer =>
       'Esta función aún es experimental, disculpa si algo va mal, se agradecen los comentarios.';
 
   @override

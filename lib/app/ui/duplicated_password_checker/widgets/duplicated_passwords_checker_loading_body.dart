@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class DuplicatedPasswordsCheckerLoadingBody extends StatelessWidget {
   const DuplicatedPasswordsCheckerLoadingBody({super.key});
@@ -13,7 +13,9 @@ class DuplicatedPasswordsCheckerLoadingBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            Texts.duplicatedPasswordCheckerViewLoading,
+            AppLocalizations.of(
+              context,
+            )!.duplicatedPasswordCheckerViewLoading,
             textAlign: TextAlign.center,
           ),
         ),

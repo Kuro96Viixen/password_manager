@@ -13,12 +13,18 @@ Future<void> _showDeleteDialog(
       );
 
       return DeleteDialog(
-        title: Texts.deleteDialogTitle,
-        body: Texts.deleteDialogBody.replaceAll(
-          '{account}',
-          state.accountData.name,
-        ),
-        advice: Texts.deleteDialogAdvice,
+        title: AppLocalizations.of(
+          context,
+        )!.deleteDialogTitle,
+        body:
+            AppLocalizations.of(
+              context,
+            )!.deleteDialogBody(
+              state.accountData.name,
+            ),
+        advice: AppLocalizations.of(
+          context,
+        )!.deleteDialogAdvice,
         onPressedConfirm: () {
           dialogContext.pop();
 
@@ -26,8 +32,12 @@ Future<void> _showDeleteDialog(
             DetailsEvent.deleteAccount(accountData),
           );
         },
-        confirmButtonText: Texts.deleteDialogConfirm,
-        cancelButtonText: Texts.deleteDialogCancel,
+        confirmButtonText: AppLocalizations.of(
+          context,
+        )!.deleteDialogConfirm,
+        cancelButtonText: AppLocalizations.of(
+          context,
+        )!.deleteDialogCancel,
       );
     },
   );

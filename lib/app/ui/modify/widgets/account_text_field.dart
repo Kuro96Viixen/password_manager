@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class AccountTextField extends StatelessWidget {
   final String label;
@@ -24,10 +24,20 @@ class AccountTextField extends StatelessWidget {
       onChanged: onChangedText,
       decoration: InputDecoration(
         labelText: label,
-        hintText: label == Texts.passwordLengthTextFieldLabel
-            ? Texts.passwordLengthTextFieldHint
+        hintText:
+            label ==
+                AppLocalizations.of(
+                  context,
+                )!.passwordLengthTextFieldLabel
+            ? AppLocalizations.of(
+                context,
+              )!.passwordLengthTextFieldHint
             : null,
-        suffixIcon: label == Texts.passwordTextFieldLabel
+        suffixIcon:
+            label ==
+                AppLocalizations.of(
+                  context,
+                )!.passwordTextFieldLabel
             ? IconButton(
                 icon: Icon(
                   isPasswordHidden
@@ -36,18 +46,34 @@ class AccountTextField extends StatelessWidget {
                 ),
                 onPressed: onPressed,
                 tooltip: isPasswordHidden
-                    ? Texts.seePasswordTooltip
-                    : Texts.hidePasswordTooltip,
+                    ? AppLocalizations.of(
+                        context,
+                      )!.seePasswordTooltip
+                    : AppLocalizations.of(
+                        context,
+                      )!.hidePasswordTooltip,
               )
             : null,
       ),
       autocorrect: false,
       enableSuggestions: false,
       initialValue: initialValue,
-      obscureText: label == Texts.passwordTextFieldLabel && isPasswordHidden,
-      keyboardType: label == Texts.passwordLengthTextFieldLabel
+      obscureText:
+          label ==
+              AppLocalizations.of(
+                context,
+              )!.passwordTextFieldLabel &&
+          isPasswordHidden,
+      keyboardType:
+          label ==
+              AppLocalizations.of(
+                context,
+              )!.passwordLengthTextFieldLabel
           ? TextInputType.number
-          : label == Texts.usernameTextFieldLabel
+          : label ==
+                AppLocalizations.of(
+                  context,
+                )!.usernameTextFieldLabel
           ? TextInputType.emailAddress
           : TextInputType.name,
     );

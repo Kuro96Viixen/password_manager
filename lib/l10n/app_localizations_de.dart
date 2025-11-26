@@ -63,7 +63,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get generateRandomPasswordButton => 'Generieren';
 
   @override
-  String get randomPasswordText => 'Ihr zufälliges Passwort lautet:\n';
+  String randomPasswordText(String password) {
+    return 'Ihr zufälliges Passwort lautet:\n$password';
+  }
 
   @override
   String get isPrivateAccountCheckBoxTitle => 'Ist privat?';
@@ -177,10 +179,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Dieses zufällig generierte Passwort wird nirgendwo gespeichert und nach dem Beenden verworfen. Um es zu speichern, können Sie das Formular zum Speichern eines Kontos verwenden. Dieses Passwort kann durch langes Drücken kopiert werden.';
 
   @override
-  String get duplicatePasswordCheckerSettings => 'Doppelte Passwörter';
+  String get duplicatedPasswordCheckerSettings => 'Doppelte Passwörter';
 
   @override
-  String get duplicatePasswordCheckerSettingsDisclaimer =>
+  String get duplicatedPasswordCheckerSettingsDisclaimer =>
       'Diese Funktion ist noch experimentell, entschuldigen Sie, wenn etwas nicht stimmt, Feedback wird geschätzt.';
 
   @override

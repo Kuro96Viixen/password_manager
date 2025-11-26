@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
 import 'package:password_manager/app/ui/private/bloc/private_event.dart';
 import 'package:password_manager/app/ui/private/bloc/private_state.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class PrivateView extends StatelessWidget {
@@ -46,7 +46,9 @@ class PrivateView extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  Texts.privateAccountsViewTitle,
+                  AppLocalizations.of(
+                    context,
+                  )!.privateAccountsViewTitle,
                 ),
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(4),
@@ -74,7 +76,9 @@ class PrivateView extends StatelessWidget {
                               PrivateEvent.searchAccount(searchText),
                             ),
                         decoration: InputDecoration(
-                          hintText: Texts.searchHintText,
+                          hintText: AppLocalizations.of(
+                            context,
+                          )!.searchHintText,
                         ),
                       ),
                     ),

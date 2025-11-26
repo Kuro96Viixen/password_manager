@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/error_type.dart';
@@ -15,6 +14,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_p
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 part 'accounts_view_methods.dart';
@@ -38,7 +38,11 @@ class AccountsView extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(Texts.accountsViewTitle),
+                title: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.accountsViewTitle,
+                ),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -50,7 +54,9 @@ class AccountsView extends StatelessWidget {
                       );
                     },
                     icon: Icon(CommonIcons.private),
-                    tooltip: Texts.showPrivateTooltip,
+                    tooltip: AppLocalizations.of(
+                      context,
+                    )!.showPrivateTooltip,
                   ),
                   IconButton(
                     onPressed: () {
@@ -62,7 +68,9 @@ class AccountsView extends StatelessWidget {
                       );
                     },
                     icon: Icon(CommonIcons.settings),
-                    tooltip: Texts.settingsTooltip,
+                    tooltip: AppLocalizations.of(
+                      context,
+                    )!.settingsTooltip,
                   ),
                 ],
                 bottom: const PreferredSize(
@@ -171,7 +179,9 @@ class AccountsView extends StatelessWidget {
                               context.goWithRoute(RandomPasswordView.routeName),
                           leading: Icon(CommonIcons.randomPassword),
                           title: Text(
-                            Texts.randomPasswordListTile,
+                            AppLocalizations.of(
+                              context,
+                            )!.randomPasswordListTile,
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.fade,
@@ -189,7 +199,9 @@ class AccountsView extends StatelessWidget {
                                   AccountsEvent.searchAccount(searchText),
                                 ),
                             decoration: InputDecoration(
-                              hintText: Texts.searchHintText,
+                              hintText: AppLocalizations.of(
+                                context,
+                              )!.searchHintText,
                             ),
                           ),
                         ),
@@ -238,7 +250,9 @@ class AccountsView extends StatelessWidget {
                 onPressed: () => context.read<AccountsBloc>().add(
                   const AccountsEvent.pressedModify(),
                 ),
-                tooltip: Texts.addNewAccountTooltip,
+                tooltip: AppLocalizations.of(
+                  context,
+                )!.addNewAccountTooltip,
                 child: Icon(CommonIcons.add),
               ),
             ),

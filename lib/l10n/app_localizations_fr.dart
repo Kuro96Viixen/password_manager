@@ -65,7 +65,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get generateRandomPasswordButton => 'Générer';
 
   @override
-  String get randomPasswordText => 'Votre mot de passe aléatoire est :\n';
+  String randomPasswordText(String password) {
+    return 'Votre mot de passe aléatoire est :\n$password';
+  }
 
   @override
   String get isPrivateAccountCheckBoxTitle => 'Est privé ?';
@@ -178,10 +180,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ce mot de passe généré aléatoirement ne sera stocké nulle part et sera supprimé une fois que vous quitterez. Pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte. Ce mot de passe peut être copié en appuyant longuement dessus.';
 
   @override
-  String get duplicatePasswordCheckerSettings => 'Mots de passe dupliqués';
+  String get duplicatedPasswordCheckerSettings => 'Mots de passe dupliqués';
 
   @override
-  String get duplicatePasswordCheckerSettingsDisclaimer =>
+  String get duplicatedPasswordCheckerSettingsDisclaimer =>
       'Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.';
 
   @override

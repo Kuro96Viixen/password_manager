@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_bloc.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class RandomPasswordView extends StatelessWidget {
   static const routeName = 'RandomPasswordViewRoute';
@@ -22,7 +22,7 @@ class RandomPasswordView extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  Texts.randomPasswordViewTitle,
+                  AppLocalizations.of(context)!.randomPasswordViewTitle,
                   style: const TextStyle(fontSize: 18),
                 ),
                 bottom: const PreferredSize(
@@ -56,7 +56,9 @@ class RandomPasswordView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AccountTextField(
-                                    label: Texts.passwordLengthTextFieldLabel,
+                                    label: AppLocalizations.of(
+                                      context,
+                                    )!.passwordLengthTextFieldLabel,
                                     initialValue: '',
                                     onChangedText: (randomPasswordLength) =>
                                         context.read<RandomPasswordBloc>().add(
@@ -76,7 +78,9 @@ class RandomPasswordView extends StatelessWidget {
                                           ),
                                         ),
                                     title: Text(
-                                      Texts.spanishCheckBoxTitle,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.spanishCheckBoxTitle,
                                     ),
                                   ),
                                   CheckboxListTile(
@@ -88,7 +92,11 @@ class RandomPasswordView extends StatelessWidget {
                                                 hasNumbersCharacters ?? false,
                                           ),
                                         ),
-                                    title: Text(Texts.numbersCheckBoxTitle),
+                                    title: Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.numbersCheckBoxTitle,
+                                    ),
                                   ),
                                   CheckboxListTile(
                                     value: state.hasSymbolsCharacters,
@@ -99,7 +107,11 @@ class RandomPasswordView extends StatelessWidget {
                                                 hasSymbolsCharacters ?? false,
                                           ),
                                         ),
-                                    title: Text(Texts.symbolsCheckBoxTitle),
+                                    title: Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.symbolsCheckBoxTitle,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   ElevatedButton(
@@ -112,7 +124,9 @@ class RandomPasswordView extends StatelessWidget {
                                       );
                                     },
                                     child: Text(
-                                      Texts.generateRandomPasswordButton,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.generateRandomPasswordButton,
                                     ),
                                   ),
                                   const SizedBox(height: 16),
@@ -125,8 +139,11 @@ class RandomPasswordView extends StatelessWidget {
                                             const RandomPasswordEvent.copyPassword(),
                                           ),
                                       child: Text(
-                                        Texts.randomPasswordText +
-                                            state.randomPassword,
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.randomPasswordText(
+                                          state.randomPassword,
+                                        ),
                                         style: const TextStyle(fontSize: 20),
                                         textAlign: TextAlign.center,
                                       ),
@@ -138,7 +155,9 @@ class RandomPasswordView extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          Texts.randomPasswordDisclaimer,
+                          AppLocalizations.of(
+                            context,
+                          )!.randomPasswordDisclaimer,
                           style: const TextStyle(fontSize: 10),
                         ),
                       ],

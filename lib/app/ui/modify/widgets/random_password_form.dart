@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class RandomPasswordForm extends StatelessWidget {
   final bool hasSpanishCharacters;
@@ -24,7 +24,9 @@ class RandomPasswordForm extends StatelessWidget {
     return Column(
       children: [
         AccountTextField(
-          label: Texts.passwordLengthTextFieldLabel,
+          label: AppLocalizations.of(
+            context,
+          )!.passwordLengthTextFieldLabel,
           initialValue: '',
           onChangedText: (randomPasswordLength) =>
               context.read<ModifyBloc>().add(
@@ -41,7 +43,11 @@ class RandomPasswordForm extends StatelessWidget {
               hasSpanishCharacters: hasSpanishCharacters ?? false,
             ),
           ),
-          title: Text(Texts.spanishCheckBoxTitle),
+          title: Text(
+            AppLocalizations.of(
+              context,
+            )!.spanishCheckBoxTitle,
+          ),
         ),
         CheckboxListTile(
           value: hasNumbersCharacters,
@@ -50,7 +56,11 @@ class RandomPasswordForm extends StatelessWidget {
               hasNumbersCharacters: hasNumbersCharacters ?? false,
             ),
           ),
-          title: Text(Texts.numbersCheckBoxTitle),
+          title: Text(
+            AppLocalizations.of(
+              context,
+            )!.numbersCheckBoxTitle,
+          ),
         ),
         CheckboxListTile(
           value: hasSymbolsCharacters,
@@ -59,7 +69,11 @@ class RandomPasswordForm extends StatelessWidget {
               hasSymbolsCharacters: hasSymbolsCharacters ?? false,
             ),
           ),
-          title: Text(Texts.symbolsCheckBoxTitle),
+          title: Text(
+            AppLocalizations.of(
+              context,
+            )!.symbolsCheckBoxTitle,
+          ),
         ),
         const SizedBox(height: 8),
         ElevatedButton(
@@ -71,7 +85,11 @@ class RandomPasswordForm extends StatelessWidget {
               const ModifyEvent.generateRandomPassword(),
             );
           },
-          child: Text(Texts.generateRandomPasswordButton),
+          child: Text(
+            AppLocalizations.of(
+              context,
+            )!.generateRandomPasswordButton,
+          ),
         ),
         const SizedBox(
           height: 16,
@@ -83,7 +101,9 @@ class RandomPasswordForm extends StatelessWidget {
               ModifyEvent.copyPassword(randomPassword),
             ),
             child: Text(
-              Texts.randomPasswordText + randomPassword,
+              AppLocalizations.of(
+                context,
+              )!.randomPasswordText(randomPassword),
               style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),

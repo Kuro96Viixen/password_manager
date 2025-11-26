@@ -21,7 +21,15 @@
   "numbersCheckBoxTitle" : "Numeri",
   "symbolsCheckBoxTitle" : "Simboli",
   "generateRandomPasswordButton" : "Genera",
-  "randomPasswordText" : "La tua password casuale è:\n",
+  "randomPasswordText" : "La tua password casuale è:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
   "isPrivateAccountCheckBoxTitle" : "È privato?",
   "saveAccountButton" : "Salva account",
 
@@ -75,8 +83,8 @@
   "randomPasswordViewTitle" : "Generatore di password casuali",
   "randomPasswordDisclaimer" : "Questa password generata casualmente non verrà memorizzata da nessuna parte e verrà eliminata una volta usciti. Per salvarla è possibile utilizzare il modulo per salvare un account. Questa password può essere copiata tenendola premuta a lungo.",
 
-  "duplicatePasswordCheckerSettings" : "Password duplicate",
-  "duplicatePasswordCheckerSettingsDisclaimer" : "Questa funzione è ancora sperimentale, scusa se qualcosa non va, il feedback è apprezzato.",
+  "duplicatedPasswordCheckerSettings" : "Password duplicate",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Questa funzione è ancora sperimentale, scusa se qualcosa non va, il feedback è apprezzato.",
   "duplicatedPasswordCheckerViewTitle" : "Controllo duplicati",
   "duplicatedPasswordCheckerViewLoading": "Caricamento statistiche, potrebbe volerci un po' a seconda di quanti account hai memorizzato",
   "duplicatedPasswordCheckerViewSuccess": "Le password del {percentage} degli account sono diverse",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/experimental_feature/experimental_feature_info_dialog.dart';
 
 class ExperimentalFeatureInfoIcon extends StatelessWidget {
@@ -15,7 +15,9 @@ class ExperimentalFeatureInfoIcon extends StatelessWidget {
             const ExperimentalFeatureInfoDialog(),
       ),
       icon: Icon(CommonIcons.info),
-      tooltip: Texts.experimentalFeatureInfoTooltip,
+      tooltip: AppLocalizations.of(
+        context,
+      )!.experimentalFeatureInfoTooltip,
     );
   }
 }

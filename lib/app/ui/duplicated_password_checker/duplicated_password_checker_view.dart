@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_bloc.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_event.dart';
@@ -10,6 +9,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplica
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_password_checker_success_body.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_passwords_checker_loading_body.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_passwords_checker_unique_body.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/confetti/confetti.dart';
 import 'package:password_manager/widgets/confetti/confetti_options.dart';
 import 'package:password_manager/widgets/confetti/confetti_star.dart';
@@ -30,7 +30,11 @@ class DuplicatedPasswordCheckerView extends StatelessWidget {
             ..add(const DuplicatedPasswordCheckerEvent.started()),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(Texts.duplicatedPasswordCheckerViewTitle),
+          title: Text(
+            AppLocalizations.of(
+              context,
+            )!.duplicatedPasswordCheckerViewTitle,
+          ),
           actions: const [
             ExperimentalFeatureInfoIcon(),
           ],

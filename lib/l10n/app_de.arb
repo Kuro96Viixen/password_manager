@@ -21,7 +21,15 @@
   "numbersCheckBoxTitle" : "Zahlen",
   "symbolsCheckBoxTitle" : "Symbole",
   "generateRandomPasswordButton" : "Generieren",
-  "randomPasswordText" : "Ihr zufälliges Passwort lautet:\n",
+  "randomPasswordText" : "Ihr zufälliges Passwort lautet:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
   "isPrivateAccountCheckBoxTitle" : "Ist privat?",
   "saveAccountButton" : "Konto speichern",
 
@@ -75,8 +83,8 @@
   "randomPasswordViewTitle" : "Zufallspasswortgenerator",
   "randomPasswordDisclaimer" : "Dieses zufällig generierte Passwort wird nirgendwo gespeichert und nach dem Beenden verworfen. Um es zu speichern, können Sie das Formular zum Speichern eines Kontos verwenden. Dieses Passwort kann durch langes Drücken kopiert werden.",
 
-  "duplicatePasswordCheckerSettings" : "Doppelte Passwörter",
-  "duplicatePasswordCheckerSettingsDisclaimer" : "Diese Funktion ist noch experimentell, entschuldigen Sie, wenn etwas nicht stimmt, Feedback wird geschätzt.",
+  "duplicatedPasswordCheckerSettings" : "Doppelte Passwörter",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Diese Funktion ist noch experimentell, entschuldigen Sie, wenn etwas nicht stimmt, Feedback wird geschätzt.",
   "duplicatedPasswordCheckerViewTitle" : "Duplikatprüfer",
   "duplicatedPasswordCheckerViewLoading": "Lade Statistiken, dies kann eine Weile dauern, je nachdem, wie viele Konten Sie gespeichert haben",
   "duplicatedPasswordCheckerViewSuccess": "Die Passwörter von {percentage} der Konten sind unterschiedlich",

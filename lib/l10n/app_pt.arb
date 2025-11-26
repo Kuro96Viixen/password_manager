@@ -21,7 +21,15 @@
   "numbersCheckBoxTitle" : "Números",
   "symbolsCheckBoxTitle" : "Símbolos",
   "generateRandomPasswordButton" : "Gerar",
-  "randomPasswordText" : "Sua senha aleatória é:\n",
+  "randomPasswordText" : "Sua senha aleatória é:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
   "isPrivateAccountCheckBoxTitle" : "É privada?",
   "saveAccountButton" : "Salvar conta",
 
@@ -75,8 +83,8 @@
   "randomPasswordViewTitle" : "Gerador de Senha Aleatória",
   "randomPasswordDisclaimer" : "Esta senha gerada aleatoriamente não será armazenada em lugar nenhum e será descartada ao sair. Para armazená-la, você pode usar o formulário para salvar uma conta. Esta senha pode ser copiada pressionando-a longamente.",
 
-  "duplicatePasswordCheckerSettings" : "Senhas Duplicadas",
-  "duplicatePasswordCheckerSettingsDisclaimer" : "Este recurso ainda é experimental, desculpe se algo estiver errado, o feedback é apreciado.",
+  "duplicatedPasswordCheckerSettings" : "Senhas Duplicadas",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Este recurso ainda é experimental, desculpe se algo estiver errado, o feedback é apreciado.",
   "duplicatedPasswordCheckerViewTitle" : "Verificador de Duplicação",
   "duplicatedPasswordCheckerViewLoading": "Carregando estatísticas, isso pode levar um tempo dependendo de quantas contas você armazenou",
   "duplicatedPasswordCheckerViewSuccess": "As senhas de {percentage} das contas são diferentes",

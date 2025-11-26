@@ -21,7 +21,15 @@
   "numbersCheckBoxTitle" : "Nombres",
   "symbolsCheckBoxTitle" : "Symboles",
   "generateRandomPasswordButton" : "Générer",
-  "randomPasswordText" : "Votre mot de passe aléatoire est :\n",
+  "randomPasswordText" : "Votre mot de passe aléatoire est :\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
   "isPrivateAccountCheckBoxTitle" : "Est privé ?",
   "saveAccountButton" : "Enregistrer le compte",
 
@@ -75,8 +83,8 @@
   "randomPasswordViewTitle" : "Générateur de mot de passe aléatoire",
   "randomPasswordDisclaimer" : "Ce mot de passe généré aléatoirement ne sera stocké nulle part et sera supprimé une fois que vous quitterez. Pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte. Ce mot de passe peut être copié en appuyant longuement dessus.",
 
-  "duplicatePasswordCheckerSettings" : "Mots de passe dupliqués",
-  "duplicatePasswordCheckerSettingsDisclaimer" : "Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.",
+  "duplicatedPasswordCheckerSettings" : "Mots de passe dupliqués",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.",
   "duplicatedPasswordCheckerViewTitle" : "Vérificateur de duplication",
   "duplicatedPasswordCheckerViewLoading": "Chargement des statistiques, cela может prendre un certain temps en fonction du nombre de comptes que vous avez stockés",
   "duplicatedPasswordCheckerViewSuccess": "Les mots de passe de {percentage} des comptes sont différents",
