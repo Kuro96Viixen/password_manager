@@ -13,7 +13,8 @@ sealed class AccountsState with _$AccountsState {
     required AccountData? selectedAccount,
     required UIEvent<String> navigationEvent,
     required UIEvent<void> bottomMenuEvent,
-    required UIEvent<String> snackBarEvent,
+    required UIEvent<void> exportedSnackBarEvent,
+    required UIEvent<void> importedSnackBarEvent,
     required UIEvent<ErrorType> dialogEvent,
   }) = _AccountsState;
 
@@ -21,10 +22,11 @@ sealed class AccountsState with _$AccountsState {
     accountsList: [],
     screenState: AccountsScreenState.loading(),
     selectedAccount: null,
-    navigationEvent: UIEvent<String>(consumed: true),
-    bottomMenuEvent: UIEvent<void>(consumed: true),
-    snackBarEvent: UIEvent<String>(consumed: true),
-    dialogEvent: UIEvent<ErrorType>(consumed: true),
+    navigationEvent: UIEvent(consumed: true),
+    bottomMenuEvent: UIEvent(consumed: true),
+    exportedSnackBarEvent: UIEvent(consumed: true),
+    importedSnackBarEvent: UIEvent(consumed: true),
+    dialogEvent: UIEvent(consumed: true),
   );
 }
 

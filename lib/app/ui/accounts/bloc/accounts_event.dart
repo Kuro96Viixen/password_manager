@@ -35,6 +35,9 @@ sealed class AccountsEvent with _$AccountsEvent {
       MarkNavigationEventAsConsumed;
   const factory AccountsEvent.markBottomMenuAsConsumed() =
       MarkBottomMenuAsConsumed;
-  const factory AccountsEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  const factory AccountsEvent.markExportedSnackBarAsConsumed() =
+      MarkExportedSnackBarAsConsumed;
+  const factory AccountsEvent.markImportedSnackBarAsConsumed() =
+      MarkImportedSnackBarAsConsumed;
   const factory AccountsEvent.markDialogAsConsumed() = MarkDialogAsConsumed;
 }

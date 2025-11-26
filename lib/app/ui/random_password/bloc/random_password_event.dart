@@ -28,6 +28,6 @@ sealed class RandomPasswordEvent with _$RandomPasswordEvent {
   const factory RandomPasswordEvent.copyPassword() = CopyPassword;
 
   // Event Consumer
-  const factory RandomPasswordEvent.markSnackBarEventAsConsumed() =
-      MarkSnackBarEventAsConsumed;
+  const factory RandomPasswordEvent.markCopySnackBarEventAsConsumed() =
+      MarkCopySnackBarEventAsConsumed;
 }

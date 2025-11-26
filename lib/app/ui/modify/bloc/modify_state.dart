@@ -20,7 +20,7 @@ sealed class ModifyState with _$ModifyState {
     required bool isPrivateAccount,
     required bool canBeSaved,
     required UIEvent<void> goBackEvent,
-    required UIEvent<String> snackBarEvent,
+    required UIEvent<void> copySnackBarEvent,
   }) = _ModifyState;
 
   factory ModifyState.initial() => const ModifyState(
@@ -38,7 +38,7 @@ sealed class ModifyState with _$ModifyState {
     isPrivateAccount: false,
     canBeSaved: false,
     goBackEvent: UIEvent(consumed: true),
-    snackBarEvent: UIEvent(consumed: true),
+    copySnackBarEvent: UIEvent(consumed: true),
   );
 }
 

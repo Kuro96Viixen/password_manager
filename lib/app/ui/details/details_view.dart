@@ -40,12 +40,12 @@ class DetailsView extends StatelessWidget {
         listenWhen: (previous, current) {
           final hasModifyEvent = previous.modifyEvent != current.modifyEvent;
 
-          final hasSnackBarEvent =
-              previous.snackBarEvent != current.snackBarEvent;
+          final hasCopySnackBarEvent =
+              previous.copySnackBarEvent != current.copySnackBarEvent;
 
           final hasPopUpEvent = previous.popUpEvent != current.popUpEvent;
 
-          return hasModifyEvent || hasSnackBarEvent || hasPopUpEvent;
+          return hasModifyEvent || hasCopySnackBarEvent || hasPopUpEvent;
         },
         listener: (context, state) async {
           if (!state.modifyEvent.consumed) {
@@ -71,18 +71,20 @@ class DetailsView extends StatelessWidget {
             }
           }
 
-          if (!state.snackBarEvent.consumed) {
+          if (!state.copySnackBarEvent.consumed) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    state.snackBarEvent.data!,
+                    AppLocalizations.of(
+                      context,
+                    )!.copiedToClipboard,
                   ),
                 ),
               );
 
               context.read<DetailsBloc>().add(
-                const DetailsEvent.markSnackBarAsConsumed(),
+                const DetailsEvent.markCopySnackBarAsConsumed(),
               );
             }
           }
@@ -169,7 +171,11 @@ class DetailsView extends StatelessWidget {
                             child: AccountField(
                               text: state.screenState.when(
                                 loading: () => '',
-                                loaded: () => state.passwordString,
+                                loaded: () =>
+                                    state.passwordString ??
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.hiddenPasswordText,
                               ),
                             ),
                           ),

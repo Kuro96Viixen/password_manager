@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/model/error_type.dart';
@@ -100,8 +99,18 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           emit(
             state.copyWith(bottomMenuEvent: state.bottomMenuEvent.asConsumed()),
           );
-        case MarkSnackBarAsConsumed():
-          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+        case MarkExportedSnackBarAsConsumed():
+          emit(
+            state.copyWith(
+              exportedSnackBarEvent: state.exportedSnackBarEvent.asConsumed(),
+            ),
+          );
+        case MarkImportedSnackBarAsConsumed():
+          emit(
+            state.copyWith(
+              importedSnackBarEvent: state.importedSnackBarEvent.asConsumed(),
+            ),
+          );
         case MarkDialogAsConsumed():
           emit(state.copyWith(dialogEvent: state.dialogEvent.asConsumed()));
       }
@@ -204,7 +213,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
 
         emit(
           state.copyWith(
-            snackBarEvent: UIEvent(data: Texts.exportedAccounts),
+            exportedSnackBarEvent: const UIEvent(),
             screenState: const AccountsScreenState.loaded(searchText: ''),
           ),
         );
@@ -234,7 +243,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
 
         emit(
           state.copyWith(
-            snackBarEvent: UIEvent(data: Texts.importedAccounts),
+            importedSnackBarEvent: const UIEvent(),
           ),
         );
 

@@ -29,27 +29,27 @@ class ModifyView extends StatelessWidget {
         listenWhen: (previous, current) {
           final hasGoBackEvent = previous.goBackEvent != current.goBackEvent;
 
-          final hasSnackBarEvent =
-              previous.snackBarEvent != current.snackBarEvent;
+          final hasCopySnackBarEvent =
+              previous.copySnackBarEvent != current.copySnackBarEvent;
 
-          return hasGoBackEvent || hasSnackBarEvent;
+          return hasGoBackEvent || hasCopySnackBarEvent;
         },
         listener: (context, state) {
           if (!state.goBackEvent.consumed) {
             context.pop(true);
           }
 
-          if (!state.snackBarEvent.consumed) {
+          if (!state.copySnackBarEvent.consumed) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  state.snackBarEvent.data!,
+                  AppLocalizations.of(context)!.copiedToClipboard,
                 ),
               ),
             );
 
             context.read<ModifyBloc>().add(
-              const ModifyEvent.markSnackBarAsConsumed(),
+              const ModifyEvent.markCopySnackBarAsConsumed(),
             );
           }
         },

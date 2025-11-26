@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/ui/bloc/ui_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
@@ -49,13 +48,15 @@ class RandomPasswordBloc
 
           emit(
             state.copyWith(
-              snackBarEvent: UIEvent(
-                data: Texts.copiedToClipboard,
-              ),
+              copySnackBarEvent: const UIEvent(),
             ),
           );
-        case MarkSnackBarEventAsConsumed():
-          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+        case MarkCopySnackBarEventAsConsumed():
+          emit(
+            state.copyWith(
+              copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
+            ),
+          );
       }
     });
   }

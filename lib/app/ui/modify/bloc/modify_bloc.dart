@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.dart';
@@ -121,7 +120,7 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
 
           emit(
             state.copyWith(
-              snackBarEvent: UIEvent(data: Texts.copiedToClipboard),
+              copySnackBarEvent: const UIEvent(),
             ),
           );
         case SetIsPrivateAccount(isPrivateAccount: final isPrivateAccount):
@@ -167,8 +166,12 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
               goBackEvent: const UIEvent(),
             ),
           );
-        case MarkSnackBarAsConsumed():
-          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+        case MarkCopySnackBarAsConsumed():
+          emit(
+            state.copyWith(
+              copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
+            ),
+          );
       }
     });
   }

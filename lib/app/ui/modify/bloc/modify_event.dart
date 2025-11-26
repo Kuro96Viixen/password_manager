@@ -46,5 +46,6 @@ sealed class ModifyEvent with _$ModifyEvent {
   // Event Consumer
   // No need to consume goBackEvent as it will close the page
   // const factory ModifyEvent.markGoBackAsConsumed() = MarkGoBackAsConsumed;
-  const factory ModifyEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  const factory ModifyEvent.markCopySnackBarAsConsumed() =
+      MarkCopySnackBarAsConsumed;
 }

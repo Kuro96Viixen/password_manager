@@ -11,7 +11,7 @@ sealed class RandomPasswordState with _$RandomPasswordState {
     required bool hasSpanishCharacters,
     required bool hasNumbersCharacters,
     required bool hasSymbolsCharacters,
-    required UIEvent<String> snackBarEvent,
+    required UIEvent<void> copySnackBarEvent,
   }) = _RandomPasswordState;
 
   factory RandomPasswordState.initial() => const RandomPasswordState(
@@ -20,6 +20,6 @@ sealed class RandomPasswordState with _$RandomPasswordState {
     hasSpanishCharacters: true,
     hasNumbersCharacters: true,
     hasSymbolsCharacters: true,
-    snackBarEvent: UIEvent(consumed: true),
+    copySnackBarEvent: UIEvent(consumed: true),
   );
 }

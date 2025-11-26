@@ -32,15 +32,19 @@ class RandomPasswordView extends StatelessWidget {
               ),
               body: BlocConsumer<RandomPasswordBloc, RandomPasswordState>(
                 listenWhen: (previous, current) =>
-                    previous.snackBarEvent != current.snackBarEvent,
+                    previous.copySnackBarEvent != current.copySnackBarEvent,
                 listener: (context, state) {
-                  if (!state.snackBarEvent.consumed) {
+                  if (!state.copySnackBarEvent.consumed) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.snackBarEvent.data!)),
+                      SnackBar(
+                        content: Text(
+                          AppLocalizations.of(context)!.copiedToClipboard,
+                        ),
+                      ),
                     );
 
                     context.read<RandomPasswordBloc>().add(
-                      const RandomPasswordEvent.markSnackBarEventAsConsumed(),
+                      const RandomPasswordEvent.markCopySnackBarEventAsConsumed(),
                     );
                   }
                 },

@@ -100,15 +100,21 @@ class AccountsView extends StatelessWidget {
                   final hasNewBottomMenuEvent =
                       previous.bottomMenuEvent != current.bottomMenuEvent;
 
-                  final hasNewSnackBarEvent =
-                      previous.snackBarEvent != current.snackBarEvent;
+                  final hasNewExportedSnackBarEvent =
+                      previous.exportedSnackBarEvent !=
+                      current.exportedSnackBarEvent;
+
+                  final hasNewImportedSnackBarEvent =
+                      previous.importedSnackBarEvent !=
+                      current.importedSnackBarEvent;
 
                   final hasNewDialogEvent =
                       previous.dialogEvent != current.dialogEvent;
 
                   return hasNewNavigationEvent ||
                       hasNewBottomMenuEvent ||
-                      hasNewSnackBarEvent ||
+                      hasNewExportedSnackBarEvent ||
+                      hasNewImportedSnackBarEvent ||
                       hasNewDialogEvent;
                 },
                 listener: (context, state) async {
@@ -116,17 +122,35 @@ class AccountsView extends StatelessWidget {
                     _showBottomMenu(context);
                   }
 
-                  if (!state.snackBarEvent.consumed) {
+                  if (!state.exportedSnackBarEvent.consumed) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          state.snackBarEvent.data!,
+                          AppLocalizations.of(
+                            context,
+                          )!.exportedAccounts,
                         ),
                       ),
                     );
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markSnackBarAsConsumed(),
+                      const AccountsEvent.markExportedSnackBarAsConsumed(),
+                    );
+                  }
+
+                  if (!state.importedSnackBarEvent.consumed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          AppLocalizations.of(
+                            context,
+                          )!.importedAccounts,
+                        ),
+                      ),
+                    );
+
+                    context.read<AccountsBloc>().add(
+                      const AccountsEvent.markImportedSnackBarAsConsumed(),
                     );
                   }
 

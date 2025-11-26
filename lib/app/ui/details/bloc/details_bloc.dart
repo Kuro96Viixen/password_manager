@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
@@ -53,9 +52,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
           emit(
             state.copyWith(
-              snackBarEvent: UIEvent(
-                data: Texts.copiedToClipboard,
-              ),
+              copySnackBarEvent: const UIEvent(),
             ),
           );
         case PressedModify():
@@ -70,8 +67,12 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           );
         case MarkModifyAsConsumed():
           emit(state.copyWith(modifyEvent: state.modifyEvent.asConsumed()));
-        case MarkSnackBarAsConsumed():
-          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
+        case MarkCopySnackBarAsConsumed():
+          emit(
+            state.copyWith(
+              copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
+            ),
+          );
         case MarkPopUpAsConsumed():
           emit(state.copyWith(popUpEvent: state.popUpEvent.asConsumed()));
       }
@@ -98,7 +99,6 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
     emit(
       state.copyWith(
-        passwordString: Texts.hiddenPasswordText,
         accountData: accountsData.accountsList[accountPosition],
         accountPosition: accountPosition,
         screenState: const DetailsScreenState.loaded(),

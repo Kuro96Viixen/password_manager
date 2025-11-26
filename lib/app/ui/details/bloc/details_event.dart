@@ -26,6 +26,7 @@ sealed class DetailsEvent with _$DetailsEvent {
   // No need to consume goBackEvent as it will close the page
   const factory DetailsEvent.markModifyAsConsumed() = MarkModifyAsConsumed;
   // const factory DetailsEvent.markGoBackAsConsumed() = MarkGoBackAsConsumed;
-  const factory DetailsEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  const factory DetailsEvent.markCopySnackBarAsConsumed() =
+      MarkCopySnackBarAsConsumed;
   const factory DetailsEvent.markPopUpAsConsumed() = MarkPopUpAsConsumed;
 }
