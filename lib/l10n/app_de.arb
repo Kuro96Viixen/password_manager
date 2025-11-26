@@ -1,0 +1,111 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Kontenliste",
+  "showPrivateTooltip" : "Private anzeigen",
+  "addNewAccountTooltip" : "Neues Passwort hinzufügen",
+  "settingsTooltip" : "Einstellungen",
+
+  "randomPasswordListTile" : "Zufallspasswort generieren",
+
+  "privateAccountsViewTitle" : "Liste der privaten Konten",
+
+  "addViewTitle" : "Neues Konto hinzufügen",
+  "nameTextFieldLabel" : "Name",
+  "usernameTextFieldLabel" : "Benutzername",
+  "passwordTextFieldLabel" : "Passwort",
+  "useRandomPasswordSwitchTitle" : "Zufallspasswort verwenden",
+  "passwordLengthTextFieldLabel" : "Länge des Zufallspassworts",
+  "passwordLengthTextFieldHint" : "Standard 10",
+  "spanishCheckBoxTitle" : "Spanische Zeichen (ñ)",
+  "numbersCheckBoxTitle" : "Zahlen",
+  "symbolsCheckBoxTitle" : "Symbole",
+  "generateRandomPasswordButton" : "Generieren",
+  "randomPasswordText" : "Ihr zufälliges Passwort lautet:\n",
+  "isPrivateAccountCheckBoxTitle" : "Ist privat?",
+  "saveAccountButton" : "Konto speichern",
+
+  "viewAccountViewTitle" : "Kontodetails",
+  "viewAccountNameLabel" : "Name",
+  "viewAccountUsernameLabel" : "Benutzername",
+  "viewAccountPasswordLabel" : "Passwort",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "Passwort anzeigen",
+  "viewAccountViewEditTooltip" : "Konto bearbeiten",
+  "copiedToClipboard" : "Passwort in die Zwischenablage kopiert",
+
+  "editViewTitle" : "Konto bearbeiten",
+
+  "fingerprintPrivateAuthTitle" : "Geräteauthentifizierung zum Entsperren verwenden",
+  "fingerprintPasswordAuthTitle" : "Geräteauthentifizierung verwenden, um das Passwort anzuzeigen",
+  "fingerprintDialogTitle" : "Authentifizierung erforderlich",
+  "fingerprintDialogSubtitle" : "Identität überprüfen",
+
+  "importExportDisclaimer" : "Die folgenden Optionen ermöglichen es Ihnen, die zuvor gespeicherten Konten zu importieren/exportieren.\nStandardmäßig wird diese Datei im CSV-Format im Download-Ordner gespeichert/gelesen, nur das CSV-Dateiformat ist erlaubt.",
+  "exportAccounts" : "Exportieren",
+  "importAccounts" : "Importieren",
+
+  "exportedAccounts" : "Erfolgreich exportiert",
+  "importedAccounts" : "Erfolgreich importiert",
+
+  "searchHintText" : "Konto suchen",
+
+  "seePasswordTooltip" : "Passwort anzeigen",
+  "hidePasswordTooltip" : "Passwort ausblenden",
+
+  "dialogTitle" : "Hoppla, etwas ist schief gelaufen",
+  "dialogPickFileExceptionText" : "Die App konnte Ihre zuvor gespeicherte Kontenliste nicht importieren, entweder ist die Datei beschädigt oder Sie haben die Auswahl geschlossen.\n\nWenn Sie die Auswahl geschlossen haben, können Sie diesen Hinweis schließen und es erneut versuchen.",
+  "dialogPickFolderExceptionText" : "Die App konnte Ihre Kontenliste nicht exportieren, entweder gab es eine Ausnahme mit der Datei oder Sie haben die Auswahl geschlossen.\n\nWenn Sie die Auswahl geschlossen haben, können Sie diesen Hinweis schließen und es erneut versuchen.",
+  "dialogButtonText": "Ok, ich verstehe",
+
+  "deleteDialogTitle" : "Sind Sie sicher?",
+  "deleteDialogBody" : "Sie sind dabei, das Konto zu löschen:\n\n{account}\n\nMöchten Sie es wirklich entfernen?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "Diese Aktion kann nicht rückgängig gemacht werden.",
+  "deleteDialogCancel": "Nein, zurück",
+  "deleteDialogConfirm": "Ja, ich bin sicher",
+
+  "randomPasswordViewTitle" : "Zufallspasswortgenerator",
+  "randomPasswordDisclaimer" : "Dieses zufällig generierte Passwort wird nirgendwo gespeichert und nach dem Beenden verworfen. Um es zu speichern, können Sie das Formular zum Speichern eines Kontos verwenden. Dieses Passwort kann durch langes Drücken kopiert werden.",
+
+  "duplicatePasswordCheckerSettings" : "Doppelte Passwörter",
+  "duplicatePasswordCheckerSettingsDisclaimer" : "Diese Funktion ist noch experimentell, entschuldigen Sie, wenn etwas nicht stimmt, Feedback wird geschätzt.",
+  "duplicatedPasswordCheckerViewTitle" : "Duplikatprüfer",
+  "duplicatedPasswordCheckerViewLoading": "Lade Statistiken, dies kann eine Weile dauern, je nachdem, wie viele Konten Sie gespeichert haben",
+  "duplicatedPasswordCheckerViewSuccess": "Die Passwörter von {percentage} der Konten sind unterschiedlich",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "Die folgende Liste dient nur dazu, die Konten anzuzeigen, die dasselbe Passwort verwenden. Sie können weder das Passwort noch die E-Mail/den Benutzernamen sehen, der diesem Konto zugewiesen ist, sondern nur den Namen, der zum Speichern des Kontos verwendet wurde.\n\nAnmerkungen:\nPrivate Konten werden gezählt, aber nicht angezeigt\nDer Name der Karte ist ein Platzhalter, nicht das eigentliche Passwort",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Passwort #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "Herzlichen Glückwunsch!!",
+  "duplicatedPasswordCheckerViewUniqueBody": "Alle Ihre Konten haben ein anderes Passwort",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Zurück",
+
+  "experimentalFeatureInfoTooltip" : "Info zur experimentellen Funktion",
+  "experimentalFeatureInfoDialogTitle" : "Experimentelle Funktion",
+  "experimentalFeatureInfoDialogBody" : "Die aktuelle Funktionalität befindet sich noch in der experimentellen Phase und kann Fehler enthalten. Wenn Sie Probleme haben oder Vorschläge haben, können Sie gerne eine Bewertung im Play Store hinterlassen oder ein neues Ticket auf der Github-Seite des Projekts öffnen (wenn möglich)\n\nVielen Dank für Ihre Unterstützung.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
+}

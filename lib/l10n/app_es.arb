@@ -1,0 +1,111 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Lista de cuentas",
+  "showPrivateTooltip" : "Mostrar privadas",
+  "addNewAccountTooltip" : "Añadir nueva contraseña",
+  "settingsTooltip" : "Ajustes",
+
+  "randomPasswordListTile" : "Generar contraseña aleatoria",
+
+  "privateAccountsViewTitle" : "Lista de cuentas privadas",
+
+  "addViewTitle" : "Añadir nueva cuenta",
+  "nameTextFieldLabel" : "Nombre",
+  "usernameTextFieldLabel" : "Usuario",
+  "passwordTextFieldLabel" : "Contraseña",
+  "useRandomPasswordSwitchTitle" : "Usar contraseña aleatoria",
+  "passwordLengthTextFieldLabel" : "Longitud de la contraseña aleatoria",
+  "passwordLengthTextFieldHint" : "Por defecto 10",
+  "spanishCheckBoxTitle" : "Caracteres españoles (ñ)",
+  "numbersCheckBoxTitle" : "Números",
+  "symbolsCheckBoxTitle" : "Símbolos",
+  "generateRandomPasswordButton" : "Generar",
+  "randomPasswordText" : "Tu contraseña aleatoria es:\n",
+  "isPrivateAccountCheckBoxTitle" : "¿Es privada?",
+  "saveAccountButton" : "Guardar cuenta",
+
+  "viewAccountViewTitle" : "Detalles de la cuenta",
+  "viewAccountNameLabel" : "Nombre",
+  "viewAccountUsernameLabel" : "Usuario",
+  "viewAccountPasswordLabel" : "Contraseña",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "Ver contraseña",
+  "viewAccountViewEditTooltip" : "Editar cuenta",
+  "copiedToClipboard" : "Contraseña copiada al portapapeles",
+
+  "editViewTitle" : "Editar cuenta",
+
+  "fingerprintPrivateAuthTitle" : "Usa la autenticación del dispositivo para desbloquear",
+  "fingerprintPasswordAuthTitle" : "Usa la autenticación del dispositivo para ver la contraseña",
+  "fingerprintDialogTitle" : "Autenticación requerida",
+  "fingerprintDialogSubtitle" : "Verificar identidad",
+
+  "importExportDisclaimer" : "Las siguientes opciones te permitirán importar/exportar las cuentas guardadas previamente.\nPor defecto, este archivo se guardará/leerá desde la carpeta de descargas con formato CSV, solo se permite el formato de archivo CSV.",
+  "exportAccounts" : "Exportar",
+  "importAccounts" : "Importar",
+
+  "exportedAccounts" : "Exportado con éxito",
+  "importedAccounts" : "Importado con éxito",
+
+  "searchHintText" : "Buscar cuenta",
+
+  "seePasswordTooltip" : "Ver contraseña",
+  "hidePasswordTooltip" : "Ocultar contraseña",
+
+  "dialogTitle" : "Vaya, algo salió mal",
+  "dialogPickFileExceptionText" : "La aplicación no pudo importar la lista de cuentas guardadas anteriormente, el archivo está dañado o cerraste el selector.\n\nSi cerraste el selector, puedes cerrar este aviso e intentarlo de nuevo.",
+  "dialogPickFolderExceptionText" : "La aplicación no pudo exportar tu lista de cuentas, o bien tuviste una excepción con el archivo o cerraste el selector.\n\nSi cerraste el selector, puedes cerrar este aviso e intentarlo de nuevo.",
+  "dialogButtonText": "Ok, lo entiendo",
+
+  "deleteDialogTitle" : "¿Estás seguro?",
+  "deleteDialogBody" : "Vas a eliminar la cuenta:\n\n{account}\n\n¿Estás seguro de que quieres eliminarla?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "Esta acción no se puede deshacer.",
+  "deleteDialogCancel": "No, volver",
+  "deleteDialogConfirm": "Sí, estoy seguro",
+
+  "randomPasswordViewTitle" : "Generador de contraseñas aleatorias",
+  "randomPasswordDisclaimer" : "Esta contraseña generada aleatoriamente no se guardará en ningún sitio y se descartará una vez que salgas. Para guardarla, puedes usar el formulario para guardar una cuenta. Esta contraseña se puede copiar manteniéndola pulsada.",
+
+  "duplicatePasswordCheckerSettings" : "Contraseñas duplicadas",
+  "duplicatePasswordCheckerSettingsDisclaimer" : "Esta función aún es experimental, disculpa si algo va mal, se agradecen los comentarios.",
+  "duplicatedPasswordCheckerViewTitle" : "Contraseñas duplicadas",
+  "duplicatedPasswordCheckerViewLoading": "Cargando estadísticas, esto puede tardar un poco dependiendo de cuántas cuentas tengas almacenadas",
+  "duplicatedPasswordCheckerViewSuccess": "Las contraseñas del {percentage} de las cuentas son diferentes",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "La siguiente lista es solo para mostrar las cuentas que comparten la misma contraseña, no puedes ver la contraseña ni el correo electrónico/nombre de usuario asignado a esa cuenta, solo el nombre que se usó para guardar la cuenta.\n\nNotas:\nLas cuentas privadas se cuentan pero no se muestran\nEl nombre de la tarjeta es un marcador de posición, no la contraseña real",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Contraseña #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "¡Felicidades!",
+  "duplicatedPasswordCheckerViewUniqueBody": "Todas tus cuentas tienen una contraseña diferente",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Volver",
+
+  "experimentalFeatureInfoTooltip" : "Información de la función experimental",
+  "experimentalFeatureInfoDialogTitle" : "Función experimental",
+  "experimentalFeatureInfoDialogBody" : "La funcionalidad actual todavía está en fase experimental y puede contener errores. Si tienes problemas o alguna sugerencia, no dudes en dejar una reseña en la Play Store o abrir un nuevo ticket en la página de github del proyecto (si es posible)\n\nMuchas gracias por tu apoyo.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
+}

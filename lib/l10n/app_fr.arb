@@ -1,0 +1,111 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Liste des comptes",
+  "showPrivateTooltip" : "Afficher les privés",
+  "addNewAccountTooltip" : "Ajouter un nouveau mot de passe",
+  "settingsTooltip" : "Paramètres",
+
+  "randomPasswordListTile" : "Générer un mot de passe aléatoire",
+
+  "privateAccountsViewTitle" : "Liste des comptes privés",
+
+  "addViewTitle" : "Ajouter un nouveau compte",
+  "nameTextFieldLabel" : "Nom",
+  "usernameTextFieldLabel" : "Nom d'utilisateur",
+  "passwordTextFieldLabel" : "Mot de passe",
+  "useRandomPasswordSwitchTitle" : "Utiliser un mot de passe aléatoire",
+  "passwordLengthTextFieldLabel" : "Longueur du mot de passe aléatoire",
+  "passwordLengthTextFieldHint" : "Défaut 10",
+  "spanishCheckBoxTitle" : "Caractères espagnols (ñ)",
+  "numbersCheckBoxTitle" : "Nombres",
+  "symbolsCheckBoxTitle" : "Symboles",
+  "generateRandomPasswordButton" : "Générer",
+  "randomPasswordText" : "Votre mot de passe aléatoire est :\n",
+  "isPrivateAccountCheckBoxTitle" : "Est privé ?",
+  "saveAccountButton" : "Enregistrer le compte",
+
+  "viewAccountViewTitle" : "Détails du compte",
+  "viewAccountNameLabel" : "Nom",
+  "viewAccountUsernameLabel" : "Nom d'utilisateur",
+  "viewAccountPasswordLabel" : "Mot de passe",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "Voir le mot de passe",
+  "viewAccountViewEditTooltip" : "Modifier le compte",
+  "copiedToClipboard" : "Mot de passe copié dans le presse-papiers",
+
+  "editViewTitle" : "Modifier le compte",
+
+  "fingerprintPrivateAuthTitle" : "Utiliser l'authentification de l'appareil pour déverrouiller",
+  "fingerprintPasswordAuthTitle" : "Utiliser l'authentification de l'appareil pour voir le mot de passe",
+  "fingerprintDialogTitle" : "Authentification requise",
+  "fingerprintDialogSubtitle" : "Vérifier l'identité",
+
+  "importExportDisclaimer" : "Les options suivantes vous permettront d'importer/exporter les comptes précédemment enregistrés.\nPar défaut, ce fichier sera stocké/lu depuis le dossier des téléchargements au format CSV, seul le format de fichier CSV est autorisé.",
+  "exportAccounts" : "Exporter",
+  "importAccounts" : "Importer",
+
+  "exportedAccounts" : "Exporté avec succès",
+  "importedAccounts" : "Importé avec succès",
+
+  "searchHintText" : "Rechercher un compte",
+
+  "seePasswordTooltip" : "Voir le mot de passe",
+  "hidePasswordTooltip" : "Cacher le mot de passe",
+
+  "dialogTitle" : "Oups, quelque chose s'est mal passé",
+  "dialogPickFileExceptionText" : "L'application n'a pas pu importer votre liste de comptes précédemment enregistrée, soit le fichier est corrompu, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.",
+  "dialogPickFolderExceptionText" : "L'application n'a pas pu exporter votre liste de comptes, soit vous avez eu une exception avec le fichier, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.",
+  "dialogButtonText": "Ok, je comprends",
+
+  "deleteDialogTitle" : "Êtes-vous sûr ?",
+  "deleteDialogBody" : "Vous allez supprimer le compte :\n\n{account}\n\nÊtes-vous sûr de vouloir le supprimer ?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "Cette action ne peut pas être annulée.",
+  "deleteDialogCancel": "Non, retour",
+  "deleteDialogConfirm": "Oui, je suis sûr",
+
+  "randomPasswordViewTitle" : "Générateur de mot de passe aléatoire",
+  "randomPasswordDisclaimer" : "Ce mot de passe généré aléatoirement ne sera stocké nulle part et sera supprimé une fois que vous quitterez. Pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte. Ce mot de passe peut être copié en appuyant longuement dessus.",
+
+  "duplicatePasswordCheckerSettings" : "Mots de passe dupliqués",
+  "duplicatePasswordCheckerSettingsDisclaimer" : "Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.",
+  "duplicatedPasswordCheckerViewTitle" : "Vérificateur de duplication",
+  "duplicatedPasswordCheckerViewLoading": "Chargement des statistiques, cela может prendre un certain temps en fonction du nombre de comptes que vous avez stockés",
+  "duplicatedPasswordCheckerViewSuccess": "Les mots de passe de {percentage} des comptes sont différents",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "La liste suivante sert uniquement à afficher les comptes qui partagent le même mot de passe, vous не pouvez pas voir le mot de passe ni l'e-mail/nom d'utilisateur attribué à ce compte, uniquement le nom qui a été utilisé pour enregistrer le compte.\n\nRemarques :\nLes comptes privés sont comptés mais non affichés\nLe nom de la carte est un espace réservé, pas le vrai mot de passe",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Mot de passe #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "Félicitations !!",
+  "duplicatedPasswordCheckerViewUniqueBody": "Tous vos comptes ont un mot de passe différent",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Retour",
+
+  "experimentalFeatureInfoTooltip" : "Informations sur la fonctionnalité expérimentale",
+  "experimentalFeatureInfoDialogTitle" : "Fonctionnalité expérimentale",
+  "experimentalFeatureInfoDialogBody" : "La fonctionnalité actuelle est encore en phase expérimentale et peut contenir des bogues. Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à laisser un commentaire sur le Play Store ou à ouvrir un nouveau ticket sur la page github du projet (si possible)\n\nMerci beaucoup pour votre soutien.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "D'accord"
+}

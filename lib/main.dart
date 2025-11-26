@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/constants/themes.dart';
 import 'package:password_manager/app/di/app_di.dart' as app_di;
 import 'package:password_manager/l10n/app_localizations.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           .navigationModulesDi<GoRouter>()
           .routeInformationParser,
       routerDelegate: app_di.navigationModulesDi<GoRouter>().routerDelegate,
-      title: Texts.title,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.title,
       themeMode: ThemeMode.dark,
       theme: CustomThemes.lightTheme,
       darkTheme: CustomThemes.darkTheme,

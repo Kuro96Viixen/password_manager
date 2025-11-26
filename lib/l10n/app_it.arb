@@ -1,0 +1,111 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Elenco account",
+  "showPrivateTooltip" : "Mostra privati",
+  "addNewAccountTooltip" : "Aggiungi nuova password",
+  "settingsTooltip" : "Impostazioni",
+
+  "randomPasswordListTile" : "Genera password casuale",
+
+  "privateAccountsViewTitle" : "Elenco account privati",
+
+  "addViewTitle" : "Aggiungi nuovo account",
+  "nameTextFieldLabel" : "Nome",
+  "usernameTextFieldLabel" : "Nome utente",
+  "passwordTextFieldLabel" : "Password",
+  "useRandomPasswordSwitchTitle" : "Usa password casuale",
+  "passwordLengthTextFieldLabel" : "Lunghezza password casuale",
+  "passwordLengthTextFieldHint" : "Predefinito 10",
+  "spanishCheckBoxTitle" : "Caratteri spagnoli (ñ)",
+  "numbersCheckBoxTitle" : "Numeri",
+  "symbolsCheckBoxTitle" : "Simboli",
+  "generateRandomPasswordButton" : "Genera",
+  "randomPasswordText" : "La tua password casuale è:\n",
+  "isPrivateAccountCheckBoxTitle" : "È privato?",
+  "saveAccountButton" : "Salva account",
+
+  "viewAccountViewTitle" : "Dettagli account",
+  "viewAccountNameLabel" : "Nome",
+  "viewAccountUsernameLabel" : "Nome utente",
+  "viewAccountPasswordLabel" : "Password",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "Visualizza password",
+  "viewAccountViewEditTooltip" : "Modifica account",
+  "copiedToClipboard" : "Password copiata negli appunti",
+
+  "editViewTitle" : "Modifica account",
+
+  "fingerprintPrivateAuthTitle" : "Usa l'autenticazione del dispositivo per sbloccare",
+  "fingerprintPasswordAuthTitle" : "Usa l'autenticazione del dispositivo per vedere la password",
+  "fingerprintDialogTitle" : "Autenticazione richiesta",
+  "fingerprintDialogSubtitle" : "Verifica identità",
+
+  "importExportDisclaimer" : "Le seguenti opzioni ti permetteranno di importare/esportare gli account salvati in precedenza.\nPer impostazione predefinita, questo file verrà archiviato/letto dalla cartella dei download con formato CSV, è consentito solo il formato di file CSV.",
+  "exportAccounts" : "Esporta",
+  "importAccounts" : "Importa",
+
+  "exportedAccounts" : "Esportato con successo",
+  "importedAccounts" : "Importato con successo",
+
+  "searchHintText" : "Cerca account",
+
+  "seePasswordTooltip" : "Vedi password",
+  "hidePasswordTooltip" : "Nascondi password",
+
+  "dialogTitle" : "Ops, qualcosa è andato storto",
+  "dialogPickFileExceptionText" : "L'app non è riuscita a importare l'elenco degli account salvati in precedenza, il file è danneggiato o hai chiuso il selettore.\n\nSe hai chiuso il selettore, puoi chiudere questo avviso e riprovare.",
+  "dialogPickFolderExceptionText" : "L'app non è riuscita a esportare il tuo elenco di account, o hai riscontrato un'eccezione con il file o hai chiuso il selettore.\n\nSe hai chiuso il selettore, puoi chiudere questo avviso e riprovare.",
+  "dialogButtonText": "Ok, ho capito",
+
+  "deleteDialogTitle" : "Sei sicuro?",
+  "deleteDialogBody" : "Stai per eliminare l'account:\n\n{account}\n\nSei sicuro di volerlo rimuovere?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "Questa azione non può essere annullata.",
+  "deleteDialogCancel": "No, torna indietro",
+  "deleteDialogConfirm": "Sì, sono sicuro",
+
+  "randomPasswordViewTitle" : "Generatore di password casuali",
+  "randomPasswordDisclaimer" : "Questa password generata casualmente non verrà memorizzata da nessuna parte e verrà eliminata una volta usciti. Per salvarla è possibile utilizzare il modulo per salvare un account. Questa password può essere copiata tenendola premuta a lungo.",
+
+  "duplicatePasswordCheckerSettings" : "Password duplicate",
+  "duplicatePasswordCheckerSettingsDisclaimer" : "Questa funzione è ancora sperimentale, scusa se qualcosa non va, il feedback è apprezzato.",
+  "duplicatedPasswordCheckerViewTitle" : "Controllo duplicati",
+  "duplicatedPasswordCheckerViewLoading": "Caricamento statistiche, potrebbe volerci un po' a seconda di quanti account hai memorizzato",
+  "duplicatedPasswordCheckerViewSuccess": "Le password del {percentage} degli account sono diverse",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "L'elenco seguente serve solo a mostrare gli account che condividono la stessa password, non è possibile visualizzare la password né l'e-mail/nome utente assegnato a tale account, ma solo il nome utilizzato per salvare l'account.\n\nNote:\nGli account privati vengono conteggiati ma non mostrati\nIl nome della scheda è un segnaposto, non la password reale",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Password #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "Congratulazioni!!",
+  "duplicatedPasswordCheckerViewUniqueBody": "Tutti i tuoi account hanno una password diversa",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Torna indietro",
+
+  "experimentalFeatureInfoTooltip" : "Informazioni sulla funzione sperimentale",
+  "experimentalFeatureInfoDialogTitle" : "Funzione sperimentale",
+  "experimentalFeatureInfoDialogBody" : "La funzionalità attuale è ancora in fase sperimentale e potrebbe contenere bug. Se riscontri problemi o hai suggerimenti, sentiti libero di lasciare una recensione sul Play Store o aprire un nuovo ticket sulla pagina github del progetto (se possibile)\n\nGrazie mille per il tuo supporto.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
+}
