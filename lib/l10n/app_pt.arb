@@ -44,12 +44,12 @@
 
   "editViewTitle" : "Editar conta",
 
-  "fingerprintPrivateAuthTitle" : "Use a autenticação do dispositivo para desbloquear",
-  "fingerprintPasswordAuthTitle" : "Use a autenticação do dispositivo para ver a senha",
+  "fingerprintPrivateAuthTitle" : "Usar autenticação do dispositivo para desbloquear",
+  "fingerprintPasswordAuthTitle" : "Usar autenticação do dispositivo para ver a senha",
   "fingerprintDialogTitle" : "Autenticação necessária",
   "fingerprintDialogSubtitle" : "Verificar identidade",
 
-  "importExportDisclaimer" : "As opções a seguir permitirão que você importe/exporte as contas salvas anteriormente.\nPor padrão, este arquivo será armazenado/lido da pasta de downloads com formato CSV, apenas o formato de arquivo CSV é permitido.",
+  "importExportDisclaimer" : "As seguintes opções permitirão exportar/importar as contas salvas anteriormente.\nPor padrão, este arquivo será armazenado/lido na pasta de downloads ou documentos em formato CSV, apenas formato de arquivo CSV é permitido.",
   "exportAccounts" : "Exportar",
   "importAccounts" : "Importar",
 
@@ -62,12 +62,12 @@
   "hidePasswordTooltip" : "Ocultar senha",
 
   "dialogTitle" : "Ops, algo deu errado",
-  "dialogPickFileExceptionText" : "O aplicativo não conseguiu importar sua lista de contas salvas anteriormente, o arquivo está corrompido ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.",
-  "dialogPickFolderExceptionText" : "O aplicativo não pôde exportar sua lista de contas, ou você teve uma exceção com o arquivo ou fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.",
+  "dialogPickFolderExceptionText" : "O aplicativo não conseguiu exportar sua lista de contas, ou houve uma exceção com o arquivo ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.",
+  "dialogPickFileExceptionText" : "O aplicativo não conseguiu importar sua lista de contas salvas anteriormente, ou o arquivo está corrompido ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.",
   "dialogButtonText": "Ok, entendi",
 
-  "deleteDialogTitle" : "Você tem certeza?",
-  "deleteDialogBody" : "Você vai deletar a conta:\n\n{account}\n\nVocê tem certeza que quer removê-la?",
+  "deleteDialogTitle" : "Tem certeza?",
+  "deleteDialogBody" : "Você vai excluir a conta:\n\n{account}\n\nTem certeza de que deseja removê-la?",
   "@deleteDialogBody": {
     "placeholders": {
       "account": {
@@ -77,16 +77,16 @@
     }
   },
   "deleteDialogAdvice" : "Esta ação não pode ser desfeita.",
-  "deleteDialogCancel": "Não, volte",
+  "deleteDialogCancel": "Não, voltar",
   "deleteDialogConfirm": "Sim, tenho certeza",
 
-  "randomPasswordViewTitle" : "Gerador de Senha Aleatória",
-  "randomPasswordDisclaimer" : "Esta senha gerada aleatoriamente não será armazenada em lugar nenhum e será descartada ao sair. Para armazená-la, você pode usar o formulário para salvar uma conta. Esta senha pode ser copiada pressionando-a longamente.",
+  "randomPasswordViewTitle" : "Gerador de Senhas Aleatórias",
+  "randomPasswordDisclaimer" : "Esta senha aleatória gerada não será armazenada em lugar nenhum e será descartada ao sair, para armazená-la você pode usar o formulário para salvar uma conta, esta senha pode ser copiada pressionando-a longamente.",
 
   "duplicatedPasswordCheckerSettings" : "Senhas Duplicadas",
-  "duplicatedPasswordCheckerSettingsDisclaimer" : "Este recurso ainda é experimental, desculpe se algo estiver errado, o feedback é apreciado.",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Este recurso ainda é experimental, desculpe se algo estiver errado, feedback é apreciado.",
   "duplicatedPasswordCheckerViewTitle" : "Verificador de Duplicação",
-  "duplicatedPasswordCheckerViewLoading": "Carregando estatísticas, isso pode levar um tempo dependendo de quantas contas você armazenou",
+  "duplicatedPasswordCheckerViewLoading": "Carregando estatísticas, isso pode demorar um pouco dependendo de quantas contas você tem armazenadas",
   "duplicatedPasswordCheckerViewSuccess": "As senhas de {percentage} das contas são diferentes",
   "@duplicatedPasswordCheckerViewSuccess": {
     "placeholders": {
@@ -110,9 +110,9 @@
   "duplicatedPasswordCheckerViewUniqueBody": "Todas as suas contas têm uma senha diferente",
   "duplicatedPasswordCheckerViewUniqueGoBack": "Voltar",
 
-  "experimentalFeatureInfoTooltip" : "Informações do recurso experimental",
+  "experimentalFeatureInfoTooltip" : "Informações sobre recurso experimental",
   "experimentalFeatureInfoDialogTitle" : "Recurso experimental",
-  "experimentalFeatureInfoDialogBody" : "A funcionalidade atual ainda está em fase experimental и pode conter bugs. Se você estiver tendo problemas ou tiver alguma sugestão, sinta-se à vontade para deixar um comentário na Play Store ou abrir um novo ticket na página do projeto no github (se possível)\n\nMuito obrigado pelo seu apoio.",
+  "experimentalFeatureInfoDialogBody" : "A funcionalidade atual ainda está em fase experimental e pode conter bugs, se você estiver tendo problemas ou tiver alguma sugestão, sinta-se à vontade para deixar uma avaliação na Play Store ou abrir um novo ticket na página do github do projeto (se possível)\n\nMuito obrigado pelo seu apoio.",
   "experimentalFeatureInfoDialogPlayStore" : "Play Store",
   "experimentalFeatureInfoDialogGitHub" : "Github",
   "experimentalFeatureInfoDialogConfirm" : "Ok"

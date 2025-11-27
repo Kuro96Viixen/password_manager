@@ -116,7 +116,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get importExportDisclaimer =>
-      'The following options will allow you to import/export the previously saved accounts.\nBy default this file will be stored in/read from the downloads folder with CSV format, only CSV file format allowed.';
+      'The following options will allow you to export/import the previously saved accounts.\nBy default this file will be stored in/read from the downloads or documents folder with CSV format, only CSV file format allowed.';
 
   @override
   String get exportAccounts => 'Export';
@@ -143,12 +143,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dialogTitle => 'Oops, something went wrong';
 
   @override
-  String get dialogPickFileExceptionText =>
-      'The app couldn\'t import your previously saved accounts list, either the file is corrupted or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.';
-
-  @override
   String get dialogPickFolderExceptionText =>
       'The app couldn\'t export your accounts list, either you got an exception with the file or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.';
+
+  @override
+  String get dialogPickFileExceptionText =>
+      'The app couldn\'t import your previously saved accounts list, either the file is corrupted or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.';
 
   @override
   String get dialogButtonText => 'Ok, I understand';

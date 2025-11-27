@@ -313,7 +313,7 @@ abstract class AppLocalizations {
   /// No description provided for @importExportDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'The following options will allow you to import/export the previously saved accounts.\nBy default this file will be stored in/read from the downloads folder with CSV format, only CSV file format allowed.'**
+  /// **'The following options will allow you to export/import the previously saved accounts.\nBy default this file will be stored in/read from the downloads or documents folder with CSV format, only CSV file format allowed.'**
   String get importExportDisclaimer;
 
   /// No description provided for @exportAccounts.
@@ -364,17 +364,17 @@ abstract class AppLocalizations {
   /// **'Oops, something went wrong'**
   String get dialogTitle;
 
-  /// No description provided for @dialogPickFileExceptionText.
-  ///
-  /// In en, this message translates to:
-  /// **'The app couldn\'t import your previously saved accounts list, either the file is corrupted or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.'**
-  String get dialogPickFileExceptionText;
-
   /// No description provided for @dialogPickFolderExceptionText.
   ///
   /// In en, this message translates to:
   /// **'The app couldn\'t export your accounts list, either you got an exception with the file or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.'**
   String get dialogPickFolderExceptionText;
+
+  /// No description provided for @dialogPickFileExceptionText.
+  ///
+  /// In en, this message translates to:
+  /// **'The app couldn\'t import your previously saved accounts list, either the file is corrupted or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.'**
+  String get dialogPickFileExceptionText;
 
   /// No description provided for @dialogButtonText.
   ///

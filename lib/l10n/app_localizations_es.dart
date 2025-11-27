@@ -21,7 +21,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addNewAccountTooltip => 'Añadir nueva contraseña';
 
   @override
-  String get settingsTooltip => 'Ajustes';
+  String get settingsTooltip => 'Configuración';
 
   @override
   String get randomPasswordListTile => 'Generar contraseña aleatoria';
@@ -45,8 +45,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get useRandomPasswordSwitchTitle => 'Usar contraseña aleatoria';
 
   @override
-  String get passwordLengthTextFieldLabel =>
-      'Longitud de la contraseña aleatoria';
+  String get passwordLengthTextFieldLabel => 'Longitud de contraseña aleatoria';
 
   @override
   String get passwordLengthTextFieldHint => 'Por defecto 10';
@@ -103,11 +102,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get fingerprintPrivateAuthTitle =>
-      'Usa la autenticación del dispositivo para desbloquear';
+      'Usar autenticación del dispositivo para desbloquear';
 
   @override
   String get fingerprintPasswordAuthTitle =>
-      'Usa la autenticación del dispositivo para ver la contraseña';
+      'Usar autenticación del dispositivo para ver la contraseña';
 
   @override
   String get fingerprintDialogTitle => 'Autenticación requerida';
@@ -117,7 +116,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get importExportDisclaimer =>
-      'Las siguientes opciones te permitirán importar/exportar las cuentas guardadas previamente.\nPor defecto, este archivo se guardará/leerá desde la carpeta de descargas con formato CSV, solo se permite el formato de archivo CSV.';
+      'Las siguientes opciones te permitirán exportar/importar las cuentas guardadas previamente.\nPor defecto este archivo se almacenará/leerá desde la carpeta de descargas o documentos con formato CSV, solo se permite formato de archivo CSV.';
 
   @override
   String get exportAccounts => 'Exportar';
@@ -126,10 +125,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importAccounts => 'Importar';
 
   @override
-  String get exportedAccounts => 'Exportado con éxito';
+  String get exportedAccounts => 'Exportado exitosamente';
 
   @override
-  String get importedAccounts => 'Importado con éxito';
+  String get importedAccounts => 'Importado exitosamente';
 
   @override
   String get searchHintText => 'Buscar cuenta';
@@ -141,18 +140,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get hidePasswordTooltip => 'Ocultar contraseña';
 
   @override
-  String get dialogTitle => 'Vaya, algo salió mal';
-
-  @override
-  String get dialogPickFileExceptionText =>
-      'La aplicación no pudo importar la lista de cuentas guardadas anteriormente, el archivo está dañado o cerraste el selector.\n\nSi cerraste el selector, puedes cerrar este aviso e intentarlo de nuevo.';
+  String get dialogTitle => 'Ups, algo salió mal';
 
   @override
   String get dialogPickFolderExceptionText =>
-      'La aplicación no pudo exportar tu lista de cuentas, o bien tuviste una excepción con el archivo o cerraste el selector.\n\nSi cerraste el selector, puedes cerrar este aviso e intentarlo de nuevo.';
+      'La aplicación no pudo exportar tu lista de cuentas, o hubo una excepción con el archivo o cerraste el selector.\n\nSi cerraste el selector puedes cerrar este aviso e intentarlo de nuevo.';
 
   @override
-  String get dialogButtonText => 'Ok, lo entiendo';
+  String get dialogPickFileExceptionText =>
+      'La aplicación no pudo importar tu lista de cuentas guardadas previamente, o el archivo está corrupto o cerraste el selector.\n\nSi cerraste el selector puedes cerrar este aviso e intentarlo de nuevo.';
+
+  @override
+  String get dialogButtonText => 'Ok, entiendo';
 
   @override
   String get deleteDialogTitle => '¿Estás seguro?';
@@ -172,25 +171,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get deleteDialogConfirm => 'Sí, estoy seguro';
 
   @override
-  String get randomPasswordViewTitle => 'Generador de contraseñas aleatorias';
+  String get randomPasswordViewTitle => 'Generador de Contraseñas Aleatorias';
 
   @override
   String get randomPasswordDisclaimer =>
-      'Esta contraseña generada aleatoriamente no se guardará en ningún sitio y se descartará una vez que salgas. Para guardarla, puedes usar el formulario para guardar una cuenta. Esta contraseña se puede copiar manteniéndola pulsada.';
+      'Esta contraseña aleatoria generada no se almacenará en ningún lugar y se descartará una vez salgas, para almacenarla puedes usar el formulario para guardar una cuenta, esta contraseña se puede copiar manteniéndola presionada.';
 
   @override
-  String get duplicatedPasswordCheckerSettings => 'Contraseñas duplicadas';
+  String get duplicatedPasswordCheckerSettings => 'Contraseñas Duplicadas';
 
   @override
   String get duplicatedPasswordCheckerSettingsDisclaimer =>
-      'Esta función aún es experimental, disculpa si algo va mal, se agradecen los comentarios.';
+      'Esta característica aún es experimental, disculpa si algo está mal, se agradecen comentarios.';
 
   @override
-  String get duplicatedPasswordCheckerViewTitle => 'Contraseñas duplicadas';
+  String get duplicatedPasswordCheckerViewTitle => 'Verificador de Duplicación';
 
   @override
   String get duplicatedPasswordCheckerViewLoading =>
-      'Cargando estadísticas, esto puede tardar un poco dependiendo de cuántas cuentas tengas almacenadas';
+      'Cargando estadísticas, esto puede tardar un poco dependiendo de cuántas cuentas tengas guardadas';
 
   @override
   String duplicatedPasswordCheckerViewSuccess(num percentage) {
@@ -203,7 +202,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get duplicatedPasswordCheckerViewSuccessDisclaimer =>
-      'La siguiente lista es solo para mostrar las cuentas que comparten la misma contraseña, no puedes ver la contraseña ni el correo electrónico/nombre de usuario asignado a esa cuenta, solo el nombre que se usó para guardar la cuenta.\n\nNotas:\nLas cuentas privadas se cuentan pero no se muestran\nEl nombre de la tarjeta es un marcador de posición, no la contraseña real';
+      'La siguiente lista es solo para mostrar las cuentas que comparten la misma contraseña, no puedes ver la contraseña ni el correo/usuario asignado a esa cuenta, solo el nombre que se usó para guardar la cuenta.\n\nNotas:\nLas cuentas privadas se cuentan pero no se muestran\nEl nombre de la tarjeta es un marcador de posición, no la contraseña real';
 
   @override
   String duplicatedPasswordCheckerViewSuccessCardTitle(num index) {
@@ -216,7 +215,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get duplicatedPasswordCheckerViewUniqueCongrats => '¡Felicidades!';
+  String get duplicatedPasswordCheckerViewUniqueCongrats => '¡¡Felicidades!!';
 
   @override
   String get duplicatedPasswordCheckerViewUniqueBody =>
@@ -227,14 +226,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get experimentalFeatureInfoTooltip =>
-      'Información de la función experimental';
+      'Información sobre característica experimental';
 
   @override
-  String get experimentalFeatureInfoDialogTitle => 'Función experimental';
+  String get experimentalFeatureInfoDialogTitle =>
+      'Característica experimental';
 
   @override
   String get experimentalFeatureInfoDialogBody =>
-      'La funcionalidad actual todavía está en fase experimental y puede contener errores. Si tienes problemas o alguna sugerencia, no dudes en dejar una reseña en la Play Store o abrir un nuevo ticket en la página de github del proyecto (si es posible)\n\nMuchas gracias por tu apoyo.';
+      'La funcionalidad actual todavía está en fase experimental y puede contener errores, si tienes problemas o tienes alguna sugerencia, no dudes en dejar una reseña en Play Store o abrir un nuevo ticket en la página de github del proyecto (si es posible)\n\nMuchas gracias por tu apoyo.';
 
   @override
   String get experimentalFeatureInfoDialogPlayStore => 'Play Store';

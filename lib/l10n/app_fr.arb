@@ -16,7 +16,7 @@
   "passwordTextFieldLabel" : "Mot de passe",
   "useRandomPasswordSwitchTitle" : "Utiliser un mot de passe aléatoire",
   "passwordLengthTextFieldLabel" : "Longueur du mot de passe aléatoire",
-  "passwordLengthTextFieldHint" : "Défaut 10",
+  "passwordLengthTextFieldHint" : "Par défaut 10",
   "spanishCheckBoxTitle" : "Caractères espagnols (ñ)",
   "numbersCheckBoxTitle" : "Nombres",
   "symbolsCheckBoxTitle" : "Symboles",
@@ -49,7 +49,7 @@
   "fingerprintDialogTitle" : "Authentification requise",
   "fingerprintDialogSubtitle" : "Vérifier l'identité",
 
-  "importExportDisclaimer" : "Les options suivantes vous permettront d'importer/exporter les comptes précédemment enregistrés.\nPar défaut, ce fichier sera stocké/lu depuis le dossier des téléchargements au format CSV, seul le format de fichier CSV est autorisé.",
+  "importExportDisclaimer" : "Les options suivantes vous permettront d'exporter/importer les comptes précédemment enregistrés.\nPar défaut, ce fichier sera stocké/lu dans le dossier téléchargements ou documents au format CSV, seul le format de fichier CSV est autorisé.",
   "exportAccounts" : "Exporter",
   "importAccounts" : "Importer",
 
@@ -59,11 +59,11 @@
   "searchHintText" : "Rechercher un compte",
 
   "seePasswordTooltip" : "Voir le mot de passe",
-  "hidePasswordTooltip" : "Cacher le mot de passe",
+  "hidePasswordTooltip" : "Masquer le mot de passe",
 
   "dialogTitle" : "Oups, quelque chose s'est mal passé",
-  "dialogPickFileExceptionText" : "L'application n'a pas pu importer votre liste de comptes précédemment enregistrée, soit le fichier est corrompu, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.",
   "dialogPickFolderExceptionText" : "L'application n'a pas pu exporter votre liste de comptes, soit vous avez eu une exception avec le fichier, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.",
+  "dialogPickFileExceptionText" : "L'application n'a pas pu importer votre liste de comptes précédemment enregistrée, soit le fichier est corrompu, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.",
   "dialogButtonText": "Ok, je comprends",
 
   "deleteDialogTitle" : "Êtes-vous sûr ?",
@@ -77,16 +77,16 @@
     }
   },
   "deleteDialogAdvice" : "Cette action ne peut pas être annulée.",
-  "deleteDialogCancel": "Non, retour",
-  "deleteDialogConfirm": "Oui, je suis sûr",
+  "deleteDialogCancel": "Non, revenir en arrière",
+  "deleteDialogConfirm": "Oui, j'en suis sûr",
 
-  "randomPasswordViewTitle" : "Générateur de mot de passe aléatoire",
-  "randomPasswordDisclaimer" : "Ce mot de passe généré aléatoirement ne sera stocké nulle part et sera supprimé une fois que vous quitterez. Pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte. Ce mot de passe peut être copié en appuyant longuement dessus.",
+  "randomPasswordViewTitle" : "Générateur de Mots de Passe Aléatoires",
+  "randomPasswordDisclaimer" : "Ce mot de passe aléatoire généré ne sera stocké nulle part et sera supprimé une fois que vous quitterez, pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte, ce mot de passe peut être copié en le maintenant enfoncé.",
 
-  "duplicatedPasswordCheckerSettings" : "Mots de passe dupliqués",
+  "duplicatedPasswordCheckerSettings" : "Mots de Passe en Double",
   "duplicatedPasswordCheckerSettingsDisclaimer" : "Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.",
-  "duplicatedPasswordCheckerViewTitle" : "Vérificateur de duplication",
-  "duplicatedPasswordCheckerViewLoading": "Chargement des statistiques, cela может prendre un certain temps en fonction du nombre de comptes que vous avez stockés",
+  "duplicatedPasswordCheckerViewTitle" : "Vérificateur de Duplication",
+  "duplicatedPasswordCheckerViewLoading": "Chargement des statistiques, cela peut prendre un certain temps en fonction du nombre de comptes que vous avez enregistrés",
   "duplicatedPasswordCheckerViewSuccess": "Les mots de passe de {percentage} des comptes sont différents",
   "@duplicatedPasswordCheckerViewSuccess": {
     "placeholders": {
@@ -96,7 +96,7 @@
       }
     }
   },
-  "duplicatedPasswordCheckerViewSuccessDisclaimer": "La liste suivante sert uniquement à afficher les comptes qui partagent le même mot de passe, vous не pouvez pas voir le mot de passe ni l'e-mail/nom d'utilisateur attribué à ce compte, uniquement le nom qui a été utilisé pour enregistrer le compte.\n\nRemarques :\nLes comptes privés sont comptés mais non affichés\nLe nom de la carte est un espace réservé, pas le vrai mot de passe",
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "La liste suivante sert uniquement à afficher les comptes qui partagent le même mot de passe, vous ne pouvez pas voir le mot de passe ni l'e-mail/nom d'utilisateur attribué à ce compte, uniquement le nom qui a été utilisé pour enregistrer le compte.\n\nRemarques :\nLes comptes privés sont comptés mais pas affichés\nLe nom de la carte est un espace réservé, pas le vrai mot de passe",
   "duplicatedPasswordCheckerViewSuccessCardTitle": "Mot de passe #{index}",
   "@duplicatedPasswordCheckerViewSuccessCardTitle": {
     "placeholders": {
@@ -112,8 +112,8 @@
 
   "experimentalFeatureInfoTooltip" : "Informations sur la fonctionnalité expérimentale",
   "experimentalFeatureInfoDialogTitle" : "Fonctionnalité expérimentale",
-  "experimentalFeatureInfoDialogBody" : "La fonctionnalité actuelle est encore en phase expérimentale et peut contenir des bogues. Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à laisser un commentaire sur le Play Store ou à ouvrir un nouveau ticket sur la page github du projet (si possible)\n\nMerci beaucoup pour votre soutien.",
+  "experimentalFeatureInfoDialogBody" : "La fonctionnalité actuelle est encore en phase expérimentale et peut contenir des bugs, si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à laisser un avis sur le Play Store ou à ouvrir un nouveau ticket sur la page github du projet (si possible)\n\nMerci beaucoup pour votre soutien.",
   "experimentalFeatureInfoDialogPlayStore" : "Play Store",
   "experimentalFeatureInfoDialogGitHub" : "Github",
-  "experimentalFeatureInfoDialogConfirm" : "D'accord"
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
 }

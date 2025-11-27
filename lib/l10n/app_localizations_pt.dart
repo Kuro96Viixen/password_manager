@@ -102,11 +102,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get fingerprintPrivateAuthTitle =>
-      'Use a autenticação do dispositivo para desbloquear';
+      'Usar autenticação do dispositivo para desbloquear';
 
   @override
   String get fingerprintPasswordAuthTitle =>
-      'Use a autenticação do dispositivo para ver a senha';
+      'Usar autenticação do dispositivo para ver a senha';
 
   @override
   String get fingerprintDialogTitle => 'Autenticação necessária';
@@ -116,7 +116,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get importExportDisclaimer =>
-      'As opções a seguir permitirão que você importe/exporte as contas salvas anteriormente.\nPor padrão, este arquivo será armazenado/lido da pasta de downloads com formato CSV, apenas o formato de arquivo CSV é permitido.';
+      'As seguintes opções permitirão exportar/importar as contas salvas anteriormente.\nPor padrão, este arquivo será armazenado/lido na pasta de downloads ou documentos em formato CSV, apenas formato de arquivo CSV é permitido.';
 
   @override
   String get exportAccounts => 'Exportar';
@@ -143,53 +143,53 @@ class AppLocalizationsPt extends AppLocalizations {
   String get dialogTitle => 'Ops, algo deu errado';
 
   @override
-  String get dialogPickFileExceptionText =>
-      'O aplicativo não conseguiu importar sua lista de contas salvas anteriormente, o arquivo está corrompido ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.';
+  String get dialogPickFolderExceptionText =>
+      'O aplicativo não conseguiu exportar sua lista de contas, ou houve uma exceção com o arquivo ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.';
 
   @override
-  String get dialogPickFolderExceptionText =>
-      'O aplicativo não pôde exportar sua lista de contas, ou você teve uma exceção com o arquivo ou fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.';
+  String get dialogPickFileExceptionText =>
+      'O aplicativo não conseguiu importar sua lista de contas salvas anteriormente, ou o arquivo está corrompido ou você fechou o seletor.\n\nSe você fechou o seletor, pode fechar este aviso e tentar novamente.';
 
   @override
   String get dialogButtonText => 'Ok, entendi';
 
   @override
-  String get deleteDialogTitle => 'Você tem certeza?';
+  String get deleteDialogTitle => 'Tem certeza?';
 
   @override
   String deleteDialogBody(String account) {
-    return 'Você vai deletar a conta:\n\n$account\n\nVocê tem certeza que quer removê-la?';
+    return 'Você vai excluir a conta:\n\n$account\n\nTem certeza de que deseja removê-la?';
   }
 
   @override
   String get deleteDialogAdvice => 'Esta ação não pode ser desfeita.';
 
   @override
-  String get deleteDialogCancel => 'Não, volte';
+  String get deleteDialogCancel => 'Não, voltar';
 
   @override
   String get deleteDialogConfirm => 'Sim, tenho certeza';
 
   @override
-  String get randomPasswordViewTitle => 'Gerador de Senha Aleatória';
+  String get randomPasswordViewTitle => 'Gerador de Senhas Aleatórias';
 
   @override
   String get randomPasswordDisclaimer =>
-      'Esta senha gerada aleatoriamente não será armazenada em lugar nenhum e será descartada ao sair. Para armazená-la, você pode usar o formulário para salvar uma conta. Esta senha pode ser copiada pressionando-a longamente.';
+      'Esta senha aleatória gerada não será armazenada em lugar nenhum e será descartada ao sair, para armazená-la você pode usar o formulário para salvar uma conta, esta senha pode ser copiada pressionando-a longamente.';
 
   @override
   String get duplicatedPasswordCheckerSettings => 'Senhas Duplicadas';
 
   @override
   String get duplicatedPasswordCheckerSettingsDisclaimer =>
-      'Este recurso ainda é experimental, desculpe se algo estiver errado, o feedback é apreciado.';
+      'Este recurso ainda é experimental, desculpe se algo estiver errado, feedback é apreciado.';
 
   @override
   String get duplicatedPasswordCheckerViewTitle => 'Verificador de Duplicação';
 
   @override
   String get duplicatedPasswordCheckerViewLoading =>
-      'Carregando estatísticas, isso pode levar um tempo dependendo de quantas contas você armazenou';
+      'Carregando estatísticas, isso pode demorar um pouco dependendo de quantas contas você tem armazenadas';
 
   @override
   String duplicatedPasswordCheckerViewSuccess(num percentage) {
@@ -226,14 +226,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get experimentalFeatureInfoTooltip =>
-      'Informações do recurso experimental';
+      'Informações sobre recurso experimental';
 
   @override
   String get experimentalFeatureInfoDialogTitle => 'Recurso experimental';
 
   @override
   String get experimentalFeatureInfoDialogBody =>
-      'A funcionalidade atual ainda está em fase experimental и pode conter bugs. Se você estiver tendo problemas ou tiver alguma sugestão, sinta-se à vontade para deixar um comentário na Play Store ou abrir um novo ticket na página do projeto no github (se possível)\n\nMuito obrigado pelo seu apoio.';
+      'A funcionalidade atual ainda está em fase experimental e pode conter bugs, se você estiver tendo problemas ou tiver alguma sugestão, sinta-se à vontade para deixar uma avaliação na Play Store ou abrir um novo ticket na página do github do projeto (se possível)\n\nMuito obrigado pelo seu apoio.';
 
   @override
   String get experimentalFeatureInfoDialogPlayStore => 'Play Store';

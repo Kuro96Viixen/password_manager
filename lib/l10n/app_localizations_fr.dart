@@ -50,7 +50,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Longueur du mot de passe aléatoire';
 
   @override
-  String get passwordLengthTextFieldHint => 'Défaut 10';
+  String get passwordLengthTextFieldHint => 'Par défaut 10';
 
   @override
   String get spanishCheckBoxTitle => 'Caractères espagnols (ñ)';
@@ -118,7 +118,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get importExportDisclaimer =>
-      'Les options suivantes vous permettront d\'importer/exporter les comptes précédemment enregistrés.\nPar défaut, ce fichier sera stocké/lu depuis le dossier des téléchargements au format CSV, seul le format de fichier CSV est autorisé.';
+      'Les options suivantes vous permettront d\'exporter/importer les comptes précédemment enregistrés.\nPar défaut, ce fichier sera stocké/lu dans le dossier téléchargements ou documents au format CSV, seul le format de fichier CSV est autorisé.';
 
   @override
   String get exportAccounts => 'Exporter';
@@ -139,18 +139,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get seePasswordTooltip => 'Voir le mot de passe';
 
   @override
-  String get hidePasswordTooltip => 'Cacher le mot de passe';
+  String get hidePasswordTooltip => 'Masquer le mot de passe';
 
   @override
   String get dialogTitle => 'Oups, quelque chose s\'est mal passé';
 
   @override
-  String get dialogPickFileExceptionText =>
-      'L\'application n\'a pas pu importer votre liste de comptes précédemment enregistrée, soit le fichier est corrompu, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.';
-
-  @override
   String get dialogPickFolderExceptionText =>
       'L\'application n\'a pas pu exporter votre liste de comptes, soit vous avez eu une exception avec le fichier, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.';
+
+  @override
+  String get dialogPickFileExceptionText =>
+      'L\'application n\'a pas pu importer votre liste de comptes précédemment enregistrée, soit le fichier est corrompu, soit vous avez fermé le sélecteur.\n\nSi vous avez fermé le sélecteur, vous pouvez fermer cet avis et réessayer.';
 
   @override
   String get dialogButtonText => 'Ok, je comprends';
@@ -167,20 +167,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteDialogAdvice => 'Cette action ne peut pas être annulée.';
 
   @override
-  String get deleteDialogCancel => 'Non, retour';
+  String get deleteDialogCancel => 'Non, revenir en arrière';
 
   @override
-  String get deleteDialogConfirm => 'Oui, je suis sûr';
+  String get deleteDialogConfirm => 'Oui, j\'en suis sûr';
 
   @override
-  String get randomPasswordViewTitle => 'Générateur de mot de passe aléatoire';
+  String get randomPasswordViewTitle =>
+      'Générateur de Mots de Passe Aléatoires';
 
   @override
   String get randomPasswordDisclaimer =>
-      'Ce mot de passe généré aléatoirement ne sera stocké nulle part et sera supprimé une fois que vous quitterez. Pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte. Ce mot de passe peut être copié en appuyant longuement dessus.';
+      'Ce mot de passe aléatoire généré ne sera stocké nulle part et sera supprimé une fois que vous quitterez, pour le stocker, vous pouvez utiliser le formulaire pour enregistrer un compte, ce mot de passe peut être copié en le maintenant enfoncé.';
 
   @override
-  String get duplicatedPasswordCheckerSettings => 'Mots de passe dupliqués';
+  String get duplicatedPasswordCheckerSettings => 'Mots de Passe en Double';
 
   @override
   String get duplicatedPasswordCheckerSettingsDisclaimer =>
@@ -188,11 +189,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get duplicatedPasswordCheckerViewTitle =>
-      'Vérificateur de duplication';
+      'Vérificateur de Duplication';
 
   @override
   String get duplicatedPasswordCheckerViewLoading =>
-      'Chargement des statistiques, cela может prendre un certain temps en fonction du nombre de comptes que vous avez stockés';
+      'Chargement des statistiques, cela peut prendre un certain temps en fonction du nombre de comptes que vous avez enregistrés';
 
   @override
   String duplicatedPasswordCheckerViewSuccess(num percentage) {
@@ -205,7 +206,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get duplicatedPasswordCheckerViewSuccessDisclaimer =>
-      'La liste suivante sert uniquement à afficher les comptes qui partagent le même mot de passe, vous не pouvez pas voir le mot de passe ni l\'e-mail/nom d\'utilisateur attribué à ce compte, uniquement le nom qui a été utilisé pour enregistrer le compte.\n\nRemarques :\nLes comptes privés sont comptés mais non affichés\nLe nom de la carte est un espace réservé, pas le vrai mot de passe';
+      'La liste suivante sert uniquement à afficher les comptes qui partagent le même mot de passe, vous ne pouvez pas voir le mot de passe ni l\'e-mail/nom d\'utilisateur attribué à ce compte, uniquement le nom qui a été utilisé pour enregistrer le compte.\n\nRemarques :\nLes comptes privés sont comptés mais pas affichés\nLe nom de la carte est un espace réservé, pas le vrai mot de passe';
 
   @override
   String duplicatedPasswordCheckerViewSuccessCardTitle(num index) {
@@ -237,7 +238,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get experimentalFeatureInfoDialogBody =>
-      'La fonctionnalité actuelle est encore en phase expérimentale et peut contenir des bogues. Si vous rencontrez des problèmes ou avez des suggestions, n\'hésitez pas à laisser un commentaire sur le Play Store ou à ouvrir un nouveau ticket sur la page github du projet (si possible)\n\nMerci beaucoup pour votre soutien.';
+      'La fonctionnalité actuelle est encore en phase expérimentale et peut contenir des bugs, si vous rencontrez des problèmes ou avez des suggestions, n\'hésitez pas à laisser un avis sur le Play Store ou à ouvrir un nouveau ticket sur la page github du projet (si possible)\n\nMerci beaucoup pour votre soutien.';
 
   @override
   String get experimentalFeatureInfoDialogPlayStore => 'Play Store';
@@ -246,5 +247,5 @@ class AppLocalizationsFr extends AppLocalizations {
   String get experimentalFeatureInfoDialogGitHub => 'Github';
 
   @override
-  String get experimentalFeatureInfoDialogConfirm => 'D\'accord';
+  String get experimentalFeatureInfoDialogConfirm => 'Ok';
 }

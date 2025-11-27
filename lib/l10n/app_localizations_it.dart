@@ -12,7 +12,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get title => 'Password Manager';
 
   @override
-  String get accountsViewTitle => 'Elenco account';
+  String get accountsViewTitle => 'Elenco degli account';
 
   @override
   String get showPrivateTooltip => 'Mostra privati';
@@ -27,7 +27,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get randomPasswordListTile => 'Genera password casuale';
 
   @override
-  String get privateAccountsViewTitle => 'Elenco account privati';
+  String get privateAccountsViewTitle => 'Elenco degli account privati';
 
   @override
   String get addViewTitle => 'Aggiungi nuovo account';
@@ -74,7 +74,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get saveAccountButton => 'Salva account';
 
   @override
-  String get viewAccountViewTitle => 'Dettagli account';
+  String get viewAccountViewTitle => 'Dettagli dell\'account';
 
   @override
   String get viewAccountNameLabel => 'Nome';
@@ -116,7 +116,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get importExportDisclaimer =>
-      'Le seguenti opzioni ti permetteranno di importare/esportare gli account salvati in precedenza.\nPer impostazione predefinita, questo file verrà archiviato/letto dalla cartella dei download con formato CSV, è consentito solo il formato di file CSV.';
+      'Le seguenti opzioni ti consentiranno di esportare/importare gli account salvati in precedenza.\nPer impostazione predefinita questo file verrà archiviato/letto dalla cartella download o documenti in formato CSV, è consentito solo il formato file CSV.';
 
   @override
   String get exportAccounts => 'Esporta';
@@ -143,12 +143,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get dialogTitle => 'Ops, qualcosa è andato storto';
 
   @override
-  String get dialogPickFileExceptionText =>
-      'L\'app non è riuscita a importare l\'elenco degli account salvati in precedenza, il file è danneggiato o hai chiuso il selettore.\n\nSe hai chiuso il selettore, puoi chiudere questo avviso e riprovare.';
+  String get dialogPickFolderExceptionText =>
+      'L\'app non è riuscita a esportare il tuo elenco di account, o hai avuto un\'eccezione con il file o hai chiuso il selettore.\n\nSe hai chiuso il selettore puoi chiudere questo avviso e riprovare.';
 
   @override
-  String get dialogPickFolderExceptionText =>
-      'L\'app non è riuscita a esportare il tuo elenco di account, o hai riscontrato un\'eccezione con il file o hai chiuso il selettore.\n\nSe hai chiuso il selettore, puoi chiudere questo avviso e riprovare.';
+  String get dialogPickFileExceptionText =>
+      'L\'app non è riuscita a importare il tuo elenco di account salvato in precedenza, o il file è corrotto o hai chiuso il selettore.\n\nSe hai chiuso il selettore puoi chiudere questo avviso e riprovare.';
 
   @override
   String get dialogButtonText => 'Ok, ho capito';
@@ -171,25 +171,25 @@ class AppLocalizationsIt extends AppLocalizations {
   String get deleteDialogConfirm => 'Sì, sono sicuro';
 
   @override
-  String get randomPasswordViewTitle => 'Generatore di password casuali';
+  String get randomPasswordViewTitle => 'Generatore di Password Casuali';
 
   @override
   String get randomPasswordDisclaimer =>
-      'Questa password generata casualmente non verrà memorizzata da nessuna parte e verrà eliminata una volta usciti. Per salvarla è possibile utilizzare il modulo per salvare un account. Questa password può essere copiata tenendola premuta a lungo.';
+      'Questa password casuale generata non verrà memorizzata da nessuna parte e verrà scartata all\'uscita, per memorizzarla potresti utilizzare il modulo per salvare un account, questa password può essere copiata premendola a lungo.';
 
   @override
-  String get duplicatedPasswordCheckerSettings => 'Password duplicate';
+  String get duplicatedPasswordCheckerSettings => 'Password Duplicate';
 
   @override
   String get duplicatedPasswordCheckerSettingsDisclaimer =>
-      'Questa funzione è ancora sperimentale, scusa se qualcosa non va, il feedback è apprezzato.';
+      'Questa funzionalità è ancora sperimentale, scusa se qualcosa non va, i feedback sono apprezzati.';
 
   @override
-  String get duplicatedPasswordCheckerViewTitle => 'Controllo duplicati';
+  String get duplicatedPasswordCheckerViewTitle => 'Controllo Duplicati';
 
   @override
   String get duplicatedPasswordCheckerViewLoading =>
-      'Caricamento statistiche, potrebbe volerci un po\' a seconda di quanti account hai memorizzato';
+      'Caricamento delle statistiche, questo potrebbe richiedere del tempo a seconda di quanti account hai memorizzato';
 
   @override
   String duplicatedPasswordCheckerViewSuccess(num percentage) {
@@ -202,7 +202,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get duplicatedPasswordCheckerViewSuccessDisclaimer =>
-      'L\'elenco seguente serve solo a mostrare gli account che condividono la stessa password, non è possibile visualizzare la password né l\'e-mail/nome utente assegnato a tale account, ma solo il nome utilizzato per salvare l\'account.\n\nNote:\nGli account privati vengono conteggiati ma non mostrati\nIl nome della scheda è un segnaposto, non la password reale';
+      'Il seguente elenco serve solo a mostrare gli account che condividono la stessa password, non puoi vedere la password né l\'email/nome utente assegnato a quell\'account, solo il nome utilizzato per salvare l\'account.\n\nNote:\nGli account privati sono conteggiati ma non mostrati\nIl nome della scheda è un segnaposto, non la password reale';
 
   @override
   String duplicatedPasswordCheckerViewSuccessCardTitle(num index) {
@@ -226,14 +226,14 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get experimentalFeatureInfoTooltip =>
-      'Informazioni sulla funzione sperimentale';
+      'Informazioni sulla funzionalità sperimentale';
 
   @override
-  String get experimentalFeatureInfoDialogTitle => 'Funzione sperimentale';
+  String get experimentalFeatureInfoDialogTitle => 'Funzionalità sperimentale';
 
   @override
   String get experimentalFeatureInfoDialogBody =>
-      'La funzionalità attuale è ancora in fase sperimentale e potrebbe contenere bug. Se riscontri problemi o hai suggerimenti, sentiti libero di lasciare una recensione sul Play Store o aprire un nuovo ticket sulla pagina github del progetto (se possibile)\n\nGrazie mille per il tuo supporto.';
+      'La funzionalità attuale è ancora in fase sperimentale e potrebbe contenere bug, se hai problemi o hai suggerimenti, sentiti libero di lasciare una recensione sul Play Store o aprire un nuovo ticket sulla pagina github del progetto (se possibile)\n\nGrazie mille per il tuo supporto.';
 
   @override
   String get experimentalFeatureInfoDialogPlayStore => 'Play Store';
