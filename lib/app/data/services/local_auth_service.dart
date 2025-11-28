@@ -18,8 +18,8 @@ class LocalAuthServiceImpl implements LocalAuthService {
       localizedReason: l10n.fingerprintPrivateAuthTitle,
       // authMessages: [
       //   AndroidAuthMessages(
-      //     signInTitle: Texts.fingerprintDialogTitle,
-      //     biometricHint: Texts.fingerprintDialogSubtitle,
+      //     signInTitle: l10n.fingerprintDialogTitle,
+      //     biometricHint: l10n.fingerprintDialogSubtitle,
       //   ),
       // ],
       options: const AuthenticationOptions(
