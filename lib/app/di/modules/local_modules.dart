@@ -11,7 +11,9 @@ void _localModulesInit() {
       FilePickerServiceImpl.new,
     )
     ..registerLazySingleton<LocalAuthService>(
-      LocalAuthServiceImpl.new,
+      () => LocalAuthServiceImpl(
+        PlatformDispatcher.instance.locale,
+      ),
     )
     ..registerLazySingleton<SecureStorageService>(
       SecureStorageServiceImpl.new,

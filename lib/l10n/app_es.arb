@@ -44,8 +44,8 @@
 
   "editViewTitle" : "Editar cuenta",
 
-  "fingerprintPrivateAuthTitle" : "Usar autenticación del dispositivo para desbloquear",
-  "fingerprintPasswordAuthTitle" : "Usar autenticación del dispositivo para ver la contraseña",
+  "fingerprintPrivateAuthTitle" : "Usar la autenticación del dispositivo para desbloquear",
+  "fingerprintPasswordAuthTitle" : "Usar la autenticación del dispositivo para ver la contraseña",
   "fingerprintDialogTitle" : "Autenticación requerida",
   "fingerprintDialogSubtitle" : "Verificar identidad",
 
