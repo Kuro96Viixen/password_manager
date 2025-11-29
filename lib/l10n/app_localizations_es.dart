@@ -102,11 +102,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get fingerprintPrivateAuthTitle =>
-      'Usar autenticación del dispositivo para desbloquear';
+      'Usar la autenticación del dispositivo para desbloquear';
 
   @override
   String get fingerprintPasswordAuthTitle =>
-      'Usar autenticación del dispositivo para ver la contraseña';
+      'Usar la autenticación del dispositivo para ver la contraseña';
 
   @override
   String get fingerprintDialogTitle => 'Autenticación requerida';
