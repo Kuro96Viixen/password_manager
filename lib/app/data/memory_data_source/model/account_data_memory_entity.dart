@@ -1,24 +1,40 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'account_data_memory_entity.freezed.dart';
-
-@freezed
-sealed class AccountsDataMemoryEntity with _$AccountsDataMemoryEntity {
-  const factory AccountsDataMemoryEntity({
-    required List<AccountDataMemoryEntity> accountsList,
-  }) = _AccountsDataMemoryEntity;
+final class AccountsDataMemoryEntity extends Equatable {
+  const AccountsDataMemoryEntity({required this.accountsList});
 
   factory AccountsDataMemoryEntity.empty() =>
       const AccountsDataMemoryEntity(accountsList: []);
+
+  final List<AccountDataMemoryEntity> accountsList;
+
+  @override
+  List<Object?> get props => [accountsList];
+
+  AccountsDataMemoryEntity copyWith({
+    List<AccountDataMemoryEntity>? accountsList,
+  }) {
+    return AccountsDataMemoryEntity(
+      accountsList: accountsList ?? this.accountsList,
+    );
+  }
 }
 
-@freezed
-sealed class AccountDataMemoryEntity with _$AccountDataMemoryEntity {
-  const factory AccountDataMemoryEntity({
-    required String name,
-    required String username,
-    required String password,
-    required String passwordIV,
-    required bool private,
-  }) = _AccountDataMemoryEntity;
+final class AccountDataMemoryEntity extends Equatable {
+  const AccountDataMemoryEntity({
+    required this.name,
+    required this.username,
+    required this.password,
+    required this.passwordIV,
+    required this.private,
+  });
+
+  final String name;
+  final String username;
+  final String password;
+  final String passwordIV;
+  final bool private;
+
+  @override
+  List<Object?> get props => [name, username, password, passwordIV, private];
 }

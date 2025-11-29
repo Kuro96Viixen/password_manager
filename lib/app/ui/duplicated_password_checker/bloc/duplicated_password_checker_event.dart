@@ -1,9 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'duplicated_password_checker_event.freezed.dart';
+sealed class DuplicatedPasswordCheckerEvent extends Equatable {
+  const DuplicatedPasswordCheckerEvent();
 
-@freezed
-sealed class DuplicatedPasswordCheckerEvent
-    with _$DuplicatedPasswordCheckerEvent {
-  const factory DuplicatedPasswordCheckerEvent.started() = Started;
+  @override
+  List<Object?> get props => [];
+}
+
+final class DuplicatedPasswordCheckerStarted
+    extends DuplicatedPasswordCheckerEvent {
+  const DuplicatedPasswordCheckerStarted();
 }

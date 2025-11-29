@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
+import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/domain/use_cases/decrypt_password_use_case.dart';
@@ -26,71 +26,30 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     required this.getAuthenticationUseCase,
     required this.decryptPasswordUseCase,
   }) : super(DetailsState.initial()) {
-    on<DetailsEvent>((event, emit) async {
-      switch (event) {
-        case Started(accountData: final accountData):
-          await _mapStartedEventToState(emit, accountData);
-        case PressedDelete():
-          emit(
-            state.copyWith(
-              popUpEvent: const UIEvent(),
-            ),
-          );
-        case DeleteAccount(accountData: final accountData):
-          await _mapDeleteAccountEventToState(accountData, emit);
-        case RevealPassword(password: final password):
-          if (await getAuthenticationUseCase()) {
-            final decryptedPassword = await decryptPasswordUseCase(
-              password,
-            );
-
-            emit(state.copyWith(passwordString: decryptedPassword));
-          }
-        case CopyPassword(password: final password):
-          final decryptedPassword = await decryptPasswordUseCase(password);
-
-          await Clipboard.setData(ClipboardData(text: decryptedPassword));
-
-          emit(
-            state.copyWith(
-              snackBarEvent: UIEvent(
-                data: Texts.copiedToClipboard,
-              ),
-            ),
-          );
-        case PressedModify():
-          final accountsData = await getAccountsDataUseCase();
-
-          emit(
-            state.copyWith(
-              modifyEvent: UIEvent(
-                data: accountsData.accountsList[state.accountPosition],
-              ),
-            ),
-          );
-        case MarkModifyAsConsumed():
-          emit(state.copyWith(modifyEvent: state.modifyEvent.asConsumed()));
-        case MarkSnackBarAsConsumed():
-          emit(state.copyWith(snackBarEvent: state.snackBarEvent.asConsumed()));
-        case MarkPopUpAsConsumed():
-          emit(state.copyWith(popUpEvent: state.popUpEvent.asConsumed()));
-      }
-    });
+    on<DetailsStarted>(_onStarted);
+    on<PressedDelete>(_onPressedDelete);
+    on<DeleteAccount>(_onDeleteAccount);
+    on<RevealPassword>(_onRevealPassword);
+    on<CopyPassword>(_onCopyPassword);
+    on<PressedModify>(_onPressedModify);
+    on<MarkModifyAsConsumed>(_onMarkModifyAsConsumed);
+    on<MarkCopySnackBarAsConsumed>(_onMarkCopySnackBarAsConsumed);
+    on<MarkPopUpAsConsumed>(_onMarkPopUpAsConsumed);
   }
 
-  Future<void> _mapStartedEventToState(
+  Future<void> _onStarted(
+    DetailsStarted event,
     Emitter<DetailsState> emit,
-    AccountData accountData,
   ) async {
     emit(
       state.copyWith(
-        screenState: const DetailsScreenState.loading(),
+        screenState: const Loading(),
       ),
     );
 
     final accountsData = await getAccountsDataUseCase();
 
-    var accountPosition = accountsData.accountsList.indexOf(accountData);
+    var accountPosition = accountsData.accountsList.indexOf(event.accountData);
 
     if (accountPosition == -1) {
       accountPosition = state.accountPosition;
@@ -98,22 +57,32 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
     emit(
       state.copyWith(
-        passwordString: Texts.hiddenPasswordText,
         accountData: accountsData.accountsList[accountPosition],
         accountPosition: accountPosition,
-        screenState: const DetailsScreenState.loaded(),
+        screenState: const Loaded(),
       ),
     );
   }
 
-  Future<void> _mapDeleteAccountEventToState(
-    AccountData accountData,
+  void _onPressedDelete(
+    PressedDelete event,
+    Emitter<DetailsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        popUpEvent: const UIEvent(),
+      ),
+    );
+  }
+
+  Future<void> _onDeleteAccount(
+    DeleteAccount event,
     Emitter<DetailsState> emit,
   ) async {
     final accountsData = await getAccountsDataUseCase();
 
     final accountsList = accountsData.accountsList.toList()
-      ..remove(accountData);
+      ..remove(event.accountData);
 
     await setAccountsDataUseCase(
       accountsData.copyWith(accountsList: accountsList),
@@ -128,5 +97,81 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
         goBackEvent: const UIEvent(),
       ),
     );
+  }
+
+  Future<void> _onRevealPassword(
+    RevealPassword event,
+    Emitter<DetailsState> emit,
+  ) async {
+    if (await getAuthenticationUseCase()) {
+      final decryptedPassword = await decryptPasswordUseCase(
+        Password(
+          password: state.accountData.password,
+          iv: state.accountData.passwordIV,
+        ),
+      );
+
+      emit(state.copyWith(passwordString: decryptedPassword));
+    }
+  }
+
+  Future<void> _onCopyPassword(
+    CopyPassword event,
+    Emitter<DetailsState> emit,
+  ) async {
+    final decryptedPassword = await decryptPasswordUseCase(
+      Password(
+        password: state.accountData.password,
+        iv: state.accountData.passwordIV,
+      ),
+    );
+
+    await Clipboard.setData(ClipboardData(text: decryptedPassword));
+
+    emit(
+      state.copyWith(
+        copySnackBarEvent: const UIEvent(),
+      ),
+    );
+  }
+
+  Future<void> _onPressedModify(
+    PressedModify event,
+    Emitter<DetailsState> emit,
+  ) async {
+    final accountsData = await getAccountsDataUseCase();
+
+    emit(
+      state.copyWith(
+        modifyEvent: UIEvent(
+          data: accountsData.accountsList[state.accountPosition],
+        ),
+      ),
+    );
+  }
+
+  void _onMarkModifyAsConsumed(
+    MarkModifyAsConsumed event,
+    Emitter<DetailsState> emit,
+  ) {
+    emit(state.copyWith(modifyEvent: state.modifyEvent.asConsumed()));
+  }
+
+  void _onMarkCopySnackBarAsConsumed(
+    MarkCopySnackBarAsConsumed event,
+    Emitter<DetailsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
+      ),
+    );
+  }
+
+  void _onMarkPopUpAsConsumed(
+    MarkPopUpAsConsumed event,
+    Emitter<DetailsState> emit,
+  ) {
+    emit(state.copyWith(popUpEvent: state.popUpEvent.asConsumed()));
   }
 }

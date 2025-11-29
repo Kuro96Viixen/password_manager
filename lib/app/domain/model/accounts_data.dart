@@ -1,28 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'accounts_data.freezed.dart';
+final class AccountsData extends Equatable {
+  const AccountsData({required this.accountsList});
 
-@freezed
-sealed class AccountsData with _$AccountsData {
-  const factory AccountsData({required List<AccountData> accountsList}) =
-      _AccountsData;
+  final List<AccountData> accountsList;
+
+  @override
+  List<Object?> get props => [accountsList];
+
+  AccountsData copyWith({
+    List<AccountData>? accountsList,
+  }) {
+    return AccountsData(
+      accountsList: accountsList ?? this.accountsList,
+    );
+  }
 }
 
-@freezed
-sealed class AccountData with _$AccountData {
-  const factory AccountData({
-    required String name,
-    required String username,
-    required String password,
-    required String passwordIV,
-    required bool private,
-  }) = _AccountData;
+final class AccountData extends Equatable {
+  const AccountData({
+    required this.name,
+    required this.username,
+    required this.password,
+    required this.passwordIV,
+    required this.private,
+  });
 
   factory AccountData.empty() => const AccountData(
-    name: '',
-    username: '',
-    password: '',
-    passwordIV: '',
-    private: false,
-  );
+        name: '',
+        username: '',
+        password: '',
+        passwordIV: '',
+        private: false,
+      );
+
+  final String name;
+  final String username;
+  final String password;
+  final String passwordIV;
+  final bool private;
+
+  @override
+  List<Object?> get props => [name, username, password, passwordIV, private];
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
 import 'package:password_manager/app/ui/private/bloc/private_event.dart';
 import 'package:password_manager/app/ui/private/bloc/private_state.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class PrivateView extends StatelessWidget {
@@ -21,7 +21,7 @@ class PrivateView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          uiModulesDi<PrivateBloc>()..add(const PrivateEvent.started()),
+          uiModulesDi<PrivateBloc>()..add(const PrivateStarted()),
       child: BlocConsumer<PrivateBloc, PrivateState>(
         listenWhen: (previous, current) =>
             previous.navigationEvent != current.navigationEvent,
@@ -36,8 +36,8 @@ class PrivateView extends StatelessWidget {
 
             if (success != null && success) {
               bloc
-                ..add(const PrivateEvent.started())
-                ..add(const PrivateEvent.markNavigationEventAsConsumed());
+                ..add(const PrivateStarted())
+                ..add(const MarkNavigationEventAsConsumed());
             }
           }
         },
@@ -46,7 +46,9 @@ class PrivateView extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  Texts.privateAccountsViewTitle,
+                  AppLocalizations.of(
+                    context,
+                  )!.privateAccountsViewTitle,
                 ),
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(4),
@@ -59,10 +61,10 @@ class PrivateView extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    state.screenState.when(
-                      loading: () => const Loader(),
-                      loaded: (_) => const SizedBox(height: 4),
-                    ),
+                    switch (state.screenState) {
+                      PrivateScreenStateLoading() => const Loader(),
+                      PrivateScreenStateLoaded() => const SizedBox(height: 4),
+                    },
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -71,16 +73,18 @@ class PrivateView extends StatelessWidget {
                       child: TextField(
                         onChanged: (searchText) =>
                             context.read<PrivateBloc>().add(
-                              PrivateEvent.searchAccount(searchText),
+                              PrivateSearchAccount(searchText),
                             ),
                         decoration: InputDecoration(
-                          hintText: Texts.searchHintText,
+                          hintText: AppLocalizations.of(
+                            context,
+                          )!.searchHintText,
                         ),
                       ),
                     ),
-                    state.screenState.when(
-                      loading: Container.new,
-                      loaded: (searchText) => Expanded(
+                    switch (state.screenState) {
+                      PrivateScreenStateLoading() => Container(),
+                      PrivateScreenStateLoaded(:final searchText) => Expanded(
                         child: ListView.separated(
                           itemBuilder: (context, index) =>
                               state.accountsList[index].name
@@ -94,7 +98,7 @@ class PrivateView extends StatelessWidget {
                                         .unfocus();
 
                                     context.read<PrivateBloc>().add(
-                                      PrivateEvent.pressedAccount(index),
+                                      PrivatePressedAccount(index),
                                     );
                                   },
                                 )
@@ -111,7 +115,7 @@ class PrivateView extends StatelessWidget {
                           itemCount: state.accountsList.length,
                         ),
                       ),
-                    ),
+                    },
                   ],
                 ),
               ),

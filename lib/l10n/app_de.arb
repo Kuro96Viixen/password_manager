@@ -1,0 +1,119 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Kontenliste",
+  "showPrivateTooltip" : "Private anzeigen",
+  "addNewAccountTooltip" : "Neues Passwort hinzufügen",
+  "settingsTooltip" : "Einstellungen",
+
+  "randomPasswordListTile" : "Zufälliges Passwort generieren",
+
+  "privateAccountsViewTitle" : "Liste privater Konten",
+
+  "addViewTitle" : "Neues Konto hinzufügen",
+  "nameTextFieldLabel" : "Name",
+  "usernameTextFieldLabel" : "Benutzername",
+  "passwordTextFieldLabel" : "Passwort",
+  "useRandomPasswordSwitchTitle" : "Zufälliges Passwort verwenden",
+  "passwordLengthTextFieldLabel" : "Länge des zufälligen Passworts",
+  "passwordLengthTextFieldHint" : "Standard 10",
+  "spanishCheckBoxTitle" : "Spanische Zeichen (ñ)",
+  "numbersCheckBoxTitle" : "Zahlen",
+  "symbolsCheckBoxTitle" : "Symbole",
+  "generateRandomPasswordButton" : "Generieren",
+  "randomPasswordText" : "Ihr zufälliges Passwort ist:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
+  "isPrivateAccountCheckBoxTitle" : "Ist privat?",
+  "saveAccountButton" : "Konto speichern",
+
+  "viewAccountViewTitle" : "Kontodetails",
+  "viewAccountNameLabel" : "Name",
+  "viewAccountUsernameLabel" : "Benutzername",
+  "viewAccountPasswordLabel" : "Passwort",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "Passwort anzeigen",
+  "viewAccountViewEditTooltip" : "Konto bearbeiten",
+  "copiedToClipboard" : "Passwort in Zwischenablage kopiert",
+
+  "editViewTitle" : "Konto bearbeiten",
+
+  "fingerprintPrivateAuthTitle" : "Geräteauthentifizierung zum Entsperren verwenden",
+  "fingerprintPasswordAuthTitle" : "Geräteauthentifizierung zum Anzeigen des Passworts verwenden",
+  "fingerprintDialogTitle" : "Authentifizierung erforderlich",
+  "fingerprintDialogSubtitle" : "Identität überprüfen",
+
+  "importExportDisclaimer" : "Die folgenden Optionen ermöglichen es Ihnen, die zuvor gespeicherten Konten zu exportieren/importieren.\nStandardmäßig wird diese Datei im CSV-Format im Download- oder Dokumentenordner gespeichert/gelesen, es ist nur das CSV-Dateiformat zulässig.",
+  "exportAccounts" : "Exportieren",
+  "importAccounts" : "Importieren",
+
+  "exportedAccounts" : "Erfolgreich exportiert",
+  "importedAccounts" : "Erfolgreich importiert",
+
+  "searchHintText" : "Konto suchen",
+
+  "seePasswordTooltip" : "Passwort anzeigen",
+  "hidePasswordTooltip" : "Passwort ausblenden",
+
+  "dialogTitle" : "Hoppla, etwas ist schief gelaufen",
+  "dialogPickFolderExceptionText" : "Die App konnte Ihre Kontenliste nicht exportieren, entweder gab es eine Ausnahme bei der Datei oder Sie haben den Picker geschlossen.\n\nWenn Sie den Picker geschlossen haben, können Sie diesen Hinweis schließen und es erneut versuchen.",
+  "dialogPickFileExceptionText" : "Die App konnte Ihre zuvor gespeicherte Kontenliste nicht importieren, entweder ist die Datei beschädigt oder Sie haben den Picker geschlossen.\n\nWenn Sie den Picker geschlossen haben, können Sie diesen Hinweis schließen und es erneut versuchen.",
+  "dialogButtonText": "Ok, verstanden",
+
+  "deleteDialogTitle" : "Sind Sie sicher?",
+  "deleteDialogBody" : "Sie werden das Konto löschen:\n\n{account}\n\nSind Sie sicher, dass Sie es entfernen möchten?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "Diese Aktion kann nicht rückgängig gemacht werden.",
+  "deleteDialogCancel": "Nein, zurück",
+  "deleteDialogConfirm": "Ja, ich bin sicher",
+
+  "randomPasswordViewTitle" : "Zufälliger Passwort-Generator",
+  "randomPasswordDisclaimer" : "Dieses zufällig generierte Passwort wird nirgendwo gespeichert und beim Verlassen verworfen. Um es zu speichern, können Sie das Formular zum Speichern eines Kontos verwenden. Dieses Passwort kann durch langes Drücken kopiert werden.",
+
+  "duplicatedPasswordCheckerSettings" : "Doppelte Passwörter",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "Diese Funktion ist noch experimentell, Entschuldigung, wenn etwas nicht stimmt, Feedback wird geschätzt.",
+  "duplicatedPasswordCheckerViewTitle" : "Duplikatsprüfung",
+  "duplicatedPasswordCheckerViewLoading": "Lade Statistiken, dies kann je nach Anzahl der gespeicherten Konten eine Weile dauern",
+  "duplicatedPasswordCheckerViewSuccess": "Die Passwörter von {percentage} der Konten sind unterschiedlich",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "Die folgende Liste dient nur dazu, die Konten anzuzeigen, die dasselbe Passwort verwenden. Sie können weder das Passwort noch die E-Mail/den Benutzernamen sehen, die diesem Konto zugewiesen sind, sondern nur den Namen, der zum Speichern des Kontos verwendet wurde.\n\nHinweise:\nPrivate Konten werden gezählt, aber nicht angezeigt\nDer Name der Karte ist ein Platzhalter, nicht das echte Passwort",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Passwort #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "Glückwunsch!!",
+  "duplicatedPasswordCheckerViewUniqueBody": "Alle Ihre Konten haben ein anderes Passwort",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Zurück",
+
+  "experimentalFeatureInfoTooltip" : "Informationen zur experimentellen Funktion",
+  "experimentalFeatureInfoDialogTitle" : "Experimentelle Funktion",
+  "experimentalFeatureInfoDialogBody" : "Die aktuelle Funktionalität befindet sich noch in der experimentellen Phase und kann Fehler enthalten. Wenn Sie Probleme haben oder Vorschläge haben, können Sie gerne eine Bewertung im Play Store hinterlassen oder ein neues Ticket auf der Github-Seite des Projekts öffnen (falls möglich)\n\nVielen Dank für Ihre Unterstützung.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
+}

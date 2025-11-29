@@ -1,18 +1,37 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'private_event.freezed.dart';
+sealed class PrivateEvent extends Equatable {
+  const PrivateEvent();
 
-@freezed
-sealed class PrivateEvent with _$PrivateEvent {
-  const factory PrivateEvent.started() = Started;
+  @override
+  List<Object?> get props => [];
+}
 
-  // Account List Tile
-  const factory PrivateEvent.pressedAccount(int accountIndex) = PressedAccount;
+final class PrivateStarted extends PrivateEvent {
+  const PrivateStarted();
+}
 
-  // Search Bar
-  const factory PrivateEvent.searchAccount(String searchString) = SearchAccount;
+// Account List Tile
+final class PrivatePressedAccount extends PrivateEvent {
+  const PrivatePressedAccount(this.accountIndex);
 
-  // Event Consumer
-  const factory PrivateEvent.markNavigationEventAsConsumed() =
-      MarkNavigationEventAsConsumed;
+  final int accountIndex;
+
+  @override
+  List<Object?> get props => [accountIndex];
+}
+
+// Search Bar
+final class PrivateSearchAccount extends PrivateEvent {
+  const PrivateSearchAccount(this.searchString);
+
+  final String searchString;
+
+  @override
+  List<Object?> get props => [searchString];
+}
+
+// Event Consumer
+final class MarkNavigationEventAsConsumed extends PrivateEvent {
+  const MarkNavigationEventAsConsumed();
 }

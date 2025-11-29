@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/error_type.dart';
@@ -15,6 +14,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_p
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 part 'accounts_view_methods.dart';
@@ -31,14 +31,18 @@ class AccountsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => uiModulesDi<AccountsBloc>()
         ..add(
-          const AccountsEvent.started(initializeEncryption: true),
+          const AccountsStarted(initializeEncryption: true),
         ),
       child: Builder(
         builder: (context) {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(Texts.accountsViewTitle),
+                title: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.accountsViewTitle,
+                ),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -46,11 +50,13 @@ class AccountsView extends StatelessWidget {
                       FocusScope.of(context).unfocus();
 
                       context.read<AccountsBloc>().add(
-                        const AccountsEvent.showPrivate(),
+                        const AccountsShowPrivate(),
                       );
                     },
                     icon: Icon(CommonIcons.private),
-                    tooltip: Texts.showPrivateTooltip,
+                    tooltip: AppLocalizations.of(
+                      context,
+                    )!.showPrivateTooltip,
                   ),
                   IconButton(
                     onPressed: () {
@@ -58,11 +64,13 @@ class AccountsView extends StatelessWidget {
                       FocusManager.instance.primaryFocus!.unfocus();
 
                       context.read<AccountsBloc>().add(
-                        const AccountsEvent.showSettings(),
+                        const AccountsShowSettings(),
                       );
                     },
                     icon: Icon(CommonIcons.settings),
-                    tooltip: Texts.settingsTooltip,
+                    tooltip: AppLocalizations.of(
+                      context,
+                    )!.settingsTooltip,
                   ),
                 ],
                 bottom: const PreferredSize(
@@ -92,15 +100,21 @@ class AccountsView extends StatelessWidget {
                   final hasNewBottomMenuEvent =
                       previous.bottomMenuEvent != current.bottomMenuEvent;
 
-                  final hasNewSnackBarEvent =
-                      previous.snackBarEvent != current.snackBarEvent;
+                  final hasNewExportedSnackBarEvent =
+                      previous.exportedSnackBarEvent !=
+                      current.exportedSnackBarEvent;
+
+                  final hasNewImportedSnackBarEvent =
+                      previous.importedSnackBarEvent !=
+                      current.importedSnackBarEvent;
 
                   final hasNewDialogEvent =
                       previous.dialogEvent != current.dialogEvent;
 
                   return hasNewNavigationEvent ||
                       hasNewBottomMenuEvent ||
-                      hasNewSnackBarEvent ||
+                      hasNewExportedSnackBarEvent ||
+                      hasNewImportedSnackBarEvent ||
                       hasNewDialogEvent;
                 },
                 listener: (context, state) async {
@@ -108,17 +122,35 @@ class AccountsView extends StatelessWidget {
                     _showBottomMenu(context);
                   }
 
-                  if (!state.snackBarEvent.consumed) {
+                  if (!state.exportedSnackBarEvent.consumed) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          state.snackBarEvent.data!,
+                          AppLocalizations.of(
+                            context,
+                          )!.exportedAccounts,
                         ),
                       ),
                     );
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markSnackBarAsConsumed(),
+                      const AccountsMarkExportedSnackBarAsConsumed(),
+                    );
+                  }
+
+                  if (!state.importedSnackBarEvent.consumed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          AppLocalizations.of(
+                            context,
+                          )!.importedAccounts,
+                        ),
+                      ),
+                    );
+
+                    context.read<AccountsBloc>().add(
+                      const AccountsMarkImportedSnackBarAsConsumed(),
                     );
                   }
 
@@ -126,13 +158,13 @@ class AccountsView extends StatelessWidget {
                     _showDialog(context, state.dialogEvent.data!);
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markDialogAsConsumed(),
+                      const AccountsMarkDialogAsConsumed(),
                     );
                   }
 
                   if (!state.navigationEvent.consumed) {
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markNavigationEventAsConsumed(),
+                      const AccountsMarkNavigationEventAsConsumed(),
                     );
 
                     switch (state.navigationEvent.data) {
@@ -150,7 +182,7 @@ class AccountsView extends StatelessWidget {
                         );
 
                         if (success != null && success) {
-                          bloc.add(const AccountsEvent.started());
+                          bloc.add(const AccountsStarted());
                         }
                     }
                   }
@@ -162,16 +194,18 @@ class AccountsView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        state.screenState.when(
-                          loading: () => const Loader(),
-                          loaded: (_) => const SizedBox(height: 4),
-                        ),
+                        switch (state.screenState) {
+                          AccountsScreenStateLoading() => const Loader(),
+                          AccountsScreenStateLoaded() => const SizedBox(height: 4),
+                        },
                         ListTile(
                           onTap: () =>
                               context.goWithRoute(RandomPasswordView.routeName),
                           leading: Icon(CommonIcons.randomPassword),
                           title: Text(
-                            Texts.randomPasswordListTile,
+                            AppLocalizations.of(
+                              context,
+                            )!.randomPasswordListTile,
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.fade,
@@ -186,16 +220,18 @@ class AccountsView extends StatelessWidget {
                           child: TextField(
                             onChanged: (searchText) =>
                                 context.read<AccountsBloc>().add(
-                                  AccountsEvent.searchAccount(searchText),
+                                  AccountsSearchAccount(searchText),
                                 ),
                             decoration: InputDecoration(
-                              hintText: Texts.searchHintText,
+                              hintText: AppLocalizations.of(
+                                context,
+                              )!.searchHintText,
                             ),
                           ),
                         ),
-                        state.screenState.when(
-                          loading: Container.new,
-                          loaded: (searchText) => Expanded(
+                        switch (state.screenState) {
+                          AccountsScreenStateLoading() => Container(),
+                          AccountsScreenStateLoaded(:final searchText) => Expanded(
                             child: ListView.separated(
                               itemBuilder: (context, index) =>
                                   state.accountsList[index].name
@@ -209,7 +245,7 @@ class AccountsView extends StatelessWidget {
                                             .unfocus();
 
                                         context.read<AccountsBloc>().add(
-                                          AccountsEvent.pressedAccount(
+                                          AccountsAccountPressed(
                                             index,
                                           ),
                                         );
@@ -228,7 +264,7 @@ class AccountsView extends StatelessWidget {
                               itemCount: state.accountsList.length,
                             ),
                           ),
-                        ),
+                        },
                       ],
                     ),
                   );
@@ -236,9 +272,11 @@ class AccountsView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () => context.read<AccountsBloc>().add(
-                  const AccountsEvent.pressedModify(),
+                  const AccountsModifyPressed(),
                 ),
-                tooltip: Texts.addNewAccountTooltip,
+                tooltip: AppLocalizations.of(
+                  context,
+                )!.addNewAccountTooltip,
                 child: Icon(CommonIcons.add),
               ),
             ),

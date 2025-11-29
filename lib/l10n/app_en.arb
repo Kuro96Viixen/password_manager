@@ -1,0 +1,119 @@
+{
+  "title" : "Password Manager",
+
+  "accountsViewTitle" : "Accounts list",
+  "showPrivateTooltip" : "Show private",
+  "addNewAccountTooltip" : "Add new password",
+  "settingsTooltip" : "Settings",
+
+  "randomPasswordListTile" : "Generate Random password",
+
+  "privateAccountsViewTitle" : "Private accounts list",
+
+  "addViewTitle" : "Add new account",
+  "nameTextFieldLabel" : "Name",
+  "usernameTextFieldLabel" : "Username",
+  "passwordTextFieldLabel" : "Password",
+  "useRandomPasswordSwitchTitle" : "Use random password",
+  "passwordLengthTextFieldLabel" : "Random password length",
+  "passwordLengthTextFieldHint" : "Default 10",
+  "spanishCheckBoxTitle" : "Spanish characters (ñ)",
+  "numbersCheckBoxTitle" : "Numbers",
+  "symbolsCheckBoxTitle" : "Symbols",
+  "generateRandomPasswordButton" : "Generate",
+  "randomPasswordText" : "Your random password is:\n{password}",
+  "@randomPasswordText" : {
+    "placeholders": {
+      "password": {
+        "type": "String",
+        "example": "123ABC"
+      }
+    }
+  },
+  "isPrivateAccountCheckBoxTitle" : "Is private?",
+  "saveAccountButton" : "Save account",
+
+  "viewAccountViewTitle" : "Account details",
+  "viewAccountNameLabel" : "Name",
+  "viewAccountUsernameLabel" : "Username",
+  "viewAccountPasswordLabel" : "Password",
+  "hiddenPasswordText" : "****",
+  "viewAccountViewPassword" : "View password",
+  "viewAccountViewEditTooltip" : "Edit account",
+  "copiedToClipboard" : "Password copied to clipboard",
+
+  "editViewTitle" : "Edit account",
+
+  "fingerprintPrivateAuthTitle" : "Use device authentication to unlock",
+  "fingerprintPasswordAuthTitle" : "Use device authentication to see the password",
+  "fingerprintDialogTitle" : "Authentication required",
+  "fingerprintDialogSubtitle" : "Verify identity",
+
+  "importExportDisclaimer" : "The following options will allow you to export/import the previously saved accounts.\nBy default this file will be stored in/read from the downloads or documents folder with CSV format, only CSV file format allowed.",
+  "exportAccounts" : "Export",
+  "importAccounts" : "Import",
+
+  "exportedAccounts" : "Successfully exported",
+  "importedAccounts" : "Successfully imported",
+
+  "searchHintText" : "Search account",
+
+  "seePasswordTooltip" : "See password",
+  "hidePasswordTooltip" : "Hide password",
+
+  "dialogTitle" : "Oops, something went wrong",
+  "dialogPickFolderExceptionText" : "The app couldn't export your accounts list, either you got an exception with the file or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.",
+  "dialogPickFileExceptionText" : "The app couldn't import your previously saved accounts list, either the file is corrupted or you closed the picker.\n\nIf you closed the picker you can close this advice and try again.",
+  "dialogButtonText": "Ok, I understand",
+
+  "deleteDialogTitle" : "Are you sure?",
+  "deleteDialogBody" : "You are going to delete the account:\n\n{account}\n\nAre you sure do you want to remove it?",
+  "@deleteDialogBody": {
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "deleteDialogAdvice" : "This action cannot be undone.",
+  "deleteDialogCancel": "No, go back",
+  "deleteDialogConfirm": "Yes, I'm sure",
+
+  "randomPasswordViewTitle" : "Random Password Generator",
+  "randomPasswordDisclaimer" : "This random generated password won't be stored anywhere and will be discarded once exit, to store it you might use the form to save an account, this password can be copied by long-pressing it.",
+
+  "duplicatedPasswordCheckerSettings" : "Duplicated Passwords",
+  "duplicatedPasswordCheckerSettingsDisclaimer" : "This feature is still experimental, sorry if something is wrong, feedback appreciated.",
+  "duplicatedPasswordCheckerViewTitle" : "Duplication Checker",
+  "duplicatedPasswordCheckerViewLoading": "Loading stats, this may take a while depending on how many accounts you have stored",
+  "duplicatedPasswordCheckerViewSuccess": "The passwords of the {percentage} of the accounts are different",
+  "@duplicatedPasswordCheckerViewSuccess": {
+    "placeholders": {
+      "percentage": {
+        "type": "num",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewSuccessDisclaimer": "The following list are only to show the accounts that share the same password, you cannot see the password nor the email/username assigned to that account, only the name that was used to save the account.\n\nNotes:\nPrivate accounts are counted but not shown\nThe name of the card is a placeholder, not the real password",
+  "duplicatedPasswordCheckerViewSuccessCardTitle": "Password #{index}",
+  "@duplicatedPasswordCheckerViewSuccessCardTitle": {
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "duplicatedPasswordCheckerViewUniqueCongrats": "Congratulations!!",
+  "duplicatedPasswordCheckerViewUniqueBody": "All of your accounts have a different password",
+  "duplicatedPasswordCheckerViewUniqueGoBack": "Go back",
+
+  "experimentalFeatureInfoTooltip" : "Experimental feature info",
+  "experimentalFeatureInfoDialogTitle" : "Experimental feature",
+  "experimentalFeatureInfoDialogBody" : "The current functionality is still in experimental phase and may contain bugs, if you are having problems or have any suggestions, feel free to leave a review on the Play Store or open a new ticket on the project github page (if possible)\n\nThank you so much for your support.",
+  "experimentalFeatureInfoDialogPlayStore" : "Play Store",
+  "experimentalFeatureInfoDialogGitHub" : "Github",
+  "experimentalFeatureInfoDialogConfirm" : "Ok"
+}

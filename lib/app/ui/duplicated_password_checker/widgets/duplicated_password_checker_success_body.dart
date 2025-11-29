@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/app/core/constants/texts.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_state.dart';
+import 'package:password_manager/l10n/app_localizations.dart';
 
 class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
   final DuplicatedPasswordCheckerState state;
@@ -15,9 +15,10 @@ class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              Texts.duplicatedPasswordCheckerViewSuccess.replaceAll(
-                '{percentage}',
-                state.differentAccountsPercentage.toString(),
+              AppLocalizations.of(
+                context,
+              )!.duplicatedPasswordCheckerViewSuccess(
+                state.differentAccountsPercentage,
               ),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
@@ -26,7 +27,9 @@ class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
           const SizedBox(height: 8),
           Center(
             child: Text(
-              Texts.duplicatedPasswordCheckerViewSuccessDisclaimer,
+              AppLocalizations.of(
+                context,
+              )!.duplicatedPasswordCheckerViewSuccessDisclaimer,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall,
             ),
@@ -43,8 +46,9 @@ class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
                 collapsedShape: const RoundedRectangleBorder(),
                 shape: const RoundedRectangleBorder(),
                 title: Text(
-                  Texts.duplicatedPasswordCheckerViewSuccessCardTitle
-                      .replaceAll('{index}', e.key.toString()),
+                  AppLocalizations.of(
+                    context,
+                  )!.duplicatedPasswordCheckerViewSuccessCardTitle(e.key),
                 ),
                 children: e.value
                     .map(

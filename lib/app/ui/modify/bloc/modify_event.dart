@@ -1,50 +1,136 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 
-part 'modify_event.freezed.dart';
+sealed class ModifyEvent extends Equatable {
+  const ModifyEvent();
 
-@freezed
-sealed class ModifyEvent with _$ModifyEvent {
-  const factory ModifyEvent.started(AccountData? accountData) = Started;
+  @override
+  List<Object?> get props => [];
+}
 
-  const factory ModifyEvent.onNameChanged(String nameString) = OnNameChanged;
-  const factory ModifyEvent.onUsernameChanged(String usernameString) =
-      OnUsernameChanged;
+final class ModifyStarted extends ModifyEvent {
+  const ModifyStarted(this.accountData);
 
-  // Switch to change forms
-  const factory ModifyEvent.onChangePasswordForm({
-    required bool isRandomPasswordForm,
-  }) = OnChangePasswordForm;
+  final AccountData? accountData;
 
-  // Password form
-  const factory ModifyEvent.onPasswordChanged(String passwordString) =
-      OnPasswordChanged;
-  const factory ModifyEvent.hidePassword() = HidePassword;
+  @override
+  List<Object?> get props => [accountData];
+}
 
-  // Random password form
-  const factory ModifyEvent.onRandomPasswordLengthChanged(
-    String randomPasswordLengthString,
-  ) = OnRandomPasswordLengthChanged;
-  const factory ModifyEvent.hasSpanishCharacters({
-    required bool hasSpanishCharacters,
-  }) = HasSpanishCharacters;
-  const factory ModifyEvent.hasNumbersCharacters({
-    required bool hasNumbersCharacters,
-  }) = HasNumbersCharacters;
-  const factory ModifyEvent.hasSymbolsCharacters({
-    required bool hasSymbolsCharacters,
-  }) = HasSymbolsCharacters;
-  const factory ModifyEvent.generateRandomPassword() = GenerateRandomPassword;
-  const factory ModifyEvent.copyPassword(String password) = CopyPassword;
+final class OnNameChanged extends ModifyEvent {
+  const OnNameChanged(this.nameString);
 
-  // Save Account
-  const factory ModifyEvent.setIsPrivateAccount({
-    required bool isPrivateAccount,
-  }) = SetIsPrivateAccount;
-  const factory ModifyEvent.saveAccount(AccountData? accountData) = SaveAccount;
+  final String nameString;
 
-  // Event Consumer
-  // No need to consume goBackEvent as it will close the page
-  // const factory ModifyEvent.markGoBackAsConsumed() = MarkGoBackAsConsumed;
-  const factory ModifyEvent.markSnackBarAsConsumed() = MarkSnackBarAsConsumed;
+  @override
+  List<Object?> get props => [nameString];
+}
+
+final class OnUsernameChanged extends ModifyEvent {
+  const OnUsernameChanged(this.usernameString);
+
+  final String usernameString;
+
+  @override
+  List<Object?> get props => [usernameString];
+}
+
+// Switch to change forms
+final class OnChangePasswordForm extends ModifyEvent {
+  const OnChangePasswordForm({this.isRandomPasswordForm = false});
+
+  final bool isRandomPasswordForm;
+
+  @override
+  List<Object?> get props => [isRandomPasswordForm];
+}
+
+// Password form
+final class OnPasswordChanged extends ModifyEvent {
+  const OnPasswordChanged(this.passwordString);
+
+  final String passwordString;
+
+  @override
+  List<Object?> get props => [passwordString];
+}
+
+final class HidePassword extends ModifyEvent {
+  const HidePassword();
+}
+
+// Random password form
+final class OnRandomPasswordLengthChanged extends ModifyEvent {
+  const OnRandomPasswordLengthChanged(
+    this.randomPasswordLengthString,
+  );
+
+  final String randomPasswordLengthString;
+
+  @override
+  List<Object?> get props => [randomPasswordLengthString];
+}
+
+final class HasSpanishCharacters extends ModifyEvent {
+  const HasSpanishCharacters({this.hasSpanishCharacters = false});
+
+  final bool hasSpanishCharacters;
+
+  @override
+  List<Object?> get props => [hasSpanishCharacters];
+}
+
+final class HasNumbersCharacters extends ModifyEvent {
+  const HasNumbersCharacters({this.hasNumbersCharacters = false});
+
+  final bool hasNumbersCharacters;
+
+  @override
+  List<Object?> get props => [hasNumbersCharacters];
+}
+
+final class HasSymbolsCharacters extends ModifyEvent {
+  const HasSymbolsCharacters({this.hasSymbolsCharacters = false});
+
+  final bool hasSymbolsCharacters;
+
+  @override
+  List<Object?> get props => [hasSymbolsCharacters];
+}
+
+final class GenerateRandomPassword extends ModifyEvent {
+  const GenerateRandomPassword();
+}
+
+// Copy Password
+final class CopyPassword extends ModifyEvent {
+  const CopyPassword();
+}
+
+// Save Account
+final class SetIsPrivateAccount extends ModifyEvent {
+  const SetIsPrivateAccount({required this.isPrivateAccount});
+
+  final bool isPrivateAccount;
+
+  @override
+  List<Object?> get props => [isPrivateAccount];
+}
+
+final class SaveAccount extends ModifyEvent {
+  const SaveAccount(this.accountData);
+
+  final AccountData? accountData;
+
+  @override
+  List<Object?> get props => [accountData];
+}
+
+// Event Consumer
+// No need to consume goBackEvent as it will close the page
+// final class MarkGoBackAsConsumed extends ModifyEvent {
+//   const MarkGoBackAsConsumed();
+// }
+final class MarkCopySnackBarAsConsumed extends ModifyEvent {
+  const MarkCopySnackBarAsConsumed();
 }

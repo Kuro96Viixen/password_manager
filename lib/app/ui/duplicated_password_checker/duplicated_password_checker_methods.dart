@@ -2,7 +2,7 @@ part of 'duplicated_password_checker_view.dart';
 
 void shootingStars(BuildContext context) {
   /// BEGIN
-  final options = ConfettiOptions(
+  const options = ConfettiOptions(
     spread: 360,
     ticks: 50,
     gravity: 0,
@@ -10,7 +10,7 @@ void shootingStars(BuildContext context) {
     startVelocity: 20,
     particleCount: 50,
     scalar: 1,
-    colors: const [
+    colors: [
       Color(0xffBA68C8),
       Color(0xffAB47BC),
       Color(0xffCE93D8),

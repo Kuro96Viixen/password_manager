@@ -5,7 +5,7 @@ void _showBottomMenu(BuildContext context) {
     context: context,
     builder: (BuildContext bottomMenuContext) {
       context.read<AccountsBloc>().add(
-        const AccountsEvent.markBottomMenuAsConsumed(),
+        const AccountsMarkBottomMenuAsConsumed(),
       );
 
       return SafeArea(
@@ -14,7 +14,9 @@ void _showBottomMenu(BuildContext context) {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
-                Texts.duplicatedPasswordCheckerSettingsDisclaimer,
+                AppLocalizations.of(
+                  context,
+                )!.duplicatedPasswordCheckerSettingsDisclaimer,
                 style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
               ),
@@ -22,7 +24,9 @@ void _showBottomMenu(BuildContext context) {
             Center(
               child: ElevatedButton(
                 child: Text(
-                  Texts.duplicatedPasswordCheckerSettings,
+                  AppLocalizations.of(
+                    context,
+                  )!.duplicatedPasswordCheckerSettings,
                 ),
                 onPressed: () {
                   context
@@ -36,19 +40,25 @@ void _showBottomMenu(BuildContext context) {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
-                Texts.importExportDisclaimer,
+                AppLocalizations.of(
+                  context,
+                )!.importExportDisclaimer,
                 style: const TextStyle(fontSize: 10),
                 textAlign: TextAlign.center,
               ),
             ),
             Center(
               child: ElevatedButton(
-                child: Text(Texts.exportAccounts),
+                child: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.exportAccounts,
+                ),
                 onPressed: () {
                   context.pop();
 
                   context.read<AccountsBloc>().add(
-                    const AccountsEvent.exportAccounts(),
+                    const AccountsExportAccounts(),
                   );
                 },
               ),
@@ -56,12 +66,16 @@ void _showBottomMenu(BuildContext context) {
             const SizedBox(height: 8),
             Center(
               child: ElevatedButton(
-                child: Text(Texts.importAccounts),
+                child: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.importAccounts,
+                ),
                 onPressed: () {
                   context.pop();
 
                   context.read<AccountsBloc>().add(
-                    const AccountsEvent.importAccounts(),
+                    const AccountsImportAccounts(),
                   );
                 },
               ),
@@ -79,20 +93,30 @@ void _showDialog(BuildContext context, ErrorType errorType) {
     builder: (BuildContext dialogContext) {
       return AlertDialog(
         title: Text(
-          Texts.dialogTitle,
+          AppLocalizations.of(
+            context,
+          )!.dialogTitle,
           textAlign: TextAlign.center,
         ),
         content: Text(
           errorType == const ErrorType.pickFileException()
-              ? Texts.dialogPickFileExceptionText
-              : Texts.dialogPickFolderExceptionText,
+              ? AppLocalizations.of(
+                  context,
+                )!.dialogPickFileExceptionText
+              : AppLocalizations.of(
+                  context,
+                )!.dialogPickFolderExceptionText,
           textAlign: TextAlign.center,
         ),
         actionsAlignment: MainAxisAlignment.center,
         actions: <Widget>[
           TextButton(
             onPressed: () => dialogContext.pop(),
-            child: Text(Texts.dialogButtonText),
+            child: Text(
+              AppLocalizations.of(
+                context,
+              )!.dialogButtonText,
+            ),
           ),
         ],
       );
