@@ -44,7 +44,7 @@ class RandomPasswordView extends StatelessWidget {
                     );
 
                     context.read<RandomPasswordBloc>().add(
-                      const RandomPasswordEvent.markCopySnackBarEventAsConsumed(),
+                      const MarkCopySnackBarEventAsConsumed(),
                     );
                   }
                 },
@@ -66,7 +66,7 @@ class RandomPasswordView extends StatelessWidget {
                                     initialValue: '',
                                     onChangedText: (randomPasswordLength) =>
                                         context.read<RandomPasswordBloc>().add(
-                                          RandomPasswordEvent.onRandomPasswordLengthChanged(
+                                          OnRandomPasswordLengthChanged(
                                             randomPasswordLength,
                                           ),
                                         ),
@@ -76,8 +76,8 @@ class RandomPasswordView extends StatelessWidget {
                                     value: state.hasSpanishCharacters,
                                     onChanged: (hasSpanishCharacters) =>
                                         context.read<RandomPasswordBloc>().add(
-                                          RandomPasswordEvent.hasSpanishCharacters(
-                                            hasSpanishCharacters:
+                                          HasNumbersCharacters(
+                                            hasNumbersCharacters:
                                                 hasSpanishCharacters ?? false,
                                           ),
                                         ),
@@ -91,7 +91,7 @@ class RandomPasswordView extends StatelessWidget {
                                     value: state.hasNumbersCharacters,
                                     onChanged: (hasNumbersCharacters) =>
                                         context.read<RandomPasswordBloc>().add(
-                                          RandomPasswordEvent.hasNumbersCharacters(
+                                          HasNumbersCharacters(
                                             hasNumbersCharacters:
                                                 hasNumbersCharacters ?? false,
                                           ),
@@ -106,7 +106,7 @@ class RandomPasswordView extends StatelessWidget {
                                     value: state.hasSymbolsCharacters,
                                     onChanged: (hasSymbolsCharacters) =>
                                         context.read<RandomPasswordBloc>().add(
-                                          RandomPasswordEvent.hasSymbolsCharacters(
+                                          HasSymbolsCharacters(
                                             hasSymbolsCharacters:
                                                 hasSymbolsCharacters ?? false,
                                           ),
@@ -124,7 +124,7 @@ class RandomPasswordView extends StatelessWidget {
                                       FocusScope.of(context).unfocus();
 
                                       context.read<RandomPasswordBloc>().add(
-                                        const RandomPasswordEvent.generateRandomPassword(),
+                                        const GenerateRandomPassword(),
                                       );
                                     },
                                     child: Text(
@@ -140,7 +140,7 @@ class RandomPasswordView extends StatelessWidget {
                                       onLongPress: () => context
                                           .read<RandomPasswordBloc>()
                                           .add(
-                                            const RandomPasswordEvent.copyPassword(),
+                                            const CopyPassword(),
                                           ),
                                       child: Text(
                                         AppLocalizations.of(

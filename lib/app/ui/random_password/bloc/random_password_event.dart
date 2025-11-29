@@ -1,33 +1,63 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'random_password_event.freezed.dart';
+sealed class RandomPasswordEvent extends Equatable {
+  const RandomPasswordEvent();
 
-@freezed
-sealed class RandomPasswordEvent with _$RandomPasswordEvent {
-  // Password Length
-  const factory RandomPasswordEvent.onRandomPasswordLengthChanged(
-    String randomPasswordLengthString,
-  ) = OnRandomPasswordLengthChanged;
+  @override
+  List<Object?> get props => [];
+}
 
-  // CheckBox
-  const factory RandomPasswordEvent.hasSpanishCharacters({
-    required bool hasSpanishCharacters,
-  }) = HasSpanishCharacters;
-  const factory RandomPasswordEvent.hasNumbersCharacters({
-    required bool hasNumbersCharacters,
-  }) = HasNumbersCharacters;
-  const factory RandomPasswordEvent.hasSymbolsCharacters({
-    required bool hasSymbolsCharacters,
-  }) = HasSymbolsCharacters;
+// Password Length
+final class OnRandomPasswordLengthChanged extends RandomPasswordEvent {
+  const OnRandomPasswordLengthChanged(
+    this.randomPasswordLengthString,
+  );
 
-  // Button
-  const factory RandomPasswordEvent.generateRandomPassword() =
-      GenerateRandomPassword;
+  final String randomPasswordLengthString;
 
-  // Copy Password
-  const factory RandomPasswordEvent.copyPassword() = CopyPassword;
+  @override
+  List<Object?> get props => [randomPasswordLengthString];
+}
 
-  // Event Consumer
-  const factory RandomPasswordEvent.markCopySnackBarEventAsConsumed() =
-      MarkCopySnackBarEventAsConsumed;
+// CheckBox
+final class HasSpanishCharacters extends RandomPasswordEvent {
+  const HasSpanishCharacters({this.hasSpanishCharacters = false});
+
+  final bool hasSpanishCharacters;
+
+  @override
+  List<Object?> get props => [hasSpanishCharacters];
+}
+
+final class HasNumbersCharacters extends RandomPasswordEvent {
+  const HasNumbersCharacters({this.hasNumbersCharacters = false});
+
+  final bool hasNumbersCharacters;
+
+  @override
+  List<Object?> get props => [hasNumbersCharacters];
+}
+
+final class HasSymbolsCharacters extends RandomPasswordEvent {
+  const HasSymbolsCharacters({this.hasSymbolsCharacters = false});
+
+  final bool hasSymbolsCharacters;
+
+  @override
+  List<Object?> get props => [hasSymbolsCharacters];
+}
+
+// Button
+final class GenerateRandomPassword extends RandomPasswordEvent {
+  const GenerateRandomPassword();
+}
+
+// Copy Password
+final class CopyPassword extends RandomPasswordEvent {
+  const CopyPassword();
+}
+
+// Event Consumer
+final class MarkCopySnackBarEventAsConsumed extends RandomPasswordEvent {
+  const MarkCopySnackBarEventAsConsumed();
 }

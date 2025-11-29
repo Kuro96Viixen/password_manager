@@ -5,7 +5,7 @@ void _showBottomMenu(BuildContext context) {
     context: context,
     builder: (BuildContext bottomMenuContext) {
       context.read<AccountsBloc>().add(
-        const AccountsEvent.markBottomMenuAsConsumed(),
+        const AccountsMarkBottomMenuAsConsumed(),
       );
 
       return SafeArea(
@@ -58,7 +58,7 @@ void _showBottomMenu(BuildContext context) {
                   context.pop();
 
                   context.read<AccountsBloc>().add(
-                    const AccountsEvent.exportAccounts(),
+                    const AccountsExportAccounts(),
                   );
                 },
               ),
@@ -75,7 +75,7 @@ void _showBottomMenu(BuildContext context) {
                   context.pop();
 
                   context.read<AccountsBloc>().add(
-                    const AccountsEvent.importAccounts(),
+                    const AccountsImportAccounts(),
                   );
                 },
               ),

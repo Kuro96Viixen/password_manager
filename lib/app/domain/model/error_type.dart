@@ -1,10 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'error_type.freezed.dart';
+final class ErrorType extends Equatable {
+  const ErrorType._();
 
-@freezed
-sealed class ErrorType with _$ErrorType {
-  const factory ErrorType.pickFileException() = _PickFileException;
+  const factory ErrorType.pickFileException() = ErrorTypePickFileException;
+  const factory ErrorType.pickFolderException() = ErrorTypePickFolderException;
 
-  const factory ErrorType.pickFolderException() = _PickFolderException;
+  @override
+  List<Object?> get props => [];
+}
+
+final class ErrorTypePickFileException extends ErrorType {
+  const ErrorTypePickFileException() : super._();
+}
+
+final class ErrorTypePickFolderException extends ErrorType {
+  const ErrorTypePickFolderException() : super._();
 }

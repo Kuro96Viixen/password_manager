@@ -8,56 +8,84 @@ import 'package:password_manager/utils/utils.dart';
 class RandomPasswordBloc
     extends Bloc<RandomPasswordEvent, RandomPasswordState> {
   RandomPasswordBloc() : super(RandomPasswordState.initial()) {
-    on<RandomPasswordEvent>((event, emit) {
-      switch (event) {
-        case OnRandomPasswordLengthChanged(
-          randomPasswordLengthString: final randomPasswordLength,
-        ):
-          emit(
-            state.copyWith(
-              randomPasswordLength: int.tryParse(randomPasswordLength) ?? 10,
-            ),
-          );
-        case HasSpanishCharacters(
-          hasSpanishCharacters: final hasSpanishCharacters,
-        ):
-          emit(state.copyWith(hasSpanishCharacters: hasSpanishCharacters));
-        case HasNumbersCharacters(
-          hasNumbersCharacters: final hasNumbersCharacters,
-        ):
-          emit(state.copyWith(hasNumbersCharacters: hasNumbersCharacters));
-        case HasSymbolsCharacters(
-          hasSymbolsCharacters: final hasSymbolsCharacters,
-        ):
-          emit(state.copyWith(hasSymbolsCharacters: hasSymbolsCharacters));
-        case GenerateRandomPassword():
-          final randomPassword = Utils.generateRandomPassword(
-            length: state.randomPasswordLength,
-            hasSpanishCharacters: state.hasSpanishCharacters,
-            hasNumbersCharacters: state.hasNumbersCharacters,
-            hasSymbolsCharacters: state.hasSymbolsCharacters,
-          );
+    on<OnRandomPasswordLengthChanged>(_onOnRandomPasswordLengthChanged);
+    on<HasSpanishCharacters>(_onHasSpanishCharacters);
+    on<HasNumbersCharacters>(_onHasNumbersCharacters);
+    on<HasSymbolsCharacters>(_onHasSymbolsCharacters);
+    on<GenerateRandomPassword>(_onGenerateRandomPassword);
+    on<CopyPassword>(_onCopyPassword);
+    on<MarkCopySnackBarEventAsConsumed>(_onMarkCopySnackBarEventAsConsumed);
+  }
 
-          emit(
-            state.copyWith(
-              randomPassword: randomPassword,
-            ),
-          );
-        case CopyPassword():
-          Clipboard.setData(ClipboardData(text: state.randomPassword));
+  void _onOnRandomPasswordLengthChanged(
+    OnRandomPasswordLengthChanged event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        randomPasswordLength:
+            int.tryParse(event.randomPasswordLengthString) ?? 10,
+      ),
+    );
+  }
 
-          emit(
-            state.copyWith(
-              copySnackBarEvent: const UIEvent(),
-            ),
-          );
-        case MarkCopySnackBarEventAsConsumed():
-          emit(
-            state.copyWith(
-              copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
-            ),
-          );
-      }
-    });
+  void _onHasSpanishCharacters(
+    HasSpanishCharacters event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    emit(state.copyWith(hasSpanishCharacters: event.hasSpanishCharacters));
+  }
+
+  void _onHasNumbersCharacters(
+    HasNumbersCharacters event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    emit(state.copyWith(hasNumbersCharacters: event.hasNumbersCharacters));
+  }
+
+  void _onHasSymbolsCharacters(
+    HasSymbolsCharacters event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    emit(state.copyWith(hasSymbolsCharacters: event.hasSymbolsCharacters));
+  }
+
+  void _onGenerateRandomPassword(
+    GenerateRandomPassword event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    final randomPassword = Utils.generateRandomPassword(
+      length: state.randomPasswordLength,
+      hasSpanishCharacters: state.hasSpanishCharacters,
+      hasNumbersCharacters: state.hasNumbersCharacters,
+      hasSymbolsCharacters: state.hasSymbolsCharacters,
+    );
+
+    emit(
+      state.copyWith(
+        randomPassword: randomPassword,
+      ),
+    );
+  }
+
+  void _onCopyPassword(CopyPassword event, Emitter<RandomPasswordState> emit) {
+    Clipboard.setData(ClipboardData(text: state.randomPassword));
+
+    emit(
+      state.copyWith(
+        copySnackBarEvent: const UIEvent(),
+      ),
+    );
+  }
+
+  void _onMarkCopySnackBarEventAsConsumed(
+    MarkCopySnackBarEventAsConsumed event,
+    Emitter<RandomPasswordState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
+      ),
+    );
   }
 }

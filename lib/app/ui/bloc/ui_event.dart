@@ -1,6 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'ui_event.freezed.dart';
+import 'package:equatable/equatable.dart';
 
 /// A generic wrapper for managing one-time UI events, such as showing a
 /// SnackBar, a dialog, or performing a navigation action.
@@ -26,12 +24,16 @@ part 'ui_event.freezed.dart';
 ///
 /// 1. **In the BLoC State:**
 ///    ```dart
-///    @freezed
-///    class MyState with _$MyState {
-///      factory MyState({
+///    final class MyState extends Equatable {
+///      const MyState({
 ///        // ... other state fields
-///        @Default(UIEvent()) UIEvent<String> errorMessage,
-///      }) = _MyState;
+///        this.errorMessage = const UIEvent(consumed: true),
+///      });
+///
+///      final UIEvent<String> errorMessage;
+///
+///      @override
+///      List<Object?> get props => [errorMessage, ...];
 ///    }
 ///    ```
 ///
@@ -55,15 +57,17 @@ part 'ui_event.freezed.dart';
 ///
 /// 4. **In the BLoC (marking as consumed):**
 ///    ```dart
-///    on<MarkErrorMessageAsConsumed>((event, emit) {
+///    void _onMarkErrorMessageAsConsumed(
+///      MarkErrorMessageAsConsumed event,
+///      Emitter<MyState> emit,
+///    ) {
 ///      emit(state.copyWith(errorMessage: state.errorMessage.asConsumed()));
-///    });
+///    }
 ///    ```
 ///
 /// @param T The type of data held by the event. This can be `void` if the
 ///          event only needs to signal an occurrence without carrying data.
-@freezed
-sealed class UIEvent<T> with _$UIEvent<T> {
+final class UIEvent<T> extends Equatable {
   /// Creates an instance of [UIEvent].
   ///
   /// [data] holds the information associated with the event (e.g., an error
@@ -71,13 +75,16 @@ sealed class UIEvent<T> with _$UIEvent<T> {
   ///
   /// [consumed] indicates whether the UI has already processed this event.
   /// It defaults to `false`, signifying a new, unprocessed event.
-  const factory UIEvent({
-    T? data,
-    @Default(false) bool consumed,
-  }) = _UIEvent;
+  const UIEvent({
+    this.data,
+    this.consumed = false,
+  });
 
-  /// A private constructor to allow adding extension methods.
-  const UIEvent._();
+  final T? data;
+  final bool consumed;
+
+  @override
+  List<Object?> get props => [data, consumed];
 
   /// Returns a new instance of [UIEvent] with the [consumed] flag
   /// set to `true`.
@@ -86,5 +93,5 @@ sealed class UIEvent<T> with _$UIEvent<T> {
   /// within the BLoC, ensuring immutability.
   ///
   /// Usage: `emit(state.copyWith(myEvent: state.myEvent.asConsumed()));`
-  UIEvent<T> asConsumed() => copyWith(consumed: true);
+  UIEvent<T> asConsumed() => UIEvent(data: data, consumed: true);
 }

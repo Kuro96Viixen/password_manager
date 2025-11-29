@@ -9,7 +9,7 @@ Future<void> _showDeleteDialog(
     context: context,
     builder: (BuildContext dialogContext) {
       context.read<DetailsBloc>().add(
-        const DetailsEvent.markPopUpAsConsumed(),
+        const MarkPopUpAsConsumed(),
       );
 
       return DeleteDialog(
@@ -29,7 +29,7 @@ Future<void> _showDeleteDialog(
           dialogContext.pop();
 
           context.read<DetailsBloc>().add(
-            DetailsEvent.deleteAccount(accountData),
+            DeleteAccount(accountData),
           );
         },
         confirmButtonText: AppLocalizations.of(

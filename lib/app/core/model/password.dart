@@ -1,11 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'password.freezed.dart';
+final class Password extends Equatable {
+  const Password({
+    required this.password,
+    required this.iv,
+  });
 
-@freezed
-sealed class Password with _$Password {
-  const factory Password({
-    required String password,
-    required String iv,
-  }) = _Password;
+  final String password;
+  final String iv;
+
+  @override
+  List<Object?> get props => [password, iv];
 }

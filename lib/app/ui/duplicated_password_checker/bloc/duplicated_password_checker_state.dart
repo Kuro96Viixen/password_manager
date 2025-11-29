@@ -1,31 +1,60 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 
-part 'duplicated_password_checker_state.freezed.dart';
-
-@freezed
-sealed class DuplicatedPasswordCheckerState
-    with _$DuplicatedPasswordCheckerState {
-  factory DuplicatedPasswordCheckerState({
-    required Map<int, List<AccountData>> accountsList,
-    required int differentAccountsPercentage,
-    required DuplicatedPasswordCheckerScreenState screenState,
-  }) = _DuplicatedPasswordCheckerState;
+final class DuplicatedPasswordCheckerState extends Equatable {
+  const DuplicatedPasswordCheckerState({
+    required this.accountsList,
+    required this.differentAccountsPercentage,
+    required this.screenState,
+  });
 
   factory DuplicatedPasswordCheckerState.initial() =>
-      DuplicatedPasswordCheckerState(
+      const DuplicatedPasswordCheckerState(
         accountsList: {},
         differentAccountsPercentage: 0,
-        screenState: DuplicatedPasswordCheckerScreenState.loading(),
+        screenState: Loading(),
       );
+
+  final Map<int, List<AccountData>> accountsList;
+  final int differentAccountsPercentage;
+  final DuplicatedPasswordCheckerScreenState screenState;
+
+  @override
+  List<Object?> get props => [
+    accountsList,
+    differentAccountsPercentage,
+    screenState,
+  ];
+
+  DuplicatedPasswordCheckerState copyWith({
+    Map<int, List<AccountData>>? accountsList,
+    int? differentAccountsPercentage,
+    DuplicatedPasswordCheckerScreenState? screenState,
+  }) {
+    return DuplicatedPasswordCheckerState(
+      accountsList: accountsList ?? this.accountsList,
+      differentAccountsPercentage:
+          differentAccountsPercentage ?? this.differentAccountsPercentage,
+      screenState: screenState ?? this.screenState,
+    );
+  }
 }
 
-@freezed
-sealed class DuplicatedPasswordCheckerScreenState
-    with _$DuplicatedPasswordCheckerScreenState {
-  factory DuplicatedPasswordCheckerScreenState.loading() = Loading;
+sealed class DuplicatedPasswordCheckerScreenState extends Equatable {
+  const DuplicatedPasswordCheckerScreenState();
 
-  factory DuplicatedPasswordCheckerScreenState.success() = Success;
+  @override
+  List<Object?> get props => [];
+}
 
-  factory DuplicatedPasswordCheckerScreenState.unique() = Unique;
+final class Loading extends DuplicatedPasswordCheckerScreenState {
+  const Loading();
+}
+
+final class Success extends DuplicatedPasswordCheckerScreenState {
+  const Success();
+}
+
+final class Unique extends DuplicatedPasswordCheckerScreenState {
+  const Unique();
 }

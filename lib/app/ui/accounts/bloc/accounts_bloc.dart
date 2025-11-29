@@ -22,15 +22,6 @@ import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
 
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
-  final GetAccountsDataUseCase getAccountsDataUseCase;
-  final SetAccountsDataUseCase setAccountsDataUseCase;
-  final GetAccountsDataFromStorageUseCase getAccountsDataFromStorageUseCase;
-  final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
-  final GetAuthenticationUseCase getAuthenticationUseCase;
-  final ExportAccountsUseCase exportAccountsUseCase;
-  final ImportAccountsUseCase importAccountsUseCase;
-  final InitializeEncryptionUseCase initializeEncryptionUseCase;
-
   AccountsBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
@@ -41,95 +32,48 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     required this.importAccountsUseCase,
     required this.initializeEncryptionUseCase,
   }) : super(AccountsState.initial()) {
-    on<AccountsEvent>((event, emit) async {
-      switch (event) {
-        case Started(initializeEncryption: final initializeEncryption):
-          await _mapStartedEventToState(emit, initializeEncryption);
-        case PressedAccount(accountIndex: final accountIndex):
-          emit(
-            state.copyWith(
-              selectedAccount: state.accountsList[accountIndex],
-              navigationEvent: const UIEvent(data: DetailsView.routeName),
-            ),
-          );
-        case PressedModify():
-          emit(
-            state.copyWith(
-              navigationEvent: const UIEvent(data: ModifyView.routeName),
-            ),
-          );
-        case ShowPrivate():
-          if (await getAuthenticationUseCase()) {
-            emit(
-              state.copyWith(
-                screenState: const AccountsScreenState.loaded(searchText: ''),
-                navigationEvent: const UIEvent(data: PrivateView.routeName),
-              ),
-            );
-          }
-        case SearchAccount(:final searchString):
-          emit(
-            state.copyWith(
-              screenState: AccountsScreenState.loaded(searchText: searchString),
-            ),
-          );
-        case OnRandomPasswordPressed():
-          emit(
-            state.copyWith(
-              navigationEvent: const UIEvent(
-                data: RandomPasswordView.routeName,
-              ),
-            ),
-          );
-        case ShowSettings():
-          emit(state.copyWith(bottomMenuEvent: const UIEvent()));
-        case ExportAccounts():
-          await _mapExportAccountsEventToState(emit);
-        case ImportAccounts():
-          await _mapImportAccountsEventToState(emit);
-
-        case MarkNavigationEventAsConsumed():
-          emit(
-            state.copyWith(
-              selectedAccount: null,
-              navigationEvent: state.navigationEvent.asConsumed(),
-            ),
-          );
-        case MarkBottomMenuAsConsumed():
-          emit(
-            state.copyWith(bottomMenuEvent: state.bottomMenuEvent.asConsumed()),
-          );
-        case MarkExportedSnackBarAsConsumed():
-          emit(
-            state.copyWith(
-              exportedSnackBarEvent: state.exportedSnackBarEvent.asConsumed(),
-            ),
-          );
-        case MarkImportedSnackBarAsConsumed():
-          emit(
-            state.copyWith(
-              importedSnackBarEvent: state.importedSnackBarEvent.asConsumed(),
-            ),
-          );
-        case MarkDialogAsConsumed():
-          emit(state.copyWith(dialogEvent: state.dialogEvent.asConsumed()));
-      }
-    });
+    on<AccountsStarted>(_onStarted);
+    on<AccountsAccountPressed>(_onAccountPressed);
+    on<AccountsModifyPressed>(_onModifyPressed);
+    on<AccountsShowPrivate>(_onShowPrivate);
+    on<AccountsSearchAccount>(_onSearchAccount);
+    on<AccountsRandomPasswordPressed>(_onRandomPasswordPressed);
+    on<AccountsShowSettings>(_onShowSettings);
+    on<AccountsExportAccounts>(_onExportAccounts);
+    on<AccountsImportAccounts>(_onImportAccounts);
+    on<AccountsMarkNavigationEventAsConsumed>(_onMarkNavigationEventAsConsumed);
+    on<AccountsMarkBottomMenuAsConsumed>(_onMarkBottomMenuAsConsumed);
+    on<AccountsMarkExportedSnackBarAsConsumed>(
+      _onMarkExportedSnackBarAsConsumed,
+    );
+    on<AccountsMarkImportedSnackBarAsConsumed>(
+      _onMarkImportedSnackBarAsConsumed,
+    );
+    on<AccountsMarkDialogAsConsumed>(_onMarkDialogAsConsumed);
   }
 
-  Future<void> _mapStartedEventToState(
+  final GetAccountsDataUseCase getAccountsDataUseCase;
+  final SetAccountsDataUseCase setAccountsDataUseCase;
+  final GetAccountsDataFromStorageUseCase getAccountsDataFromStorageUseCase;
+  final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
+  final GetAuthenticationUseCase getAuthenticationUseCase;
+  final ExportAccountsUseCase exportAccountsUseCase;
+  final ImportAccountsUseCase importAccountsUseCase;
+  final InitializeEncryptionUseCase initializeEncryptionUseCase;
+
+  Future<void> _onStarted(
+    AccountsStarted event,
     Emitter<AccountsState> emit,
-    bool initializeEncryption,
   ) async {
     final oldScreenState = state.screenState;
     // Emitting Loading ScreenState before while loading Accounts
     emit(
       state.copyWith(
-        screenState: const AccountsScreenState.loading(),
+        screenState: const AccountsScreenStateLoading(),
       ),
     );
 
-    if (initializeEncryption) {
+    if (event.initializeEncryption) {
       await initializeEncryptionUseCase();
     }
 
@@ -178,14 +122,83 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     emit(
       state.copyWith(
         accountsList: accountsToShow,
-        screenState: oldScreenState == const AccountsScreenState.loading()
-            ? const AccountsScreenState.loaded(searchText: '')
+        screenState: oldScreenState is AccountsScreenStateLoading
+            ? const AccountsScreenStateLoaded(searchText: '')
             : oldScreenState,
       ),
     );
   }
 
-  Future<void> _mapExportAccountsEventToState(
+  void _onAccountPressed(
+    AccountsAccountPressed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        selectedAccount: state.accountsList[event.accountIndex],
+        navigationEvent: const UIEvent(data: DetailsView.routeName),
+      ),
+    );
+  }
+
+  void _onModifyPressed(
+    AccountsModifyPressed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        navigationEvent: const UIEvent(data: ModifyView.routeName),
+      ),
+    );
+  }
+
+  Future<void> _onShowPrivate(
+    AccountsShowPrivate event,
+    Emitter<AccountsState> emit,
+  ) async {
+    if (await getAuthenticationUseCase()) {
+      emit(
+        state.copyWith(
+          screenState: const AccountsScreenStateLoaded(searchText: ''),
+          navigationEvent: const UIEvent(data: PrivateView.routeName),
+        ),
+      );
+    }
+  }
+
+  void _onSearchAccount(
+    AccountsSearchAccount event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        screenState: AccountsScreenStateLoaded(searchText: event.searchString),
+      ),
+    );
+  }
+
+  void _onRandomPasswordPressed(
+    AccountsRandomPasswordPressed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        navigationEvent: const UIEvent(
+          data: RandomPasswordView.routeName,
+        ),
+      ),
+    );
+  }
+
+  void _onShowSettings(
+    AccountsShowSettings event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(state.copyWith(bottomMenuEvent: const UIEvent()));
+  }
+
+  Future<void> _onExportAccounts(
+    AccountsExportAccounts event,
     Emitter<AccountsState> emit,
   ) async {
     final accountsData = await getAccountsDataUseCase();
@@ -194,7 +207,7 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
 
     emit(
       state.copyWith(
-        screenState: const AccountsScreenState.loading(),
+        screenState: const AccountsScreenStateLoading(),
       ),
     );
 
@@ -214,13 +227,14 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
         emit(
           state.copyWith(
             exportedSnackBarEvent: const UIEvent(),
-            screenState: const AccountsScreenState.loaded(searchText: ''),
+            screenState: const AccountsScreenStateLoaded(searchText: ''),
           ),
         );
     }
   }
 
-  Future<void> _mapImportAccountsEventToState(
+  Future<void> _onImportAccounts(
+    AccountsImportAccounts event,
     Emitter<AccountsState> emit,
   ) async {
     final importAccountsResult = await importAccountsUseCase();
@@ -247,7 +261,56 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
           ),
         );
 
-        add(const AccountsEvent.started());
+        add(const AccountsStarted());
     }
+  }
+
+  void _onMarkNavigationEventAsConsumed(
+    AccountsMarkNavigationEventAsConsumed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        navigationEvent: state.navigationEvent.asConsumed(),
+      ),
+    );
+  }
+
+  void _onMarkBottomMenuAsConsumed(
+    AccountsMarkBottomMenuAsConsumed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(bottomMenuEvent: state.bottomMenuEvent.asConsumed()),
+    );
+  }
+
+  void _onMarkExportedSnackBarAsConsumed(
+    AccountsMarkExportedSnackBarAsConsumed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        exportedSnackBarEvent: state.exportedSnackBarEvent.asConsumed(),
+      ),
+    );
+  }
+
+  void _onMarkImportedSnackBarAsConsumed(
+    AccountsMarkImportedSnackBarAsConsumed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        importedSnackBarEvent: state.importedSnackBarEvent.asConsumed(),
+      ),
+    );
+  }
+
+  void _onMarkDialogAsConsumed(
+    AccountsMarkDialogAsConsumed event,
+    Emitter<AccountsState> emit,
+  ) {
+    emit(state.copyWith(dialogEvent: state.dialogEvent.asConsumed()));
   }
 }

@@ -1,43 +1,79 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'accounts_event.freezed.dart';
+sealed class AccountsEvent extends Equatable {
+  const AccountsEvent();
 
-@freezed
-sealed class AccountsEvent with _$AccountsEvent {
-  const factory AccountsEvent.started({
-    @Default(false) bool initializeEncryption,
-  }) = Started;
+  @override
+  List<Object?> get props => [];
+}
 
-  // Account List Tile
-  const factory AccountsEvent.pressedAccount(int accountIndex) = PressedAccount;
+final class AccountsStarted extends AccountsEvent {
+  const AccountsStarted({this.initializeEncryption = false});
 
-  // Screen Buttons
-  const factory AccountsEvent.pressedModify() = PressedModify;
+  final bool initializeEncryption;
 
-  // AppBar Buttons
-  const factory AccountsEvent.showPrivate() = ShowPrivate;
+  @override
+  List<Object?> get props => [initializeEncryption];
+}
 
-  // Search Bar
-  const factory AccountsEvent.searchAccount(String searchString) =
-      SearchAccount;
+final class AccountsAccountPressed extends AccountsEvent {
+  const AccountsAccountPressed(this.accountIndex);
 
-  // Random Password Button
-  const factory AccountsEvent.onRandomPasswordPressed() =
-      OnRandomPasswordPressed;
+  final int accountIndex;
 
-  // Bottom Menu Buttons
-  const factory AccountsEvent.showSettings() = ShowSettings;
-  const factory AccountsEvent.exportAccounts() = ExportAccounts;
-  const factory AccountsEvent.importAccounts() = ImportAccounts;
+  @override
+  List<Object?> get props => [accountIndex];
+}
 
-  // Event Consumer
-  const factory AccountsEvent.markNavigationEventAsConsumed() =
-      MarkNavigationEventAsConsumed;
-  const factory AccountsEvent.markBottomMenuAsConsumed() =
-      MarkBottomMenuAsConsumed;
-  const factory AccountsEvent.markExportedSnackBarAsConsumed() =
-      MarkExportedSnackBarAsConsumed;
-  const factory AccountsEvent.markImportedSnackBarAsConsumed() =
-      MarkImportedSnackBarAsConsumed;
-  const factory AccountsEvent.markDialogAsConsumed() = MarkDialogAsConsumed;
+final class AccountsModifyPressed extends AccountsEvent {
+  const AccountsModifyPressed();
+}
+
+final class AccountsShowPrivate extends AccountsEvent {
+  const AccountsShowPrivate();
+}
+
+final class AccountsSearchAccount extends AccountsEvent {
+  const AccountsSearchAccount(this.searchString);
+
+  final String searchString;
+
+  @override
+  List<Object?> get props => [searchString];
+}
+
+final class AccountsRandomPasswordPressed extends AccountsEvent {
+  const AccountsRandomPasswordPressed();
+}
+
+final class AccountsShowSettings extends AccountsEvent {
+  const AccountsShowSettings();
+}
+
+final class AccountsExportAccounts extends AccountsEvent {
+  const AccountsExportAccounts();
+}
+
+final class AccountsImportAccounts extends AccountsEvent {
+  const AccountsImportAccounts();
+}
+
+final class AccountsMarkNavigationEventAsConsumed extends AccountsEvent {
+  const AccountsMarkNavigationEventAsConsumed();
+}
+
+final class AccountsMarkBottomMenuAsConsumed extends AccountsEvent {
+  const AccountsMarkBottomMenuAsConsumed();
+}
+
+final class AccountsMarkExportedSnackBarAsConsumed extends AccountsEvent {
+  const AccountsMarkExportedSnackBarAsConsumed();
+}
+
+final class AccountsMarkImportedSnackBarAsConsumed extends AccountsEvent {
+  const AccountsMarkImportedSnackBarAsConsumed();
+}
+
+final class AccountsMarkDialogAsConsumed extends AccountsEvent {
+  const AccountsMarkDialogAsConsumed();
 }

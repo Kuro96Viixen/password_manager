@@ -20,15 +20,11 @@ class DuplicatedPasswordCheckerBloc
     required this.decryptPasswordUseCase,
     required this.encryptForDuplicateUseCase,
   }) : super(DuplicatedPasswordCheckerState.initial()) {
-    on<DuplicatedPasswordCheckerEvent>((event, emit) async {
-      switch (event) {
-        case Started():
-          await _mapStartedEventToState(emit);
-      }
-    });
+    on<DuplicatedPasswordCheckerStarted>(_onStarted);
   }
 
-  Future<void> _mapStartedEventToState(
+  Future<void> _onStarted(
+    DuplicatedPasswordCheckerStarted event,
     Emitter<DuplicatedPasswordCheckerState> emit,
   ) async {
     final accountsData = await getAccountsDataUseCase();
@@ -72,8 +68,8 @@ class DuplicatedPasswordCheckerBloc
         accountsList: finalDuplicatedAccountsMap,
         differentAccountsPercentage: differentAccountsPercentage,
         screenState: differentAccountsPercentage == 100
-            ? DuplicatedPasswordCheckerScreenState.unique()
-            : DuplicatedPasswordCheckerScreenState.success(),
+            ? const Unique()
+            : const Success(),
       ),
     );
   }

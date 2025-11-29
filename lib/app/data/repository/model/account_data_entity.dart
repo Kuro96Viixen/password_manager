@@ -1,33 +1,41 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'account_data_entity.freezed.dart';
-
-@freezed
-sealed class AccountsDataEntity with _$AccountsDataEntity {
-  const factory AccountsDataEntity({
-    required List<AccountDataEntity> accountsList,
-  }) = _AccountsDataEntity;
+final class AccountsDataEntity extends Equatable {
+  const AccountsDataEntity({required this.accountsList});
 
   factory AccountsDataEntity.empty() => const AccountsDataEntity(
-    accountsList: [],
-  );
+        accountsList: [],
+      );
+
+  final List<AccountDataEntity> accountsList;
+
+  @override
+  List<Object?> get props => [accountsList];
 }
 
-@freezed
-sealed class AccountDataEntity with _$AccountDataEntity {
-  const factory AccountDataEntity({
-    required String name,
-    required String username,
-    required String password,
-    required String passwordIV,
-    required bool private,
-  }) = _AccountDataEntity;
+final class AccountDataEntity extends Equatable {
+  const AccountDataEntity({
+    required this.name,
+    required this.username,
+    required this.password,
+    required this.passwordIV,
+    required this.private,
+  });
 
   factory AccountDataEntity.empty() => const AccountDataEntity(
-    name: '',
-    username: '',
-    password: '',
-    passwordIV: '',
-    private: false,
-  );
+        name: '',
+        username: '',
+        password: '',
+        passwordIV: '',
+        private: false,
+      );
+
+  final String name;
+  final String username;
+  final String password;
+  final String passwordIV;
+  final bool private;
+
+  @override
+  List<Object?> get props => [name, username, password, passwordIV, private];
 }

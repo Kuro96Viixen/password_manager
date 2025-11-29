@@ -31,7 +31,7 @@ class AccountsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => uiModulesDi<AccountsBloc>()
         ..add(
-          const AccountsEvent.started(initializeEncryption: true),
+          const AccountsStarted(initializeEncryption: true),
         ),
       child: Builder(
         builder: (context) {
@@ -50,7 +50,7 @@ class AccountsView extends StatelessWidget {
                       FocusScope.of(context).unfocus();
 
                       context.read<AccountsBloc>().add(
-                        const AccountsEvent.showPrivate(),
+                        const AccountsShowPrivate(),
                       );
                     },
                     icon: Icon(CommonIcons.private),
@@ -64,7 +64,7 @@ class AccountsView extends StatelessWidget {
                       FocusManager.instance.primaryFocus!.unfocus();
 
                       context.read<AccountsBloc>().add(
-                        const AccountsEvent.showSettings(),
+                        const AccountsShowSettings(),
                       );
                     },
                     icon: Icon(CommonIcons.settings),
@@ -134,7 +134,7 @@ class AccountsView extends StatelessWidget {
                     );
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markExportedSnackBarAsConsumed(),
+                      const AccountsMarkExportedSnackBarAsConsumed(),
                     );
                   }
 
@@ -150,7 +150,7 @@ class AccountsView extends StatelessWidget {
                     );
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markImportedSnackBarAsConsumed(),
+                      const AccountsMarkImportedSnackBarAsConsumed(),
                     );
                   }
 
@@ -158,13 +158,13 @@ class AccountsView extends StatelessWidget {
                     _showDialog(context, state.dialogEvent.data!);
 
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markDialogAsConsumed(),
+                      const AccountsMarkDialogAsConsumed(),
                     );
                   }
 
                   if (!state.navigationEvent.consumed) {
                     context.read<AccountsBloc>().add(
-                      const AccountsEvent.markNavigationEventAsConsumed(),
+                      const AccountsMarkNavigationEventAsConsumed(),
                     );
 
                     switch (state.navigationEvent.data) {
@@ -182,7 +182,7 @@ class AccountsView extends StatelessWidget {
                         );
 
                         if (success != null && success) {
-                          bloc.add(const AccountsEvent.started());
+                          bloc.add(const AccountsStarted());
                         }
                     }
                   }
@@ -194,10 +194,10 @@ class AccountsView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        state.screenState.when(
-                          loading: () => const Loader(),
-                          loaded: (_) => const SizedBox(height: 4),
-                        ),
+                        switch (state.screenState) {
+                          AccountsScreenStateLoading() => const Loader(),
+                          AccountsScreenStateLoaded() => const SizedBox(height: 4),
+                        },
                         ListTile(
                           onTap: () =>
                               context.goWithRoute(RandomPasswordView.routeName),
@@ -220,7 +220,7 @@ class AccountsView extends StatelessWidget {
                           child: TextField(
                             onChanged: (searchText) =>
                                 context.read<AccountsBloc>().add(
-                                  AccountsEvent.searchAccount(searchText),
+                                  AccountsSearchAccount(searchText),
                                 ),
                             decoration: InputDecoration(
                               hintText: AppLocalizations.of(
@@ -229,9 +229,9 @@ class AccountsView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        state.screenState.when(
-                          loading: Container.new,
-                          loaded: (searchText) => Expanded(
+                        switch (state.screenState) {
+                          AccountsScreenStateLoading() => Container(),
+                          AccountsScreenStateLoaded(:final searchText) => Expanded(
                             child: ListView.separated(
                               itemBuilder: (context, index) =>
                                   state.accountsList[index].name
@@ -245,7 +245,7 @@ class AccountsView extends StatelessWidget {
                                             .unfocus();
 
                                         context.read<AccountsBloc>().add(
-                                          AccountsEvent.pressedAccount(
+                                          AccountsAccountPressed(
                                             index,
                                           ),
                                         );
@@ -264,7 +264,7 @@ class AccountsView extends StatelessWidget {
                               itemCount: state.accountsList.length,
                             ),
                           ),
-                        ),
+                        },
                       ],
                     ),
                   );
@@ -272,7 +272,7 @@ class AccountsView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () => context.read<AccountsBloc>().add(
-                  const AccountsEvent.pressedModify(),
+                  const AccountsModifyPressed(),
                 ),
                 tooltip: AppLocalizations.of(
                   context,

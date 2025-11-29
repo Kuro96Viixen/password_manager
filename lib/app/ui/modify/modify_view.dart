@@ -24,7 +24,7 @@ class ModifyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          uiModulesDi<ModifyBloc>()..add(ModifyEvent.started(accountData)),
+          uiModulesDi<ModifyBloc>()..add(ModifyStarted(accountData)),
       child: BlocConsumer<ModifyBloc, ModifyState>(
         listenWhen: (previous, current) {
           final hasGoBackEvent = previous.goBackEvent != current.goBackEvent;
@@ -49,7 +49,7 @@ class ModifyView extends StatelessWidget {
             );
 
             context.read<ModifyBloc>().add(
-              const ModifyEvent.markCopySnackBarAsConsumed(),
+              const MarkCopySnackBarAsConsumed(),
             );
           }
         },
@@ -86,7 +86,7 @@ class ModifyView extends StatelessWidget {
                               initialValue: accountData?.name ?? '',
                               onChangedText: (nameString) => context
                                   .read<ModifyBloc>()
-                                  .add(ModifyEvent.onNameChanged(nameString)),
+                                  .add(OnNameChanged(nameString)),
                             ),
                             AccountTextField(
                               label: AppLocalizations.of(
@@ -95,22 +95,20 @@ class ModifyView extends StatelessWidget {
                               initialValue: accountData?.username ?? '',
                               onChangedText: (usernameString) =>
                                   context.read<ModifyBloc>().add(
-                                    ModifyEvent.onUsernameChanged(
+                                    OnUsernameChanged(
                                       usernameString,
                                     ),
                                   ),
                             ),
                             const SizedBox(height: 8),
                             SwitchListTile(
-                              value:
-                                  state.screenState ==
-                                  const ModifyScreenState.randomForm(),
+                              value: state.screenState == const RandomForm(),
                               onChanged: (isRandomPasswordForm) {
                                 // Remove focus on TextField
                                 FocusScope.of(context).unfocus();
 
                                 context.read<ModifyBloc>().add(
-                                  ModifyEvent.onChangePasswordForm(
+                                  OnChangePasswordForm(
                                     isRandomPasswordForm: isRandomPasswordForm,
                                   ),
                                 );
@@ -121,24 +119,24 @@ class ModifyView extends StatelessWidget {
                                 )!.useRandomPasswordSwitchTitle,
                               ),
                             ),
-                            state.screenState.when(
-                              passwordForm: () => AccountTextField(
+                            switch (state.screenState) {
+                              PasswordForm() => AccountTextField(
                                 label: AppLocalizations.of(
                                   context,
                                 )!.passwordTextFieldLabel,
                                 initialValue: '',
                                 onChangedText: (passwordString) =>
                                     context.read<ModifyBloc>().add(
-                                      ModifyEvent.onPasswordChanged(
+                                      OnPasswordChanged(
                                         passwordString,
                                       ),
                                     ),
                                 isPasswordHidden: state.isPasswordHidden,
                                 onPressed: () => context.read<ModifyBloc>().add(
-                                  const ModifyEvent.hidePassword(),
+                                  const HidePassword(),
                                 ),
                               ),
-                              randomForm: () => RandomPasswordForm(
+                              RandomForm() => RandomPasswordForm(
                                 hasSpanishCharacters:
                                     state.hasSpanishCharacters,
                                 hasNumbersCharacters:
@@ -147,7 +145,7 @@ class ModifyView extends StatelessWidget {
                                     state.hasSymbolsCharacters,
                                 randomPassword: state.randomPassword,
                               ),
-                            ),
+                            },
                           ],
                         ),
                       ],
@@ -161,7 +159,7 @@ class ModifyView extends StatelessWidget {
                           value: state.isPrivateAccount,
                           onChanged: (isPrivateAccount) =>
                               context.read<ModifyBloc>().add(
-                                ModifyEvent.setIsPrivateAccount(
+                                SetIsPrivateAccount(
                                   isPrivateAccount: isPrivateAccount ?? false,
                                 ),
                               ),
@@ -174,7 +172,7 @@ class ModifyView extends StatelessWidget {
                         const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () => context.read<ModifyBloc>().add(
-                            ModifyEvent.saveAccount(accountData),
+                            SaveAccount(accountData),
                           ),
                           child: Text(
                             AppLocalizations.of(

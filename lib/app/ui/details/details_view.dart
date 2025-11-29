@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/app/core/model/password.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/details/bloc/details_bloc.dart';
@@ -34,7 +33,7 @@ class DetailsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => uiModulesDi<DetailsBloc>()
         ..add(
-          DetailsEvent.started(accountData),
+          DetailsStarted(accountData),
         ),
       child: BlocConsumer<DetailsBloc, DetailsState>(
         listenWhen: (previous, current) {
@@ -59,9 +58,9 @@ class DetailsView extends StatelessWidget {
             if (success != null && success) {
               bloc
                 ..add(
-                  const DetailsEvent.markModifyAsConsumed(),
+                  const MarkModifyAsConsumed(),
                 )
-                ..add(DetailsEvent.started(accountData));
+                ..add(DetailsStarted(accountData));
             }
           }
 
@@ -84,7 +83,7 @@ class DetailsView extends StatelessWidget {
               );
 
               context.read<DetailsBloc>().add(
-                const DetailsEvent.markCopySnackBarAsConsumed(),
+                const MarkCopySnackBarAsConsumed(),
               );
             }
           }
@@ -119,7 +118,7 @@ class DetailsView extends StatelessWidget {
                   actions: [
                     IconButton(
                       onPressed: () => context.read<DetailsBloc>().add(
-                        const DetailsEvent.pressedDelete(),
+                        const PressedDelete(),
                       ),
                       icon: Icon(CommonIcons.delete),
                     ),
@@ -131,10 +130,10 @@ class DetailsView extends StatelessWidget {
                 ),
                 body: Column(
                   children: [
-                    state.screenState.when(
-                      loading: () => const Loader(),
-                      loaded: () => const SizedBox(height: 4),
-                    ),
+                    switch (state.screenState) {
+                      Loading() => const Loader(),
+                      Loaded() => const SizedBox(height: 4),
+                    },
                     Padding(
                       padding: const EdgeInsets.all(12),
                       child: Column(
@@ -160,23 +159,18 @@ class DetailsView extends StatelessWidget {
                           GestureDetector(
                             onLongPress: () {
                               context.read<DetailsBloc>().add(
-                                DetailsEvent.copyPassword(
-                                  Password(
-                                    password: state.accountData.password,
-                                    iv: state.accountData.passwordIV,
-                                  ),
-                                ),
+                                const CopyPassword(),
                               );
                             },
                             child: AccountField(
-                              text: state.screenState.when(
-                                loading: () => '',
-                                loaded: () =>
-                                    state.passwordString ??
-                                    AppLocalizations.of(
-                                      context,
-                                    )!.hiddenPasswordText,
-                              ),
+                              text: switch (state.screenState) {
+                                Loading() => '',
+                                Loaded() =>
+                                  state.passwordString ??
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.hiddenPasswordText,
+                              },
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -195,12 +189,7 @@ class DetailsView extends StatelessWidget {
                                 ),
                                 onPressed: () =>
                                     context.read<DetailsBloc>().add(
-                                      DetailsEvent.revealPassword(
-                                        Password(
-                                          password: state.accountData.password,
-                                          iv: state.accountData.passwordIV,
-                                        ),
-                                      ),
+                                      const RevealPassword(),
                                     ),
                               ),
                             ),
@@ -212,7 +201,7 @@ class DetailsView extends StatelessWidget {
                 ),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () => context.read<DetailsBloc>().add(
-                    const DetailsEvent.pressedModify(),
+                    const PressedModify(),
                   ),
                   tooltip: AppLocalizations.of(
                     context,

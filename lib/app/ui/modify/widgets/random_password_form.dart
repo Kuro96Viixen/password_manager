@@ -30,7 +30,7 @@ class RandomPasswordForm extends StatelessWidget {
           initialValue: '',
           onChangedText: (randomPasswordLength) =>
               context.read<ModifyBloc>().add(
-                ModifyEvent.onRandomPasswordLengthChanged(
+                OnRandomPasswordLengthChanged(
                   randomPasswordLength,
                 ),
               ),
@@ -39,7 +39,7 @@ class RandomPasswordForm extends StatelessWidget {
         CheckboxListTile(
           value: hasSpanishCharacters,
           onChanged: (hasSpanishCharacters) => context.read<ModifyBloc>().add(
-            ModifyEvent.hasSpanishCharacters(
+            HasSpanishCharacters(
               hasSpanishCharacters: hasSpanishCharacters ?? false,
             ),
           ),
@@ -52,7 +52,7 @@ class RandomPasswordForm extends StatelessWidget {
         CheckboxListTile(
           value: hasNumbersCharacters,
           onChanged: (hasNumbersCharacters) => context.read<ModifyBloc>().add(
-            ModifyEvent.hasNumbersCharacters(
+            HasNumbersCharacters(
               hasNumbersCharacters: hasNumbersCharacters ?? false,
             ),
           ),
@@ -65,7 +65,7 @@ class RandomPasswordForm extends StatelessWidget {
         CheckboxListTile(
           value: hasSymbolsCharacters,
           onChanged: (hasSymbolsCharacters) => context.read<ModifyBloc>().add(
-            ModifyEvent.hasSymbolsCharacters(
+            HasSymbolsCharacters(
               hasSymbolsCharacters: hasSymbolsCharacters ?? false,
             ),
           ),
@@ -82,7 +82,7 @@ class RandomPasswordForm extends StatelessWidget {
             FocusScope.of(context).unfocus();
 
             context.read<ModifyBloc>().add(
-              const ModifyEvent.generateRandomPassword(),
+              const GenerateRandomPassword(),
             );
           },
           child: Text(
@@ -98,7 +98,7 @@ class RandomPasswordForm extends StatelessWidget {
           visible: randomPassword != '',
           child: GestureDetector(
             onLongPress: () => context.read<ModifyBloc>().add(
-              ModifyEvent.copyPassword(randomPassword),
+              const CopyPassword(),
             ),
             child: Text(
               AppLocalizations.of(
