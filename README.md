@@ -47,15 +47,15 @@ Download it now on Play Store:
 - Duplicated password checker
     - Check how many passwords are differents and which accounts has the same passwords.
         - **Note**: The passwords are not shown anywhere, the name is a placeholder for each password that are the same (e.g. Placeholder #1).
-    - Might be a easter egg for all the passwords different
-## New updates soon:
 - Translations based on device language
+    - ![EN](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png)/![EN](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png) EN
     - ![ES](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/es.png) ES
     - ![IT](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/it.png) IT
     - ![DE](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/de.png) DE
     - ![FR](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/fr.png) FR
     - ![PT](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/pt.png) PT
     - More on-request
+## New updates soon:
 - Password Strong check
 - Custom authentication (possibility of still using device)
 - UI Improvements
