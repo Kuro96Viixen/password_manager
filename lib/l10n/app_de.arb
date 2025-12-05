@@ -87,12 +87,12 @@
   "duplicatedPasswordCheckerSettingsDisclaimer" : "Diese Funktion ist noch experimentell, Entschuldigung, wenn etwas nicht stimmt, Feedback wird geschätzt.",
   "duplicatedPasswordCheckerViewTitle" : "Duplikatsprüfung",
   "duplicatedPasswordCheckerViewLoading": "Lade Statistiken, dies kann je nach Anzahl der gespeicherten Konten eine Weile dauern",
-  "duplicatedPasswordCheckerViewSuccess": "Die Passwörter von {percentage} der Konten sind unterschiedlich",
+  "duplicatedPasswordCheckerViewSuccess": "Die Passwörter von {percentage}% der Konten sind unterschiedlich",
   "@duplicatedPasswordCheckerViewSuccess": {
     "placeholders": {
       "percentage": {
         "type": "num",
-        "format": "percentPattern"
+        "format": "decimalPattern"
       }
     }
   },
