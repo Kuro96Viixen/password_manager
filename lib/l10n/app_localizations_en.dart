@@ -194,10 +194,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String duplicatedPasswordCheckerViewSuccess(num percentage) {
     final intl.NumberFormat percentageNumberFormat =
-        intl.NumberFormat.percentPattern(localeName);
+        intl.NumberFormat.decimalPattern(localeName);
     final String percentageString = percentageNumberFormat.format(percentage);
 
-    return 'The passwords of the $percentageString of the accounts are different';
+    return 'The passwords of the $percentageString% of the accounts are different';
   }
 
   @override

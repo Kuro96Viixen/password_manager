@@ -87,12 +87,12 @@
   "duplicatedPasswordCheckerSettingsDisclaimer" : "Cette fonctionnalité est encore expérimentale, désolé si quelque chose ne va pas, les commentaires sont appréciés.",
   "duplicatedPasswordCheckerViewTitle" : "Vérificateur de Duplication",
   "duplicatedPasswordCheckerViewLoading": "Chargement des statistiques, cela peut prendre un certain temps en fonction du nombre de comptes que vous avez enregistrés",
-  "duplicatedPasswordCheckerViewSuccess": "Les mots de passe de {percentage} des comptes sont différents",
+  "duplicatedPasswordCheckerViewSuccess": "Les mots de passe de {percentage}% des comptes sont différents",
   "@duplicatedPasswordCheckerViewSuccess": {
     "placeholders": {
       "percentage": {
         "type": "num",
-        "format": "percentPattern"
+        "format": "decimalPattern"
       }
     }
   },

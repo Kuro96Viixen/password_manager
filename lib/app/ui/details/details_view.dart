@@ -175,11 +175,7 @@ class DetailsView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Visibility(
-                            visible:
-                                state.passwordString ==
-                                AppLocalizations.of(
-                                  context,
-                                )!.hiddenPasswordText,
+                            visible: state.passwordString == null,
                             child: Center(
                               child: ElevatedButton(
                                 child: Text(
