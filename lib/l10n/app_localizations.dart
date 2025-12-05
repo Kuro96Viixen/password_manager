@@ -451,7 +451,7 @@ abstract class AppLocalizations {
   /// No description provided for @duplicatedPasswordCheckerViewSuccess.
   ///
   /// In en, this message translates to:
-  /// **'The passwords of the {percentage} of the accounts are different'**
+  /// **'The passwords of the {percentage}% of the accounts are different'**
   String duplicatedPasswordCheckerViewSuccess(num percentage);
 
   /// No description provided for @duplicatedPasswordCheckerViewSuccessDisclaimer.
