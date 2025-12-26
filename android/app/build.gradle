@@ -30,7 +30,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.viixenapps.passwordmanager"
-    compileSdkVersion 35
+    compileSdkVersion 36
     ndkVersion "26.1.10909125"
 
     compileOptions {
@@ -67,8 +67,8 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
         }
     }
 }
