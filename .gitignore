@@ -117,5 +117,8 @@ macos/**/xcuserdata/
 /lib/**/*.g.dart
 /lib/**/*.freezed.dart
 
+# Flutter generated localization
+lib/l10n/generated/
+
 #Hide keys file from version control
 keys.json
