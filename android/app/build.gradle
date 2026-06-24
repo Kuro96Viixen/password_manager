@@ -30,8 +30,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.viixenapps.passwordmanager"
-    compileSdkVersion 36
-    ndkVersion "26.1.10909125"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
