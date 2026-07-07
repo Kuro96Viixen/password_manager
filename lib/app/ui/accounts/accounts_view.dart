@@ -14,7 +14,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_p
 import 'package:password_manager/app/ui/modify/modify_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 part 'accounts_view_methods.dart';
@@ -196,7 +196,9 @@ class AccountsView extends StatelessWidget {
                       children: [
                         switch (state.screenState) {
                           AccountsScreenStateLoading() => const Loader(),
-                          AccountsScreenStateLoaded() => const SizedBox(height: 4),
+                          AccountsScreenStateLoaded() => const SizedBox(
+                            height: 4,
+                          ),
                         },
                         ListTile(
                           onTap: () =>
@@ -231,39 +233,40 @@ class AccountsView extends StatelessWidget {
                         ),
                         switch (state.screenState) {
                           AccountsScreenStateLoading() => Container(),
-                          AccountsScreenStateLoaded(:final searchText) => Expanded(
-                            child: ListView.separated(
-                              itemBuilder: (context, index) =>
-                                  state.accountsList[index].name
-                                      .toLowerCase()
-                                      .startsWith(searchText)
-                                  ? AccountListTile(
-                                      account: state.accountsList[index],
-                                      onTap: () {
-                                        // Remove focus on TextField
-                                        FocusManager.instance.primaryFocus!
-                                            .unfocus();
+                          AccountsScreenStateLoaded(:final searchText) =>
+                            Expanded(
+                              child: ListView.separated(
+                                itemBuilder: (context, index) =>
+                                    state.accountsList[index].name
+                                        .toLowerCase()
+                                        .startsWith(searchText)
+                                    ? AccountListTile(
+                                        account: state.accountsList[index],
+                                        onTap: () {
+                                          // Remove focus on TextField
+                                          FocusManager.instance.primaryFocus!
+                                              .unfocus();
 
-                                        context.read<AccountsBloc>().add(
-                                          AccountsAccountPressed(
-                                            index,
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  : Container(),
-                              separatorBuilder: (context, index) =>
-                                  state.accountsList[index].name
-                                      .toLowerCase()
-                                      .startsWith(searchText)
-                                  ? const Divider(
-                                      height: 1,
-                                      color: Colors.grey,
-                                    )
-                                  : Container(),
-                              itemCount: state.accountsList.length,
+                                          context.read<AccountsBloc>().add(
+                                            AccountsAccountPressed(
+                                              index,
+                                            ),
+                                          );
+                                        },
+                                      )
+                                    : Container(),
+                                separatorBuilder: (context, index) =>
+                                    state.accountsList[index].name
+                                        .toLowerCase()
+                                        .startsWith(searchText)
+                                    ? const Divider(
+                                        height: 1,
+                                        color: Colors.grey,
+                                      )
+                                    : Container(),
+                                itemCount: state.accountsList.length,
+                              ),
                             ),
-                          ),
                         },
                       ],
                     ),

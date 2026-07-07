@@ -16,7 +16,15 @@
   "passwordTextFieldLabel" : "Passwort",
   "useRandomPasswordSwitchTitle" : "Zufälliges Passwort verwenden",
   "passwordLengthTextFieldLabel" : "Länge des zufälligen Passworts",
-  "passwordLengthTextFieldHint" : "Standard 10",
+  "passwordLengthTextFieldHint" : "Standard {randomPasswordLength}",
+  "@passwordLengthTextFieldHint" : {
+    "placeholders": {
+      "randomPasswordLength": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "spanishCheckBoxTitle" : "Spanische Zeichen (ñ)",
   "numbersCheckBoxTitle" : "Zahlen",
   "symbolsCheckBoxTitle" : "Symbole",
@@ -115,5 +123,40 @@
   "experimentalFeatureInfoDialogBody" : "Die aktuelle Funktionalität befindet sich noch in der experimentellen Phase und kann Fehler enthalten. Wenn Sie Probleme haben oder Vorschläge haben, können Sie gerne eine Bewertung im Play Store hinterlassen oder ein neues Ticket auf der Github-Seite des Projekts öffnen (falls möglich)\n\nVielen Dank für Ihre Unterstützung.",
   "experimentalFeatureInfoDialogPlayStore" : "Play Store",
   "experimentalFeatureInfoDialogGitHub" : "Github",
-  "experimentalFeatureInfoDialogConfirm" : "Ok"
+  "experimentalFeatureInfoDialogConfirm" : "Ok",
+
+  "passwordStrengthWeak": "Schwach",
+  "passwordStrengthMedium": "Mittel",
+  "passwordStrengthStrong": "Stark",
+  "passwordStrengthSecure": "Sicher",
+  "passwordStrengthWeakSaveDisclaimer": "Das Passwort, das du speichern möchtest, ist schwach. Es wird empfohlen, ein stärkeres Passwort zu verwenden. Möchtest du es trotzdem speichern?",
+  "passwordStrengthWeakSaveReturn": "Zurück",
+  "passwordStrengthWeakSaveAnyway": "Trotzdem speichern",
+
+  "creditsButtonLabel": "Credits",
+  "creditsBelongTo": "Alle Credits gehören:",
+  "passwordStrengthLibrary": "Passwort-Sicherheitsbibliothek",
+  "passwordStrengthDisclaimer": "Die Passwort-Sicherheitsfunktion der App wurde individuell auf Basis der Bibliothek password_strength_checker implementiert.",
+
+  "passwordStrengthCrackChartTitle": "Wie sicher ist mein Passwort?",
+  "passwordStrengthCrackChartDisclaimer": "Diese Zeiten sind Schätzungen gegenüber automatisierten Rateangriffen. Verwende immer einzigartige Passwörter und aktiviere nach Möglichkeit die Zwei-Faktor-Authentifizierung (2FA).",
+  "passwordStrengthCrackChartHeaderChars": "Anzahl der Zeichen",
+  "passwordStrengthCrackChartHeaderNumbersOnly": "Nur Zahlen",
+  "passwordStrengthCrackChartHeaderLowercaseOnly": "Kleinbuchstaben",
+  "passwordStrengthCrackChartHeaderUpperLowercaseOnly": "Groß- und Kleinbuchstaben",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseOnly": "Zahlen, Groß- und Kleinbuchstaben",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseSymbols": "Zahlen, Groß- und Kleinbuchstaben, Symbole",
+  "passwordStrengthCrackChartInstantly": "Sofort",
+  "passwordStrengthCrackChartMinutes": "{count} Min.",
+  "passwordStrengthCrackChartHours": "{count} Stunden",
+  "passwordStrengthCrackChartDays": "{count} Tage",
+  "passwordStrengthCrackChartWeeks": "{count} Wochen",
+  "passwordStrengthCrackChartMonths": "{count} Monate",
+  "passwordStrengthCrackChartYears": "{count} Jahre",
+  "passwordStrengthCrackChartThousandYears": "{count}k Jahre",
+  "passwordStrengthCrackChartMillionYears": "{count}m Jahre",
+  "passwordStrengthCrackChartBillionYears": "{count}Mrd. Jahre",
+  "passwordStrengthCrackChartTrillionYears": "{count}Bio. Jahre",
+  "passwordStrengthCrackChartQuadrillionYears": "{count}Brd. Jahre",
+  "passwordStrengthCrackChartButton": "Bestätigen"
 }

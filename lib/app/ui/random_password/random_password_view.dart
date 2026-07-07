@@ -5,7 +5,7 @@ import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_bloc.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class RandomPasswordView extends StatelessWidget {
   static const routeName = 'RandomPasswordViewRoute';

@@ -16,7 +16,15 @@
   "passwordTextFieldLabel" : "Password",
   "useRandomPasswordSwitchTitle" : "Usa password casuale",
   "passwordLengthTextFieldLabel" : "Lunghezza password casuale",
-  "passwordLengthTextFieldHint" : "Predefinito 10",
+  "passwordLengthTextFieldHint" : "Predefinito {randomPasswordLength}",
+  "@passwordLengthTextFieldHint" : {
+    "placeholders": {
+      "randomPasswordLength": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "spanishCheckBoxTitle" : "Caratteri spagnoli (ñ)",
   "numbersCheckBoxTitle" : "Numeri",
   "symbolsCheckBoxTitle" : "Simboli",
@@ -115,5 +123,40 @@
   "experimentalFeatureInfoDialogBody" : "La funzionalità attuale è ancora in fase sperimentale e potrebbe contenere bug, se hai problemi o hai suggerimenti, sentiti libero di lasciare una recensione sul Play Store o aprire un nuovo ticket sulla pagina github del progetto (se possibile)\n\nGrazie mille per il tuo supporto.",
   "experimentalFeatureInfoDialogPlayStore" : "Play Store",
   "experimentalFeatureInfoDialogGitHub" : "Github",
-  "experimentalFeatureInfoDialogConfirm" : "Ok"
+  "experimentalFeatureInfoDialogConfirm" : "Ok",
+
+  "passwordStrengthWeak": "Debole",
+  "passwordStrengthMedium": "Media",
+  "passwordStrengthStrong": "Forte",
+  "passwordStrengthSecure": "Sicura",
+  "passwordStrengthWeakSaveDisclaimer": "La password que stai cercando di salvare è debole, si consiglia di usare una password più forte, vuoi salvarla comunque?",
+  "passwordStrengthWeakSaveReturn": "Torna indietro",
+  "passwordStrengthWeakSaveAnyway": "Salva comunque",
+
+  "creditsButtonLabel": "Crediti",
+  "creditsBelongTo": "Tutti i crediti appartengono a:",
+  "passwordStrengthLibrary": "Libreria della sicurezza delle password",
+  "passwordStrengthDisclaimer": "La funzionalità di sicurezza delle password dell'app è implementata come soluzione personalizzata basata sulla libreria password_strength_checker.",
+
+  "passwordStrengthCrackChartTitle": "Quanto è sicura la mia password?",
+  "passwordStrengthCrackChartDisclaimer": "Questi tempi sono stime contro attacchi automatizzati di tentativi. Per rimanere al sicuro, usa sempre password uniche e abilita l'autenticazione a due fattori (2FA) quando possibile.",
+  "passwordStrengthCrackChartHeaderChars": "Numero di caratteri",
+  "passwordStrengthCrackChartHeaderNumbersOnly": "Solo numeri",
+  "passwordStrengthCrackChartHeaderLowercaseOnly": "Lettere minuscole",
+  "passwordStrengthCrackChartHeaderUpperLowercaseOnly": "Lettere maiuscole e minuscole",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseOnly": "Numeri, lettere maiuscole e minuscole",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseSymbols": "Numeri, lettere maiuscole e minuscole, simboli",
+  "passwordStrengthCrackChartInstantly": "Immediatamente",
+  "passwordStrengthCrackChartMinutes": "{count} min",
+  "passwordStrengthCrackChartHours": "{count} ore",
+  "passwordStrengthCrackChartDays": "{count} giorni",
+  "passwordStrengthCrackChartWeeks": "{count} settimane",
+  "passwordStrengthCrackChartMonths": "{count} mesi",
+  "passwordStrengthCrackChartYears": "{count} anni",
+  "passwordStrengthCrackChartThousandYears": "{count}k ans",
+  "passwordStrengthCrackChartMillionYears": "{count}M ans",
+  "passwordStrengthCrackChartBillionYears": "{count}Md ans",
+  "passwordStrengthCrackChartTrillionYears": "{count}Bn ans",
+  "passwordStrengthCrackChartQuadrillionYears": "{count}Bq ans",
+  "passwordStrengthCrackChartButton": "Conferma"
 }

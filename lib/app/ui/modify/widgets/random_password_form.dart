@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class RandomPasswordForm extends StatelessWidget {
   final bool hasSpanishCharacters;

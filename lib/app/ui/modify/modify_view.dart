@@ -9,6 +9,7 @@ import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
 import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class ModifyView extends StatelessWidget {
   static const routeName = '/ModifyPageRoute';

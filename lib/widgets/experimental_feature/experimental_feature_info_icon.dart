@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:password_manager/widgets/experimental_feature/experimental_feature_info_dialog.dart';
 
 class ExperimentalFeatureInfoIcon extends StatelessWidget {

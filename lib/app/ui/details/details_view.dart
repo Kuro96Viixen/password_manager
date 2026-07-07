@@ -13,7 +13,7 @@ import 'package:password_manager/app/ui/details/widgets/account_field.dart';
 import 'package:password_manager/app/ui/details/widgets/account_label.dart';
 import 'package:password_manager/app/ui/details/widgets/delete_dialog.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 part 'details_view_methods.dart';

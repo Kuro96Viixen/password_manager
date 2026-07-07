@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/app/core/constants/validation.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class AccountTextField extends StatelessWidget {
   final String label;
@@ -64,6 +65,15 @@ class AccountTextField extends StatelessWidget {
                 context,
               )!.passwordTextFieldLabel &&
           isPasswordHidden,
+      inputFormatters:
+          label ==
+              AppLocalizations.of(
+                context,
+              )!.passwordLengthTextFieldLabel
+          ? <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+            ]
+          : null,
       keyboardType:
           label ==
               AppLocalizations.of(

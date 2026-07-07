@@ -7,7 +7,7 @@ import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/private/bloc/private_bloc.dart';
 import 'package:password_manager/app/ui/private/bloc/private_event.dart';
 import 'package:password_manager/app/ui/private/bloc/private_state.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:password_manager/widgets/loader.dart';
 
 class PrivateView extends StatelessWidget {

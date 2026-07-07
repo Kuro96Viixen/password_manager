@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class DuplicatedPasswordsCheckerLoadingBody extends StatelessWidget {
   const DuplicatedPasswordsCheckerLoadingBody({super.key});
