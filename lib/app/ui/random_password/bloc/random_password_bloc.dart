@@ -1,13 +1,22 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:password_manager/app/core/constants/validation.dart';
+import 'package:password_manager/app/domain/use_cases/calculate_password_strength_use_case.dart';
+import 'package:password_manager/app/domain/use_cases/generate_random_password_use_case.dart';
 import 'package:password_manager/app/ui/bloc/ui_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
-import 'package:password_manager/utils/utils.dart';
 
 class RandomPasswordBloc
     extends Bloc<RandomPasswordEvent, RandomPasswordState> {
-  RandomPasswordBloc() : super(RandomPasswordState.initial()) {
+  final GenerateRandomPasswordUseCase generateRandomPasswordUseCase;
+  // Password Strength Use Case
+  final CalculatePasswordStrengthUseCase calculatePasswordStrengthUseCase;
+
+  RandomPasswordBloc({
+    required this.generateRandomPasswordUseCase,
+    required this.calculatePasswordStrengthUseCase,
+  }) : super(RandomPasswordState.initial()) {
     on<OnRandomPasswordLengthChanged>(_onOnRandomPasswordLengthChanged);
     on<HasSpanishCharacters>(_onHasSpanishCharacters);
     on<HasNumbersCharacters>(_onHasNumbersCharacters);
@@ -24,7 +33,8 @@ class RandomPasswordBloc
     emit(
       state.copyWith(
         randomPasswordLength:
-            int.tryParse(event.randomPasswordLengthString) ?? 10,
+            int.tryParse(event.randomPasswordLengthString) ??
+            kDefaultPasswordLength,
       ),
     );
   }
@@ -54,16 +64,19 @@ class RandomPasswordBloc
     GenerateRandomPassword event,
     Emitter<RandomPasswordState> emit,
   ) {
-    final randomPassword = Utils.generateRandomPassword(
+    final randomPassword = generateRandomPasswordUseCase(
       length: state.randomPasswordLength,
       hasSpanishCharacters: state.hasSpanishCharacters,
       hasNumbersCharacters: state.hasNumbersCharacters,
       hasSymbolsCharacters: state.hasSymbolsCharacters,
     );
 
+    final passwordStrength = calculatePasswordStrengthUseCase(randomPassword);
+
     emit(
       state.copyWith(
         randomPassword: randomPassword,
+        randomPasswordStrength: passwordStrength,
       ),
     );
   }

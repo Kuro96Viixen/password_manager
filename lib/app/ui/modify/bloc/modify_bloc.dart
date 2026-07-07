@@ -1,27 +1,36 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:password_manager/app/core/constants/validation.dart';
 import 'package:password_manager/app/domain/mapper/accounts_data_mapper.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
+import 'package:password_manager/app/domain/model/password_strength.dart';
+import 'package:password_manager/app/domain/use_cases/calculate_password_strength_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/encrypt_password_use_case.dart';
+import 'package:password_manager/app/domain/use_cases/generate_random_password_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/get_accounts_data_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_on_storage_use_case.dart';
 import 'package:password_manager/app/domain/use_cases/set_accounts_data_use_case.dart';
 import 'package:password_manager/app/ui/bloc/ui_event.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
-import 'package:password_manager/utils/utils.dart';
 
 class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
   final GetAccountsDataUseCase getAccountsDataUseCase;
   final SetAccountsDataUseCase setAccountsDataUseCase;
   final SetAccountsDataOnStorageUseCase setAccountsDataOnStorageUseCase;
   final EncryptPasswordUseCase encryptPasswordUseCase;
+  final GenerateRandomPasswordUseCase generateRandomPasswordUseCase;
+
+  // Password Strength Use Case
+  final CalculatePasswordStrengthUseCase calculatePasswordStrengthUseCase;
 
   ModifyBloc({
     required this.getAccountsDataUseCase,
     required this.setAccountsDataUseCase,
     required this.setAccountsDataOnStorageUseCase,
     required this.encryptPasswordUseCase,
+    required this.generateRandomPasswordUseCase,
+    required this.calculatePasswordStrengthUseCase,
   }) : super(ModifyState.initial()) {
     on<ModifyStarted>(_onStarted);
     on<OnNameChanged>(_onOnNameChanged);
@@ -91,7 +100,8 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
       state.copyWith(
         password: '',
         randomPassword: '',
-        randomPasswordLength: 10,
+        randomPasswordLength: kDefaultPasswordLength,
+        passwordStrength: PasswordStrength.unset,
         canBeSaved: false,
         isPasswordHidden: false,
         screenState: event.isRandomPasswordForm
@@ -105,9 +115,14 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     OnPasswordChanged event,
     Emitter<ModifyState> emit,
   ) {
+    final passwordStrength = calculatePasswordStrengthUseCase(
+      event.passwordString,
+    );
+
     emit(
       state.copyWith(
         password: event.passwordString,
+        passwordStrength: passwordStrength,
         canBeSaved: _accountCanBeSaved(
           state.copyWith(password: event.passwordString),
         ),
@@ -129,7 +144,8 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     emit(
       state.copyWith(
         randomPasswordLength:
-            int.tryParse(event.randomPasswordLengthString) ?? 10,
+            int.tryParse(event.randomPasswordLengthString) ??
+            kDefaultPasswordLength,
       ),
     );
   }
@@ -159,16 +175,19 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     GenerateRandomPassword event,
     Emitter<ModifyState> emit,
   ) {
-    final randomPassword = Utils.generateRandomPassword(
+    final randomPassword = generateRandomPasswordUseCase(
       length: state.randomPasswordLength,
       hasSpanishCharacters: state.hasSpanishCharacters,
       hasNumbersCharacters: state.hasNumbersCharacters,
       hasSymbolsCharacters: state.hasSymbolsCharacters,
     );
 
+    final passwordStrength = calculatePasswordStrengthUseCase(randomPassword);
+
     emit(
       state.copyWith(
         randomPassword: randomPassword,
+        passwordStrength: passwordStrength,
         canBeSaved: _accountCanBeSaved(
           state.copyWith(randomPassword: randomPassword),
         ),

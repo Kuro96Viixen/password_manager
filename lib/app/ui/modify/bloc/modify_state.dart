@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:password_manager/app/core/constants/validation.dart';
+import 'package:password_manager/app/domain/model/password_strength.dart';
 import 'package:password_manager/app/ui/bloc/ui_event.dart';
 
 final class ModifyState extends Equatable {
@@ -6,6 +8,7 @@ final class ModifyState extends Equatable {
     required this.name,
     required this.username,
     required this.password,
+    required this.passwordStrength,
     required this.isPasswordHidden,
     required this.randomPasswordLength,
     required this.randomPassword,
@@ -24,11 +27,12 @@ final class ModifyState extends Equatable {
     name: '',
     username: '',
     password: '',
+    passwordStrength: PasswordStrength.unset,
     isPasswordHidden: false,
-    randomPasswordLength: 10,
+    randomPasswordLength: kDefaultPasswordLength,
     randomPassword: '',
     passwordIV: '',
-    hasSpanishCharacters: true,
+    hasSpanishCharacters: false,
     hasNumbersCharacters: true,
     hasSymbolsCharacters: true,
     screenState: PasswordForm(),
@@ -41,6 +45,7 @@ final class ModifyState extends Equatable {
   final String name;
   final String username;
   final String password;
+  final PasswordStrength passwordStrength;
   final bool isPasswordHidden;
   final int randomPasswordLength;
   final String randomPassword;
@@ -59,6 +64,7 @@ final class ModifyState extends Equatable {
     name,
     username,
     password,
+    passwordStrength,
     isPasswordHidden,
     randomPasswordLength,
     randomPassword,
@@ -77,6 +83,7 @@ final class ModifyState extends Equatable {
     String? name,
     String? username,
     String? password,
+    PasswordStrength? passwordStrength,
     bool? isPasswordHidden,
     int? randomPasswordLength,
     String? randomPassword,
@@ -94,6 +101,7 @@ final class ModifyState extends Equatable {
       name: name ?? this.name,
       username: username ?? this.username,
       password: password ?? this.password,
+      passwordStrength: passwordStrength ?? this.passwordStrength,
       isPasswordHidden: isPasswordHidden ?? this.isPasswordHidden,
       randomPasswordLength: randomPasswordLength ?? this.randomPasswordLength,
       randomPassword: randomPassword ?? this.randomPassword,

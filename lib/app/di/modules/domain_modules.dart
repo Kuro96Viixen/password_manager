@@ -38,5 +38,11 @@ void _domainModulesInit() {
     )
     ..registerFactory(
       () => EncryptForDuplicateUseCase(domainModulesDi()),
+    )
+    ..registerFactory(
+      GenerateRandomPasswordUseCase.new,
+    )
+    ..registerFactory(
+      CalculatePasswordStrengthUseCase.new,
     );
 }

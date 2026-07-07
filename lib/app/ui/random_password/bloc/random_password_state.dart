@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:password_manager/app/core/constants/validation.dart';
+import 'package:password_manager/app/domain/model/password_strength.dart';
 import 'package:password_manager/app/ui/bloc/ui_event.dart';
 
 final class RandomPasswordState extends Equatable {
   const RandomPasswordState({
     required this.randomPasswordLength,
     required this.randomPassword,
+    required this.randomPasswordStrength,
     required this.hasSpanishCharacters,
     required this.hasNumbersCharacters,
     required this.hasSymbolsCharacters,
@@ -12,9 +15,10 @@ final class RandomPasswordState extends Equatable {
   });
 
   factory RandomPasswordState.initial() => const RandomPasswordState(
-    randomPasswordLength: 10,
+    randomPasswordLength: kDefaultPasswordLength,
     randomPassword: '',
-    hasSpanishCharacters: true,
+    randomPasswordStrength: PasswordStrength.unset,
+    hasSpanishCharacters: false,
     hasNumbersCharacters: true,
     hasSymbolsCharacters: true,
     copySnackBarEvent: UIEvent(consumed: true),
@@ -22,6 +26,7 @@ final class RandomPasswordState extends Equatable {
 
   final int randomPasswordLength;
   final String randomPassword;
+  final PasswordStrength randomPasswordStrength;
   final bool hasSpanishCharacters;
   final bool hasNumbersCharacters;
   final bool hasSymbolsCharacters;
@@ -31,6 +36,7 @@ final class RandomPasswordState extends Equatable {
   List<Object?> get props => [
     randomPasswordLength,
     randomPassword,
+    randomPasswordStrength,
     hasSpanishCharacters,
     hasNumbersCharacters,
     hasSymbolsCharacters,
@@ -40,6 +46,7 @@ final class RandomPasswordState extends Equatable {
   RandomPasswordState copyWith({
     int? randomPasswordLength,
     String? randomPassword,
+    PasswordStrength? randomPasswordStrength,
     bool? hasSpanishCharacters,
     bool? hasNumbersCharacters,
     bool? hasSymbolsCharacters,
@@ -48,6 +55,8 @@ final class RandomPasswordState extends Equatable {
     return RandomPasswordState(
       randomPasswordLength: randomPasswordLength ?? this.randomPasswordLength,
       randomPassword: randomPassword ?? this.randomPassword,
+      randomPasswordStrength:
+          randomPasswordStrength ?? this.randomPasswordStrength,
       hasSpanishCharacters: hasSpanishCharacters ?? this.hasSpanishCharacters,
       hasNumbersCharacters: hasNumbersCharacters ?? this.hasNumbersCharacters,
       hasSymbolsCharacters: hasSymbolsCharacters ?? this.hasSymbolsCharacters,

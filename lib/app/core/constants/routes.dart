@@ -4,6 +4,7 @@ import 'package:password_manager/app/ui/accounts/accounts_view.dart';
 import 'package:password_manager/app/ui/details/details_view.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/duplicated_password_checker_view.dart';
 import 'package:password_manager/app/ui/modify/modify_view.dart';
+import 'package:password_manager/app/ui/password_strength_chart/password_strength_chart_view.dart';
 import 'package:password_manager/app/ui/private/private_view.dart';
 import 'package:password_manager/app/ui/random_password/random_password_view.dart';
 
@@ -19,6 +20,12 @@ List<GoRoute> allAppRoutes = [
       GoRoute(
         path: RandomPasswordView.routeName,
         builder: (context, state) => const RandomPasswordView(),
+        routes: [
+          GoRoute(
+            path: PasswordStrengthChartView.routeName,
+            builder: (context, state) => const PasswordStrengthChartView(),
+          ),
+        ],
       ),
       GoRoute(
         path: DuplicatedPasswordCheckerView.routeName,
@@ -55,5 +62,11 @@ List<GoRoute> allAppRoutes = [
         accountData: accountData,
       );
     },
+    routes: [
+      GoRoute(
+        path: PasswordStrengthChartView.routeName,
+        builder: (context, state) => const PasswordStrengthChartView(),
+      ),
+    ],
   ),
 ];

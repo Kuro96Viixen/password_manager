@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:password_manager/app/core/constants/icons.dart';
 import 'package:password_manager/app/core/constants/validation.dart';
 import 'package:password_manager/l10n/generated/app_localizations.dart';
@@ -7,6 +8,7 @@ class AccountTextField extends StatelessWidget {
   final String label;
   final String initialValue;
   final void Function(String) onChangedText;
+  final int randomPasswordLength;
   final bool isPasswordHidden;
   final VoidCallback? onPressed;
 
@@ -15,6 +17,7 @@ class AccountTextField extends StatelessWidget {
     required this.initialValue,
     required this.onChangedText,
     super.key,
+    this.randomPasswordLength = kDefaultPasswordLength,
     this.isPasswordHidden = false,
     this.onPressed,
   });
@@ -32,7 +35,7 @@ class AccountTextField extends StatelessWidget {
                 )!.passwordLengthTextFieldLabel
             ? AppLocalizations.of(
                 context,
-              )!.passwordLengthTextFieldHint
+              )!.passwordLengthTextFieldHint(randomPasswordLength)
             : null,
         suffixIcon:
             label ==

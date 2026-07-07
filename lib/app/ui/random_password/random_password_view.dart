@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:password_manager/app/core/constants/icons.dart';
+import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
+import 'package:password_manager/app/ui/password_strength_chart/password_strength_chart_view.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_bloc.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_event.dart';
 import 'package:password_manager/app/ui/random_password/bloc/random_password_state.dart';
 import 'package:password_manager/l10n/generated/app_localizations.dart';
+import 'package:password_manager/widgets/password_strength/widgets/password_strength_checker.dart';
 
 class RandomPasswordView extends StatelessWidget {
   static const routeName = 'RandomPasswordViewRoute';
@@ -20,6 +24,7 @@ class RandomPasswordView extends StatelessWidget {
         builder: (context) {
           return SafeArea(
             child: Scaffold(
+              resizeToAvoidBottomInset: true,
               appBar: AppBar(
                 title: Text(
                   AppLocalizations.of(context)!.randomPasswordViewTitle,
@@ -29,6 +34,14 @@ class RandomPasswordView extends StatelessWidget {
                   preferredSize: Size.fromHeight(4),
                   child: Divider(height: 4),
                 ),
+                actions: [
+                  IconButton(
+                    onPressed: () => context.goWithRoute(
+                      PasswordStrengthChartView.routeName,
+                    ),
+                    icon: Icon(CommonIcons.info),
+                  ),
+                ],
               ),
               body: BlocConsumer<RandomPasswordBloc, RandomPasswordState>(
                 listenWhen: (previous, current) =>
@@ -49,15 +62,17 @@ class RandomPasswordView extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: SingleChildScrollView(
+                  return SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   AccountTextField(
                                     label: AppLocalizations.of(
@@ -153,21 +168,31 @@ class RandomPasswordView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  const SizedBox(height: 8),
+                                  Visibility(
+                                    visible: state.randomPassword != '',
+                                    child: PasswordStrengthChecker(
+                                      strength: state.randomPasswordStrength,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.randomPasswordDisclaimer,
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
+              ),
+              bottomNavigationBar: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.randomPasswordDisclaimer,
+                  style: const TextStyle(fontSize: 10),
+                ),
               ),
             ),
           );
