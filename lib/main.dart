@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/themes.dart';
 import 'package:password_manager/app/di/app_di.dart' as app_di;
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 void main() {
   app_di.init();

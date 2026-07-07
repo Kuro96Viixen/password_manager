@@ -9,7 +9,7 @@ import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplica
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_password_checker_success_body.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_passwords_checker_loading_body.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/widgets/duplicated_passwords_checker_unique_body.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:password_manager/widgets/confetti/confetti.dart';
 import 'package:password_manager/widgets/confetti/confetti_options.dart';
 import 'package:password_manager/widgets/confetti/confetti_star.dart';

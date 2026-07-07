@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:password_manager/app/core/constants/icons.dart';
+import 'package:password_manager/app/core/extension/context_extension.dart';
 import 'package:password_manager/app/di/app_di.dart';
 import 'package:password_manager/app/domain/model/accounts_data.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
@@ -8,7 +10,9 @@ import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_state.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
 import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/app/ui/modify/widgets/user_password_form.dart';
+import 'package:password_manager/app/ui/password_strength_chart/password_strength_chart_view.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class ModifyView extends StatelessWidget {
   static const routeName = '/ModifyPageRoute';
@@ -56,6 +60,7 @@ class ModifyView extends StatelessWidget {
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
+              resizeToAvoidBottomInset: true,
               appBar: AppBar(
                 title: Text(
                   accountData == null
@@ -66,124 +71,128 @@ class ModifyView extends StatelessWidget {
                           context,
                         )!.editViewTitle,
                 ),
+                actions: [
+                  IconButton(
+                    onPressed: () => context.goWithRoute(
+                      PasswordStrengthChartView.routeName,
+                    ),
+                    icon: Icon(CommonIcons.info),
+                  ),
+                ],
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(4),
                   child: Divider(height: 4),
                 ),
               ),
-              body: Column(
-                children: [
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.all(16),
-                      children: [
-                        Column(
-                          children: [
-                            AccountTextField(
-                              label: AppLocalizations.of(
-                                context,
-                              )!.nameTextFieldLabel,
-                              initialValue: accountData?.name ?? '',
-                              onChangedText: (nameString) => context
-                                  .read<ModifyBloc>()
-                                  .add(OnNameChanged(nameString)),
-                            ),
-                            AccountTextField(
-                              label: AppLocalizations.of(
-                                context,
-                              )!.usernameTextFieldLabel,
-                              initialValue: accountData?.username ?? '',
-                              onChangedText: (usernameString) =>
-                                  context.read<ModifyBloc>().add(
-                                    OnUsernameChanged(
-                                      usernameString,
-                                    ),
-                                  ),
-                            ),
-                            const SizedBox(height: 8),
-                            SwitchListTile(
-                              value: state.screenState == const RandomForm(),
-                              onChanged: (isRandomPasswordForm) {
-                                // Remove focus on TextField
-                                FocusScope.of(context).unfocus();
-
-                                context.read<ModifyBloc>().add(
-                                  OnChangePasswordForm(
-                                    isRandomPasswordForm: isRandomPasswordForm,
-                                  ),
-                                );
-                              },
-                              title: Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.useRandomPasswordSwitchTitle,
-                              ),
-                            ),
-                            switch (state.screenState) {
-                              PasswordForm() => AccountTextField(
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              AccountTextField(
                                 label: AppLocalizations.of(
                                   context,
-                                )!.passwordTextFieldLabel,
-                                initialValue: '',
-                                onChangedText: (passwordString) =>
+                                )!.nameTextFieldLabel,
+                                initialValue: accountData?.name ?? '',
+                                onChangedText: (nameString) => context
+                                    .read<ModifyBloc>()
+                                    .add(OnNameChanged(nameString)),
+                              ),
+                              AccountTextField(
+                                label: AppLocalizations.of(
+                                  context,
+                                )!.usernameTextFieldLabel,
+                                initialValue: accountData?.username ?? '',
+                                onChangedText: (usernameString) =>
                                     context.read<ModifyBloc>().add(
-                                      OnPasswordChanged(
-                                        passwordString,
+                                      OnUsernameChanged(
+                                        usernameString,
                                       ),
                                     ),
-                                isPasswordHidden: state.isPasswordHidden,
-                                onPressed: () => context.read<ModifyBloc>().add(
-                                  const HidePassword(),
+                              ),
+                              const SizedBox(height: 8),
+                              SwitchListTile(
+                                value: state.screenState == const RandomForm(),
+                                onChanged: (isRandomPasswordForm) {
+                                  // Remove focus on TextField
+                                  FocusScope.of(context).unfocus();
+
+                                  context.read<ModifyBloc>().add(
+                                    OnChangePasswordForm(
+                                      isRandomPasswordForm:
+                                          isRandomPasswordForm,
+                                    ),
+                                  );
+                                },
+                                title: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.useRandomPasswordSwitchTitle,
                                 ),
                               ),
-                              RandomForm() => RandomPasswordForm(
-                                hasSpanishCharacters:
-                                    state.hasSpanishCharacters,
-                                hasNumbersCharacters:
-                                    state.hasNumbersCharacters,
-                                hasSymbolsCharacters:
-                                    state.hasSymbolsCharacters,
-                                randomPassword: state.randomPassword,
-                              ),
-                            },
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Visibility(
-                    visible: state.canBeSaved,
-                    child: Column(
-                      children: [
-                        CheckboxListTile(
-                          value: state.isPrivateAccount,
-                          onChanged: (isPrivateAccount) =>
-                              context.read<ModifyBloc>().add(
-                                SetIsPrivateAccount(
-                                  isPrivateAccount: isPrivateAccount ?? false,
+                              switch (state.screenState) {
+                                PasswordForm() => UserPasswordForm(
+                                  passwordStrength: state.passwordStrength,
+                                  isPasswordHidden: state.isPasswordHidden,
                                 ),
-                              ),
-                          title: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.isPrivateAccountCheckBoxTitle,
+                                RandomForm() => RandomPasswordForm(
+                                  hasSpanishCharacters:
+                                      state.hasSpanishCharacters,
+                                  hasNumbersCharacters:
+                                      state.hasNumbersCharacters,
+                                  hasSymbolsCharacters:
+                                      state.hasSymbolsCharacters,
+                                  randomPassword: state.randomPassword,
+                                  passwordStrength: state.passwordStrength,
+                                ),
+                              },
+                              const SizedBox(height: 16),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        ElevatedButton(
-                          onPressed: () => context.read<ModifyBloc>().add(
-                            SaveAccount(accountData),
-                          ),
-                          child: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.saveAccountButton,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+              bottomNavigationBar: Visibility(
+                visible: state.canBeSaved,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CheckboxListTile(
+                      value: state.isPrivateAccount,
+                      onChanged: (isPrivateAccount) =>
+                          context.read<ModifyBloc>().add(
+                            SetIsPrivateAccount(
+                              isPrivateAccount: isPrivateAccount ?? false,
+                            ),
+                          ),
+                      title: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.isPrivateAccountCheckBoxTitle,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () => context.read<ModifyBloc>().add(
+                        SaveAccount(accountData),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.saveAccountButton,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

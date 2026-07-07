@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:password_manager/app/domain/model/password_strength.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_bloc.dart';
 import 'package:password_manager/app/ui/modify/bloc/modify_event.dart';
 import 'package:password_manager/app/ui/modify/widgets/account_text_field.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
+import 'package:password_manager/widgets/password_strength/widgets/password_strength_checker.dart';
 
 class RandomPasswordForm extends StatelessWidget {
   final bool hasSpanishCharacters;
@@ -11,11 +13,14 @@ class RandomPasswordForm extends StatelessWidget {
   final bool hasSymbolsCharacters;
   final String randomPassword;
 
+  final PasswordStrength passwordStrength;
+
   const RandomPasswordForm({
     required this.hasSpanishCharacters,
     required this.hasNumbersCharacters,
     required this.hasSymbolsCharacters,
     required this.randomPassword,
+    required this.passwordStrength,
     super.key,
   });
 
@@ -109,6 +114,8 @@ class RandomPasswordForm extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 8),
+        PasswordStrengthChecker(strength: passwordStrength),
       ],
     );
   }

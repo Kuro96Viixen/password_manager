@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/app/ui/accounts/widgets/account_list_tile.dart';
 import 'package:password_manager/app/ui/duplicated_password_checker/bloc/duplicated_password_checker_state.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class DuplicatedPasswordCheckerSuccessBody extends StatelessWidget {
   final DuplicatedPasswordCheckerState state;

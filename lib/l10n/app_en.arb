@@ -16,7 +16,15 @@
   "passwordTextFieldLabel" : "Password",
   "useRandomPasswordSwitchTitle" : "Use random password",
   "passwordLengthTextFieldLabel" : "Random password length",
-  "passwordLengthTextFieldHint" : "Default 10",
+  "passwordLengthTextFieldHint" : "Default {randomPasswordLength}",
+  "@passwordLengthTextFieldHint" : {
+    "placeholders": {
+      "randomPasswordLength": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "spanishCheckBoxTitle" : "Spanish characters (ñ)",
   "numbersCheckBoxTitle" : "Numbers",
   "symbolsCheckBoxTitle" : "Symbols",
@@ -115,5 +123,47 @@
   "experimentalFeatureInfoDialogBody" : "The current functionality is still in experimental phase and may contain bugs, if you are having problems or have any suggestions, feel free to leave a review on the Play Store or open a new ticket on the project github page (if possible)\n\nThank you so much for your support.",
   "experimentalFeatureInfoDialogPlayStore" : "Play Store",
   "experimentalFeatureInfoDialogGitHub" : "Github",
-  "experimentalFeatureInfoDialogConfirm" : "Ok"
+  "experimentalFeatureInfoDialogConfirm" : "Ok",
+
+  "passwordStrengthWeak": "Weak",
+  "passwordStrengthMedium": "Medium",
+  "passwordStrengthStrong": "Strong",
+  "passwordStrengthSecure": "Secure",
+  "passwordStrengthWeakSaveDisclaimer": "The password you are trying to save is weak, it is recommended to use a stronger password, do you want to save it anyway?",
+  "passwordStrengthWeakSaveReturn": "Return",
+  "passwordStrengthWeakSaveAnyway": "Save anyway",
+
+  "creditsButtonLabel": "Credits",
+  "creditsBelongTo": "All credits belongs to:",
+  "passwordStrengthLibrary": "Password Strength Library",
+  "passwordStrengthDisclaimer": "The Password Strength functionality of the app is implemented as custom based on the library password_strength_checker.",
+
+  "passwordStrengthCrackChartTitle": "How Secure is My Password",
+  "passwordStrengthCrackChartDisclaimer": "These times are estimates against automated guessing attacks. To stay safe, always use unique passwords and enable 2FA where possible.",
+  "passwordStrengthCrackChartHeaderChars": "Number of Characters",
+  "passwordStrengthCrackChartHeaderNumbersOnly": "Numbers Only",
+  "passwordStrengthCrackChartHeaderLowercaseOnly": "Lowercase Letters",
+  "passwordStrengthCrackChartHeaderUpperLowercaseOnly": "Upper and Lowercase Letters",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseOnly": "Numbers, Upper and Lowercase Letters",
+  "passwordStrengthCrackChartHeaderNumbersUpperLowercaseSymbols": "Numbers, Upper and Lowercase Letters, Symbols",
+  "passwordStrengthCrackChartInstantly": "Instantly",
+  "passwordStrengthCrackChartMinutes": "{count} mins",
+  "@passwordStrengthCrackChartMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "passwordStrengthCrackChartHours": "{count} hours",
+  "passwordStrengthCrackChartDays": "{count} days",
+  "passwordStrengthCrackChartWeeks": "{count} weeks",
+  "passwordStrengthCrackChartMonths": "{count} months",
+  "passwordStrengthCrackChartYears": "{count} years",
+  "passwordStrengthCrackChartThousandYears": "{count}k years",
+  "passwordStrengthCrackChartMillionYears": "{count}m years",
+  "passwordStrengthCrackChartBillionYears": "{count}bn years",
+  "passwordStrengthCrackChartTrillionYears": "{count}tn years",
+  "passwordStrengthCrackChartQuadrillionYears": "{count}qd years",
+  "passwordStrengthCrackChartButton": "Confirm"
 }

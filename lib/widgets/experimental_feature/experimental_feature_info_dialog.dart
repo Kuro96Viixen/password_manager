@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:password_manager/app/core/constants/links.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExperimentalFeatureInfoDialog extends StatelessWidget {

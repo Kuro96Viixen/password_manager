@@ -43,10 +43,15 @@ void _uiModulesInit() {
         setAccountsDataUseCase: uiModulesDi(),
         setAccountsDataOnStorageUseCase: uiModulesDi(),
         encryptPasswordUseCase: uiModulesDi(),
+        generateRandomPasswordUseCase: uiModulesDi(),
+        calculatePasswordStrengthUseCase: uiModulesDi(),
       ),
     )
     ..registerFactory(
-      RandomPasswordBloc.new,
+      () => RandomPasswordBloc(
+        generateRandomPasswordUseCase: uiModulesDi(),
+        calculatePasswordStrengthUseCase: uiModulesDi(),
+      ),
     )
     ..registerFactory(
       () => DuplicatedPasswordCheckerBloc(

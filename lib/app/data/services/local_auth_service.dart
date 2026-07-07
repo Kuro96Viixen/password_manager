@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:local_auth/local_auth.dart';
 import 'package:password_manager/app/data/repository/services/local_auth_service.dart';
-import 'package:password_manager/l10n/app_localizations.dart';
+import 'package:password_manager/l10n/generated/app_localizations.dart';
 
 class LocalAuthServiceImpl implements LocalAuthService {
   LocalAuthServiceImpl(this.locale);
