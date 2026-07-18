@@ -21,6 +21,7 @@ final class ModifyState extends Equatable {
     required this.canBeSaved,
     required this.goBackEvent,
     required this.copySnackBarEvent,
+    required this.popUpEvent,
   });
 
   factory ModifyState.initial() => const ModifyState(
@@ -40,6 +41,7 @@ final class ModifyState extends Equatable {
     canBeSaved: false,
     goBackEvent: UIEvent(consumed: true),
     copySnackBarEvent: UIEvent(consumed: true),
+    popUpEvent: const UIEvent(consumed: true),
   );
 
   final String name;
@@ -58,6 +60,7 @@ final class ModifyState extends Equatable {
   final bool canBeSaved;
   final UIEvent<void> goBackEvent;
   final UIEvent<void> copySnackBarEvent;
+  final UIEvent<void> popUpEvent;
 
   @override
   List<Object?> get props => [
@@ -77,6 +80,7 @@ final class ModifyState extends Equatable {
     canBeSaved,
     goBackEvent,
     copySnackBarEvent,
+    popUpEvent,
   ];
 
   ModifyState copyWith({
@@ -96,6 +100,7 @@ final class ModifyState extends Equatable {
     bool? canBeSaved,
     UIEvent<void>? goBackEvent,
     UIEvent<void>? copySnackBarEvent,
+    UIEvent<void>? popUpEvent,
   }) {
     return ModifyState(
       name: name ?? this.name,
@@ -114,6 +119,7 @@ final class ModifyState extends Equatable {
       canBeSaved: canBeSaved ?? this.canBeSaved,
       goBackEvent: goBackEvent ?? this.goBackEvent,
       copySnackBarEvent: copySnackBarEvent ?? this.copySnackBarEvent,
+      popUpEvent: popUpEvent ?? this.popUpEvent,
     );
   }
 }

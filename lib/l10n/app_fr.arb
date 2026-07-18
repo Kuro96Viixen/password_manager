@@ -129,6 +129,8 @@
   "passwordStrengthMedium": "Moyenne",
   "passwordStrengthStrong": "Forte",
   "passwordStrengthSecure": "Sécurisée",
+
+  "passwordStrengthWeakSaveTitle": "ATTENTION !",
   "passwordStrengthWeakSaveDisclaimer": "Le mot de passe que vous essayez d'enregistrer est faible, il est recommandé d'utiliser un mot de passe plus fort, voulez-vous quand même l'enregistrer ?",
   "passwordStrengthWeakSaveReturn": "Retour",
   "passwordStrengthWeakSaveAnyway": "Enregistrer quand même",

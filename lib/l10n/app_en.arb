@@ -129,6 +129,8 @@
   "passwordStrengthMedium": "Medium",
   "passwordStrengthStrong": "Strong",
   "passwordStrengthSecure": "Secure",
+
+  "passwordStrengthWeakSaveTitle": "WARNING!",
   "passwordStrengthWeakSaveDisclaimer": "The password you are trying to save is weak, it is recommended to use a stronger password, do you want to save it anyway?",
   "passwordStrengthWeakSaveReturn": "Return",
   "passwordStrengthWeakSaveAnyway": "Save anyway",
