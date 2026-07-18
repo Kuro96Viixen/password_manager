@@ -129,6 +129,8 @@
   "passwordStrengthMedium": "Media",
   "passwordStrengthStrong": "Fuerte",
   "passwordStrengthSecure": "Segura",
+
+  "passwordStrengthWeakSaveTitle": "¡ATENCIÓN!",
   "passwordStrengthWeakSaveDisclaimer": "La contraseña que intentas guardar es débil, se recomienda usar una contraseña más fuerte, ¿quieres guardarla de todos modos?",
   "passwordStrengthWeakSaveReturn": "Volver",
   "passwordStrengthWeakSaveAnyway": "Guardar de todos modos",

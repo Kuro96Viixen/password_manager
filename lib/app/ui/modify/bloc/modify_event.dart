@@ -117,6 +117,15 @@ final class SetIsPrivateAccount extends ModifyEvent {
   List<Object?> get props => [isPrivateAccount];
 }
 
+final class OnSavedPressed extends ModifyEvent {
+  const OnSavedPressed(this.accountData);
+
+  final AccountData? accountData;
+
+  @override
+  List<Object?> get props => [accountData];
+}
+
 final class SaveAccount extends ModifyEvent {
   const SaveAccount(this.accountData);
 
@@ -133,4 +142,8 @@ final class SaveAccount extends ModifyEvent {
 // }
 final class MarkCopySnackBarAsConsumed extends ModifyEvent {
   const MarkCopySnackBarAsConsumed();
+}
+
+final class MarkPopUpAsConsumed extends ModifyEvent {
+  const MarkPopUpAsConsumed();
 }

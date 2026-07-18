@@ -129,6 +129,8 @@
   "passwordStrengthMedium": "Media",
   "passwordStrengthStrong": "Forte",
   "passwordStrengthSecure": "Sicura",
+
+  "passwordStrengthWeakSaveTitle": "ATTENZIONE!",
   "passwordStrengthWeakSaveDisclaimer": "La password que stai cercando di salvare è debole, si consiglia di usare una password più forte, vuoi salvarla comunque?",
   "passwordStrengthWeakSaveReturn": "Torna indietro",
   "passwordStrengthWeakSaveAnyway": "Salva comunque",
