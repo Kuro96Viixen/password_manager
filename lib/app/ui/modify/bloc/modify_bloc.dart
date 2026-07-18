@@ -45,8 +45,10 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     on<GenerateRandomPassword>(_onGenerateRandomPassword);
     on<CopyPassword>(_onCopyPassword);
     on<SetIsPrivateAccount>(_onSetIsPrivateAccount);
+    on<OnSavedPressed>(_onOnSavedPressed);
     on<SaveAccount>(_onSaveAccount);
     on<MarkCopySnackBarAsConsumed>(_onMarkCopySnackBarAsConsumed);
+    on<MarkPopUpAsConsumed>(_onMarkPopUpAsConsumed);
   }
 
   void _onStarted(
@@ -215,6 +217,17 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
     emit(state.copyWith(isPrivateAccount: event.isPrivateAccount));
   }
 
+  void _onOnSavedPressed(
+    OnSavedPressed event,
+    Emitter<ModifyState> emit,
+  ) {
+    if (state.passwordStrength == PasswordStrength.weak) {
+      emit(state.copyWith(popUpEvent: const UIEvent()));
+    } else {
+      add(SaveAccount(event.accountData));
+    }
+  }
+
   Future<void> _onSaveAccount(
     SaveAccount event,
     Emitter<ModifyState> emit,
@@ -270,6 +283,13 @@ class ModifyBloc extends Bloc<ModifyEvent, ModifyState> {
         copySnackBarEvent: state.copySnackBarEvent.asConsumed(),
       ),
     );
+  }
+
+  void _onMarkPopUpAsConsumed(
+    MarkPopUpAsConsumed event,
+    Emitter<ModifyState> emit,
+  ) {
+    emit(state.copyWith(popUpEvent: state.popUpEvent.asConsumed()));
   }
 
   bool _accountCanBeSaved(ModifyState state) {

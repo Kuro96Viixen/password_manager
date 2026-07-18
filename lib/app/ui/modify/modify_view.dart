@@ -13,6 +13,9 @@ import 'package:password_manager/app/ui/modify/widgets/random_password_form.dart
 import 'package:password_manager/app/ui/modify/widgets/user_password_form.dart';
 import 'package:password_manager/app/ui/password_strength_chart/password_strength_chart_view.dart';
 import 'package:password_manager/l10n/generated/app_localizations.dart';
+import 'package:password_manager/widgets/info_dialog.dart';
+
+part 'modify_view_methods.dart';
 
 class ModifyView extends StatelessWidget {
   static const routeName = '/ModifyPageRoute';
@@ -36,9 +39,11 @@ class ModifyView extends StatelessWidget {
           final hasCopySnackBarEvent =
               previous.copySnackBarEvent != current.copySnackBarEvent;
 
-          return hasGoBackEvent || hasCopySnackBarEvent;
+          final hasPopUpEvent = previous.popUpEvent != current.popUpEvent;
+
+          return hasGoBackEvent || hasCopySnackBarEvent || hasPopUpEvent;
         },
-        listener: (context, state) {
+        listener: (context, state) async {
           if (!state.goBackEvent.consumed) {
             context.pop(true);
           }
@@ -55,6 +60,12 @@ class ModifyView extends StatelessWidget {
             context.read<ModifyBloc>().add(
               const MarkCopySnackBarAsConsumed(),
             );
+          }
+
+          if (!state.popUpEvent.consumed) {
+            if (context.mounted) {
+              await _showInsecurePasswordDialog(context, accountData);
+            }
           }
         },
         builder: (context, state) {
@@ -183,7 +194,7 @@ class ModifyView extends StatelessWidget {
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: () => context.read<ModifyBloc>().add(
-                        SaveAccount(accountData),
+                        OnSavedPressed(accountData),
                       ),
                       child: Text(
                         AppLocalizations.of(
